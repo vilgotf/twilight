@@ -636,9 +636,6 @@
 <span id="636">636</span>
 <span id="637">637</span>
 <span id="638">638</span>
-<span id="639">639</span>
-<span id="640">640</span>
-<span id="641">641</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="kw">super</span>::{<span class="ident">config</span>::<span class="ident">ShardConfig</span>, <span class="ident">stage</span>::<span class="ident">Stage</span>, <span class="ident">ShardStream</span>},
@@ -680,9 +677,6 @@
     },
 };
 <span class="kw">use</span> <span class="ident">url</span>::<span class="ident">Url</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">metrics</span>::<span class="ident">counter</span>;
 
 <span class="doccomment">/// Runs in the background and processes incoming events, and then broadcasts</span>
 <span class="doccomment">/// to all listeners.</span>
@@ -863,7 +857,7 @@
         <span class="kw">match</span> <span class="ident">event</span> {
             <span class="ident">Dispatch</span>(<span class="ident">seq</span>, <span class="ident">dispatch</span>) <span class="op">=&gt;</span> {
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-                <span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;Dispatch&quot;</span>);
+                <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;Dispatch&quot;</span>);
                 <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">set_seq</span>(<span class="kw-2">*</span><span class="ident">seq</span>);
 
                 <span class="comment">// this lint is wrong and generates invalid code</span>
@@ -897,7 +891,7 @@
             }
             <span class="ident">Heartbeat</span>(<span class="ident">seq</span>) <span class="op">=&gt;</span> {
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-                <span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;Heartbeat&quot;</span>);
+                <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;Heartbeat&quot;</span>);
                 <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">seq</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">seq</span>() <span class="op">+</span> <span class="number">1</span> {
                     <span class="self">self</span>.<span class="ident">resume</span>().<span class="kw">await</span><span class="question-mark">?</span>;
                 }
@@ -910,7 +904,7 @@
             }
             <span class="ident">Hello</span>(<span class="ident">interval</span>) <span class="op">=&gt;</span> {
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-                <span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;Hello&quot;</span>);
+                <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;Hello&quot;</span>);
                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;[EVENT] Hello({})&quot;</span>, <span class="ident">interval</span>);
 
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">stage</span>() <span class="op">==</span> <span class="ident">Stage</span>::<span class="ident">Resuming</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">resume</span>.<span class="ident">is_some</span>() {
@@ -942,24 +936,24 @@
             }
             <span class="ident">HeartbeatAck</span> <span class="op">=&gt;</span> {
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-                <span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;HeartbeatAck&quot;</span>);
+                <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;HeartbeatAck&quot;</span>);
                 <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">heartbeats</span>.<span class="ident">receive</span>().<span class="kw">await</span>;
             }
             <span class="ident">InvalidateSession</span>(<span class="bool-val">true</span>) <span class="op">=&gt;</span> {
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-                <span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;InvalidateSessionTrue&quot;</span>);
+                <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;InvalidateSessionTrue&quot;</span>);
                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;[EVENT] InvalidateSession(true)&quot;</span>);
                 <span class="self">self</span>.<span class="ident">resume</span>().<span class="kw">await</span><span class="question-mark">?</span>;
             }
             <span class="ident">InvalidateSession</span>(<span class="bool-val">false</span>) <span class="op">=&gt;</span> {
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-                <span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;InvalidateSessionFalse&quot;</span>);
+                <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;InvalidateSessionFalse&quot;</span>);
                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;[EVENT] InvalidateSession(false)&quot;</span>);
                 <span class="self">self</span>.<span class="ident">reconnect</span>(<span class="bool-val">true</span>).<span class="kw">await</span>;
             }
             <span class="ident">Reconnect</span> <span class="op">=&gt;</span> {
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-                <span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;Reconnect&quot;</span>);
+                <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=&gt;</span> <span class="string">&quot;Reconnect&quot;</span>);
                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;[EVENT] Reconnect&quot;</span>);
                 <span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="ident">CloseFrame</span> {
                     <span class="ident">code</span>: <span class="ident">CloseCode</span>::<span class="ident">Restart</span>,
