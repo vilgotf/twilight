@@ -341,9 +341,9 @@
 <span class="doccomment">/// Returns a [`CreateGuildChannelError::TopicInvalid`] when the length of the topic is more than</span>
 <span class="doccomment">/// 1024 UTF-16 characters.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`CreateGuildChannelError::NameInvalid`]: ../request/guild/create_guild_channel/enum.CreateGuildChannelError.html#variant.NameInvalid</span>
-<span class="doccomment">/// [`CreateGuildChannelError::RateLimitPerUserInvalid`]: ../request/guild/create_guild_channel/enum.CreateGuildChannelError.html#variant.RateLimitPerUserInvalid</span>
-<span class="doccomment">/// [`CreateGuildChannelError::TopicInvalid`]: ../request/guild/create_guild_channel/enum.CreateGuildChannelError.html#variant.TopicInvalid</span>
+<span class="doccomment">/// [`CreateGuildChannelError::NameInvalid`]: enum.CreateGuildChannelError.html#variant.NameInvalid</span>
+<span class="doccomment">/// [`CreateGuildChannelError::RateLimitPerUserInvalid`]: enum.CreateGuildChannelError.html#variant.RateLimitPerUserInvalid</span>
+<span class="doccomment">/// [`CreateGuildChannelError::TopicInvalid`]: enum.CreateGuildChannelError.html#variant.TopicInvalid</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CreateGuildChannel</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">fields</span>: <span class="ident">CreateGuildChannelFields</span>,
     <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">GuildChannel</span><span class="op">&gt;&gt;</span>,
@@ -453,7 +453,7 @@
     <span class="doccomment">/// 21600.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [the discord docs]: https://discordapp.com/developers/docs/resources/channel#channel-object-channel-structure</span>
-    <span class="doccomment">/// [`GetGuildPruneCountError::RateLimitPerUserInvalid`]: enum.GetGuildPruneCountError.html#variant.RateLimitPerUserInvalid</span>
+    <span class="doccomment">/// [`GetGuildPruneCountError::RateLimitPerUserInvalid`]: ../get_guild_prune_count/enum.GetGuildPruneCountError.html#variant.RateLimitPerUserInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rate_limit_per_user</span>(
         <span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">rate_limit_per_user</span>: <span class="ident">u64</span>,
@@ -473,11 +473,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`CreateGuildChannel::TopicInvalid`] if the topic length is</span>
+    <span class="doccomment">/// Returns [`CreateGuildChannelError::TopicInvalid`] if the topic length is</span>
     <span class="doccomment">/// too long.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [the discord docs]: https://discordapp.com/developers/docs/resources/channel#channel-object-channel-structure</span>
-    <span class="doccomment">/// [`CreateGuildChannel::TopicInvalid`]: enum.CreateGuildChannel.html#variant.TopicInvalid</span>
+    <span class="doccomment">/// [`CreateGuildChannelError::TopicInvalid`]: enum.CreateGuildChannelError.html#variant.TopicInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">topic</span>(<span class="self">self</span>, <span class="ident">topic</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">CreateGuildChannelError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_topic</span>(<span class="ident">topic</span>.<span class="ident">into</span>())
     }

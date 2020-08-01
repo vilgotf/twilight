@@ -1,5 +1,4 @@
 (function() {var implementors = {};
 implementors["twilight_cache_inmemory"] = [{"text":"impl UpperHex for EventType","synthetic":false,"types":[]}];
-implementors["twilight_gateway"] = [{"text":"impl UpperHex for EventTypeFlags","synthetic":false,"types":[]}];
 implementors["twilight_model"] = [{"text":"impl UpperHex for MessageFlags","synthetic":false,"types":[]},{"text":"impl UpperHex for ActivityFlags","synthetic":false,"types":[]},{"text":"impl UpperHex for GatewayIntents","synthetic":false,"types":[]},{"text":"impl UpperHex for Permissions","synthetic":false,"types":[]},{"text":"impl UpperHex for SystemChannelFlags","synthetic":false,"types":[]},{"text":"impl UpperHex for UserFlags","synthetic":false,"types":[]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
