@@ -234,6 +234,8 @@
 <span id="234">234</span>
 <span id="235">235</span>
 <span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">allowed_mentions</span>::{<span class="ident">AllowedMentions</span>, <span class="ident">AllowedMentionsBuilder</span>, <span class="ident">Unspecified</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
@@ -456,8 +458,10 @@
                     <span class="ident">form</span> <span class="op">=</span> <span class="ident">form</span>.<span class="ident">part</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">index</span>), <span class="ident">Part</span>::<span class="ident">stream</span>(<span class="ident">file</span>).<span class="ident">file_name</span>(<span class="ident">name</span>));
                 }
 
+                <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>;
+                <span class="ident">form</span> <span class="op">=</span> <span class="ident">form</span>.<span class="ident">part</span>(<span class="string">&quot;payload_json&quot;</span>, <span class="ident">Part</span>::<span class="ident">bytes</span>(<span class="ident">body</span>));
+
                 <span class="ident">Request</span>::<span class="ident">from</span>((
-                    <span class="kw">crate</span>::<span class="ident">json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>,
                     <span class="ident">form</span>,
                     <span class="ident">Route</span>::<span class="ident">CreateMessage</span> {
                         <span class="ident">channel_id</span>: <span class="self">self</span>.<span class="ident">channel_id</span>.<span class="number">0</span>,
