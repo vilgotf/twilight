@@ -173,7 +173,7 @@
     <span class="kw">const</span> <span class="ident">DUR</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">6</span>);
     <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">req</span>) <span class="op">=</span> <span class="ident">rx</span>.<span class="ident">next</span>().<span class="kw">await</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">req</span>.<span class="ident">send</span>(()) {
-            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;[LocalQueue/waiter] send failed with: {:?}, skipping&quot;</span>, <span class="ident">err</span>);
+            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed: {:?}&quot;</span>, <span class="ident">err</span>);
         }
         <span class="ident">delay_for</span>(<span class="ident">DUR</span>).<span class="kw">await</span>;
     }
@@ -184,15 +184,15 @@
     <span class="doccomment">/// Request to be able to identify with the gateway. This will place this</span>
     <span class="doccomment">/// request behind all other requests, and the returned future will resolve</span>
     <span class="doccomment">/// once the request has been completed.</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">request</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: [<span class="ident">u64</span>; <span class="number">2</span>]) {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">request</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, [<span class="ident">id</span>, <span class="ident">total</span>]: [<span class="ident">u64</span>; <span class="number">2</span>]) {
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">clone</span>().<span class="ident">send</span>(<span class="ident">tx</span>).<span class="kw">await</span> {
-            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;[LocalQueue] send failed with: {:?}, skipping&quot;</span>, <span class="ident">err</span>);
+            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed: {:?}&quot;</span>, <span class="ident">err</span>);
             <span class="kw">return</span>;
         }
 
-        <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;Waiting for allowance!&quot;</span>);
+        <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;shard {}/{} waiting for allowance&quot;</span>, <span class="ident">id</span>, <span class="ident">total</span>);
 
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">rx</span>.<span class="kw">await</span>;
     }

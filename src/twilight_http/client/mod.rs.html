@@ -1602,9 +1602,6 @@
 <span id="1602">1602</span>
 <span id="1603">1603</span>
 <span id="1604">1604</span>
-<span id="1605">1605</span>
-<span id="1606">1606</span>
-<span id="1607">1607</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -3057,7 +3054,7 @@
                 <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send</span>(<span class="prelude-val">Some</span>(<span class="ident">v</span>));
             }
             <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=&gt;</span> {
-                <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Err parsing headers: {:?}; {:?}&quot;</span>, <span class="ident">why</span>, <span class="ident">resp</span>,);
+                <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;header parsing failed: {:?}; {:?}&quot;</span>, <span class="ident">why</span>, <span class="ident">resp</span>);
 
                 <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send</span>(<span class="prelude-val">None</span>);
             }
@@ -3108,13 +3105,13 @@
 
         <span class="kw">if</span> <span class="ident">status</span> <span class="op">==</span> <span class="ident">StatusCode</span>::<span class="ident">IM_A_TEAPOT</span> {
             <span class="macro">warn</span><span class="macro">!</span>(
-                <span class="string">&quot;Discord&#39;s API now runs off of teapots -- proceed to panic: {:?}&quot;</span>,
+                <span class="string">&quot;discord&#39;s api now runs off of teapots -- proceed to panic: {:?}&quot;</span>,
                 <span class="ident">resp</span>,
             );
         }
 
         <span class="kw">if</span> <span class="ident">status</span> <span class="op">==</span> <span class="ident">StatusCode</span>::<span class="ident">TOO_MANY_REQUESTS</span> {
-            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Response got 429: {:?}&quot;</span>, <span class="ident">resp</span>);
+            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;429 response: {:?}&quot;</span>, <span class="ident">resp</span>);
         }
 
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">resp</span>
@@ -3132,10 +3129,7 @@
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">ApiError</span>::<span class="ident">General</span>(<span class="kw-2">ref</span> <span class="ident">general</span>) <span class="op">=</span> <span class="ident">error</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="ident">ErrorCode</span>::<span class="ident">Other</span>(<span class="ident">num</span>) <span class="op">=</span> <span class="ident">general</span>.<span class="ident">code</span> {
-                <span class="macro">debug</span><span class="macro">!</span>(
-                    <span class="string">&quot;Got an unknown API error code variant: {}; {:?}&quot;</span>,
-                    <span class="ident">num</span>, <span class="ident">error</span>
-                );
+                <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;got unknown API error code variant: {}; {:?}&quot;</span>, <span class="ident">num</span>, <span class="ident">error</span>);
             }
         }
 
