@@ -1,4 +1,5 @@
 (function() {var implementors = {};
 implementors["twilight_gateway"] = [{"text":"impl&lt;T:&nbsp;RangeBounds&lt;u64&gt;&gt; TryFrom&lt;(T, u64)&gt; for ShardScheme","synthetic":false,"types":[]},{"text":"impl TryFrom&lt;u8&gt; for Stage","synthetic":false,"types":[]}];
 implementors["twilight_http"] = [{"text":"impl&lt;'_&gt; TryFrom&lt;&amp;'_ HeaderMap&lt;HeaderValue&gt;&gt; for RatelimitHeaders","synthetic":false,"types":[]},{"text":"impl&lt;'_&gt; TryFrom&lt;(Method, &amp;'_ str)&gt; for Path","synthetic":false,"types":[]}];
+implementors["twilight_model"] = [{"text":"impl TryFrom&lt;Event&gt; for GatewayEvent","synthetic":false,"types":[]},{"text":"impl TryFrom&lt;Event&gt; for ShardEvent","synthetic":false,"types":[]},{"text":"impl TryFrom&lt;Event&gt; for DispatchEvent","synthetic":false,"types":[]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
