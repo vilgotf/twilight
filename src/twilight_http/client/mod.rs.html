@@ -1601,7 +1601,6 @@
 <span id="1601">1601</span>
 <span id="1602">1602</span>
 <span id="1603">1603</span>
-<span id="1604">1604</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -1679,11 +1678,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # #[tokio::main]</span>
 <span class="doccomment">/// # async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error + Send + Sync&gt;&gt; {</span>
-<span class="doccomment">/// let mut client_builder = Client::builder();</span>
-<span class="doccomment">/// client_builder</span>
+<span class="doccomment">/// let client = Client::builder()</span>
 <span class="doccomment">///     .token(&quot;my token&quot;)</span>
-<span class="doccomment">///     .timeout(Duration::from_secs(5));</span>
-<span class="doccomment">/// let client = client_builder.build()?;</span>
+<span class="doccomment">///     .timeout(Duration::from_secs(5))</span>
+<span class="doccomment">///     .build()?;</span>
 <span class="doccomment">/// # Ok(()) }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
