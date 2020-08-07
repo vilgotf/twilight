@@ -312,6 +312,7 @@
 <span id="312">312</span>
 <span id="313">313</span>
 <span id="314">314</span>
+<span id="315">315</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="kw">super</span>::<span class="ident">payload</span>::<span class="kw-2">*</span>, <span class="ident">Event</span>, <span class="ident">EventConversionError</span>, <span class="ident">EventType</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{
@@ -330,6 +331,7 @@
 <span class="comment">// **NOTE**: When adding a variant, be sure to add it to the DeserializeSeed</span>
 <span class="comment">// implementation.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">untagged</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">DispatchEvent</span> {
     <span class="ident">BanAdd</span>(<span class="ident">BanAdd</span>),
     <span class="ident">BanRemove</span>(<span class="ident">BanRemove</span>),
