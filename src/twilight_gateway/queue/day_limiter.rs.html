@@ -67,6 +67,7 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
+<span id="70">70</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">shard</span>::<span class="ident">error</span>::{<span class="ident">Error</span>, <span class="prelude-ty">Result</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
@@ -74,7 +75,6 @@
     <span class="ident">sync</span>::<span class="ident">Mutex</span>,
     <span class="ident">time</span>::{<span class="self">self</span>, <span class="ident">Instant</span>},
 };
-<span class="kw">use</span> <span class="ident">tracing</span>::<span class="ident">warn</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">DayLimiter</span>(<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">DayLimiterInner</span><span class="op">&gt;</span>);
@@ -132,7 +132,9 @@
                 <span class="ident">lock</span>.<span class="ident">total</span> <span class="op">=</span> <span class="ident">total</span>;
                 <span class="ident">lock</span>.<span class="ident">current</span> <span class="op">=</span> <span class="ident">current</span> <span class="op">+</span> <span class="number">1</span>;
             } <span class="kw">else</span> {
-                <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;unable to get new session limits, skipping (this may cause bad things)&quot;</span>)
+                <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(
+                    <span class="string">&quot;unable to get new session limits, skipping (this may cause bad things)&quot;</span>
+                )
             }
         }
     }
