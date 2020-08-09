@@ -1109,7 +1109,7 @@
                         .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">Decompressing</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
                     <span class="kw">let</span> <span class="ident">msg_or_error</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">decompressed_msg</span> {
                         <span class="prelude-val">Some</span>(<span class="ident">json</span>) <span class="op">=&gt;</span> {
-                            <span class="ident">emit</span>::<span class="ident">bytes</span>(<span class="self">self</span>.<span class="ident">listeners</span>.<span class="ident">clone</span>(), <span class="ident">json</span>).<span class="kw">await</span>;
+                            <span class="ident">emit</span>::<span class="ident">bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">listeners</span>, <span class="ident">json</span>);
 
                             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">str</span>::<span class="ident">from_utf8_mut</span>(<span class="ident">json</span>)
                                 .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">PayloadNotUtf8</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
@@ -1165,7 +1165,7 @@
                 <span class="ident">Message</span>::<span class="ident">Text</span>(<span class="kw-2">mut</span> <span class="ident">text</span>) <span class="op">=&gt;</span> {
                     <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;text payload: {}&quot;</span>, <span class="ident">text</span>);
 
-                    <span class="ident">emit</span>::<span class="ident">bytes</span>(<span class="self">self</span>.<span class="ident">listeners</span>.<span class="ident">clone</span>(), <span class="ident">text</span>.<span class="ident">as_bytes</span>()).<span class="kw">await</span>;
+                    <span class="ident">emit</span>::<span class="ident">bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">listeners</span>, <span class="ident">text</span>.<span class="ident">as_bytes</span>());
 
                     <span class="comment">// Safety: the buffer isn&#39;t used again after parsing.</span>
                     <span class="kw">break</span> <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">parse_gateway_event</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">text</span>) };
