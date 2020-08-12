@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `model/src/channel/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../twilight_model/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `model/src/channel/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../twilight_model/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+                <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -769,6 +770,48 @@
 <span id="769">769</span>
 <span id="770">770</span>
 <span id="771">771</span>
+<span id="772">772</span>
+<span id="773">773</span>
+<span id="774">774</span>
+<span id="775">775</span>
+<span id="776">776</span>
+<span id="777">777</span>
+<span id="778">778</span>
+<span id="779">779</span>
+<span id="780">780</span>
+<span id="781">781</span>
+<span id="782">782</span>
+<span id="783">783</span>
+<span id="784">784</span>
+<span id="785">785</span>
+<span id="786">786</span>
+<span id="787">787</span>
+<span id="788">788</span>
+<span id="789">789</span>
+<span id="790">790</span>
+<span id="791">791</span>
+<span id="792">792</span>
+<span id="793">793</span>
+<span id="794">794</span>
+<span id="795">795</span>
+<span id="796">796</span>
+<span id="797">797</span>
+<span id="798">798</span>
+<span id="799">799</span>
+<span id="800">800</span>
+<span id="801">801</span>
+<span id="802">802</span>
+<span id="803">803</span>
+<span id="804">804</span>
+<span id="805">805</span>
+<span id="806">806</span>
+<span id="807">807</span>
+<span id="808">808</span>
+<span id="809">809</span>
+<span id="810">810</span>
+<span id="811">811</span>
+<span id="812">812</span>
+<span id="813">813</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">embed</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">message</span>;
@@ -901,7 +944,7 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">field_identifier</span>, <span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
 <span class="kw">enum</span> <span class="ident">GuildChannelField</span> {
     <span class="ident">Bitrate</span>,
@@ -954,13 +997,25 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">topic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user_limit</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;deserializing guild channel&quot;</span>);
+        <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
+
         <span class="kw">loop</span> {
+            <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;iterating over element&quot;</span>);
+            <span class="kw">let</span> <span class="ident">_span_child_enter</span> <span class="op">=</span> <span class="ident">span_child</span>.<span class="ident">enter</span>();
+
             <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">next_key</span>() {
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=&gt;</span> <span class="ident">key</span>,
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=&gt;</span> {
+                    <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
+
+                    <span class="ident">key</span>
+                }
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> <span class="kw">break</span>,
-                <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=&gt;</span> {
                     <span class="comment">// Encountered when we run into an unknown key.</span>
                     <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
+
+                    <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
 
                     <span class="kw">continue</span>;
                 }
@@ -1080,20 +1135,37 @@
         <span class="kw">let</span> <span class="ident">nsfw</span> <span class="op">=</span> <span class="ident">nsfw</span>.<span class="ident">unwrap_or_default</span>();
         <span class="kw">let</span> <span class="ident">parent_id</span> <span class="op">=</span> <span class="ident">parent_id</span>.<span class="ident">unwrap_or_default</span>();
 
+        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(
+            <span class="op">%</span><span class="ident">id</span>,
+            <span class="question-mark">?</span><span class="ident">kind</span>,
+            <span class="op">%</span><span class="ident">name</span>,
+            <span class="op">%</span><span class="ident">nsfw</span>,
+            <span class="question-mark">?</span><span class="ident">parent_id</span>,
+            <span class="question-mark">?</span><span class="ident">permission_overwrites</span>,
+            <span class="op">%</span><span class="ident">position</span>,
+            <span class="string">&quot;common fields of all variants exist&quot;</span>
+        );
+
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">kind</span> {
-            <span class="ident">ChannelType</span>::<span class="ident">GuildCategory</span> <span class="op">=&gt;</span> <span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">CategoryChannel</span> {
-                <span class="ident">id</span>,
-                <span class="ident">guild_id</span>,
-                <span class="ident">kind</span>,
-                <span class="ident">name</span>,
-                <span class="ident">nsfw</span>,
-                <span class="ident">permission_overwrites</span>,
-                <span class="ident">parent_id</span>,
-                <span class="ident">position</span>,
-            }),
+            <span class="ident">ChannelType</span>::<span class="ident">GuildCategory</span> <span class="op">=&gt;</span> {
+                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;handling category channel&quot;</span>);
+
+                <span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">CategoryChannel</span> {
+                    <span class="ident">id</span>,
+                    <span class="ident">guild_id</span>,
+                    <span class="ident">kind</span>,
+                    <span class="ident">name</span>,
+                    <span class="ident">nsfw</span>,
+                    <span class="ident">permission_overwrites</span>,
+                    <span class="ident">parent_id</span>,
+                    <span class="ident">position</span>,
+                })
+            }
             <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span> <span class="op">=&gt;</span> {
                 <span class="kw">let</span> <span class="ident">bitrate</span> <span class="op">=</span> <span class="ident">bitrate</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;bitrate&quot;</span>))<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">user_limit</span> <span class="op">=</span> <span class="ident">user_limit</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;user_limit&quot;</span>))<span class="question-mark">?</span>;
+
+                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">bitrate</span>, <span class="question-mark">?</span><span class="ident">user_limit</span>, <span class="string">&quot;handling voice channel&quot;</span>);
 
                 <span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">VoiceChannel</span> {
                     <span class="ident">id</span>,
@@ -1111,6 +1183,13 @@
                 <span class="kw">let</span> <span class="ident">last_message_id</span> <span class="op">=</span> <span class="ident">last_message_id</span>.<span class="ident">unwrap_or_default</span>();
                 <span class="kw">let</span> <span class="ident">last_pin_timestamp</span> <span class="op">=</span> <span class="ident">last_pin_timestamp</span>.<span class="ident">unwrap_or_default</span>();
                 <span class="kw">let</span> <span class="ident">topic</span> <span class="op">=</span> <span class="ident">topic</span>.<span class="ident">unwrap_or_default</span>();
+
+                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(
+                    <span class="question-mark">?</span><span class="ident">last_message_id</span>,
+                    <span class="question-mark">?</span><span class="ident">last_pin_timestamp</span>,
+                    <span class="question-mark">?</span><span class="ident">topic</span>,
+                    <span class="string">&quot;handling news, store, or text channel&quot;</span>
+                );
 
                 <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
                     <span class="ident">id</span>,
@@ -1155,7 +1234,13 @@
             .<span class="ident">size_hint</span>()
             .<span class="ident">map_or_else</span>(<span class="ident">HashMap</span>::<span class="ident">new</span>, <span class="ident">HashMap</span>::<span class="ident">with_capacity</span>);
 
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;adding elements to guild channel map&quot;</span>);
+        <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
+
         <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">channel</span>) <span class="op">=</span> <span class="ident">seq</span>.<span class="ident">next_element</span>::<span class="op">&lt;</span><span class="ident">GuildChannel</span><span class="op">&gt;</span>()<span class="question-mark">?</span> {
+            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">channel</span>.<span class="ident">id</span>();
+            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">id</span>, <span class="question-mark">?</span><span class="ident">channel</span>);
+
             <span class="ident">map</span>.<span class="ident">insert</span>(<span class="ident">channel</span>.<span class="ident">id</span>(), <span class="ident">channel</span>);
         }
 

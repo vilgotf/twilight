@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `model/src/voice/voice_state.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>voice_state.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../twilight_model/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `model/src/voice/voice_state.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>voice_state.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../twilight_model/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+                <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -266,6 +267,31 @@
 <span id="266">266</span>
 <span id="267">267</span>
 <span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">guild</span>::<span class="ident">member</span>::{<span class="ident">Member</span>, <span class="ident">OptionalMemberDeserializer</span>},
@@ -349,13 +375,25 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">token</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;deserializing voice state&quot;</span>);
+        <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
+
         <span class="kw">loop</span> {
+            <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;iterating over element&quot;</span>);
+            <span class="kw">let</span> <span class="ident">_span_child_enter</span> <span class="op">=</span> <span class="ident">span_child</span>.<span class="ident">enter</span>();
+
             <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">next_key</span>() {
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=&gt;</span> <span class="ident">key</span>,
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=&gt;</span> {
+                    <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
+
+                    <span class="ident">key</span>
+                }
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> <span class="kw">break</span>,
-                <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=&gt;</span> {
                     <span class="comment">// Encountered when we run into an unknown key.</span>
                     <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
+
+                    <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
 
                     <span class="kw">continue</span>;
                 }
@@ -461,7 +499,20 @@
 
         <span class="kw">let</span> <span class="ident">self_stream</span> <span class="op">=</span> <span class="ident">self_stream</span>.<span class="ident">unwrap_or_default</span>();
 
+        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(
+            <span class="op">%</span><span class="ident">deaf</span>,
+            <span class="op">%</span><span class="ident">mute</span>,
+            <span class="op">%</span><span class="ident">self_deaf</span>,
+            <span class="op">%</span><span class="ident">self_mute</span>,
+            <span class="op">%</span><span class="ident">self_stream</span>,
+            <span class="question-mark">?</span><span class="ident">session_id</span>,
+            <span class="op">%</span><span class="ident">suppress</span>,
+            <span class="op">%</span><span class="ident">user_id</span>,
+        );
+
         <span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Some</span>(<span class="ident">guild_id</span>), <span class="prelude-val">Some</span>(<span class="ident">member</span>)) <span class="op">=</span> (<span class="ident">guild_id</span>, <span class="ident">member</span>.<span class="ident">as_mut</span>()) {
+            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="question-mark">?</span><span class="ident">member</span>, <span class="string">&quot;setting member guild id&quot;</span>);
+
             <span class="ident">member</span>.<span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">guild_id</span>;
         }
 
