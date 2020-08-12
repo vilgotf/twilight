@@ -123,7 +123,7 @@ formatters for mentioning a channel or emoji, or pinging a role or user.</p>
         .<span class="ident">build</span>();
     <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">from</span>(<span class="ident">cache_config</span>);
 
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">events</span> <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">events</span>().<span class="kw">await</span>;
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">events</span> <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">events</span>();
     <span class="comment">// Startup an event loop for each event in the event stream</span>
     <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
         <span class="comment">// Update the cache</span>

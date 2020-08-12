@@ -84,7 +84,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     cluster.up().await;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     let mut events = cluster.events().await;</span>
+<span class="doccomment">//!     let mut events = cluster.events();</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     while let Some((shard_id, event)) = events.next().await {</span>
 <span class="doccomment">//!         tokio::spawn(handle_event(cluster.clone(), shard_id, event));</span>
@@ -104,8 +104,8 @@
 <span class="doccomment">//!             println!(&quot;Shard {} is now disconnected&quot;, shard_id);</span>
 <span class="doccomment">//!         },</span>
 <span class="doccomment">//!         Event::MessageCreate(msg) if msg.content == &quot;!latency&quot; =&gt; {</span>
-<span class="doccomment">//!             if let Some(shard) = cluster.shard(shard_id).await {</span>
-<span class="doccomment">//!                 if let Ok(info) = shard.info().await {</span>
+<span class="doccomment">//!             if let Some(shard) = cluster.shard(shard_id) {</span>
+<span class="doccomment">//!                 if let Ok(info) = shard.info() {</span>
 <span class="doccomment">//!                     println!(&quot;Shard {}&#39;s latency is {:?}&quot;, shard_id, info.latency());</span>
 <span class="doccomment">//!                 }</span>
 <span class="doccomment">//!             }</span>
@@ -113,7 +113,7 @@
 <span class="doccomment">//!         Event::MessageCreate(msg) if msg.content == &quot;!shutdown&quot; =&gt; {</span>
 <span class="doccomment">//!             println!(&quot;Got a shutdown request from shard {}&quot;, shard_id);</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!             cluster.down().await;</span>
+<span class="doccomment">//!             cluster.down();</span>
 <span class="doccomment">//!         },</span>
 <span class="doccomment">//!         _ =&gt; {},</span>
 <span class="doccomment">//!     }</span>

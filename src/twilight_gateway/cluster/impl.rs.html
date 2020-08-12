@@ -390,27 +390,6 @@
 <span id="389">389</span>
 <span id="390">390</span>
 <span id="391">391</span>
-<span id="392">392</span>
-<span id="393">393</span>
-<span id="394">394</span>
-<span id="395">395</span>
-<span id="396">396</span>
-<span id="397">397</span>
-<span id="398">398</span>
-<span id="399">399</span>
-<span id="400">400</span>
-<span id="401">401</span>
-<span id="402">402</span>
-<span id="403">403</span>
-<span id="404">404</span>
-<span id="405">405</span>
-<span id="406">406</span>
-<span id="407">407</span>
-<span id="408">408</span>
-<span id="409">409</span>
-<span id="410">410</span>
-<span id="411">411</span>
-<span id="412">412</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">config</span>::{<span class="ident">ClusterConfig</span>, <span class="ident">ShardScheme</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -419,7 +398,6 @@
 };
 <span class="kw">use</span> <span class="ident">futures_util</span>::{
     <span class="ident">future</span>,
-    <span class="ident">lock</span>::<span class="ident">Mutex</span>,
     <span class="ident">stream</span>::{<span class="ident">SelectAll</span>, <span class="ident">Stream</span>, <span class="ident">StreamExt</span>},
 };
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -427,7 +405,7 @@
     <span class="ident">error</span>::<span class="ident">Error</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
     <span class="ident">iter</span>::<span class="ident">FromIterator</span>,
-    <span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Weak</span>},
+    <span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>},
 };
 <span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">HttpError</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::<span class="ident">event</span>::<span class="ident">Event</span>;
@@ -533,7 +511,7 @@
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">config</span>.<span class="ident">into</span>()).<span class="kw">await</span>
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">config</span>: <span class="ident">ClusterConfig</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_new</span>(<span class="kw-2">mut</span> <span class="ident">config</span>: <span class="ident">ClusterConfig</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> [<span class="ident">from</span>, <span class="ident">to</span>, <span class="ident">total</span>] <span class="op">=</span> <span class="kw">match</span> <span class="ident">config</span>.<span class="ident">shard_scheme</span>() {
             <span class="ident">ShardScheme</span>::<span class="ident">Auto</span> <span class="op">=&gt;</span> {
                 <span class="kw">let</span> <span class="ident">http</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">http_client</span>();
@@ -556,20 +534,19 @@
             <span class="ident">metrics</span>::<span class="macro">gauge</span><span class="macro">!</span>(<span class="string">&quot;Cluster-Shard-Count&quot;</span>, <span class="ident">total</span>.<span class="ident">try_into</span>().<span class="ident">unwrap_or</span>(<span class="op">-</span><span class="number">1</span>));
         }
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shards</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> <span class="ident">shards</span> <span class="op">=</span> (<span class="ident">from</span>..<span class="op">=</span><span class="ident">to</span>)
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">idx</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard_config</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">shard_config</span>().<span class="ident">clone</span>();
+                <span class="ident">shard_config</span>.<span class="ident">shard</span> <span class="op">=</span> [<span class="ident">idx</span>, <span class="ident">total</span>];
 
-        <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="ident">from</span>..<span class="op">=</span><span class="ident">to</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard_config</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">shard_config</span>().<span class="ident">clone</span>();
-            <span class="ident">shard_config</span>.<span class="ident">shard</span> <span class="op">=</span> [<span class="ident">idx</span>, <span class="ident">total</span>];
-            <span class="kw">let</span> <span class="ident">resume_sessions</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">resume_sessions</span>().<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">idx</span>);
+                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>) <span class="op">=</span> <span class="ident">config</span>.<span class="ident">resume_sessions</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">idx</span>) {
+                    <span class="ident">shard_config</span>.<span class="ident">session_id</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>.<span class="ident">session_id</span>);
+                    <span class="ident">shard_config</span>.<span class="ident">sequence</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>.<span class="ident">sequence</span>);
+                }
 
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>) <span class="op">=</span> <span class="ident">resume_sessions</span> {
-                <span class="ident">shard_config</span>.<span class="ident">session_id</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>.<span class="ident">session_id</span>.<span class="ident">clone</span>());
-                <span class="ident">shard_config</span>.<span class="ident">sequence</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>.<span class="ident">sequence</span>);
-            };
-
-            <span class="ident">shards</span>.<span class="ident">insert</span>(<span class="ident">idx</span>, <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">shard_config</span>));
-        }
+                (<span class="ident">idx</span>, <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">shard_config</span>))
+            })
+            .<span class="ident">collect</span>();
 
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">ClusterRef</span> {
             <span class="ident">config</span>,
@@ -580,6 +557,9 @@
     }
 
     <span class="doccomment">/// Returns an immutable reference to the configuration of this cluster.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The configuration&#39;s resume map will be empty, as it&#39;s consumed when the</span>
+    <span class="doccomment">/// cluster is created to make shards.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ClusterConfig</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">config</span>
     }
@@ -616,20 +596,16 @@
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">up</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="ident">future</span>::<span class="ident">join_all</span>(
-            (<span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_from</span>..<span class="op">=</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_to</span>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="self">Self</span>::<span class="ident">start</span>(<span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>), <span class="ident">id</span>))
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>(),
+            (<span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_from</span>..<span class="op">=</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_to</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="self">Self</span>::<span class="ident">start</span>(<span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>), <span class="ident">id</span>)),
         )
         .<span class="kw">await</span>;
     }
 
     <span class="doccomment">/// Brings down the cluster, stopping all of the shards that it&#39;s managing.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">down</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">let</span> <span class="ident">lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="kw">await</span>;
-
-        <span class="kw">let</span> <span class="ident">tasks</span> <span class="op">=</span> <span class="ident">lock</span>.<span class="ident">values</span>().<span class="ident">map</span>(<span class="ident">Shard</span>::<span class="ident">shutdown</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
-
-        <span class="ident">future</span>::<span class="ident">join_all</span>(<span class="ident">tasks</span>).<span class="kw">await</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">down</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">for</span> <span class="ident">shard</span> <span class="kw">in</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;shards poisoned&quot;</span>).<span class="ident">values</span>() {
+            <span class="ident">shard</span>.<span class="ident">shutdown</span>();
+        }
     }
 
     <span class="doccomment">/// Brings down the cluster in a resumable way and returns all info needed</span>
@@ -641,26 +617,25 @@
     <span class="doccomment">/// **Note**: Discord only allows resuming for a few minutes after</span>
     <span class="doccomment">/// disconnection. You may also not be able to resume if you missed too many</span>
     <span class="doccomment">/// events already.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">down_resumable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">ResumeSession</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="kw">await</span>;
-
-        <span class="kw">let</span> <span class="ident">tasks</span> <span class="op">=</span> <span class="ident">lock</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">down_resumable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">ResumeSession</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
+            .<span class="ident">shards</span>
+            .<span class="ident">lock</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;shards poisoned&quot;</span>)
             .<span class="ident">values</span>()
             .<span class="ident">map</span>(<span class="ident">Shard</span>::<span class="ident">shutdown_resumable</span>)
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
-
-        <span class="kw">let</span> <span class="ident">sessions</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">join_all</span>(<span class="ident">tasks</span>).<span class="kw">await</span>;
-
-        <span class="ident">HashMap</span>::<span class="ident">from_iter</span>(
-            <span class="ident">sessions</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">filter_map</span>(<span class="op">|</span>(<span class="ident">shard_id</span>, <span class="ident">session</span>)<span class="op">|</span> <span class="ident">session</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">session</span><span class="op">|</span> (<span class="ident">shard_id</span>, <span class="ident">session</span>))),
-        )
+            .<span class="ident">filter_map</span>(<span class="op">|</span>(<span class="ident">id</span>, <span class="ident">session</span>)<span class="op">|</span> <span class="ident">session</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> (<span class="ident">id</span>, <span class="ident">s</span>)))
+            .<span class="ident">collect</span>()
     }
 
     <span class="doccomment">/// Returns a Shard by its ID.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">shard</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shard</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>).<span class="ident">cloned</span>()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shard</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
+            .<span class="ident">shards</span>
+            .<span class="ident">lock</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;shards poisoned&quot;</span>)
+            .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>)
+            .<span class="ident">cloned</span>()
     }
 
     <span class="doccomment">/// Returns information about all shards.</span>
@@ -680,7 +655,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// tokio::time::delay_for(Duration::from_secs(60)).await;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// for (shard_id, info) in cluster.info().await {</span>
+    <span class="doccomment">/// for (shard_id, info) in cluster.info() {</span>
     <span class="doccomment">///     println!(</span>
     <span class="doccomment">///         &quot;Shard {} is {} with an average latency of {:?}&quot;,</span>
     <span class="doccomment">///         shard_id,</span>
@@ -690,19 +665,14 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">Information</span><span class="op">&gt;</span> {
-        <span class="comment">// Clone this out to prevent locking up access to all of the shards.</span>
-        <span class="kw">let</span> <span class="ident">shards</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">clone</span>();
-
-        <span class="ident">future</span>::<span class="ident">join_all</span>(
-            <span class="ident">shards</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">id</span>, <span class="ident">shard</span>)<span class="op">|</span> <span class="kw">async</span> <span class="kw">move</span> { (<span class="ident">id</span>, <span class="ident">shard</span>.<span class="ident">info</span>().<span class="kw">await</span>) }),
-        )
-        .<span class="kw">await</span>
-        .<span class="ident">into_iter</span>()
-        .<span class="ident">filter_map</span>(<span class="op">|</span>(<span class="ident">id</span>, <span class="ident">info</span>)<span class="op">|</span> <span class="ident">info</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">info</span><span class="op">|</span> (<span class="ident">id</span>, <span class="ident">info</span>)).<span class="ident">ok</span>())
-        .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;&gt;</span>()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">Information</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
+            .<span class="ident">shards</span>
+            .<span class="ident">lock</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;shards poisoned&quot;</span>)
+            .<span class="ident">iter</span>()
+            .<span class="ident">filter_map</span>(<span class="op">|</span>(<span class="ident">id</span>, <span class="ident">shard</span>)<span class="op">|</span> <span class="ident">shard</span>.<span class="ident">info</span>().<span class="ident">ok</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">info</span><span class="op">|</span> (<span class="kw-2">*</span><span class="ident">id</span>, <span class="ident">info</span>)))
+            .<span class="ident">collect</span>()
     }
 
     <span class="doccomment">/// Send a command to the specified shard.</span>
@@ -722,26 +692,27 @@
         <span class="ident">id</span>: <span class="ident">u64</span>,
         <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw">impl</span> <span class="ident">serde</span>::<span class="ident">Serialize</span>,
     ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ClusterCommandError</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">shard</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">shard</span>) <span class="op">=&gt;</span> <span class="ident">shard</span>.<span class="ident">clone</span>(),
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ClusterCommandError</span>::<span class="ident">ShardNonexistent</span> { <span class="ident">id</span> }),
-        };
+        <span class="kw">let</span> <span class="ident">shard</span> <span class="op">=</span> <span class="self">self</span>
+            .<span class="number">0</span>
+            .<span class="ident">shards</span>
+            .<span class="ident">lock</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;shards poisoned&quot;</span>)
+            .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>)
+            .<span class="ident">cloned</span>()
+            .<span class="ident">ok_or</span>(<span class="ident">ClusterCommandError</span>::<span class="ident">ShardNonexistent</span> { <span class="ident">id</span> })<span class="question-mark">?</span>;
 
         <span class="ident">shard</span>
             .<span class="ident">command</span>(<span class="ident">value</span>)
             .<span class="kw">await</span>
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ClusterCommandError</span>::<span class="ident">Sending</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
-
-        <span class="prelude-val">Ok</span>(())
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ClusterCommandError</span>::<span class="ident">Sending</span> { <span class="ident">source</span> })
     }
 
     <span class="doccomment">/// Returns a stream of events from all shards managed by this Cluster.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Each item in the stream contains both the shard&#39;s ID and the event</span>
     <span class="doccomment">/// itself.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">u64</span>, <span class="ident">Event</span>)<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">shards</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">clone</span>();
-        <span class="ident">cluster_events</span>(<span class="ident">shards</span>).<span class="kw">await</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">events</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">u64</span>, <span class="ident">Event</span>)<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span> {
+        <span class="self">self</span>.<span class="ident">some_events</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">default</span>())
     }
 
     <span class="doccomment">/// Like [`events`], but filters the events so that the stream consumer</span>
@@ -765,7 +736,7 @@
     <span class="doccomment">/// let types = EventTypeFlags::MESSAGE_CREATE</span>
     <span class="doccomment">///     | EventTypeFlags::MESSAGE_DELETE</span>
     <span class="doccomment">///     | EventTypeFlags::MESSAGE_UPDATE;</span>
-    <span class="doccomment">/// let mut events = cluster.some_events(types).await;</span>
+    <span class="doccomment">/// let mut events = cluster.some_events(types);</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// while let Some((shard_id, event)) = events.next().await {</span>
     <span class="doccomment">///     match event {</span>
@@ -780,9 +751,16 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`events`]: #method.events</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">some_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">types</span>: <span class="ident">EventTypeFlags</span>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">u64</span>, <span class="ident">Event</span>)<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">shards</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">clone</span>();
-        <span class="ident">cluster_some_events</span>(<span class="ident">shards</span>, <span class="ident">types</span>).<span class="kw">await</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">some_events</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
+        <span class="ident">types</span>: <span class="ident">EventTypeFlags</span>,
+    ) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">u64</span>, <span class="ident">Event</span>)<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span> {
+        <span class="kw">let</span> <span class="ident">shards</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;shards poisoned&quot;</span>).<span class="ident">clone</span>();
+        <span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">shards</span>
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">id</span>, <span class="ident">shard</span>)<span class="op">|</span> <span class="ident">shard</span>.<span class="ident">some_events</span>(<span class="ident">types</span>).<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">e</span><span class="op">|</span> (<span class="ident">id</span>, <span class="ident">e</span>)));
+
+        <span class="ident">SelectAll</span>::<span class="ident">from_iter</span>(<span class="ident">stream</span>)
     }
 
     <span class="doccomment">/// Queues a request to start a shard by ID and starts it once the queue</span>
@@ -791,38 +769,18 @@
     <span class="doccomment">/// Accepts weak references to the queue and map of shards, because by the</span>
     <span class="doccomment">/// time the future is polled the cluster may have already dropped, bringing</span>
     <span class="doccomment">/// down the queue and shards with it.</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">start</span>(<span class="ident">cluster</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">ClusterRef</span><span class="op">&gt;</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shard</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">upgrade</span>()<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">shard_id</span>).<span class="ident">cloned</span>()<span class="question-mark">?</span>;
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">start</span>(<span class="ident">cluster</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ClusterRef</span><span class="op">&gt;</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shard</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">cluster</span>
+            .<span class="ident">shards</span>
+            .<span class="ident">lock</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;shards poisoned&quot;</span>)
+            .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">shard_id</span>)<span class="question-mark">?</span>
+            .<span class="ident">clone</span>();
+
         <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span>.<span class="ident">ok</span>()<span class="question-mark">?</span>;
 
         <span class="prelude-val">Some</span>(<span class="ident">shard</span>)
     }
-}
-
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cluster_events</span>(
-    <span class="ident">shards</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">u64</span>, <span class="ident">Shard</span>)<span class="op">&gt;</span>,
-) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">u64</span>, <span class="ident">Event</span>)<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">all</span> <span class="op">=</span> <span class="ident">SelectAll</span>::<span class="ident">new</span>();
-
-    <span class="kw">for</span> (<span class="ident">id</span>, <span class="ident">shard</span>) <span class="kw">in</span> <span class="ident">shards</span> {
-        <span class="ident">all</span>.<span class="ident">push</span>(<span class="ident">shard</span>.<span class="ident">events</span>().<span class="kw">await</span>.<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">e</span><span class="op">|</span> (<span class="ident">id</span>, <span class="ident">e</span>)));
-    }
-
-    <span class="ident">all</span>
-}
-
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cluster_some_events</span>(
-    <span class="ident">shards</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">u64</span>, <span class="ident">Shard</span>)<span class="op">&gt;</span>,
-    <span class="ident">types</span>: <span class="ident">EventTypeFlags</span>,
-) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">u64</span>, <span class="ident">Event</span>)<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">all</span> <span class="op">=</span> <span class="ident">SelectAll</span>::<span class="ident">new</span>();
-
-    <span class="kw">for</span> (<span class="ident">id</span>, <span class="ident">shard</span>) <span class="kw">in</span> <span class="ident">shards</span> {
-        <span class="ident">all</span>.<span class="ident">push</span>(<span class="ident">shard</span>.<span class="ident">some_events</span>(<span class="ident">types</span>).<span class="kw">await</span>.<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">e</span><span class="op">|</span> (<span class="ident">id</span>, <span class="ident">e</span>)));
-    }
-
-    <span class="ident">all</span>
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "twilight_gateway";</script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

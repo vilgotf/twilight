@@ -501,7 +501,7 @@
     <span class="ident">shard_config</span>: <span class="ident">ShardConfig</span>,
     <span class="ident">shard_scheme</span>: <span class="ident">ShardScheme</span>,
     <span class="ident">queue</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Queue</span><span class="op">&gt;&gt;</span>,
-    <span class="ident">resume_sessions</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">ResumeSession</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">resume_sessions</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">ResumeSession</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ClusterConfig</span> {

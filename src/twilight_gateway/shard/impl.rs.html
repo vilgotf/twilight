@@ -498,10 +498,6 @@
 <span id="497">497</span>
 <span id="498">498</span>
 <span id="499">499</span>
-<span id="500">500</span>
-<span id="501">501</span>
-<span id="502">502</span>
-<span id="503">503</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">config</span>::<span class="ident">ShardConfig</span>,
@@ -725,7 +721,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// tokio_time::delay_for(Duration::from_secs(1)).await;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// let info = shard.info().await?;</span>
+    <span class="doccomment">/// let info = shard.info()?;</span>
     <span class="doccomment">/// println!(&quot;Shard stage: {}&quot;, info.stage());</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
@@ -810,8 +806,8 @@
     <span class="doccomment">/// [`EventType::ShardPayload`]: ../../twilight_model/gateway/event/enum.EventType.html#variant.ShardPayload</span>
     <span class="doccomment">/// [`futures::stream::Stream`]: https://docs.rs/futures/*/futures/stream/trait.Stream.html</span>
     <span class="doccomment">/// [`some_events`]: #method.some_events</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Events</span> {
-        <span class="self">self</span>.<span class="ident">some_events</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">default</span>()).<span class="kw">await</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Events</span> {
+        <span class="self">self</span>.<span class="ident">some_events</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">default</span>())
     }
 
     <span class="doccomment">/// Creates a new filtered stream of events from the shard.</span>
@@ -836,7 +832,7 @@
     <span class="doccomment">/// shard.start().await?;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let event_types = EventTypeFlags::SHARD_CONNECTED | EventTypeFlags::SHARD_DISCONNECTED;</span>
-    <span class="doccomment">/// let mut events = shard.some_events(event_types).await;</span>
+    <span class="doccomment">/// let mut events = shard.some_events(event_types);</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// while let Some(event) = events.next().await {</span>
     <span class="doccomment">///     match event {</span>
@@ -852,7 +848,7 @@
     <span class="doccomment">/// [`Event::ShardConnected`]: ../../twilight_model/gateway/event/enum.Event.html#variant.ShardConnected</span>
     <span class="doccomment">/// [`Event::ShardDisconnected`]: ../../twilight_model/gateway/event/enum.Event.html#variant.ShardDisconnected</span>
     <span class="doccomment">/// [`futures::stream::Stream`]: https://docs.rs/futures/*/futures/stream/trait.Stream.html</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">some_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event_types</span>: <span class="ident">EventTypeFlags</span>) <span class="op">-&gt;</span> <span class="ident">Events</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">some_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event_types</span>: <span class="ident">EventTypeFlags</span>) <span class="op">-&gt;</span> <span class="ident">Events</span> {
         <span class="kw">let</span> <span class="ident">rx</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">listeners</span>.<span class="ident">add</span>(<span class="ident">event_types</span>);
 
         <span class="ident">Events</span>::<span class="ident">new</span>(<span class="ident">event_types</span>, <span class="ident">rx</span>)
@@ -866,12 +862,12 @@
     <span class="doccomment">/// Returns a [`SessionInactiveError`] if the shard&#39;s session is inactive.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`SessionInactiveError`]: struct.SessionInactiveError.html</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Information</span>, <span class="ident">SessionInactiveError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Information</span>, <span class="ident">SessionInactiveError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">session</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">session</span>()<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(<span class="ident">Information</span> {
             <span class="ident">id</span>: <span class="self">self</span>.<span class="ident">config</span>().<span class="ident">shard</span>()[<span class="number">0</span>],
-            <span class="ident">latency</span>: <span class="ident">session</span>.<span class="ident">heartbeats</span>.<span class="ident">latency</span>().<span class="kw">await</span>,
+            <span class="ident">latency</span>: <span class="ident">session</span>.<span class="ident">heartbeats</span>.<span class="ident">latency</span>(),
             <span class="ident">seq</span>: <span class="ident">session</span>.<span class="ident">seq</span>(),
             <span class="ident">stage</span>: <span class="ident">session</span>.<span class="ident">stage</span>(),
         })
@@ -946,14 +942,13 @@
         <span class="ident">session</span>
             .<span class="ident">tx</span>
             .<span class="ident">unbounded_send</span>(<span class="ident">message</span>)
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">CommandError</span>::<span class="ident">Sending</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(())
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">CommandError</span>::<span class="ident">Sending</span> { <span class="ident">source</span> })
     }
 
     <span class="doccomment">/// Shuts down the shard.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This will cleanly close the connection, causing discord to end the session and show the bot offline</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">shutdown</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shutdown</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">listeners</span>.<span class="ident">remove_all</span>();
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">processor_handle</span>) <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">processor_handle</span>.<span class="ident">get</span>() {
@@ -966,12 +961,12 @@
                 <span class="ident">code</span>: <span class="ident">CloseCode</span>::<span class="ident">Normal</span>,
                 <span class="ident">reason</span>: <span class="string">&quot;&quot;</span>.<span class="ident">into</span>(),
             })));
-            <span class="ident">session</span>.<span class="ident">stop_heartbeater</span>().<span class="kw">await</span>;
+            <span class="ident">session</span>.<span class="ident">stop_heartbeater</span>();
         }
     }
 
     <span class="doccomment">/// This will shut down the shard in a resumable way and return shard id and optional session info to resume with later if this shard is resumable</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">shutdown_resumable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> (<span class="ident">u64</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ResumeSession</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shutdown_resumable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> (<span class="ident">u64</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ResumeSession</span><span class="op">&gt;</span>) {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">listeners</span>.<span class="ident">remove_all</span>();
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">processor_handle</span>) <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">processor_handle</span>.<span class="ident">get</span>() {
@@ -990,18 +985,15 @@
             <span class="ident">reason</span>: <span class="ident">Cow</span>::<span class="ident">from</span>(<span class="string">&quot;Closing in a resumable way&quot;</span>),
         })));
 
-        <span class="kw">let</span> <span class="ident">session_id</span> <span class="op">=</span> <span class="ident">session</span>.<span class="ident">id</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">clone</span>();
+        <span class="kw">let</span> <span class="ident">session_id</span> <span class="op">=</span> <span class="ident">session</span>.<span class="ident">id</span>();
         <span class="kw">let</span> <span class="ident">sequence</span> <span class="op">=</span> <span class="ident">session</span>.<span class="ident">seq</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
 
-        <span class="ident">session</span>.<span class="ident">stop_heartbeater</span>().<span class="kw">await</span>;
+        <span class="ident">session</span>.<span class="ident">stop_heartbeater</span>();
 
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">session_id</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">ResumeSession</span> {
-                <span class="ident">session_id</span>: <span class="ident">id</span>,
-                <span class="ident">sequence</span>,
-            }),
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-        };
+        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">session_id</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">ResumeSession</span> {
+            <span class="ident">session_id</span>: <span class="ident">id</span>,
+            <span class="ident">sequence</span>,
+        });
 
         (<span class="ident">shard_id</span>, <span class="ident">data</span>)
     }

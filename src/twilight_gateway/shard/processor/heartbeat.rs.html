@@ -224,17 +224,29 @@
 <span id="223">223</span>
 <span id="224">224</span>
 <span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">session</span>::<span class="ident">SessionSendError</span>;
 <span class="kw">use</span> <span class="ident">async_tungstenite</span>::<span class="ident">tungstenite</span>::<span class="ident">Message</span> <span class="kw">as</span> <span class="ident">TungsteniteMessage</span>;
 <span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">mpsc</span>::<span class="ident">UnboundedSender</span>;
-<span class="kw">use</span> <span class="ident">futures_util</span>::<span class="ident">lock</span>::<span class="ident">Mutex</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">collections</span>::<span class="ident">VecDeque</span>,
     <span class="ident">convert</span>::<span class="ident">TryInto</span>,
     <span class="ident">sync</span>::{
         <span class="ident">atomic</span>::{<span class="ident">AtomicU32</span>, <span class="ident">AtomicU64</span>, <span class="ident">Ordering</span>},
-        <span class="ident">Arc</span>,
+        <span class="ident">Arc</span>, <span class="ident">Mutex</span>,
     },
     <span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
 };
@@ -302,39 +314,35 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Heartbeats</span> {
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">latency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Latency</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">latency</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Latency</span> {
         <span class="kw">let</span> <span class="ident">iterations</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">total_iterations</span>();
         <span class="kw">let</span> <span class="ident">recent</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">recent</span>
             .<span class="ident">lock</span>()
-            .<span class="kw">await</span>
+            .<span class="ident">expect</span>(<span class="string">&quot;recent poisoned&quot;</span>)
             .<span class="ident">iter</span>()
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="kw-2">*</span><span class="ident">x</span>))
             .<span class="ident">collect</span>();
-
-        <span class="kw">let</span> <span class="ident">received</span> <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">received</span>.<span class="ident">lock</span>().<span class="kw">await</span>;
-        <span class="kw">let</span> <span class="ident">sent</span> <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">sent</span>.<span class="ident">lock</span>().<span class="kw">await</span>;
 
         <span class="ident">Latency</span> {
             <span class="ident">average</span>: <span class="self">self</span>.<span class="ident">total_time</span>().<span class="ident">checked_div</span>(<span class="ident">iterations</span>),
             <span class="ident">heartbeats</span>: <span class="ident">iterations</span>,
             <span class="ident">recent</span>,
-            <span class="ident">received</span>,
-            <span class="ident">sent</span>,
+            <span class="ident">received</span>: <span class="self">self</span>.<span class="ident">received</span>(),
+            <span class="ident">sent</span>: <span class="self">self</span>.<span class="ident">sent</span>(),
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">last_acked</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">received</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">is_some</span>()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">last_acked</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">received</span>().<span class="ident">is_some</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">receive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
-        <span class="self">self</span>.<span class="ident">received</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">replace</span>(<span class="ident">now</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">receive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.<span class="ident">set_received</span>(<span class="ident">Instant</span>::<span class="ident">now</span>());
 
         <span class="self">self</span>.<span class="ident">total_iterations</span>.<span class="ident">fetch_add</span>(<span class="number">1</span>, <span class="ident">Ordering</span>::<span class="ident">SeqCst</span>);
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">dur</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">sent</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">elapsed</span>()) {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">dur</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">sent</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">elapsed</span>()) {
             <span class="kw">let</span> <span class="ident">millis</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">millis</span>) <span class="op">=</span> <span class="ident">dur</span>.<span class="ident">as_millis</span>().<span class="ident">try_into</span>() {
                 <span class="ident">millis</span>
             } <span class="kw">else</span> {
@@ -345,7 +353,7 @@
 
             <span class="self">self</span>.<span class="ident">total_time</span>.<span class="ident">fetch_add</span>(<span class="ident">millis</span>, <span class="ident">Ordering</span>::<span class="ident">SeqCst</span>);
 
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">recent</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">recent</span>.<span class="ident">lock</span>().<span class="kw">await</span>;
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">recent</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">recent</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;recent poisoned&quot;</span>);
 
             <span class="kw">if</span> <span class="ident">recent</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">5</span> {
                 <span class="ident">recent</span>.<span class="ident">pop_front</span>();
@@ -355,9 +363,27 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="self">self</span>.<span class="ident">received</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">take</span>();
-        <span class="self">self</span>.<span class="ident">sent</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">replace</span>(<span class="ident">Instant</span>::<span class="ident">now</span>());
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.<span class="ident">received</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;received poisoned&quot;</span>).<span class="ident">take</span>();
+        <span class="self">self</span>.<span class="ident">sent</span>
+            .<span class="ident">lock</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;sent poisoned&quot;</span>)
+            .<span class="ident">replace</span>(<span class="ident">Instant</span>::<span class="ident">now</span>());
+    }
+
+    <span class="kw">fn</span> <span class="ident">received</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Instant</span><span class="op">&gt;</span> {
+        <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">received</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;received poisoned&quot;</span>)
+    }
+
+    <span class="kw">fn</span> <span class="ident">set_received</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">received</span>: <span class="ident">Instant</span>) {
+        <span class="self">self</span>.<span class="ident">received</span>
+            .<span class="ident">lock</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;received poisoned&quot;</span>)
+            .<span class="ident">replace</span>(<span class="ident">received</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">sent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Instant</span><span class="op">&gt;</span> {
+        <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">sent</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;sent poisoned&quot;</span>)
     }
 
     <span class="kw">fn</span> <span class="ident">total_iterations</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u32</span> {
@@ -428,7 +454,7 @@
             <span class="comment">// - if so, then mark that we didn&#39;t get one this time</span>
             <span class="comment">// - if not, then end the heartbeater because something is off</span>
             <span class="comment">// (connecting closed?)</span>
-            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">heartbeats</span>.<span class="ident">last_acked</span>().<span class="kw">await</span> {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">heartbeats</span>.<span class="ident">last_acked</span>() {
                 <span class="ident">last</span> <span class="op">=</span> <span class="bool-val">true</span>;
             } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">last</span> {
                 <span class="ident">last</span> <span class="op">=</span> <span class="bool-val">false</span>;
@@ -446,7 +472,7 @@
                 .<span class="ident">unbounded_send</span>(<span class="ident">TungsteniteMessage</span>::<span class="ident">Binary</span>(<span class="ident">bytes</span>))
                 .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">SessionSendError</span>::<span class="ident">Sending</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
             <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;sent heartbeat with seq: {}&quot;</span>, <span class="ident">seq</span>);
-            <span class="self">self</span>.<span class="ident">heartbeats</span>.<span class="ident">send</span>().<span class="kw">await</span>;
+            <span class="self">self</span>.<span class="ident">heartbeats</span>.<span class="ident">send</span>();
         }
     }
 }
