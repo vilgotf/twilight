@@ -1870,7 +1870,7 @@
         <span class="ident">Event</span>::<span class="ident">MessageDelete</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
         <span class="ident">Event</span>::<span class="ident">MessageDeleteBulk</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
         <span class="ident">Event</span>::<span class="ident">MessageUpdate</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-        <span class="ident">Event</span>::<span class="ident">PresenceUpdate</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="ident">e</span>.<span class="ident">guild_id</span>,
+        <span class="ident">Event</span>::<span class="ident">PresenceUpdate</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">e</span>.<span class="ident">guild_id</span>),
         <span class="ident">Event</span>::<span class="ident">PresencesReplace</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
         <span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="ident">e</span>.<span class="ident">guild_id</span>,
         <span class="ident">Event</span>::<span class="ident">ReactionRemove</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="ident">e</span>.<span class="ident">guild_id</span>,

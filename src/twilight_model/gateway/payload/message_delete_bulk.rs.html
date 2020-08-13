@@ -7,13 +7,15 @@
 <span id="6">6</span>
 <span id="7">7</span>
 <span id="8">8</span>
+<span id="9">9</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">MessageId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageDeleteBulk</span> {
     <span class="kw">pub</span> <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
+    <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MessageId</span><span class="op">&gt;</span>,
 }
 </pre></div>

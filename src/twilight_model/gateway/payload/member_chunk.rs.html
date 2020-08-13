@@ -514,8 +514,8 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemberChunk</span> {
-    <span class="kw">pub</span> <span class="ident">chunk_index</span>: <span class="ident">u32</span>,
     <span class="kw">pub</span> <span class="ident">chunk_count</span>: <span class="ident">u32</span>,
+    <span class="kw">pub</span> <span class="ident">chunk_index</span>: <span class="ident">u32</span>,
     <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_mappable_seq&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">members</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">Member</span><span class="op">&gt;</span>,
