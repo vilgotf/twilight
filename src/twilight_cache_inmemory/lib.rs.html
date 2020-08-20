@@ -866,7 +866,6 @@
 <span id="865">865</span>
 <span id="866">866</span>
 <span id="867">867</span>
-<span id="868">868</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">config</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">model</span>;
@@ -1525,9 +1524,8 @@
 
         <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="ident">vs</span>.<span class="ident">user_id</span>;
 
-        <span class="comment">// This won&#39;t panic because we always insert a hashmap for each guild that the bot knows</span>
-        <span class="comment">// about, and to even receive events for them, we must have a key for them already.</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">guild_states</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_voice_states</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">unwrap</span>();
+        <span class="comment">// If then user isn&#39;t caching guilds, then simply ignore the update since theres nowhere to put it.</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">guild_states</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_voice_states</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>)<span class="question-mark">?</span>;
 
         <span class="comment">// If a user leaves a voice channel, then the `VoiceState` object received contains no</span>
         <span class="comment">// channel id.</span>

@@ -856,6 +856,35 @@
 <span id="855">855</span>
 <span id="856">856</span>
 <span id="857">857</span>
+<span id="858">858</span>
+<span id="859">859</span>
+<span id="860">860</span>
+<span id="861">861</span>
+<span id="862">862</span>
+<span id="863">863</span>
+<span id="864">864</span>
+<span id="865">865</span>
+<span id="866">866</span>
+<span id="867">867</span>
+<span id="868">868</span>
+<span id="869">869</span>
+<span id="870">870</span>
+<span id="871">871</span>
+<span id="872">872</span>
+<span id="873">873</span>
+<span id="874">874</span>
+<span id="875">875</span>
+<span id="876">876</span>
+<span id="877">877</span>
+<span id="878">878</span>
+<span id="879">879</span>
+<span id="880">880</span>
+<span id="881">881</span>
+<span id="882">882</span>
+<span id="883">883</span>
+<span id="884">884</span>
+<span id="885">885</span>
+<span id="886">886</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">config</span>::<span class="ident">EventType</span>, <span class="ident">InMemoryCache</span>, <span class="ident">InMemoryCacheError</span>};
 <span class="kw">use</span> <span class="ident">async_trait</span>::<span class="ident">async_trait</span>;
@@ -1647,10 +1676,12 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">config</span>::<span class="ident">InMemoryConfig</span>;
     <span class="kw">use</span> <span class="ident">twilight_model</span>::{
         <span class="ident">channel</span>::{<span class="ident">ChannelType</span>, <span class="ident">GuildChannel</span>, <span class="ident">TextChannel</span>},
         <span class="ident">gateway</span>::<span class="ident">payload</span>::<span class="ident">ChannelDelete</span>,
-        <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>},
+        <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">UserId</span>},
+        <span class="ident">voice</span>::<span class="ident">VoiceState</span>,
     };
 
     <span class="kw">fn</span> <span class="ident">guild_channel_text</span>() <span class="op">-&gt;</span> (<span class="ident">GuildId</span>, <span class="ident">ChannelId</span>, <span class="ident">GuildChannel</span>) {
@@ -1712,6 +1743,33 @@
             .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>)
             .<span class="ident">unwrap</span>()
             .<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
+    }
+
+    <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_voice_states_with_no_cached_guilds</span>() {
+        <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">from</span>(
+            <span class="ident">InMemoryConfig</span>::<span class="ident">builder</span>()
+                .<span class="ident">event_types</span>(<span class="kw">crate</span>::<span class="ident">config</span>::<span class="ident">EventType</span>::<span class="ident">VOICE_STATE_UPDATE</span>)
+                .<span class="ident">build</span>(),
+        );
+
+        <span class="ident">cache</span>
+            .<span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="ident">VoiceStateUpdate</span>(<span class="ident">VoiceState</span> {
+                <span class="ident">channel_id</span>: <span class="prelude-val">None</span>,
+                <span class="ident">deaf</span>: <span class="bool-val">false</span>,
+                <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">01</span>)),
+                <span class="ident">member</span>: <span class="prelude-val">None</span>,
+                <span class="ident">mute</span>: <span class="bool-val">false</span>,
+                <span class="ident">self_deaf</span>: <span class="bool-val">false</span>,
+                <span class="ident">self_mute</span>: <span class="bool-val">false</span>,
+                <span class="ident">self_stream</span>: <span class="bool-val">false</span>,
+                <span class="ident">session_id</span>: <span class="string">&quot;38fj3jfkh3pfho3prh2&quot;</span>.<span class="ident">to_string</span>(),
+                <span class="ident">suppress</span>: <span class="bool-val">false</span>,
+                <span class="ident">token</span>: <span class="prelude-val">None</span>,
+                <span class="ident">user_id</span>: <span class="ident">UserId</span>(<span class="number">01</span>),
+            }))
+            .<span class="kw">await</span>
+            .<span class="ident">expect</span>(<span class="string">&quot;Caching a voice state should not fail&quot;</span>)
     }
 }
 </pre></div>
