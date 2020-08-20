@@ -30,6 +30,22 @@
 <span id="29">29</span>
 <span id="30">30</span>
 <span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">bitflags</span>::<span class="ident">bitflags</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{
@@ -39,12 +55,12 @@
 
 <span class="macro">bitflags</span><span class="macro">!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ActivityFlags</span>: <span class="ident">u64</span> {
-        <span class="kw">const</span> <span class="ident">INSTANCE</span> <span class="op">=</span> <span class="number">0b001</span>;
-        <span class="kw">const</span> <span class="ident">JOIN</span> <span class="op">=</span> <span class="number">0b010</span>;
-        <span class="kw">const</span> <span class="ident">SPECTATE</span> <span class="op">=</span> <span class="number">0b011</span>;
-        <span class="kw">const</span> <span class="ident">JOIN_REQUEST</span> <span class="op">=</span> <span class="number">0b100</span>;
-        <span class="kw">const</span> <span class="ident">SYNC</span> <span class="op">=</span> <span class="number">0b101</span>;
-        <span class="kw">const</span> <span class="ident">PLAY</span> <span class="op">=</span> <span class="number">0b110</span>;
+        <span class="kw">const</span> <span class="ident">INSTANCE</span> <span class="op">=</span> <span class="number">1</span>;
+        <span class="kw">const</span> <span class="ident">JOIN</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">1</span>;
+        <span class="kw">const</span> <span class="ident">SPECTATE</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">2</span>;
+        <span class="kw">const</span> <span class="ident">JOIN_REQUEST</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">3</span>;
+        <span class="kw">const</span> <span class="ident">SYNC</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">4</span>;
+        <span class="kw">const</span> <span class="ident">PLAY</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">5</span>;
     }
 }
 
@@ -60,6 +76,22 @@
         <span class="ident">S</span>: <span class="ident">Serializer</span>,
     {
         <span class="ident">serializer</span>.<span class="ident">serialize_u64</span>(<span class="self">self</span>.<span class="ident">bits</span>())
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">ActivityFlags</span>;
+    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_variants</span>() {
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">INSTANCE</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span>)]);
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">JOIN</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">1</span>)]);
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">SPECTATE</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">2</span>)]);
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">JOIN_REQUEST</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">3</span>)]);
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">SYNC</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">4</span>)]);
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">PLAY</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">5</span>)]);
     }
 }
 </pre></div>
