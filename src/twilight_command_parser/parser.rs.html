@@ -422,30 +422,30 @@
         <span class="kw">let</span> <span class="ident">message_unicode_2</span> <span class="op">=</span> <span class="string">&quot;!\u{3b4} is delta&quot;</span>;
 
         <span class="comment">// Case insensitive - ASCII</span>
-        <span class="kw">let</span> <span class="ident">Command</span> { <span class="ident">name</span>, .. } <span class="op">=</span> <span class="ident">parser</span>
+        <span class="kw">let</span> <span class="ident">command</span> <span class="op">=</span> <span class="ident">parser</span>
             .<span class="ident">parse</span>(<span class="ident">message_ascii</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;Parser is case sensitive&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="string">&quot;echo&quot;</span>, <span class="ident">name</span>,
+            <span class="string">&quot;echo&quot;</span>, <span class="ident">command</span>.<span class="ident">name</span>,
             <span class="string">&quot;Command name should have the same case as in the CommandParserConfig&quot;</span>
         );
 
         <span class="comment">// Case insensitive - Unicode</span>
         <span class="ident">parser</span>.<span class="ident">config</span>.<span class="ident">add_command</span>(<span class="string">&quot;wei\u{df}&quot;</span>, <span class="bool-val">false</span>);
-        <span class="kw">let</span> <span class="ident">Command</span> { <span class="ident">name</span>, .. } <span class="op">=</span> <span class="ident">parser</span>
+        <span class="kw">let</span> <span class="ident">command</span> <span class="op">=</span> <span class="ident">parser</span>
             .<span class="ident">parse</span>(<span class="ident">message_unicode</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;Parser is case sensitive&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="string">&quot;wei\u{df}&quot;</span>, <span class="ident">name</span>,
+            <span class="string">&quot;wei\u{df}&quot;</span>, <span class="ident">command</span>.<span class="ident">name</span>,
             <span class="string">&quot;Command name should have the same case as in the CommandParserConfig&quot;</span>
         );
 
         <span class="ident">parser</span>.<span class="ident">config</span>.<span class="ident">add_command</span>(<span class="string">&quot;\u{394}&quot;</span>, <span class="bool-val">false</span>);
-        <span class="kw">let</span> <span class="ident">Command</span> { <span class="ident">name</span>, .. } <span class="op">=</span> <span class="ident">parser</span>
+        <span class="kw">let</span> <span class="ident">command</span> <span class="op">=</span> <span class="ident">parser</span>
             .<span class="ident">parse</span>(<span class="ident">message_unicode_2</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;Parser is case sensitive&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="string">&quot;\u{394}&quot;</span>, <span class="ident">name</span>,
+            <span class="string">&quot;\u{394}&quot;</span>, <span class="ident">command</span>.<span class="ident">name</span>,
             <span class="string">&quot;Command name should have the same case as in the CommandParserConfig&quot;</span>
         );
 

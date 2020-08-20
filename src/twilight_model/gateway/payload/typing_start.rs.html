@@ -312,6 +312,7 @@
 <span id="311">311</span>
 <span id="312">312</span>
 <span id="313">313</span>
+<span id="314">314</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">guild</span>::<span class="ident">member</span>::{<span class="ident">Member</span>, <span class="ident">OptionalMemberDeserializer</span>},
@@ -469,6 +470,7 @@
     };
     <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
 
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_typing_start_with_member</span>() {
         <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">TypingStart</span> {
@@ -499,7 +501,7 @@
                     <span class="ident">public_flags</span>: <span class="prelude-val">None</span>,
                 },
             }),
-            <span class="ident">timestamp</span>: <span class="number">1500000000</span>,
+            <span class="ident">timestamp</span>: <span class="number">1_500_000_000</span>,
             <span class="ident">user_id</span>: <span class="ident">UserId</span>(<span class="number">3</span>),
         };
 
@@ -583,7 +585,7 @@
                 <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
                 <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;timestamp&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1500000000</span>),
+                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1_500_000_000</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user_id&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;3&quot;</span>),
@@ -598,7 +600,7 @@
             <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>(<span class="number">2</span>),
             <span class="ident">guild_id</span>: <span class="prelude-val">None</span>,
             <span class="ident">member</span>: <span class="prelude-val">None</span>,
-            <span class="ident">timestamp</span>: <span class="number">1500000000</span>,
+            <span class="ident">timestamp</span>: <span class="number">1_500_000_000</span>,
             <span class="ident">user_id</span>: <span class="ident">UserId</span>(<span class="number">3</span>),
         };
 
@@ -617,7 +619,7 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;member&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;timestamp&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1500000000</span>),
+                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1_500_000_000</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user_id&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;3&quot;</span>),

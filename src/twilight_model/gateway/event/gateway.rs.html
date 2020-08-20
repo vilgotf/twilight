@@ -1542,7 +1542,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">1190911</span>, <span class="kw">_</span>)));
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">1_190_911</span>, <span class="kw">_</span>)));
     }
 
     <span class="comment">// Test that events which are not documented to have any data will not fail if</span>
@@ -1617,7 +1617,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Hello</span>(<span class="number">41250</span>)));
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Hello</span>(<span class="number">41_250</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1691,7 +1691,7 @@
             <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">2</span>),
         };
         <span class="kw">let</span> <span class="ident">dispatch</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">DispatchEvent</span>::<span class="ident">RoleDelete</span>(<span class="ident">role_delete</span>));
-        <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">2048</span>, <span class="ident">dispatch</span>);
+        <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">2_048</span>, <span class="ident">dispatch</span>);
 
         <span class="ident">serde_test</span>::<span class="ident">assert_ser_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">event</span>,
@@ -1706,7 +1706,7 @@
                     <span class="ident">variant</span>: <span class="string">&quot;GUILD_ROLE_DELETE&quot;</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;s&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">2048</span>),
+                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">2_048</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;op&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">U8</span>(<span class="ident">OpCode</span>::<span class="ident">Event</span> <span class="kw">as</span> <span class="ident">u8</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;d&quot;</span>),

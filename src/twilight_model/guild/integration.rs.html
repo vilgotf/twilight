@@ -153,6 +153,7 @@
 <span id="152">152</span>
 <span id="153">153</span>
 <span id="154">154</span>
+<span id="155">155</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">IntegrationAccount</span>, <span class="ident">IntegrationExpireBehavior</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -193,6 +194,7 @@
     <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::{<span class="ident">RoleId</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
 
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_integration</span>() {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">GuildIntegration</span> {
