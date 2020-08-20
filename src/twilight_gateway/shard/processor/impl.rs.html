@@ -818,6 +818,16 @@
 <span id="817">817</span>
 <span id="818">818</span>
 <span id="819">819</span>
+<span id="820">820</span>
+<span id="821">821</span>
+<span id="822">822</span>
+<span id="823">823</span>
+<span id="824">824</span>
+<span id="825">825</span>
+<span id="826">826</span>
+<span id="827">827</span>
+<span id="828">828</span>
+<span id="829">829</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="kw">super</span>::{<span class="ident">config</span>::<span class="ident">ShardConfig</span>, <span class="ident">stage</span>::<span class="ident">Stage</span>, <span class="ident">ShardStream</span>},
@@ -998,6 +1008,8 @@
         <span class="doccomment">/// Source error when converting to a UTF-8 valid string.</span>
         <span class="ident">source</span>: <span class="ident">Utf8Error</span>,
     },
+    <span class="doccomment">/// The event stream has ended, this is recoverable by resuming.</span>
+    <span class="ident">EventStreamEnded</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ReceivingEventError</span> {
@@ -1020,6 +1032,7 @@
             <span class="self">Self</span>::<span class="ident">PayloadNotUtf8</span> { .. } <span class="op">=&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the payload from Discord wasn&#39;t UTF-8 valid&quot;</span>)
             }
+            <span class="self">Self</span>::<span class="ident">EventStreamEnded</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;event stream from gateway ended&quot;</span>),
         }
     }
 }
@@ -1032,7 +1045,8 @@
             <span class="self">Self</span>::<span class="ident">AuthorizationInvalid</span> { .. }
             <span class="op">|</span> <span class="self">Self</span>::<span class="ident">Decompressing</span> { .. }
             <span class="op">|</span> <span class="self">Self</span>::<span class="ident">IntentsDisallowed</span> { .. }
-            <span class="op">|</span> <span class="self">Self</span>::<span class="ident">IntentsInvalid</span> { .. } <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+            <span class="op">|</span> <span class="self">Self</span>::<span class="ident">IntentsInvalid</span> { .. }
+            <span class="op">|</span> <span class="self">Self</span>::<span class="ident">EventStreamEnded</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }
@@ -1152,6 +1166,12 @@
                     );
                     <span class="self">self</span>.<span class="ident">listeners</span>.<span class="ident">remove_all</span>();
                     <span class="kw">return</span>;
+                }
+                <span class="prelude-val">Err</span>(<span class="ident">ReceivingEventError</span>::<span class="ident">EventStreamEnded</span>) <span class="op">=&gt;</span> {
+                    <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;event stream ended, reconnecting&quot;</span>);
+
+                    <span class="self">self</span>.<span class="ident">resume</span>().<span class="kw">await</span>;
+                    <span class="kw">continue</span>;
                 }
                 <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=&gt;</span> {
                     <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;error receiving gateway event: {:?}&quot;</span>, <span class="ident">err</span>.<span class="ident">source</span>());
@@ -1459,11 +1479,11 @@
         <span class="kw">loop</span> {
             <span class="comment">// Returns None when the socket forwarder has ended, meaning the</span>
             <span class="comment">// connection was dropped.</span>
-            <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">msg</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">rx</span>.<span class="ident">next</span>().<span class="kw">await</span> {
-                <span class="ident">msg</span>
-            } <span class="kw">else</span> {
-                <span class="kw">continue</span>;
-            };
+            <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="self">self</span>
+                .<span class="ident">rx</span>
+                .<span class="ident">next</span>()
+                .<span class="kw">await</span>
+                .<span class="ident">ok_or</span>(<span class="ident">ReceivingEventError</span>::<span class="ident">EventStreamEnded</span>)<span class="question-mark">?</span>;
 
             <span class="kw">match</span> <span class="ident">msg</span> {
                 <span class="ident">Message</span>::<span class="ident">Binary</span>(<span class="ident">bin</span>) <span class="op">=&gt;</span> {
