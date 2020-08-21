@@ -390,8 +390,13 @@
 <span id="389">389</span>
 <span id="390">390</span>
 <span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">config</span>::{<span class="ident">ClusterConfig</span>, <span class="ident">ShardScheme</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{
+    <span class="ident">builder</span>::{<span class="ident">ClusterBuilder</span>, <span class="ident">ShardScheme</span>},
+    <span class="ident">config</span>::<span class="ident">Config</span>,
+};
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">shard</span>::{<span class="ident">CommandError</span>, <span class="ident">Information</span>, <span class="ident">ResumeSession</span>, <span class="ident">Shard</span>},
     <span class="ident">EventTypeFlags</span>,
@@ -481,7 +486,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">struct</span> <span class="ident">ClusterRef</span> {
-    <span class="ident">config</span>: <span class="ident">ClusterConfig</span>,
+    <span class="ident">config</span>: <span class="ident">Config</span>,
     <span class="ident">shard_from</span>: <span class="ident">u64</span>,
     <span class="ident">shard_to</span>: <span class="ident">u64</span>,
     <span class="ident">shards</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">Shard</span><span class="op">&gt;&gt;</span>,
@@ -499,7 +504,9 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Cluster</span>(<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ClusterRef</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">Cluster</span> {
-    <span class="doccomment">/// Creates a new cluster from a configuration without bringing it up.</span>
+    <span class="doccomment">/// Create a new unconfigured cluster.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Use [`builder`] to configure and construct a cluster.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
@@ -507,11 +514,12 @@
     <span class="doccomment">/// the gateway information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClusterStartError::RetrievingGatewayInfo`]: enum.ClusterStartError.html#variant.RetrievingGatewayInfo</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">config</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">ClusterConfig</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">config</span>.<span class="ident">into</span>()).<span class="kw">await</span>
+    <span class="doccomment">/// [`builder`]: #method.builder</span>
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
+        <span class="self">Self</span>::<span class="ident">builder</span>(<span class="ident">token</span>).<span class="ident">build</span>().<span class="kw">await</span>
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_new</span>(<span class="kw-2">mut</span> <span class="ident">config</span>: <span class="ident">ClusterConfig</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">new_with_config</span>(<span class="kw-2">mut</span> <span class="ident">config</span>: <span class="ident">Config</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> [<span class="ident">from</span>, <span class="ident">to</span>, <span class="ident">total</span>] <span class="op">=</span> <span class="kw">match</span> <span class="ident">config</span>.<span class="ident">shard_scheme</span>() {
             <span class="ident">ShardScheme</span>::<span class="ident">Auto</span> <span class="op">=&gt;</span> {
                 <span class="kw">let</span> <span class="ident">http</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">http_client</span>();
@@ -544,7 +552,7 @@
                     <span class="ident">shard_config</span>.<span class="ident">sequence</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>.<span class="ident">sequence</span>);
                 }
 
-                (<span class="ident">idx</span>, <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">shard_config</span>))
+                (<span class="ident">idx</span>, <span class="ident">Shard</span>::<span class="ident">new_with_config</span>(<span class="ident">shard_config</span>))
             })
             .<span class="ident">collect</span>();
 
@@ -556,11 +564,13 @@
         })))
     }
 
+    <span class="doccomment">/// Create a builder to configure and construct a cluster.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">ClusterBuilder</span> {
+        <span class="ident">ClusterBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>)
+    }
+
     <span class="doccomment">/// Returns an immutable reference to the configuration of this cluster.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The configuration&#39;s resume map will be empty, as it&#39;s consumed when the</span>
-    <span class="doccomment">/// cluster is created to make shards.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ClusterConfig</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Config</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">config</span>
     }
 
@@ -572,10 +582,7 @@
     <span class="doccomment">/// Bring up a cluster, starting shards all 10 shards that a bot uses:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use twilight_gateway::cluster::{</span>
-    <span class="doccomment">///     config::{ClusterConfig, ShardScheme},</span>
-    <span class="doccomment">///     Cluster,</span>
-    <span class="doccomment">/// };</span>
+    <span class="doccomment">/// use twilight_gateway::cluster::{Cluster, ShardScheme};</span>
     <span class="doccomment">/// use std::{</span>
     <span class="doccomment">///     convert::TryFrom,</span>
     <span class="doccomment">///     env,</span>
@@ -583,12 +590,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # #[tokio::main]</span>
     <span class="doccomment">/// # async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error + Send + Sync&gt;&gt; {</span>
+    <span class="doccomment">/// let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
     <span class="doccomment">/// let scheme = ShardScheme::try_from((0..=9, 10))?;</span>
-    <span class="doccomment">/// let mut config = ClusterConfig::builder(env::var(&quot;DISCORD_TOKEN&quot;)?)</span>
-    <span class="doccomment">///                         .shard_scheme(scheme)</span>
-    <span class="doccomment">///                         .build();</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let cluster = Cluster::new(config).await?;</span>
+    <span class="doccomment">/// let cluster = Cluster::builder(token).shard_scheme(scheme).build().await?;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// // Finally, bring up the cluster.</span>
     <span class="doccomment">/// cluster.up().await;</span>

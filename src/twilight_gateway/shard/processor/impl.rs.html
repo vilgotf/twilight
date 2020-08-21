@@ -830,7 +830,7 @@
 <span id="829">829</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
-    <span class="kw">super</span>::{<span class="ident">config</span>::<span class="ident">ShardConfig</span>, <span class="ident">stage</span>::<span class="ident">Stage</span>, <span class="ident">ShardStream</span>},
+    <span class="kw">super</span>::{<span class="ident">config</span>::<span class="ident">Config</span>, <span class="ident">stage</span>::<span class="ident">Stage</span>, <span class="ident">ShardStream</span>},
     <span class="ident">emit</span>,
     <span class="ident">inflater</span>::<span class="ident">Inflater</span>,
     <span class="ident">session</span>::{<span class="ident">Session</span>, <span class="ident">SessionSendError</span>},
@@ -1055,7 +1055,7 @@
 <span class="doccomment">/// to all listeners.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ShardProcessor</span> {
-    <span class="kw">pub</span> <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ShardConfig</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">listeners</span>: <span class="ident">Listeners</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">properties</span>: <span class="ident">IdentifyProperties</span>,
     <span class="kw">pub</span> <span class="ident">rx</span>: <span class="ident">UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span>,
@@ -1068,7 +1068,7 @@
 
 <span class="kw">impl</span> <span class="ident">ShardProcessor</span> {
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ShardConfig</span><span class="op">&gt;</span>,
+        <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
         <span class="kw-2">mut</span> <span class="ident">url</span>: <span class="ident">String</span>,
         <span class="ident">listeners</span>: <span class="ident">Listeners</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&gt;</span>,
     ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="self">Self</span>, <span class="ident">WatchReceiver</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Session</span><span class="op">&gt;&gt;</span>), <span class="ident">ConnectingError</span><span class="op">&gt;</span> {

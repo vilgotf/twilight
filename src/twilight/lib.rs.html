@@ -237,7 +237,6 @@
 <span id="236">236</span>
 <span id="237">237</span>
 <span id="238">238</span>
-<span id="239">239</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight</span>
 <span class="doccomment">//!</span>
@@ -355,7 +354,7 @@
 <span class="doccomment">//!         twilight_cache_inmemory::config::{InMemoryConfigBuilder, EventType},</span>
 <span class="doccomment">//!         InMemoryCache,</span>
 <span class="doccomment">//!     },</span>
-<span class="doccomment">//!     gateway::{cluster::{config::ShardScheme, Cluster, ClusterConfig}, Event},</span>
+<span class="doccomment">//!     gateway::{cluster::{Cluster, ShardScheme}, Event},</span>
 <span class="doccomment">//!     http::Client as HttpClient,</span>
 <span class="doccomment">//!     model::gateway::GatewayIntents,</span>
 <span class="doccomment">//! };</span>
@@ -367,17 +366,16 @@
 <span class="doccomment">//!     // This is also the default.</span>
 <span class="doccomment">//!     let scheme = ShardScheme::Auto;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     let config = ClusterConfig::builder(&amp;token)</span>
+<span class="doccomment">//!     let cluster = Cluster::builder(&amp;token)</span>
 <span class="doccomment">//!         .shard_scheme(scheme)</span>
 <span class="doccomment">//!         // Use intents to only listen to GUILD_MESSAGES events</span>
 <span class="doccomment">//!         .intents(Some(</span>
 <span class="doccomment">//!             GatewayIntents::GUILD_MESSAGES | GatewayIntents::DIRECT_MESSAGES,</span>
 <span class="doccomment">//!         ))</span>
-<span class="doccomment">//!         .build();</span>
+<span class="doccomment">//!         .build()</span>
+<span class="doccomment">//!         .await?;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     // Start up the cluster</span>
-<span class="doccomment">//!     let cluster = Cluster::new(config).await?;</span>
-<span class="doccomment">//!</span>
 <span class="doccomment">//!     let cluster_spawn = cluster.clone();</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     tokio::spawn(async move {</span>

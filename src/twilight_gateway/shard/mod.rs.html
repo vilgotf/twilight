@@ -46,6 +46,7 @@
 <span id="45">45</span>
 <span id="46">46</span>
 <span id="47">47</span>
+<span id="48">48</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Types for working with and running connections to the gateway.</span>
 <span class="doccomment">//!</span>
@@ -58,11 +59,10 @@
 <span class="doccomment">//! [`Stage`] of the connection, like whether it&#39;s [`Disconnected`] or</span>
 <span class="doccomment">//! [`Resuming`] the connection.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Shards are configurable through the [`ShardConfigBuilder`] struct, which</span>
-<span class="doccomment">//! provides a clean interface for correctly building a [`ShardConfig`].</span>
+<span class="doccomment">//! Shards are configurable through the [`ShardBuilder`], which provides a clean</span>
+<span class="doccomment">//! interface for correctly configuring a shard.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`ShardConfig`]: config/struct.ShardConfig.html</span>
-<span class="doccomment">//! [`ShardConfigBuilder`]: config/struct.ShardConfigBuilder.html</span>
+<span class="doccomment">//! [`ShardBuilder`]: struct.ShardBuilder.html</span>
 <span class="doccomment">//! [`Event`]: ../../twilight_model/gateway/event/enum.Event.html</span>
 <span class="doccomment">//! [`Shard`]: struct.Shard.html</span>
 <span class="doccomment">//! [`Stage`]: stage/enum.Stage.html</span>
@@ -72,16 +72,18 @@
 <span class="doccomment">//! [information about itself]: struct.Shard.html#method.info</span>
 <span class="doccomment">//! [new messages]: ../../twilight_model/gateway/event/enum.Event.html#variant.MessageCreate</span>
 
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">config</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">stage</span>;
 
+<span class="kw">mod</span> <span class="ident">builder</span>;
+<span class="kw">mod</span> <span class="ident">config</span>;
 <span class="kw">mod</span> <span class="ident">event</span>;
 <span class="kw">mod</span> <span class="ident">r#impl</span>;
 <span class="kw">mod</span> <span class="ident">processor</span>;
 <span class="kw">mod</span> <span class="ident">sink</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
-    <span class="ident">config</span>::<span class="ident">ShardConfig</span>,
+    <span class="ident">builder</span>::{<span class="ident">LargeThresholdError</span>, <span class="ident">ShardBuilder</span>, <span class="ident">ShardIdError</span>},
+    <span class="ident">config</span>::<span class="ident">Config</span>,
     <span class="ident">event</span>::<span class="ident">Events</span>,
     <span class="ident">processor</span>::<span class="ident">heartbeat</span>::<span class="ident">Latency</span>,
     <span class="ident">r#impl</span>::{
