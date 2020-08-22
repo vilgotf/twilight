@@ -1071,7 +1071,6 @@
 <span id="1070">1070</span>
 <span id="1071">1071</span>
 <span id="1072">1072</span>
-<span id="1073">1073</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">config</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">model</span>;
@@ -1081,14 +1080,12 @@
 <span class="kw">use</span> <span class="self">self</span>::<span class="ident">model</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">config</span>::<span class="ident">InMemoryConfig</span>;
 <span class="kw">use</span> <span class="ident">dashmap</span>::{<span class="ident">mapref</span>::<span class="ident">entry</span>::<span class="ident">Entry</span>, <span class="ident">DashMap</span>, <span class="ident">DashSet</span>};
-<span class="kw">use</span> <span class="ident">futures_util</span>::{<span class="ident">future</span>, <span class="ident">lock</span>::<span class="ident">Mutex</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BTreeSet</span>, <span class="ident">HashSet</span>},
     <span class="ident">error</span>::<span class="ident">Error</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
     <span class="ident">hash</span>::<span class="ident">Hash</span>,
-    <span class="ident">iter</span>::<span class="ident">FromIterator</span>,
-    <span class="ident">sync</span>::<span class="ident">Arc</span>,
+    <span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>},
 };
 <span class="kw">use</span> <span class="ident">twilight_cache_trait</span>::{<span class="ident">Cache</span>, <span class="ident">UpdateCache</span>};
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
@@ -1106,7 +1103,7 @@
     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
 }
 
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">upsert_guild_item</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">Eq</span> <span class="op">+</span> <span class="ident">Hash</span>, <span class="ident">V</span>: <span class="ident">PartialEq</span><span class="op">&gt;</span>(
+<span class="kw">fn</span> <span class="ident">upsert_guild_item</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">Eq</span> <span class="op">+</span> <span class="ident">Hash</span>, <span class="ident">V</span>: <span class="ident">PartialEq</span><span class="op">&gt;</span>(
     <span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="ident">DashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">GuildItem</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;&gt;</span>,
     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
     <span class="ident">k</span>: <span class="ident">K</span>,
@@ -1133,7 +1130,7 @@
     }
 }
 
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">upsert_item</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">Eq</span> <span class="op">+</span> <span class="ident">Hash</span>, <span class="ident">V</span>: <span class="ident">PartialEq</span><span class="op">&gt;</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="ident">DashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;&gt;</span>, <span class="ident">k</span>: <span class="ident">K</span>, <span class="ident">v</span>: <span class="ident">V</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">upsert_item</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">Eq</span> <span class="op">+</span> <span class="ident">Hash</span>, <span class="ident">V</span>: <span class="ident">PartialEq</span><span class="op">&gt;</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="ident">DashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;&gt;</span>, <span class="ident">k</span>: <span class="ident">K</span>, <span class="ident">v</span>: <span class="ident">V</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">entry</span>(<span class="ident">k</span>) {
         <span class="ident">Entry</span>::<span class="ident">Occupied</span>(<span class="ident">e</span>) <span class="kw">if</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">get</span>() <span class="op">==</span> <span class="ident">v</span> <span class="op">=&gt;</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">e</span>.<span class="ident">get</span>()),
         <span class="ident">Entry</span>::<span class="ident">Occupied</span>(<span class="kw-2">mut</span> <span class="ident">e</span>) <span class="op">=&gt;</span> {
@@ -1174,6 +1171,7 @@
     <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">InMemoryConfig</span><span class="op">&gt;</span>,
     <span class="ident">channels_guild</span>: <span class="ident">DashMap</span><span class="op">&lt;</span><span class="ident">ChannelId</span>, <span class="ident">GuildItem</span><span class="op">&lt;</span><span class="ident">GuildChannel</span><span class="op">&gt;&gt;</span>,
     <span class="ident">channels_private</span>: <span class="ident">DashMap</span><span class="op">&lt;</span><span class="ident">ChannelId</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PrivateChannel</span><span class="op">&gt;&gt;</span>,
+    <span class="comment">// So long as the lock isn&#39;t held across await or panic points this is fine.</span>
     <span class="ident">current_user</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CurrentUser</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
     <span class="ident">emojis</span>: <span class="ident">DashMap</span><span class="op">&lt;</span><span class="ident">EmojiId</span>, <span class="ident">GuildItem</span><span class="op">&lt;</span><span class="ident">CachedEmoji</span><span class="op">&gt;&gt;</span>,
     <span class="ident">groups</span>: <span class="ident">DashMap</span><span class="op">&lt;</span><span class="ident">ChannelId</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Group</span><span class="op">&gt;&gt;</span>,
@@ -1272,118 +1270,110 @@
     <span class="doccomment">/// Gets a channel by ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">guild_channel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">GuildChannel</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="number">0</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_channel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">GuildChannel</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">channels_guild</span>
             .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>)
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">data</span>)))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">data</span>))
     }
 
     <span class="doccomment">/// Gets the current user.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">current_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CurrentUser</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">current_user</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">clone</span>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">current_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CurrentUser</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
+            .<span class="ident">current_user</span>
+            .<span class="ident">lock</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;current user poisoned&quot;</span>)
+            .<span class="ident">clone</span>()
     }
 
     <span class="doccomment">/// Gets an emoji by ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">emoji</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">emoji_id</span>: <span class="ident">EmojiId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedEmoji</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">emoji_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">data</span>)))
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">emoji</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">emoji_id</span>: <span class="ident">EmojiId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedEmoji</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">emoji_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">data</span>))
     }
 
     <span class="doccomment">/// Gets a group by ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Group</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="number">0</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Group</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">groups</span>
             .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>)
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>())))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>()))
     }
 
     <span class="doccomment">/// Gets a guild by ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">guild</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedGuild</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>())))
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedGuild</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>()))
     }
 
     <span class="doccomment">/// Gets a member by guild ID and user ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">member</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-        <span class="ident">user_id</span>: <span class="ident">UserId</span>,
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedMember</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="number">0</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">member</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedMember</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">members</span>
             .<span class="ident">get</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>))
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>())))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>()))
     }
 
     <span class="doccomment">/// Gets a message by channel ID and message ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(log n) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">message</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
         <span class="ident">message_id</span>: <span class="ident">MessageId</span>,
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedMessage</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">channel</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">channel</span>) <span class="op">=&gt;</span> <span class="ident">channel</span>,
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
-        };
+    ) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedMessage</span><span class="op">&gt;&gt;</span> {
+        <span class="kw">let</span> <span class="ident">channel</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>)<span class="question-mark">?</span>;
 
-        <span class="prelude-val">Ok</span>(<span class="ident">channel</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">message_id</span>).<span class="ident">cloned</span>())
+        <span class="ident">channel</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">message_id</span>).<span class="ident">cloned</span>()
     }
 
     <span class="doccomment">/// Gets a presence by, optionally, guild ID, and user ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">presence</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presence</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">guild_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
         <span class="ident">user_id</span>: <span class="ident">UserId</span>,
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedPresence</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="number">0</span>
+    ) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedPresence</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">presences</span>
             .<span class="ident">get</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>))
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>())))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>()))
     }
 
     <span class="doccomment">/// Gets a private channel by ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">private_channel</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PrivateChannel</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="number">0</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">private_channel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PrivateChannel</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">channels_private</span>
             .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>)
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>())))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>()))
     }
 
     <span class="doccomment">/// Gets a role by ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">role</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">role_id</span>: <span class="ident">RoleId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Role</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">roles</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">role_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">data</span>)))
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">role</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">role_id</span>: <span class="ident">RoleId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Role</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
+            .<span class="ident">roles</span>
+            .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">role_id</span>)
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">role</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">role</span>.<span class="ident">data</span>))
     }
 
     <span class="doccomment">/// Gets a user by ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">r</span>.<span class="number">0</span>)))
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">r</span>.<span class="number">0</span>))
     }
 
     <span class="doccomment">/// Gets the voice states within a voice channel.</span>
@@ -1401,35 +1391,32 @@
     <span class="doccomment">/// Gets a voice state by user ID and Guild ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">voice_state</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">user_id</span>: <span class="ident">UserId</span>,
-        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">VoiceState</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="number">0</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">voice_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">VoiceState</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">voice_states</span>
             .<span class="ident">get</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>))
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>())))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>()))
     }
 
     <span class="doccomment">/// Clears the entire state of the Cache. This is equal to creating a new</span>
     <span class="doccomment">/// empty Cache.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">channels_guild</span>.<span class="ident">clear</span>();
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">current_user</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">take</span>();
+        <span class="self">self</span>.<span class="number">0</span>
+            .<span class="ident">current_user</span>
+            .<span class="ident">lock</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;current user poisoned&quot;</span>)
+            .<span class="ident">take</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">presences</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">roles</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">clear</span>();
-
-        <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_current_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">current_user</span>: <span class="ident">CurrentUser</span>) {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">current_user</span>.<span class="ident">lock</span>().<span class="kw">await</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_current_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">current_user</span>: <span class="ident">CurrentUser</span>) {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">current_user</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;current user poisoned&quot;</span>);
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">user</span>) <span class="op">=</span> <span class="ident">user</span>.<span class="ident">as_mut</span>() {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">user</span>) <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">user</span>) {
@@ -1442,23 +1429,23 @@
         <span class="kw-2">*</span><span class="ident">user</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">current_user</span>));
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_guild_channels</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_guild_channels</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
         <span class="ident">guild_channels</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">GuildChannel</span><span class="op">&gt;</span>,
     ) <span class="op">-&gt;</span> <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">pairs</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">join_all</span>(<span class="ident">guild_channels</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">channel</span><span class="op">|</span> <span class="kw">async</span> {
-            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">channel</span>.<span class="ident">id</span>();
-            <span class="self">self</span>.<span class="ident">cache_guild_channel</span>(<span class="ident">guild_id</span>, <span class="ident">channel</span>).<span class="kw">await</span>;
+        <span class="ident">guild_channels</span>
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">channel</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">channel</span>.<span class="ident">id</span>();
+                <span class="self">self</span>.<span class="ident">cache_guild_channel</span>(<span class="ident">guild_id</span>, <span class="ident">channel</span>);
 
-            <span class="ident">id</span>
-        }))
-        .<span class="kw">await</span>;
-
-        <span class="ident">HashSet</span>::<span class="ident">from_iter</span>(<span class="ident">pairs</span>)
+                <span class="ident">id</span>
+            })
+            .<span class="ident">collect</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_guild_channel</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_guild_channel</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
         <span class="kw-2">mut</span> <span class="ident">channel</span>: <span class="ident">GuildChannel</span>,
@@ -1482,16 +1469,16 @@
             .<span class="ident">or_default</span>()
             .<span class="ident">insert</span>(<span class="ident">id</span>);
 
-        <span class="ident">upsert_guild_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">channels_guild</span>, <span class="ident">guild_id</span>, <span class="ident">id</span>, <span class="ident">channel</span>).<span class="kw">await</span>
+        <span class="ident">upsert_guild_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">channels_guild</span>, <span class="ident">guild_id</span>, <span class="ident">id</span>, <span class="ident">channel</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_emoji</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">emoji</span>: <span class="ident">Emoji</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedEmoji</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_emoji</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">emoji</span>: <span class="ident">Emoji</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedEmoji</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">emoji</span>.<span class="ident">id</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">e</span>) <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">e</span>.<span class="ident">data</span> <span class="op">==</span> <span class="ident">emoji</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">e</span>.<span class="ident">data</span>),
             <span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="prelude-val">None</span> <span class="op">=&gt;</span> {}
         }
         <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">emoji</span>.<span class="ident">user</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">u</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">cache_user</span>(<span class="ident">u</span>, <span class="ident">guild_id</span>).<span class="kw">await</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">u</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">cache_user</span>(<span class="ident">u</span>, <span class="ident">guild_id</span>)),
             <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
         };
         <span class="kw">let</span> <span class="ident">cached</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">CachedEmoji</span> {
@@ -1514,27 +1501,27 @@
         <span class="ident">cached</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_emojis</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_emojis</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
         <span class="ident">emojis</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Emoji</span><span class="op">&gt;</span>,
     ) <span class="op">-&gt;</span> <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">EmojiId</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">pairs</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">join_all</span>(<span class="ident">emojis</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">emoji</span><span class="op">|</span> <span class="kw">async</span> {
-            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">emoji</span>.<span class="ident">id</span>;
-            <span class="self">self</span>.<span class="ident">cache_emoji</span>(<span class="ident">guild_id</span>, <span class="ident">emoji</span>).<span class="kw">await</span>;
+        <span class="ident">emojis</span>
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">emoji</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">emoji</span>.<span class="ident">id</span>;
+                <span class="self">self</span>.<span class="ident">cache_emoji</span>(<span class="ident">guild_id</span>, <span class="ident">emoji</span>);
 
-            <span class="ident">id</span>
-        }))
-        .<span class="kw">await</span>;
-
-        <span class="ident">HashSet</span>::<span class="ident">from_iter</span>(<span class="ident">pairs</span>)
+                <span class="ident">id</span>
+            })
+            .<span class="ident">collect</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">group</span>: <span class="ident">Group</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Group</span><span class="op">&gt;</span> {
-        <span class="ident">upsert_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">groups</span>, <span class="ident">group</span>.<span class="ident">id</span>, <span class="ident">group</span>).<span class="kw">await</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">group</span>: <span class="ident">Group</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Group</span><span class="op">&gt;</span> {
+        <span class="ident">upsert_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">groups</span>, <span class="ident">group</span>.<span class="ident">id</span>, <span class="ident">group</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_guild</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild</span>: <span class="ident">Guild</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_guild</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild</span>: <span class="ident">Guild</span>) {
         <span class="comment">// The map and set creation needs to occur first, so caching states and objects</span>
         <span class="comment">// always has a place to put them.</span>
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_channels</span>.<span class="ident">insert</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">HashSet</span>::<span class="ident">new</span>());
@@ -1544,18 +1531,12 @@
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_roles</span>.<span class="ident">insert</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">HashSet</span>::<span class="ident">new</span>());
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">insert</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">HashSet</span>::<span class="ident">new</span>());
 
-        <span class="self">self</span>.<span class="ident">cache_guild_channels</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">guild</span>.<span class="ident">channels</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>))
-            .<span class="kw">await</span>;
-        <span class="self">self</span>.<span class="ident">cache_emojis</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">guild</span>.<span class="ident">emojis</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>))
-            .<span class="kw">await</span>;
-        <span class="self">self</span>.<span class="ident">cache_members</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">guild</span>.<span class="ident">members</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>))
-            .<span class="kw">await</span>;
-        <span class="self">self</span>.<span class="ident">cache_presences</span>(<span class="prelude-val">Some</span>(<span class="ident">guild</span>.<span class="ident">id</span>), <span class="ident">guild</span>.<span class="ident">presences</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>))
-            .<span class="kw">await</span>;
-        <span class="self">self</span>.<span class="ident">cache_roles</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">guild</span>.<span class="ident">roles</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>))
-            .<span class="kw">await</span>;
-        <span class="self">self</span>.<span class="ident">cache_voice_states</span>(<span class="ident">guild</span>.<span class="ident">voice_states</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>))
-            .<span class="kw">await</span>;
+        <span class="self">self</span>.<span class="ident">cache_guild_channels</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">guild</span>.<span class="ident">channels</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>));
+        <span class="self">self</span>.<span class="ident">cache_emojis</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">guild</span>.<span class="ident">emojis</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>));
+        <span class="self">self</span>.<span class="ident">cache_members</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">guild</span>.<span class="ident">members</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>));
+        <span class="self">self</span>.<span class="ident">cache_presences</span>(<span class="prelude-val">Some</span>(<span class="ident">guild</span>.<span class="ident">id</span>), <span class="ident">guild</span>.<span class="ident">presences</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>));
+        <span class="self">self</span>.<span class="ident">cache_roles</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">guild</span>.<span class="ident">roles</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>));
+        <span class="self">self</span>.<span class="ident">cache_voice_states</span>(<span class="ident">guild</span>.<span class="ident">voice_states</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>));
 
         <span class="kw">let</span> <span class="ident">guild</span> <span class="op">=</span> <span class="ident">CachedGuild</span> {
             <span class="ident">id</span>: <span class="ident">guild</span>.<span class="ident">id</span>,
@@ -1601,14 +1582,14 @@
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">insert</span>(<span class="ident">guild</span>.<span class="ident">id</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">guild</span>));
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_member</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">member</span>: <span class="ident">Member</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedMember</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_member</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">member</span>: <span class="ident">Member</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedMember</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> (<span class="ident">guild_id</span>, <span class="ident">member</span>.<span class="ident">user</span>.<span class="ident">id</span>);
         <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">members</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="kw">if</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">m</span> <span class="op">==</span> <span class="ident">member</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">m</span>),
             <span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="prelude-val">None</span> <span class="op">=&gt;</span> {}
         }
 
-        <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">cache_user</span>(<span class="ident">member</span>.<span class="ident">user</span>, <span class="ident">guild_id</span>).<span class="kw">await</span>;
+        <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">cache_user</span>(<span class="ident">member</span>.<span class="ident">user</span>, <span class="ident">guild_id</span>);
         <span class="kw">let</span> <span class="ident">cached</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">CachedMember</span> {
             <span class="ident">deaf</span>: <span class="ident">member</span>.<span class="ident">deaf</span>,
             <span class="ident">guild_id</span>,
@@ -1623,39 +1604,39 @@
         <span class="ident">cached</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_members</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_members</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
         <span class="ident">members</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Member</span><span class="op">&gt;</span>,
     ) <span class="op">-&gt;</span> <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">ids</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">join_all</span>(<span class="ident">members</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">member</span><span class="op">|</span> <span class="kw">async</span> {
-            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">member</span>.<span class="ident">user</span>.<span class="ident">id</span>;
-            <span class="self">self</span>.<span class="ident">cache_member</span>(<span class="ident">guild_id</span>, <span class="ident">member</span>).<span class="kw">await</span>;
+        <span class="ident">members</span>
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">member</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">member</span>.<span class="ident">user</span>.<span class="ident">id</span>;
+                <span class="self">self</span>.<span class="ident">cache_member</span>(<span class="ident">guild_id</span>, <span class="ident">member</span>);
 
-            <span class="ident">id</span>
-        }))
-        .<span class="kw">await</span>;
-
-        <span class="ident">HashSet</span>::<span class="ident">from_iter</span>(<span class="ident">ids</span>)
+                <span class="ident">id</span>
+            })
+            .<span class="ident">collect</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_presences</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_presences</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">guild_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
         <span class="ident">presences</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Presence</span><span class="op">&gt;</span>,
     ) <span class="op">-&gt;</span> <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">ids</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">join_all</span>(<span class="ident">presences</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">presence</span><span class="op">|</span> <span class="kw">async</span> {
-            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">presence_user_id</span>(<span class="kw-2">&amp;</span><span class="ident">presence</span>);
-            <span class="self">self</span>.<span class="ident">cache_presence</span>(<span class="ident">guild_id</span>, <span class="ident">presence</span>).<span class="kw">await</span>;
+        <span class="ident">presences</span>
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">presence</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">presence_user_id</span>(<span class="kw-2">&amp;</span><span class="ident">presence</span>);
+                <span class="self">self</span>.<span class="ident">cache_presence</span>(<span class="ident">guild_id</span>, <span class="ident">presence</span>);
 
-            <span class="ident">id</span>
-        }))
-        .<span class="kw">await</span>;
-
-        <span class="ident">HashSet</span>::<span class="ident">from_iter</span>(<span class="ident">ids</span>)
+                <span class="ident">id</span>
+            })
+            .<span class="ident">collect</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_presence</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_presence</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">guild_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
         <span class="ident">presence</span>: <span class="ident">Presence</span>,
@@ -1673,10 +1654,7 @@
         <span class="ident">cached</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_private_channel</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">private_channel</span>: <span class="ident">PrivateChannel</span>,
-    ) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PrivateChannel</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_private_channel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">private_channel</span>: <span class="ident">PrivateChannel</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PrivateChannel</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">private_channel</span>.<span class="ident">id</span>;
 
         <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">channels_private</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>) {
@@ -1690,32 +1668,33 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_roles</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_roles</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
         <span class="ident">roles</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Role</span><span class="op">&gt;</span>,
     ) <span class="op">-&gt;</span> <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">ids</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">join_all</span>(<span class="ident">roles</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">role</span><span class="op">|</span> <span class="kw">async</span> {
-            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">role</span>.<span class="ident">id</span>;
+        <span class="ident">roles</span>
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">role</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">role</span>.<span class="ident">id</span>;
 
-            <span class="self">self</span>.<span class="ident">cache_role</span>(<span class="ident">guild_id</span>, <span class="ident">role</span>).<span class="kw">await</span>;
+                <span class="self">self</span>.<span class="ident">cache_role</span>(<span class="ident">guild_id</span>, <span class="ident">role</span>);
 
-            <span class="ident">id</span>
-        }))
-        .<span class="kw">await</span>;
-
-        <span class="ident">HashSet</span>::<span class="ident">from_iter</span>(<span class="ident">ids</span>)
+                <span class="ident">id</span>
+            })
+            .<span class="ident">collect</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_role</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">role</span>: <span class="ident">Role</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Role</span><span class="op">&gt;</span> {
-        <span class="ident">upsert_guild_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">roles</span>, <span class="ident">guild_id</span>, <span class="ident">role</span>.<span class="ident">id</span>, <span class="ident">role</span>).<span class="kw">await</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_role</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">role</span>: <span class="ident">Role</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Role</span><span class="op">&gt;</span> {
+        <span class="ident">upsert_guild_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">roles</span>, <span class="ident">guild_id</span>, <span class="ident">role</span>.<span class="ident">id</span>, <span class="ident">role</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">user</span>: <span class="ident">User</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">user</span>: <span class="ident">User</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">user</span>.<span class="ident">id</span>) {
             <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">u</span>) <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">u</span>.<span class="number">0</span> <span class="op">==</span> <span class="ident">user</span> <span class="op">=&gt;</span> {
                 <span class="ident">u</span>.<span class="number">1</span>.<span class="ident">insert</span>(<span class="ident">guild_id</span>);
-                <span class="kw">return</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">u</span>.<span class="number">0</span>);
+
+                <span class="kw">return</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">u</span>.<span class="ident">value</span>().<span class="number">0</span>);
             }
             <span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="prelude-val">None</span> <span class="op">=&gt;</span> {}
         }
@@ -1729,22 +1708,22 @@
         <span class="ident">user</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_voice_states</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cache_voice_states</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">voice_states</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">VoiceState</span><span class="op">&gt;</span>,
     ) <span class="op">-&gt;</span> <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">ids</span> <span class="op">=</span> <span class="ident">future</span>::<span class="ident">join_all</span>(<span class="ident">voice_states</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">vs</span><span class="op">|</span> <span class="kw">async</span> {
-            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">vs</span>.<span class="ident">user_id</span>;
-            <span class="self">self</span>.<span class="ident">cache_voice_state</span>(<span class="ident">vs</span>).<span class="kw">await</span>;
+        <span class="ident">voice_states</span>
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">voice_state</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">voice_state</span>.<span class="ident">user_id</span>;
+                <span class="self">self</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>);
 
-            <span class="ident">id</span>
-        }))
-        .<span class="kw">await</span>;
-
-        <span class="ident">HashSet</span>::<span class="ident">from_iter</span>(<span class="ident">ids</span>)
+                <span class="ident">id</span>
+            })
+            .<span class="ident">collect</span>()
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cache_voice_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vs</span>: <span class="ident">VoiceState</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">VoiceState</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">cache_voice_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vs</span>: <span class="ident">VoiceState</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">VoiceState</span><span class="op">&gt;&gt;</span> {
         <span class="comment">// This should always exist, but just incase use a match</span>
         <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">vs</span>.<span class="ident">guild_id</span> {
             <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">=&gt;</span> <span class="ident">id</span>,
@@ -1815,11 +1794,11 @@
         <span class="prelude-val">Some</span>(<span class="ident">state</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">delete_group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Group</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Group</span><span class="op">&gt;&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">groups</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>).<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">unavailable_guild</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unavailable_guild</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">unavailable_guilds</span>.<span class="ident">insert</span>(<span class="ident">guild_id</span>);
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>);
     }
@@ -1828,7 +1807,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The guild channel data itself and the channel entry in its guild&#39;s list</span>
     <span class="doccomment">/// of channels will be deleted.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">delete_guild_channel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">GuildChannel</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_guild_channel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">GuildChannel</span><span class="op">&gt;&gt;</span> {
         <span class="kw">let</span> <span class="ident">GuildItem</span> { <span class="ident">data</span>, <span class="ident">guild_id</span> } <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">channels_guild</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>)<span class="question-mark">?</span>.<span class="number">1</span>;
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">guild_channels</span>) <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_channels</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>) {
@@ -1838,7 +1817,7 @@
         <span class="prelude-val">Some</span>(<span class="ident">data</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">delete_role</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">role_id</span>: <span class="ident">RoleId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Role</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_role</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">role_id</span>: <span class="ident">RoleId</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Role</span><span class="op">&gt;&gt;</span> {
         <span class="kw">let</span> <span class="ident">role</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">roles</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">role_id</span>).<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>)<span class="question-mark">?</span>;
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">roles</span>) <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_roles</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">role</span>.<span class="ident">guild_id</span>) {
@@ -1871,7 +1850,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InMemoryCache</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections</span>::<span class="ident">HashMap</span>, <span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">result</span>::<span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">StdResult</span>};
+    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
     <span class="kw">use</span> <span class="ident">twilight_model</span>::{
         <span class="ident">channel</span>::{<span class="ident">ChannelType</span>, <span class="ident">GuildChannel</span>, <span class="ident">TextChannel</span>},
         <span class="ident">gateway</span>::<span class="ident">payload</span>::{<span class="ident">MemberRemove</span>, <span class="ident">RoleDelete</span>},
@@ -1880,11 +1859,22 @@
             <span class="ident">PremiumTier</span>, <span class="ident">SystemChannelFlags</span>, <span class="ident">VerificationLevel</span>,
         },
         <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>},
-        <span class="ident">user</span>::<span class="ident">User</span>,
+        <span class="ident">user</span>::{<span class="ident">CurrentUser</span>, <span class="ident">User</span>},
         <span class="ident">voice</span>::<span class="ident">VoiceState</span>,
     };
 
-    <span class="kw">type</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StdResult</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">current_user</span>(<span class="ident">id</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="ident">CurrentUser</span> {
+        <span class="ident">CurrentUser</span> {
+            <span class="ident">avatar</span>: <span class="prelude-val">None</span>,
+            <span class="ident">bot</span>: <span class="bool-val">true</span>,
+            <span class="ident">discriminator</span>: <span class="string">&quot;9876&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">email</span>: <span class="prelude-val">None</span>,
+            <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="ident">id</span>),
+            <span class="ident">mfa_enabled</span>: <span class="bool-val">true</span>,
+            <span class="ident">name</span>: <span class="string">&quot;test&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">verified</span>: <span class="bool-val">true</span>,
+        }
+    }
 
     <span class="kw">fn</span> <span class="ident">user</span>(<span class="ident">id</span>: <span class="ident">UserId</span>) <span class="op">-&gt;</span> <span class="ident">User</span> {
         <span class="ident">User</span> {
@@ -1921,8 +1911,19 @@
         }
     }
 
-    <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_guild_create_channels_have_guild_ids</span>() <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="doccomment">/// Test retrieval of the current user, notably that it doesn&#39;t simply</span>
+    <span class="doccomment">/// panic or do anything funny. This is the only synchronous mutex that we</span>
+    <span class="doccomment">/// might have trouble with across await points if we&#39;re not careful.</span>
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_current_user_retrieval</span>() {
+        <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">new</span>();
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">current_user</span>().<span class="ident">is_none</span>());
+        <span class="ident">cache</span>.<span class="ident">cache_current_user</span>(<span class="ident">current_user</span>(<span class="number">1</span>));
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">current_user</span>().<span class="ident">is_some</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_guild_create_channels_have_guild_ids</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
         <span class="ident">channels</span>.<span class="ident">insert</span>(
             <span class="ident">ChannelId</span>(<span class="number">111</span>),
@@ -1992,9 +1993,9 @@
         };
 
         <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">new</span>();
-        <span class="ident">cache</span>.<span class="ident">cache_guild</span>(<span class="ident">guild</span>).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_guild</span>(<span class="ident">guild</span>);
 
-        <span class="kw">let</span> <span class="ident">channel</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">guild_channel</span>(<span class="ident">ChannelId</span>(<span class="number">111</span>)).<span class="kw">await</span><span class="question-mark">?</span>.<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">channel</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">guild_channel</span>(<span class="ident">ChannelId</span>(<span class="number">111</span>)).<span class="ident">unwrap</span>();
 
         <span class="comment">// The channel was given to the cache without a guild ID, but because</span>
         <span class="comment">// it&#39;s part of a guild create, the cache can automatically attach the</span>
@@ -2006,28 +2007,25 @@
             }
             <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">assert</span><span class="macro">!</span>(<span class="bool-val">false</span>, <span class="string">&quot;{:?}&quot;</span>, <span class="ident">channel</span>),
         }
-
-        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_syntax_update</span>() <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_syntax_update</span>() {
         <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">new</span>();
-        <span class="ident">cache</span>
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>
             .<span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="ident">RoleDelete</span> {
                 <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">0</span>),
                 <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">1</span>),
             })
-            .<span class="kw">await</span><span class="question-mark">?</span>;
-
-        <span class="prelude-val">Ok</span>(())
+            .<span class="kw">await</span>
+            .<span class="ident">is_ok</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_cache_user_guild_state</span>() {
         <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="ident">UserId</span>(<span class="number">2</span>);
         <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">new</span>();
-        <span class="ident">cache</span>.<span class="ident">cache_user</span>(<span class="ident">user</span>(<span class="ident">user_id</span>), <span class="ident">GuildId</span>(<span class="number">1</span>)).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_user</span>(<span class="ident">user</span>(<span class="ident">user_id</span>), <span class="ident">GuildId</span>(<span class="number">1</span>));
 
         <span class="comment">// Test the guild&#39;s ID is the only one in the user&#39;s set of guilds.</span>
         {
@@ -2037,7 +2035,7 @@
         }
 
         <span class="comment">// Test that a second guild will cause 2 in the set.</span>
-        <span class="ident">cache</span>.<span class="ident">cache_user</span>(<span class="ident">user</span>(<span class="ident">user_id</span>), <span class="ident">GuildId</span>(<span class="number">3</span>)).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_user</span>(<span class="ident">user</span>(<span class="ident">user_id</span>), <span class="ident">GuildId</span>(<span class="number">3</span>));
 
         {
             <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>).<span class="ident">unwrap</span>();
@@ -2073,10 +2071,10 @@
         <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>));
     }
 
-    <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_voice_state_inserts_and_removes</span>() {
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_voice_state_inserts_and_removes</span>() {
         <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">new</span>();
-        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">2</span>), <span class="number">3</span>)).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">2</span>), <span class="number">3</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="ident">UserId</span>(<span class="number">3</span>))));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">ChannelId</span>(<span class="number">2</span>)));
@@ -2086,7 +2084,7 @@
 
         <span class="comment">// Inserting another voice state with a different guild ID, channel ID,</span>
         <span class="comment">// and user ID will make all of these 2.</span>
-        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">4</span>, <span class="prelude-val">Some</span>(<span class="number">5</span>), <span class="number">6</span>)).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">4</span>, <span class="prelude-val">Some</span>(<span class="number">5</span>), <span class="number">6</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">GuildId</span>(<span class="number">4</span>), <span class="ident">UserId</span>(<span class="number">6</span>))));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">ChannelId</span>(<span class="number">5</span>)));
@@ -2097,7 +2095,7 @@
         <span class="comment">// Inserting another voice state with the same guild ID and channel ID</span>
         <span class="comment">// but a different user will cause the guild to have 2 voice states,</span>
         <span class="comment">// the channel to have 2 voice states, and 3 overall voice states.</span>
-        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">2</span>), <span class="number">7</span>)).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">2</span>), <span class="number">7</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">GuildId</span>(<span class="number">4</span>), <span class="ident">UserId</span>(<span class="number">6</span>))));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">3</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">ChannelId</span>(<span class="number">5</span>)));
@@ -2107,7 +2105,7 @@
 
         <span class="comment">// Now test that deleting the last voice state in all of a channel and</span>
         <span class="comment">// guild causes both to be removed from the map.</span>
-        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">4</span>, <span class="prelude-val">None</span>, <span class="number">6</span>)).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">4</span>, <span class="prelude-val">None</span>, <span class="number">6</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">GuildId</span>(<span class="number">4</span>), <span class="ident">UserId</span>(<span class="number">6</span>))));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
         <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">ChannelId</span>(<span class="number">5</span>)));
@@ -2117,7 +2115,7 @@
 
         <span class="comment">// Now test that deleting one of two voice states in a guild and channel</span>
         <span class="comment">// causes the other to remain in all cases.</span>
-        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">None</span>, <span class="number">7</span>)).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">None</span>, <span class="number">7</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="ident">UserId</span>(<span class="number">7</span>))));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">ChannelId</span>(<span class="number">2</span>)));
@@ -2127,17 +2125,17 @@
 
         <span class="comment">// And now that deleting the last voice state deletes all of the maps&#39;</span>
         <span class="comment">// entries.</span>
-        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">None</span>, <span class="number">3</span>)).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">None</span>, <span class="number">3</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">is_empty</span>());
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">is_empty</span>());
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">is_empty</span>());
     }
 
-    <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_voice_states</span>() {
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_voice_states</span>() {
         <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">new</span>();
-        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">2</span>), <span class="number">3</span>)).<span class="kw">await</span>;
-        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">2</span>), <span class="number">4</span>)).<span class="kw">await</span>;
+        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">2</span>), <span class="number">3</span>));
+        <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">2</span>), <span class="number">4</span>));
 
         <span class="comment">// Returns both voice states for the channel that exists.</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="ident">voice_channel_states</span>(<span class="ident">ChannelId</span>(<span class="number">2</span>)).<span class="ident">unwrap</span>().<span class="ident">len</span>());
