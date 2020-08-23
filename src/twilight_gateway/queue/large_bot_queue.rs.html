@@ -89,13 +89,12 @@
 <span id="88">88</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">DayLimiter</span>, <span class="ident">Queue</span>};
-<span class="kw">use</span> <span class="ident">async_trait</span>::<span class="ident">async_trait</span>;
 <span class="kw">use</span> <span class="ident">futures_channel</span>::{
     <span class="ident">mpsc</span>::{<span class="ident">unbounded</span>, <span class="ident">UnboundedReceiver</span>, <span class="ident">UnboundedSender</span>},
     <span class="ident">oneshot</span>::{<span class="self">self</span>, <span class="ident">Sender</span>},
 };
 <span class="kw">use</span> <span class="ident">futures_util</span>::{<span class="ident">sink</span>::<span class="ident">SinkExt</span>, <span class="ident">stream</span>::<span class="ident">StreamExt</span>};
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fmt</span>::<span class="ident">Debug</span>, <span class="ident">time</span>::<span class="ident">Duration</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fmt</span>::<span class="ident">Debug</span>, <span class="ident">future</span>::<span class="ident">Future</span>, <span class="ident">pin</span>::<span class="ident">Pin</span>, <span class="ident">time</span>::<span class="ident">Duration</span>};
 <span class="kw">use</span> <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">delay_for</span>;
 
 <span class="doccomment">/// Large bot queue is for bots that are marked as very large by Discord.</span>
@@ -155,25 +154,26 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">async_trait</span>]</span>
 <span class="kw">impl</span> <span class="ident">Queue</span> <span class="kw">for</span> <span class="ident">LargeBotQueue</span> {
     <span class="doccomment">/// Request to be able to identify with the gateway. This will place this</span>
     <span class="doccomment">/// request behind all other requests, and the returned future will resolve</span>
     <span class="doccomment">/// once the request has been completed.</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">request</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">shard_id</span>: [<span class="ident">u64</span>; <span class="number">2</span>]) {
+    <span class="kw">fn</span> <span class="ident">request</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;_</span> <span class="self">self</span>, <span class="ident">shard_id</span>: [<span class="ident">u64</span>; <span class="number">2</span>]) <span class="op">-&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;&gt;</span> {
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
         <span class="kw">let</span> <span class="ident">bucket</span> <span class="op">=</span> (<span class="ident">shard_id</span>[<span class="number">0</span>] <span class="op">%</span> (<span class="self">self</span>.<span class="ident">buckets</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span>)) <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
 
-        <span class="self">self</span>.<span class="ident">limiter</span>.<span class="ident">get</span>().<span class="kw">await</span>;
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">buckets</span>[<span class="ident">bucket</span>].<span class="ident">clone</span>().<span class="ident">send</span>(<span class="ident">tx</span>).<span class="kw">await</span> {
-            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed with: {:?}&quot;</span>, <span class="ident">err</span>);
-            <span class="kw">return</span>;
-        }
+        <span class="ident">Box</span>::<span class="ident">pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
+            <span class="self">self</span>.<span class="ident">limiter</span>.<span class="ident">get</span>().<span class="kw">await</span>;
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">buckets</span>[<span class="ident">bucket</span>].<span class="ident">clone</span>().<span class="ident">send</span>(<span class="ident">tx</span>).<span class="kw">await</span> {
+                <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed with: {:?}&quot;</span>, <span class="ident">err</span>);
+                <span class="kw">return</span>;
+            }
 
-        <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;waiting for allowance on shard {}&quot;</span>, <span class="ident">shard_id</span>[<span class="number">0</span>]);
+            <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;waiting for allowance on shard {}&quot;</span>, <span class="ident">shard_id</span>[<span class="number">0</span>]);
 
-        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">rx</span>.<span class="kw">await</span>;
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">rx</span>.<span class="kw">await</span>;
+        })
     }
 }
 </pre></div>
