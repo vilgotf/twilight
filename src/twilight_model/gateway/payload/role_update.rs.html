@@ -68,9 +68,6 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
-<span id="70">70</span>
-<span id="71">71</span>
-<span id="72">72</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">guild</span>::<span class="ident">Role</span>, <span class="ident">id</span>::<span class="ident">GuildId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -98,7 +95,6 @@
                 <span class="ident">managed</span>: <span class="bool-val">false</span>,
                 <span class="ident">mentionable</span>: <span class="bool-val">false</span>,
                 <span class="ident">name</span>: <span class="string">&quot;a role&quot;</span>.<span class="ident">to_owned</span>(),
-                <span class="ident">permissions_old</span>: <span class="ident">Permissions</span>::<span class="ident">SEND_MESSAGES</span>,
                 <span class="ident">permissions</span>: <span class="ident">Permissions</span>::<span class="ident">SEND_MESSAGES</span>,
                 <span class="ident">position</span>: <span class="number">12</span>,
             },
@@ -117,7 +113,7 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;role&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Role&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">9</span>,
+                    <span class="ident">len</span>: <span class="number">8</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;color&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">U32</span>(<span class="number">0</span>),
@@ -132,8 +128,6 @@
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;a role&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;permissions&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">2048</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;permissions_new&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2048&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;position&quot;</span>),
