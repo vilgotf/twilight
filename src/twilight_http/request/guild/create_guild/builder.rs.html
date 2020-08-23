@@ -834,20 +834,6 @@
 <span id="833">833</span>
 <span id="834">834</span>
 <span id="835">835</span>
-<span id="836">836</span>
-<span id="837">837</span>
-<span id="838">838</span>
-<span id="839">839</span>
-<span id="840">840</span>
-<span id="841">841</span>
-<span id="842">842</span>
-<span id="843">843</span>
-<span id="844">844</span>
-<span id="845">845</span>
-<span id="846">846</span>
-<span id="847">847</span>
-<span id="848">848</span>
-<span id="849">849</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">CategoryFields</span>, <span class="ident">GuildChannelFields</span>, <span class="ident">RoleFields</span>, <span class="ident">TextFields</span>, <span class="ident">VoiceFields</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1460,9 +1446,7 @@
 
     <span class="kw">fn</span> <span class="ident">overwrite</span>() <span class="op">-&gt;</span> <span class="ident">PermissionOverwrite</span> {
         <span class="ident">PermissionOverwrite</span> {
-            <span class="ident">allow_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
             <span class="ident">allow</span>: <span class="ident">perms</span>(),
-            <span class="ident">deny_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
             <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
             <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
         }
@@ -1528,9 +1512,7 @@
                 <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span>,
                 <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;voicename&quot;</span>),
                 <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">PermissionOverwrite</span> {
-                    <span class="ident">allow_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                     <span class="ident">allow</span>: <span class="ident">perms</span>(),
-                    <span class="ident">deny_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                     <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                     <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                 }]),
@@ -1570,9 +1552,7 @@
                 <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;textname&quot;</span>),
                 <span class="ident">nsfw</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
                 <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">PermissionOverwrite</span> {
-                    <span class="ident">allow_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                     <span class="ident">allow</span>: <span class="ident">perms</span>(),
-                    <span class="ident">deny_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                     <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                     <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                 }]),
@@ -1617,11 +1597,9 @@
                     <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;textname&quot;</span>),
                     <span class="ident">nsfw</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
                     <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">PermissionOverwrite</span> {
-                        <span class="ident">allow_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">allow</span>: <span class="ident">Permissions</span>::<span class="ident">CONNECT</span>
                             <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SPEAK</span>
                             <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SEND_TTS_MESSAGES</span>,
-                        <span class="ident">deny_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                     }]),
@@ -1635,11 +1613,9 @@
                     <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span>,
                     <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;voicename&quot;</span>),
                     <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">PermissionOverwrite</span> {
-                        <span class="ident">allow_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">allow</span>: <span class="ident">Permissions</span>::<span class="ident">CONNECT</span>
                             <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SPEAK</span>
                             <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SEND_TTS_MESSAGES</span>,
-                        <span class="ident">deny_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                     }]),
@@ -1665,11 +1641,9 @@
                     <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;textname&quot;</span>),
                     <span class="ident">nsfw</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
                     <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">PermissionOverwrite</span> {
-                        <span class="ident">allow_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">allow</span>: <span class="ident">Permissions</span>::<span class="ident">CONNECT</span>
                             <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SPEAK</span>
                             <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SEND_TTS_MESSAGES</span>,
-                        <span class="ident">deny_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                     }]),
@@ -1683,11 +1657,9 @@
                     <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span>,
                     <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;voicename&quot;</span>),
                     <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">PermissionOverwrite</span> {
-                        <span class="ident">allow_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">allow</span>: <span class="ident">Permissions</span>::<span class="ident">CONNECT</span>
                             <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SPEAK</span>
                             <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SEND_TTS_MESSAGES</span>,
-                        <span class="ident">deny_old</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
                         <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                     }]),
