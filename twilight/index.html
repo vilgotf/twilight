@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `twilight` crate."><meta name="keywords" content="rust, rustlang, rust-lang, twilight"><title>twilight - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../twilight/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class='location'>Crate twilight</p><div class='block version'><p>Version 0.1.0</p></div><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all twilight's items</p></a><div class="block items"><ul><li><a href="#reexports">Re-exports</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'twilight', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/twilight/lib.rs.html#1-234' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>twilight</a></span></h1><div class='docblock'><h1 id="twilight" class="section-header"><a href="#twilight">twilight</a></h1>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/twilight/lib.rs.html#1-231' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>twilight</a></span></h1><div class='docblock'><h1 id="twilight" class="section-header"><a href="#twilight">twilight</a></h1>
 <p><a href="https://discord.gg/7jj8n7D"><img src="https://img.shields.io/discord/745809834183753828?color=%237289DA&amp;label=discord%20server&amp;logo=discord&amp;style=for-the-badge" alt="discord badge" /></a> <a href="https://github.com/twilight-rs/twilight"><img src="https://img.shields.io/badge/github-twilight-6f42c1.svg?style=for-the-badge&amp;logo=github" alt="github badge" /></a> <a href="https://github.com/twilight-rs/twilight/blob/trunk/LICENSE.md"><img src="https://img.shields.io/badge/license-ISC-blue.svg?style=for-the-badge&amp;logo=pastebin" alt="license badge" /></a> <img src="https://img.shields.io/badge/rust-stable-93450a.svg?style=for-the-badge&amp;logo=rust" alt="rust badge" /></p>
 <p><img src="https://raw.githubusercontent.com/twilight-rs/twilight/trunk/logo.png" alt="project logo" /></p>
 <p><code>twilight</code> is an asynchronous, simple, and extensible set of libraries which can
 be used separately or in combination for the Discord API.</p>
-<p>The ecosystem of first-class crates includes <code>twilight-cache</code>,
-<code>twilight-command-parser</code>, <code>twilight-gateway</code>, <code>twilight-http</code>, <code>twilight-model</code>,
-and more. These are explained in detail below.</p>
+<p>The ecosystem of first-class crates includes <code>twilight-cache-inmemory</code>,
+<code>twilight-command-parser</code>, <code>twilight-gateway</code>, <code>twilight-http</code>,
+<code>twilight-model</code>, and more. These are explained in detail below.</p>
 <p>The main <code>twilight</code> crate is a &quot;skeleton crate&quot;: it includes all of the
 non-vendor-specific crates in the <code>twilight</code> ecosystem.</p>
 <h2 id="installation" class="section-header"><a href="#installation">Installation</a></h2>
@@ -28,13 +28,10 @@ the types used by the Voice WebSocket API, and more.</p>
 <p>These are all in a single crate so that you can use <code>gateway</code> models without
 depending on <code>twilight-gateway</code>. One use case is if you write your own WebSocket
 gateway implementation.</p>
-<h3 id="twilight-cache" class="section-header"><a href="#twilight-cache"><code>twilight-cache</code></a></h3>
-<p><code>twilight-cache</code> is based on a single trait which can be implemented to use
-custom third-party backends with a single ubiquitous interface. The Cache is
+<h3 id="twilight-cache-inmemory" class="section-header"><a href="#twilight-cache-inmemory"><code>twilight-cache-inmemory</code></a></h3>
+<p><code>twilight-cache-inmemory</code> is an in-process-memory based cache. It's
 responsible for holding information about things like guilds, channels, role
 information, voice states, and any other data that comes from Discord.</p>
-<p>Included by default is an <code>InMemoryCache</code> backend, which caches within the
-process's memory.</p>
 <h3 id="twilight-gateway" class="section-header"><a href="#twilight-gateway"><code>twilight-gateway</code></a></h3>
 <p><code>twilight-gateway</code> is an implementation of Discord's sharding gateway sessions.
 This is responsible for receiving stateful events in real-time from Discord
@@ -74,7 +71,7 @@ formatters for mentioning a channel or emoji, or pinging a role or user.</p>
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">env</span>, <span class="ident">error</span>::<span class="ident">Error</span>};
 <span class="kw">use</span> <span class="ident">tokio</span>::<span class="ident">stream</span>::<span class="ident">StreamExt</span>;
 <span class="kw">use</span> <span class="ident">twilight</span>::{
-    <span class="ident">cache</span>::<span class="ident">twilight_cache_inmemory</span>::{<span class="ident">EventType</span>, <span class="ident">InMemoryCache</span>},
+    <span class="ident">cache_inmemory</span>::{<span class="ident">EventType</span>, <span class="ident">InMemoryCache</span>},
     <span class="ident">gateway</span>::{<span class="ident">cluster</span>::{<span class="ident">Cluster</span>, <span class="ident">ShardScheme</span>}, <span class="ident">Event</span>},
     <span class="ident">http</span>::<span class="ident">Client</span> <span class="kw">as</span> <span class="ident">HttpClient</span>,
     <span class="ident">model</span>::<span class="ident">gateway</span>::<span class="ident">GatewayIntents</span>,
@@ -120,27 +117,28 @@ formatters for mentioning a channel or emoji, or pinging a role or user.</p>
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">events</span> <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">events</span>();
     <span class="comment">// Startup an event loop for each event in the event stream</span>
-    <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
+    <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">shard_id</span>, <span class="ident">event</span>)) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
         <span class="comment">// Update the cache</span>
-        <span class="ident">cache</span>.<span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>.<span class="number">1</span>).<span class="kw">await</span>.<span class="ident">expect</span>(<span class="string">&quot;Cache failed, OhNoe&quot;</span>);
+        <span class="ident">cache</span>.<span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>);
 
         <span class="comment">// Spawn a new task to handle the event</span>
-        <span class="ident">tokio</span>::<span class="ident">spawn</span>(<span class="ident">handle_event</span>(<span class="ident">event</span>, <span class="ident">http</span>.<span class="ident">clone</span>()));
+        <span class="ident">tokio</span>::<span class="ident">spawn</span>(<span class="ident">handle_event</span>(<span class="ident">shard_id</span>, <span class="ident">event</span>, <span class="ident">http</span>.<span class="ident">clone</span>()));
     }
 
     <span class="prelude-val">Ok</span>(())
 }
 
 <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_event</span>(
-    <span class="ident">event</span>: (<span class="ident">u64</span>, <span class="ident">Event</span>),
+    <span class="ident">shard_id</span>: <span class="ident">u64</span>,
+    <span class="ident">event</span>: <span class="ident">Event</span>,
     <span class="ident">http</span>: <span class="ident">HttpClient</span>,
 ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;&gt;</span> {
     <span class="kw">match</span> <span class="ident">event</span> {
-        (<span class="kw">_</span>, <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">msg</span>)) <span class="kw">if</span> <span class="ident">msg</span>.<span class="ident">content</span> <span class="op">==</span> <span class="string">&quot;!ping&quot;</span> <span class="op">=&gt;</span> {
+        <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">msg</span>) <span class="kw">if</span> <span class="ident">msg</span>.<span class="ident">content</span> <span class="op">==</span> <span class="string">&quot;!ping&quot;</span> <span class="op">=&gt;</span> {
             <span class="ident">http</span>.<span class="ident">create_message</span>(<span class="ident">msg</span>.<span class="ident">channel_id</span>).<span class="ident">content</span>(<span class="string">&quot;Pong!&quot;</span>)<span class="question-mark">?</span>.<span class="kw">await</span><span class="question-mark">?</span>;
         }
-        (<span class="ident">id</span>, <span class="ident">Event</span>::<span class="ident">ShardConnected</span>(<span class="kw">_</span>)) <span class="op">=&gt;</span> {
-            <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Connected on shard {}&quot;</span>, <span class="ident">id</span>);
+        <span class="ident">Event</span>::<span class="ident">ShardConnected</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+            <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Connected on shard {}&quot;</span>, <span class="ident">shard_id</span>);
         }
         <span class="kw">_</span> <span class="op">=&gt;</span> {}
     }
@@ -157,4 +155,4 @@ initializing it like this:</p>
 <h2 id="license" class="section-header"><a href="#license">License</a></h2>
 <p>All first-party crates are licensed under <a href="https://github.com/twilight-rs/twilight/blob/trunk/LICENSE.md">ISC</a></p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Re-exports</a></h2>
-<table><tr><td><code>pub extern crate <a class="mod" href="../twilight_cache/index.html" title="mod twilight_cache">twilight_cache</a> as cache;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_command_parser/index.html" title="mod twilight_command_parser">twilight_command_parser</a> as command_parser;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_gateway/index.html" title="mod twilight_gateway">twilight_gateway</a> as gateway;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_http/index.html" title="mod twilight_http">twilight_http</a> as http;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_model/index.html" title="mod twilight_model">twilight_model</a> as model;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_standby/index.html" title="mod twilight_standby">twilight_standby</a> as standby;</code></td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "twilight";</script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
+<table><tr><td><code>pub extern crate <a class="mod" href="../twilight_cache_inmemory/index.html" title="mod twilight_cache_inmemory">twilight_cache_inmemory</a> as cache_inmemory;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_command_parser/index.html" title="mod twilight_command_parser">twilight_command_parser</a> as command_parser;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_gateway/index.html" title="mod twilight_gateway">twilight_gateway</a> as gateway;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_http/index.html" title="mod twilight_http">twilight_http</a> as http;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_model/index.html" title="mod twilight_model">twilight_model</a> as model;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../twilight_standby/index.html" title="mod twilight_standby">twilight_standby</a> as standby;</code></td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "twilight";</script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

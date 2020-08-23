@@ -230,9 +230,6 @@
 <span id="229">229</span>
 <span id="230">230</span>
 <span id="231">231</span>
-<span id="232">232</span>
-<span id="233">233</span>
-<span id="234">234</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight</span>
 <span class="doccomment">//!</span>
@@ -243,9 +240,9 @@
 <span class="doccomment">//! `twilight` is an asynchronous, simple, and extensible set of libraries which can</span>
 <span class="doccomment">//! be used separately or in combination for the Discord API.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The ecosystem of first-class crates includes `twilight-cache`,</span>
-<span class="doccomment">//! `twilight-command-parser`, `twilight-gateway`, `twilight-http`, `twilight-model`,</span>
-<span class="doccomment">//! and more. These are explained in detail below.</span>
+<span class="doccomment">//! The ecosystem of first-class crates includes `twilight-cache-inmemory`,</span>
+<span class="doccomment">//! `twilight-command-parser`, `twilight-gateway`, `twilight-http`,</span>
+<span class="doccomment">//! `twilight-model`, and more. These are explained in detail below.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The main `twilight` crate is a &quot;skeleton crate&quot;: it includes all of the</span>
 <span class="doccomment">//! non-vendor-specific crates in the `twilight` ecosystem.</span>
@@ -279,15 +276,11 @@
 <span class="doccomment">//! depending on `twilight-gateway`. One use case is if you write your own WebSocket</span>
 <span class="doccomment">//! gateway implementation.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-cache`</span>
+<span class="doccomment">//! ### `twilight-cache-inmemory`</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `twilight-cache` is based on a single trait which can be implemented to use</span>
-<span class="doccomment">//! custom third-party backends with a single ubiquitous interface. The Cache is</span>
+<span class="doccomment">//! `twilight-cache-inmemory` is an in-process-memory based cache. It&#39;s</span>
 <span class="doccomment">//! responsible for holding information about things like guilds, channels, role</span>
 <span class="doccomment">//! information, voice states, and any other data that comes from Discord.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! Included by default is an `InMemoryCache` backend, which caches within the</span>
-<span class="doccomment">//! process&#39;s memory.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### `twilight-gateway`</span>
 <span class="doccomment">//!</span>
@@ -346,7 +339,7 @@
 <span class="doccomment">//! use std::{env, error::Error};</span>
 <span class="doccomment">//! use tokio::stream::StreamExt;</span>
 <span class="doccomment">//! use twilight::{</span>
-<span class="doccomment">//!     cache::twilight_cache_inmemory::{EventType, InMemoryCache},</span>
+<span class="doccomment">//!     cache_inmemory::{EventType, InMemoryCache},</span>
 <span class="doccomment">//!     gateway::{cluster::{Cluster, ShardScheme}, Event},</span>
 <span class="doccomment">//!     http::Client as HttpClient,</span>
 <span class="doccomment">//!     model::gateway::GatewayIntents,</span>
@@ -392,27 +385,28 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     let mut events = cluster.events();</span>
 <span class="doccomment">//!     // Startup an event loop for each event in the event stream</span>
-<span class="doccomment">//!     while let Some(event) = events.next().await {</span>
+<span class="doccomment">//!     while let Some((shard_id, event)) = events.next().await {</span>
 <span class="doccomment">//!         // Update the cache</span>
-<span class="doccomment">//!         cache.update(&amp;event.1).await.expect(&quot;Cache failed, OhNoe&quot;);</span>
+<span class="doccomment">//!         cache.update(&amp;event);</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!         // Spawn a new task to handle the event</span>
-<span class="doccomment">//!         tokio::spawn(handle_event(event, http.clone()));</span>
+<span class="doccomment">//!         tokio::spawn(handle_event(shard_id, event, http.clone()));</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     Ok(())</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! async fn handle_event(</span>
-<span class="doccomment">//!     event: (u64, Event),</span>
+<span class="doccomment">//!     shard_id: u64,</span>
+<span class="doccomment">//!     event: Event,</span>
 <span class="doccomment">//!     http: HttpClient,</span>
 <span class="doccomment">//! ) -&gt; Result&lt;(), Box&lt;dyn Error + Send + Sync&gt;&gt; {</span>
 <span class="doccomment">//!     match event {</span>
-<span class="doccomment">//!         (_, Event::MessageCreate(msg)) if msg.content == &quot;!ping&quot; =&gt; {</span>
+<span class="doccomment">//!         Event::MessageCreate(msg) if msg.content == &quot;!ping&quot; =&gt; {</span>
 <span class="doccomment">//!             http.create_message(msg.channel_id).content(&quot;Pong!&quot;)?.await?;</span>
 <span class="doccomment">//!         }</span>
-<span class="doccomment">//!         (id, Event::ShardConnected(_)) =&gt; {</span>
-<span class="doccomment">//!             println!(&quot;Connected on shard {}&quot;, id);</span>
+<span class="doccomment">//!         Event::ShardConnected(_) =&gt; {</span>
+<span class="doccomment">//!             println!(&quot;Connected on shard {}&quot;, shard_id);</span>
 <span class="doccomment">//!         }</span>
 <span class="doccomment">//!         _ =&gt; {}</span>
 <span class="doccomment">//!     }</span>
@@ -451,8 +445,8 @@
 <span class="doccomment">//! [`twilight-mention`]: https://github.com/twilight-rs/twilight/tree/trunk/utils/mention</span>
 <span class="doccomment">//! [`tracing-log`]: https://github.com/tokio-rs/tracing/tree/master/tracing-log</span>
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;cache&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">twilight_cache</span> <span class="kw">as</span> <span class="ident">cache</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;cache-inmemory&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">twilight_cache_inmemory</span> <span class="kw">as</span> <span class="ident">cache_inmemory</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;command-parser&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">twilight_command_parser</span> <span class="kw">as</span> <span class="ident">command_parser</span>;
