@@ -736,76 +736,6 @@
 <span id="735">735</span>
 <span id="736">736</span>
 <span id="737">737</span>
-<span id="738">738</span>
-<span id="739">739</span>
-<span id="740">740</span>
-<span id="741">741</span>
-<span id="742">742</span>
-<span id="743">743</span>
-<span id="744">744</span>
-<span id="745">745</span>
-<span id="746">746</span>
-<span id="747">747</span>
-<span id="748">748</span>
-<span id="749">749</span>
-<span id="750">750</span>
-<span id="751">751</span>
-<span id="752">752</span>
-<span id="753">753</span>
-<span id="754">754</span>
-<span id="755">755</span>
-<span id="756">756</span>
-<span id="757">757</span>
-<span id="758">758</span>
-<span id="759">759</span>
-<span id="760">760</span>
-<span id="761">761</span>
-<span id="762">762</span>
-<span id="763">763</span>
-<span id="764">764</span>
-<span id="765">765</span>
-<span id="766">766</span>
-<span id="767">767</span>
-<span id="768">768</span>
-<span id="769">769</span>
-<span id="770">770</span>
-<span id="771">771</span>
-<span id="772">772</span>
-<span id="773">773</span>
-<span id="774">774</span>
-<span id="775">775</span>
-<span id="776">776</span>
-<span id="777">777</span>
-<span id="778">778</span>
-<span id="779">779</span>
-<span id="780">780</span>
-<span id="781">781</span>
-<span id="782">782</span>
-<span id="783">783</span>
-<span id="784">784</span>
-<span id="785">785</span>
-<span id="786">786</span>
-<span id="787">787</span>
-<span id="788">788</span>
-<span id="789">789</span>
-<span id="790">790</span>
-<span id="791">791</span>
-<span id="792">792</span>
-<span id="793">793</span>
-<span id="794">794</span>
-<span id="795">795</span>
-<span id="796">796</span>
-<span id="797">797</span>
-<span id="798">798</span>
-<span id="799">799</span>
-<span id="800">800</span>
-<span id="801">801</span>
-<span id="802">802</span>
-<span id="803">803</span>
-<span id="804">804</span>
-<span id="805">805</span>
-<span id="806">806</span>
-<span id="807">807</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">embed</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">message</span>;
@@ -1428,7 +1358,7 @@
             <span class="string">&quot;unknown_field&quot;</span>: <span class="string">&quot;the deserializer should skip unknown field names&quot;</span>,
         });
 
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
+        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
             <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">1</span>)),
             <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">2</span>),
             <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildText</span>,
@@ -1443,12 +1373,12 @@
             <span class="ident">topic</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">to_owned</span>()),
         });
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>, <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">input</span>).<span class="ident">unwrap</span>());
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">value</span>, <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">input</span>).<span class="ident">unwrap</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_category_channel_deserialization</span>() {
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">CategoryChannel</span> {
+        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">CategoryChannel</span> {
             <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
             <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">2</span>)),
             <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildCategory</span>,
@@ -1459,7 +1389,7 @@
         <span class="kw">let</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
 
         <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="ident">expected</span>,
+            <span class="ident">value</span>,
             <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>({
                 <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,
                 <span class="string">&quot;guild_id&quot;</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2&quot;</span>),
@@ -1476,7 +1406,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_news_channel_deserialization</span>() {
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
+        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
             <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
             <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">2</span>)),
             <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildNews</span>,
@@ -1493,7 +1423,7 @@
         <span class="kw">let</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
 
         <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="ident">expected</span>,
+            <span class="ident">value</span>,
             <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>({
                 <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,
                 <span class="string">&quot;guild_id&quot;</span>: <span class="string">&quot;2&quot;</span>,
@@ -1512,7 +1442,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_store_channel_deserialization</span>() {
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
+        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
             <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
             <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">2</span>)),
             <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildStore</span>,
@@ -1529,7 +1459,7 @@
         <span class="kw">let</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
 
         <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="ident">expected</span>,
+            <span class="ident">value</span>,
             <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>({
                 <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,
                 <span class="string">&quot;guild_id&quot;</span>: <span class="string">&quot;2&quot;</span>,
@@ -1539,76 +1469,6 @@
                 <span class="string">&quot;position&quot;</span>: <span class="number">2</span>,
                 <span class="string">&quot;topic&quot;</span>: <span class="string">&quot;a store channel&quot;</span>,
                 <span class="string">&quot;type&quot;</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildStore</span>,
-            }))
-            .<span class="ident">unwrap</span>()
-        );
-    }
-
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_guild_text_channel_deserialization</span>() {
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
-            <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-            <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">2</span>)),
-            <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildText</span>,
-            <span class="ident">last_message_id</span>: <span class="prelude-val">None</span>,
-            <span class="ident">last_pin_timestamp</span>: <span class="prelude-val">None</span>,
-            <span class="ident">name</span>: <span class="string">&quot;foo&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">nsfw</span>: <span class="bool-val">true</span>,
-            <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">parent_id</span>: <span class="prelude-val">None</span>,
-            <span class="ident">position</span>: <span class="number">3</span>,
-            <span class="ident">rate_limit_per_user</span>: <span class="prelude-val">Some</span>(<span class="number">10</span>),
-            <span class="ident">topic</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a topic&quot;</span>.<span class="ident">to_owned</span>()),
-        });
-        <span class="kw">let</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="ident">expected</span>,
-            <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>({
-                <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,
-                <span class="string">&quot;guild_id&quot;</span>: <span class="string">&quot;2&quot;</span>,
-                <span class="string">&quot;last_message_id&quot;</span>: <span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">MessageId</span><span class="op">&gt;</span>,
-                <span class="string">&quot;last_pin_timestamp&quot;</span>: <span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">MessageId</span><span class="op">&gt;</span>,
-                <span class="string">&quot;name&quot;</span>: <span class="string">&quot;foo&quot;</span>,
-                <span class="string">&quot;nsfw&quot;</span>: <span class="bool-val">true</span>,
-                <span class="string">&quot;permission_overwrites&quot;</span>: <span class="ident">permission_overwrites</span>,
-                <span class="string">&quot;parent_id&quot;</span>: <span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span>,
-                <span class="string">&quot;position&quot;</span>: <span class="number">3</span>,
-                <span class="string">&quot;rate_limit_per_user&quot;</span>: <span class="number">10</span>,
-                <span class="string">&quot;topic&quot;</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a topic&quot;</span>),
-                <span class="string">&quot;type&quot;</span>: <span class="number">0</span>,
-            }))
-            .<span class="ident">unwrap</span>()
-        );
-    }
-
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_guild_voice_channel_deserialization</span>() {
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">VoiceChannel</span> {
-            <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-            <span class="ident">bitrate</span>: <span class="number">124_000</span>,
-            <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">2</span>)),
-            <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span>,
-            <span class="ident">name</span>: <span class="string">&quot;foo&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">parent_id</span>: <span class="prelude-val">None</span>,
-            <span class="ident">position</span>: <span class="number">3</span>,
-            <span class="ident">user_limit</span>: <span class="prelude-val">Some</span>(<span class="number">7</span>),
-        });
-        <span class="kw">let</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="ident">expected</span>,
-            <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>({
-                <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,
-                <span class="string">&quot;bitrate&quot;</span>: <span class="number">124_000</span>,
-                <span class="string">&quot;guild_id&quot;</span>: <span class="string">&quot;2&quot;</span>,
-                <span class="string">&quot;name&quot;</span>: <span class="string">&quot;foo&quot;</span>,
-                <span class="string">&quot;permission_overwrites&quot;</span>: <span class="ident">permission_overwrites</span>,
-                <span class="string">&quot;parent_id&quot;</span>: <span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span>,
-                <span class="string">&quot;position&quot;</span>: <span class="number">3</span>,
-                <span class="string">&quot;type&quot;</span>: <span class="number">2</span>,
-                <span class="string">&quot;user_limit&quot;</span>: <span class="number">7</span>,
             }))
             .<span class="ident">unwrap</span>()
         );

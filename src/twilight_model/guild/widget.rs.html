@@ -54,13 +54,13 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_widget</span>() {
-        <span class="kw">let</span> <span class="ident">prune</span> <span class="op">=</span> <span class="ident">GuildWidget</span> {
+        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">GuildWidget</span> {
             <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>(<span class="number">111_111_111_111_111_111</span>),
             <span class="ident">enabled</span>: <span class="bool-val">true</span>,
         };
 
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
-            <span class="kw-2">&amp;</span><span class="ident">prune</span>,
+            <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;GuildWidget&quot;</span>,

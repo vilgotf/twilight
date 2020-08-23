@@ -259,6 +259,30 @@
 <span id="258">258</span>
 <span id="259">259</span>
 <span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>},
@@ -441,71 +465,32 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Member</span>, <span class="ident">MemberDeserializer</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Member</span>;
     <span class="kw">use</span> <span class="kw">crate</span>::{
-        <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>},
+        <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>},
         <span class="ident">user</span>::<span class="ident">User</span>,
     };
-    <span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">de</span>::<span class="ident">DeserializeSeed</span>;
-    <span class="kw">use</span> <span class="ident">serde_value</span>::<span class="ident">Value</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">BTreeMap</span>;
+    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_member_deserializer</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user</span> <span class="op">=</span> <span class="ident">BTreeMap</span>::<span class="ident">new</span>();
-        <span class="ident">user</span>.<span class="ident">insert</span>(
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;discriminator&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;0001&quot;</span>.<span class="ident">to_owned</span>()),
-        );
-        <span class="ident">user</span>.<span class="ident">insert</span>(
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;id&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;2&quot;</span>.<span class="ident">to_owned</span>()),
-        );
-        <span class="ident">user</span>.<span class="ident">insert</span>(
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;username&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;twilight&quot;</span>.<span class="ident">to_owned</span>()),
-        );
-
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">map</span> <span class="op">=</span> <span class="ident">BTreeMap</span>::<span class="ident">new</span>();
-        <span class="ident">map</span>.<span class="ident">insert</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;deaf&quot;</span>.<span class="ident">to_owned</span>()), <span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>));
-        <span class="ident">map</span>.<span class="ident">insert</span>(
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;hoisted_role&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">Value</span>::<span class="prelude-ty">Option</span>(<span class="prelude-val">None</span>),
-        );
-        <span class="ident">map</span>.<span class="ident">insert</span>(
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;joined_at&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="ident">String</span>::<span class="ident">new</span>()),
-        );
-        <span class="ident">map</span>.<span class="ident">insert</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;mute&quot;</span>.<span class="ident">to_owned</span>()), <span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>));
-        <span class="ident">map</span>.<span class="ident">insert</span>(
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;nick&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">Value</span>::<span class="prelude-ty">Option</span>(<span class="prelude-val">Some</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;twilight&quot;</span>.<span class="ident">to_owned</span>())))),
-        );
-        <span class="ident">map</span>.<span class="ident">insert</span>(
-            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;premium_since&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">Value</span>::<span class="prelude-ty">Option</span>(<span class="prelude-val">None</span>),
-        );
-        <span class="ident">map</span>.<span class="ident">insert</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;roles&quot;</span>.<span class="ident">to_owned</span>()), <span class="ident">Value</span>::<span class="ident">Seq</span>(<span class="ident">Vec</span>::<span class="ident">new</span>()));
-        <span class="ident">map</span>.<span class="ident">insert</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;user&quot;</span>.<span class="ident">to_owned</span>()), <span class="ident">Value</span>::<span class="ident">Map</span>(<span class="ident">user</span>));
-        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Value</span>::<span class="ident">Map</span>(<span class="ident">map</span>);
-
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">Member</span> {
+        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Member</span> {
             <span class="ident">deaf</span>: <span class="bool-val">false</span>,
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
-            <span class="ident">hoisted_role</span>: <span class="prelude-val">None</span>,
-            <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="ident">String</span>::<span class="ident">new</span>()),
+            <span class="ident">hoisted_role</span>: <span class="prelude-val">Some</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
+            <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;timestamp&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">mute</span>: <span class="bool-val">true</span>,
             <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;twilight&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
+            <span class="ident">premium_since</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;timestamp&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">roles</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             <span class="ident">user</span>: <span class="ident">User</span> {
                 <span class="ident">avatar</span>: <span class="prelude-val">None</span>,
                 <span class="ident">bot</span>: <span class="bool-val">false</span>,
                 <span class="ident">discriminator</span>: <span class="string">&quot;0001&quot;</span>.<span class="ident">to_owned</span>(),
-                <span class="ident">locale</span>: <span class="prelude-val">None</span>,
                 <span class="ident">email</span>: <span class="prelude-val">None</span>,
                 <span class="ident">flags</span>: <span class="prelude-val">None</span>,
-                <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">2</span>),
+                <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">3</span>),
+                <span class="ident">locale</span>: <span class="prelude-val">None</span>,
                 <span class="ident">mfa_enabled</span>: <span class="prelude-val">None</span>,
                 <span class="ident">name</span>: <span class="string">&quot;twilight&quot;</span>.<span class="ident">to_owned</span>(),
                 <span class="ident">premium_type</span>: <span class="prelude-val">None</span>,
@@ -515,9 +500,72 @@
             },
         };
 
-        <span class="kw">let</span> <span class="ident">deserializer</span> <span class="op">=</span> <span class="ident">MemberDeserializer</span>::<span class="ident">new</span>(<span class="ident">GuildId</span>(<span class="number">1</span>));
-
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>, <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="ident">value</span>).<span class="ident">unwrap</span>());
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+            <span class="kw-2">&amp;</span><span class="ident">value</span>,
+            <span class="kw-2">&amp;</span>[
+                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                    <span class="ident">name</span>: <span class="string">&quot;Member&quot;</span>,
+                    <span class="ident">len</span>: <span class="number">9</span>,
+                },
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;deaf&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;guild_id&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;GuildId&quot;</span> },
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;hoisted_role&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
+                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;RoleId&quot;</span> },
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;joined_at&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;timestamp&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;mute&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;nick&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;twilight&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;premium_since&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;timestamp&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;roles&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">0</span>) },
+                <span class="ident">Token</span>::<span class="ident">SeqEnd</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                    <span class="ident">name</span>: <span class="string">&quot;User&quot;</span>,
+                    <span class="ident">len</span>: <span class="number">13</span>,
+                },
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;bot&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;discriminator&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;0001&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;email&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;flags&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;3&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;locale&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;mfa_enabled&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;username&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;twilight&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;premium_type&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;public_flags&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;system&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;verified&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+            ],
+        );
     }
 }
 </pre></div>
