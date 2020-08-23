@@ -1,7 +1,7 @@
 var N = null;var sourcesIndex = {};
 sourcesIndex["twilight"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["twilight_cache"] = {"name":"","files":["lib.rs"]};
-sourcesIndex["twilight_cache_inmemory"] = {"name":"","dirs":[{"name":"model","files":["emoji.rs","guild.rs","member.rs","message.rs","mod.rs","presence.rs","voice_state.rs"]}],"files":["config.rs","lib.rs","updates.rs"]};
+sourcesIndex["twilight_cache_inmemory"] = {"name":"","dirs":[{"name":"model","files":["emoji.rs","guild.rs","member.rs","message.rs","mod.rs","presence.rs","voice_state.rs"]}],"files":["builder.rs","config.rs","lib.rs","updates.rs"]};
 sourcesIndex["twilight_cache_trait"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["twilight_command_parser"] = {"name":"","files":["arguments.rs","casing.rs","config.rs","lib.rs","parser.rs"]};
 sourcesIndex["twilight_embed_builder"] = {"name":"","files":["author.rs","builder.rs","field.rs","footer.rs","image_source.rs","lib.rs"]};

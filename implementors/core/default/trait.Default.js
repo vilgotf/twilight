@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["twilight_cache_inmemory"] = [{"text":"impl Default for InMemoryConfig","synthetic":false,"types":[]},{"text":"impl Default for InMemoryConfigBuilder","synthetic":false,"types":[]},{"text":"impl Default for InMemoryCache","synthetic":false,"types":[]}];
+implementors["twilight_cache_inmemory"] = [{"text":"impl Default for InMemoryCacheBuilder","synthetic":false,"types":[]},{"text":"impl Default for Config","synthetic":false,"types":[]},{"text":"impl Default for InMemoryCache","synthetic":false,"types":[]}];
 implementors["twilight_command_parser"] = [{"text":"impl&lt;'a&gt; Default for CommandParserConfig&lt;'a&gt;","synthetic":false,"types":[]}];
 implementors["twilight_embed_builder"] = [{"text":"impl Default for EmbedAuthorBuilder","synthetic":false,"types":[]},{"text":"impl Default for EmbedBuilder","synthetic":false,"types":[]}];
 implementors["twilight_gateway"] = [{"text":"impl Default for ShardScheme","synthetic":false,"types":[]},{"text":"impl Default for LocalQueue","synthetic":false,"types":[]},{"text":"impl Default for Stage","synthetic":false,"types":[]},{"text":"impl Default for EventTypeFlags","synthetic":false,"types":[]}];
