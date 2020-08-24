@@ -1735,7 +1735,7 @@
                 }
 
                 <span class="kw">for</span> <span class="ident">presence</span> <span class="kw">in</span> <span class="ident">presences</span>.<span class="ident">values_mut</span>() {
-                    <span class="ident">presence</span>.<span class="ident">guild_id</span>.<span class="ident">replace</span>(<span class="ident">id</span>);
+                    <span class="ident">presence</span>.<span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">id</span>;
                 }
 
                 <span class="kw">for</span> <span class="ident">voice_state</span> <span class="kw">in</span> <span class="ident">voice_states</span>.<span class="ident">values_mut</span>() {
