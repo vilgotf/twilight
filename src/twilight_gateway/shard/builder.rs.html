@@ -239,6 +239,36 @@
 <span id="238">238</span>
 <span id="239">239</span>
 <span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">config</span>::<span class="ident">Config</span>, <span class="ident">Shard</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">queue</span>::{<span class="ident">LocalQueue</span>, <span class="ident">Queue</span>};
@@ -311,9 +341,31 @@
 
 <span class="doccomment">/// Builder to configure and construct a shard.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Use [`ShardBuilder::new`] to start creating a shard.</span>
+<span class="doccomment">/// Use [`ShardBuilder::new`] to start configuring a new [`Shard`].</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Create a new shard, setting the [`large_threshold`] to 100 and the</span>
+<span class="doccomment">/// [`shard`] ID to 5 out of 10:</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust,no_run</span>
+<span class="doccomment">/// use std::env;</span>
+<span class="doccomment">/// use twilight_gateway::Shard;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
+<span class="doccomment">/// let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// let shard = Shard::builder(token)</span>
+<span class="doccomment">///     .large_threshold(100)?</span>
+<span class="doccomment">///     .shard(5, 10)?</span>
+<span class="doccomment">///     .build();</span>
+<span class="doccomment">/// # Ok(()) }</span>
+<span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`ShardBuilder::new`]: #method.new</span>
+<span class="doccomment">/// [`Shard`]: struct.Shard.html</span>
+<span class="doccomment">/// [`large_threshold`]: #method.large_threshold</span>
+<span class="doccomment">/// [`shard`]: #method.shard</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ShardBuilder</span>(<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">Config</span>);
 
@@ -348,28 +400,35 @@
         <span class="ident">Shard</span>::<span class="ident">new_with_config</span>(<span class="self">self</span>.<span class="number">0</span>)
     }
 
-    <span class="doccomment">/// The HTTP client to be used by the shard for getting gateway information.</span>
+    <span class="doccomment">/// Set the HTTP client to be used by the shard for getting gateway</span>
+    <span class="doccomment">/// information.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Default is a new, unconfigured instance of an HTTP client.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">http_client</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">http_client</span>: <span class="ident">HttpClient</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">http_client</span> <span class="op">=</span> <span class="ident">http_client</span>;
 
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Sets the gateway intents.</span>
+    <span class="doccomment">/// Set the gateway intents.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Default is Discord&#39;s default.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GatewayIntents</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">intents</span> <span class="op">=</span> <span class="ident">intents</span>;
 
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The maximum number of members in a guild to load the member list.</span>
+    <span class="doccomment">/// Set the maximum number of members in a guild to load the member list.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Default value is `250`. The minimum value is `50` and the maximum is</span>
+    <span class="doccomment">/// `250`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you pass `200`, then if there are 250 members in a guild the member</span>
-    <span class="doccomment">/// list won&#39;t be sent. If there are 150 members, then the list **will** be</span>
+    <span class="doccomment">/// list won&#39;t be sent. If there are 150 members, then the list *will* be</span>
     <span class="doccomment">/// sent.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The default value is `250`. The minimum value is `50` and the maximum is</span>
-    <span class="doccomment">/// `250`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
@@ -401,33 +460,34 @@
         <span class="prelude-val">Ok</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Sets the presence to use automatically when starting a new session.</span>
+    <span class="doccomment">/// Set the presence to use automatically when starting a new session.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The default is none, which defaults to strictly being &quot;online&quot; with no</span>
-    <span class="doccomment">/// special qualities.</span>
+    <span class="doccomment">/// Default is no presence, which defaults to strictly being &quot;online&quot;</span>
+    <span class="doccomment">/// with no special qualities.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presence</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">presence</span>: <span class="ident">UpdateStatusInfo</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">presence</span>.<span class="ident">replace</span>(<span class="ident">presence</span>);
 
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Sets the queue to use for queueing shard connections.</span>
+    <span class="doccomment">/// Set the queue to use for queueing shard connections.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You probably don&#39;t need to set this yourself, because the [`Cluster`]</span>
-    <span class="doccomment">/// manages that for you. You only need to set this if you&#39;re implementing</span>
-    <span class="doccomment">/// your only cluster-like support.</span>
+    <span class="doccomment">/// manages that for you. Refer to the [`queue`] module for more</span>
+    <span class="doccomment">/// information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default value is a queue used only by this shard, or a queue used by</span>
     <span class="doccomment">/// all shards when ran by a [`Cluster`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Cluster`]: ../../cluster/struct.Cluster.html</span>
+    <span class="doccomment">/// [`Cluster`]: ../cluster/struct.Cluster.html</span>
+    <span class="doccomment">/// [`queue`]: ../queue/index.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queue</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">queue</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Queue</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">queue</span> <span class="op">=</span> <span class="ident">queue</span>;
 
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Sets the shard ID to connect as, and the total number of shards used by</span>
+    <span class="doccomment">/// Set the shard ID to connect as, and the total number of shards used by</span>
     <span class="doccomment">/// the bot.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The shard ID is 0-indexed, while the total is 1-indexed.</span>
@@ -435,11 +495,11 @@
     <span class="doccomment">/// The default value is a shard ID of 0 and a shard total of 1, which is</span>
     <span class="doccomment">/// good for smaller bots.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// **Note**: If your bot is in over 100&#39;000 guilds then `shard_total`</span>
+    <span class="doccomment">/// **Note**: If your bot is in over 250&#39;000 guilds then `shard_total`</span>
     <span class="doccomment">/// *should probably* be a multiple of 16 if you&#39;re in the &quot;Large Bot</span>
     <span class="doccomment">/// Sharding&quot; program.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Errors</span>
+    <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you have 19 shards, then your last shard will have an ID of 18 out of</span>
     <span class="doccomment">/// a total of 19 shards:</span>

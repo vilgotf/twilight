@@ -423,9 +423,9 @@
         <span class="doccomment">/// Reason for the error.</span>
         <span class="ident">source</span>: <span class="ident">CommandError</span>,
     },
-    <span class="doccomment">/// The provided shard ID does not exist.</span>
+    <span class="doccomment">/// Provided shard ID does not exist.</span>
     <span class="ident">ShardNonexistent</span> {
-        <span class="doccomment">/// The provided shard ID.</span>
+        <span class="doccomment">/// Provided shard ID.</span>
         <span class="ident">id</span>: <span class="ident">u64</span>,
     },
 }
@@ -510,8 +510,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`ClusterStartError::RetrievingGatewayInfo`] if there was an HTTP error Retrieving</span>
-    <span class="doccomment">/// the gateway information.</span>
+    <span class="doccomment">/// Returns [`ClusterStartError::RetrievingGatewayInfo`] if there was an</span>
+    <span class="doccomment">/// HTTP error Retrieving the gateway information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClusterStartError::RetrievingGatewayInfo`]: enum.ClusterStartError.html#variant.RetrievingGatewayInfo</span>
     <span class="doccomment">/// [`builder`]: #method.builder</span>
@@ -569,12 +569,12 @@
         <span class="ident">ClusterBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>)
     }
 
-    <span class="doccomment">/// Returns an immutable reference to the configuration of this cluster.</span>
+    <span class="doccomment">/// Return an immutable reference to the configuration of this cluster.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Config</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">config</span>
     }
 
-    <span class="doccomment">/// Brings up the cluster, starting all of the shards that it was configured</span>
+    <span class="doccomment">/// Bring up the cluster, starting all of the shards that it was configured</span>
     <span class="doccomment">/// to manage.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
@@ -605,14 +605,14 @@
         .<span class="kw">await</span>;
     }
 
-    <span class="doccomment">/// Brings down the cluster, stopping all of the shards that it&#39;s managing.</span>
+    <span class="doccomment">/// Bring down the cluster, stopping all of the shards that it&#39;s managing.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">down</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">for</span> <span class="ident">shard</span> <span class="kw">in</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shards</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;shards poisoned&quot;</span>).<span class="ident">values</span>() {
             <span class="ident">shard</span>.<span class="ident">shutdown</span>();
         }
     }
 
-    <span class="doccomment">/// Brings down the cluster in a resumable way and returns all info needed</span>
+    <span class="doccomment">/// Bring down the cluster in a resumable way and returns all info needed</span>
     <span class="doccomment">/// for resuming.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned map is keyed by the shard&#39;s ID to the information needed</span>
@@ -632,7 +632,7 @@
             .<span class="ident">collect</span>()
     }
 
-    <span class="doccomment">/// Returns a Shard by its ID.</span>
+    <span class="doccomment">/// Return a Shard by its ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shard</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">shards</span>
@@ -642,7 +642,7 @@
             .<span class="ident">cloned</span>()
     }
 
-    <span class="doccomment">/// Returns information about all shards.</span>
+    <span class="doccomment">/// Return information about all shards.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
@@ -711,7 +711,7 @@
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ClusterCommandError</span>::<span class="ident">Sending</span> { <span class="ident">source</span> })
     }
 
-    <span class="doccomment">/// Returns a stream of events from all shards managed by this Cluster.</span>
+    <span class="doccomment">/// Return a stream of events from all shards managed by this Cluster.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Each item in the stream contains both the shard&#39;s ID and the event</span>
     <span class="doccomment">/// itself.</span>
@@ -767,7 +767,7 @@
         <span class="ident">SelectAll</span>::<span class="ident">from_iter</span>(<span class="ident">stream</span>)
     }
 
-    <span class="doccomment">/// Queues a request to start a shard by ID and starts it once the queue</span>
+    <span class="doccomment">/// Queue a request to start a shard by ID and starts it once the queue</span>
     <span class="doccomment">/// accepts the request.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Accepts weak references to the queue and map of shards, because by the</span>
