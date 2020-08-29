@@ -212,15 +212,96 @@
 <span id="211">211</span>
 <span id="212">212</span>
 <span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">gateway</span>::{
-        <span class="ident">opcode</span>::<span class="ident">OpCode</span>,
-        <span class="ident">payload</span>::<span class="ident">request_guild_members</span>::<span class="ident">RequestGuildMembersInfo</span>::{<span class="ident">MultiUser</span>, <span class="ident">Query</span>, <span class="ident">SingleUser</span>},
-    },
+    <span class="ident">gateway</span>::<span class="ident">opcode</span>::<span class="ident">OpCode</span>,
     <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>},
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{
+    <span class="ident">error</span>::<span class="ident">Error</span>,
+    <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
+};
+
+<span class="doccomment">/// Provided IDs is invalid for the request.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Returned by [`RequestGuildMembersBuilder::user_ids`].</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`RequestGuildMembersBuilder::user_ids`]: struct.RequestGuildMembersBuilder.html#method.user_ids</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UserIdsError</span> {
+    <span class="doccomment">/// More than 100 user IDs were provided.</span>
+    <span class="ident">TooMany</span> {
+        <span class="doccomment">/// Provided list of user IDs.</span>
+        <span class="ident">ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    },
+}
+
+<span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">UserIdsError</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="self">Self</span>::<span class="ident">TooMany</span> { <span class="ident">ids</span> } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+                <span class="string">&quot;{} user IDs were provided when only a maximum of 100 is allowed&quot;</span>,
+                <span class="ident">ids</span>.<span class="ident">len</span>(),
+            )),
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">UserIdsError</span> {}
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RequestGuildMembers</span> {
@@ -229,202 +310,227 @@
 }
 
 <span class="kw">impl</span> <span class="ident">RequestGuildMembers</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_all</span>(<span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>, <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new_all_with_nonce</span>(<span class="ident">guild_id</span>, <span class="ident">presences</span>, <span class="prelude-val">None</span>)
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_all_with_nonce</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">d</span>: <span class="ident">RequestGuildMembersInfo</span>::<span class="ident">new_all</span>(<span class="ident">guild_id</span>, <span class="ident">presences</span>, <span class="ident">nonce</span>),
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
-        }
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">limit</span>: <span class="ident">u64</span>,
-        <span class="ident">query</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new_with_nonce</span>(<span class="ident">guild_id</span>, <span class="ident">limit</span>, <span class="ident">query</span>, <span class="ident">presences</span>, <span class="prelude-val">None</span>)
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_with_nonce</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">limit</span>: <span class="ident">u64</span>,
-        <span class="ident">query</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">d</span>: <span class="ident">RequestGuildMembersInfo</span>::<span class="ident">new</span>(<span class="ident">guild_id</span>, <span class="ident">limit</span>, <span class="ident">query</span>, <span class="ident">presences</span>, <span class="ident">nonce</span>),
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
-        }
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_single_user</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">user</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-        <span class="ident">presence</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new_single_user_with_nonce</span>(<span class="ident">guild_id</span>, <span class="ident">user</span>, <span class="ident">presence</span>, <span class="prelude-val">None</span>)
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_single_user_with_nonce</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">user</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-        <span class="ident">presence</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">d</span>: <span class="ident">RequestGuildMembersInfo</span>::<span class="ident">new_single_user</span>(<span class="ident">guild_id</span>, <span class="ident">user</span>, <span class="ident">presence</span>, <span class="ident">nonce</span>),
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
-        }
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_multi_user</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">users</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new_multi_user_with_nonce</span>(<span class="ident">guild_id</span>, <span class="ident">users</span>, <span class="ident">presences</span>, <span class="prelude-val">None</span>)
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_multi_user_with_nonce</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">users</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">d</span>: <span class="ident">RequestGuildMembersInfo</span>::<span class="ident">new_multi_user</span>(<span class="ident">guild_id</span>, <span class="ident">users</span>, <span class="ident">presences</span>, <span class="ident">nonce</span>),
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
-        }
+    <span class="doccomment">/// Create a new builder to configure a guild members request.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is an alias to [`RequestGuildMembersBuilder::new`]. Refer to its</span>
+    <span class="doccomment">/// documentation for more information.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`RequestGuildMembersBuilder::new`]: struct.RequestGuildMembersBuilder.html#method.new</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="ident">RequestGuildMembersBuilder</span> {
+        <span class="ident">RequestGuildMembersBuilder</span>::<span class="ident">new</span>(<span class="ident">guild_id</span>)
     }
 }
 
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RequestGuildMembersBuilder</span> {
+    <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
+    <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">RequestGuildMembersBuilder</span> {
+    <span class="doccomment">/// Create a new builder to configure and construct a</span>
+    <span class="doccomment">/// [`RequestGuildMembers`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`RequestGuildMembers`]: struct.RequestGuildMembers.html</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">guild_id</span>,
+            <span class="ident">nonce</span>: <span class="prelude-val">None</span>,
+            <span class="ident">presences</span>: <span class="prelude-val">None</span>,
+        }
+    }
+
+    <span class="doccomment">/// Set the nonce to identify the member chunk response.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// By default, this uses Discord&#39;s default.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nonce</span>(<span class="self">self</span>, <span class="ident">nonce</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">_nonce</span>(<span class="ident">nonce</span>.<span class="ident">into</span>())
+    }
+
+    <span class="kw">fn</span> <span class="ident">_nonce</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">nonce</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">nonce</span>.<span class="ident">replace</span>(<span class="ident">nonce</span>);
+
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Request that guild members&#39; presences are included in member chunks.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// By default, this uses Discord&#39;s default.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presences</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">presences</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">presences</span>.<span class="ident">replace</span>(<span class="ident">presences</span>);
+
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Consume the builder, creating a request for users whose usernames start</span>
+    <span class="doccomment">/// with the provided string and optionally limiting the number of members</span>
+    <span class="doccomment">/// to retrieve.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If you specify no limit, then Discord&#39;s default will be used, which will</span>
+    <span class="doccomment">/// be an unbounded number of members. Specifying 0 is also equivalent.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// To request the entire member list, pass in a `None` query. You must also</span>
+    <span class="doccomment">/// have the `GUILD_MEMBERS` intent enabled.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Request all of the guild members that start with the letter &quot;a&quot; and</span>
+    <span class="doccomment">/// their presences:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// use twilight_model::{gateway::payload::RequestGuildMembers, id::GuildId};</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let request = RequestGuildMembers::builder(GuildId(1))</span>
+    <span class="doccomment">///     .presences(true)</span>
+    <span class="doccomment">///     .query(&quot;a&quot;, None);</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// assert_eq!(GuildId(1), request.d.guild_id);</span>
+    <span class="doccomment">/// assert_eq!(Some(0), request.d.limit);</span>
+    <span class="doccomment">/// assert_eq!(Some(&quot;a&quot;), request.d.query.as_deref());</span>
+    <span class="doccomment">/// assert_eq!(Some(true), request.d.presences);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">query</span>(<span class="self">self</span>, <span class="ident">query</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">RequestGuildMembers</span> {
+        <span class="self">self</span>.<span class="ident">_query</span>(<span class="ident">query</span>.<span class="ident">into</span>(), <span class="ident">limit</span>)
+    }
+
+    <span class="kw">fn</span> <span class="ident">_query</span>(<span class="self">self</span>, <span class="ident">query</span>: <span class="ident">String</span>, <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">RequestGuildMembers</span> {
+        <span class="ident">RequestGuildMembers</span> {
+            <span class="ident">d</span>: <span class="ident">RequestGuildMembersInfo</span> {
+                <span class="ident">guild_id</span>: <span class="self">self</span>.<span class="ident">guild_id</span>,
+                <span class="ident">limit</span>: <span class="prelude-val">Some</span>(<span class="ident">limit</span>.<span class="ident">unwrap_or_default</span>()),
+                <span class="ident">nonce</span>: <span class="self">self</span>.<span class="ident">nonce</span>,
+                <span class="ident">presences</span>: <span class="self">self</span>.<span class="ident">presences</span>,
+                <span class="ident">query</span>: <span class="prelude-val">Some</span>(<span class="ident">query</span>),
+                <span class="ident">user_ids</span>: <span class="prelude-val">None</span>,
+            },
+            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
+        }
+    }
+
+    <span class="doccomment">/// Consume the builder, creating a request that requests the provided</span>
+    <span class="doccomment">/// member in the specified guild(s).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Request a member within a guild and specify a nonce of &quot;test&quot;:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// use twilight_model::{</span>
+    <span class="doccomment">///     gateway::payload::request_guild_members::{RequestGuildMemberId, RequestGuildMembers},</span>
+    <span class="doccomment">///     id::{GuildId, UserId},</span>
+    <span class="doccomment">/// };</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let request = RequestGuildMembers::builder(GuildId(1))</span>
+    <span class="doccomment">///     .nonce(&quot;test&quot;)</span>
+    <span class="doccomment">///     .user_id(UserId(2));</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// assert_eq!(Some(RequestGuildMemberId::One(UserId(2))), request.d.user_ids);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_id</span>(<span class="self">self</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-&gt;</span> <span class="ident">RequestGuildMembers</span> {
+        <span class="ident">RequestGuildMembers</span> {
+            <span class="ident">d</span>: <span class="ident">RequestGuildMembersInfo</span> {
+                <span class="ident">guild_id</span>: <span class="self">self</span>.<span class="ident">guild_id</span>,
+                <span class="ident">limit</span>: <span class="prelude-val">None</span>,
+                <span class="ident">nonce</span>: <span class="self">self</span>.<span class="ident">nonce</span>,
+                <span class="ident">presences</span>: <span class="self">self</span>.<span class="ident">presences</span>,
+                <span class="ident">query</span>: <span class="prelude-val">None</span>,
+                <span class="ident">user_ids</span>: <span class="prelude-val">Some</span>(<span class="ident">RequestGuildMemberId</span>::<span class="ident">One</span>(<span class="ident">user_id</span>)),
+            },
+            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
+        }
+    }
+
+    <span class="doccomment">/// Consume the builder, creating a request that requests the provided</span>
+    <span class="doccomment">/// user(s) in the specified guild(s).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Only up to 100 user IDs can be requested at once.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Request two members within one guild and specify a nonce of &quot;test&quot;:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// use twilight_model::{</span>
+    <span class="doccomment">///     gateway::payload::request_guild_members::{RequestGuildMemberId, RequestGuildMembers},</span>
+    <span class="doccomment">///     id::{GuildId, UserId},</span>
+    <span class="doccomment">/// };</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
+    <span class="doccomment">/// let request = RequestGuildMembers::builder(GuildId(1))</span>
+    <span class="doccomment">///     .nonce(&quot;test&quot;)</span>
+    <span class="doccomment">///     .user_ids(vec![UserId(2), UserId(3)])?;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// assert!(matches!(request.d.user_ids, Some(RequestGuildMemberId::Multiple(ids)) if ids.len() == 2));</span>
+    <span class="doccomment">/// # Ok(()) }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Errors</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns [`UserIdsError::TooMany`] if more than 100 user IDs were</span>
+    <span class="doccomment">/// provided.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_ids</span>(
+        <span class="self">self</span>,
+        <span class="ident">user_ids</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;&gt;</span>,
+    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RequestGuildMembers</span>, <span class="ident">UserIdsError</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">_user_ids</span>(<span class="ident">user_ids</span>.<span class="ident">into</span>())
+    }
+
+    <span class="kw">fn</span> <span class="ident">_user_ids</span>(<span class="self">self</span>, <span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RequestGuildMembers</span>, <span class="ident">UserIdsError</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="ident">user_ids</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">100</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UserIdsError</span>::<span class="ident">TooMany</span> { <span class="ident">ids</span>: <span class="ident">user_ids</span> });
+        }
+
+        <span class="prelude-val">Ok</span>(<span class="ident">RequestGuildMembers</span> {
+            <span class="ident">d</span>: <span class="ident">RequestGuildMembersInfo</span> {
+                <span class="ident">guild_id</span>: <span class="self">self</span>.<span class="ident">guild_id</span>,
+                <span class="ident">limit</span>: <span class="prelude-val">None</span>,
+                <span class="ident">nonce</span>: <span class="self">self</span>.<span class="ident">nonce</span>,
+                <span class="ident">presences</span>: <span class="self">self</span>.<span class="ident">presences</span>,
+                <span class="ident">query</span>: <span class="prelude-val">None</span>,
+                <span class="ident">user_ids</span>: <span class="prelude-val">Some</span>(<span class="ident">RequestGuildMemberId</span>::<span class="ident">Multiple</span>(<span class="ident">user_ids</span>)),
+            },
+            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
+        })
+    }
+}
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RequestGuildMembersInfo</span> {
+    <span class="doccomment">/// Guild ID.</span>
+    <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="doccomment">/// Maximum number of members to request.</span>
+    <span class="kw">pub</span> <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">query</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">user_ids</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;&gt;</span>,
+}
+
+<span class="doccomment">/// One or a list of IDs in a request.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">untagged</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RequestGuildMembersInfo</span> {
-    <span class="ident">Query</span> {
-        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-        <span class="ident">limit</span>: <span class="ident">u64</span>,
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">query</span>: <span class="ident">String</span>,
-    },
-    <span class="ident">SingleUser</span> {
-        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">user_ids</span>: <span class="ident">UserId</span>,
-    },
-    <span class="ident">MultiUser</span> {
-        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-    },
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Single ID specified.</span>
+    <span class="ident">One</span>(<span class="ident">T</span>),
+    <span class="doccomment">/// List of IDs specified.</span>
+    <span class="ident">Multiple</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">RequestGuildMembersInfo</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_all</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">_new_query</span>(<span class="ident">guild_id</span>.<span class="ident">into</span>(), <span class="number">0</span>, <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;&quot;</span>), <span class="ident">presences</span>, <span class="ident">nonce</span>)
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">limit</span>: <span class="ident">u64</span>,
-        <span class="ident">query</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">_new_query</span>(<span class="ident">guild_id</span>.<span class="ident">into</span>(), <span class="ident">limit</span>, <span class="ident">query</span>.<span class="ident">into</span>(), <span class="ident">presences</span>, <span class="ident">nonce</span>)
-    }
-
-    <span class="kw">fn</span> <span class="ident">_new_query</span>(
-        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-        <span class="ident">limit</span>: <span class="ident">u64</span>,
-        <span class="ident">query</span>: <span class="ident">String</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="ident">Query</span> {
-            <span class="ident">guild_id</span>,
-            <span class="ident">limit</span>,
-            <span class="ident">query</span>,
-            <span class="ident">presences</span>,
-            <span class="ident">nonce</span>,
-        }
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_single_user</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">user</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-        <span class="ident">presence</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">_new_single_user</span>(<span class="ident">guild_id</span>.<span class="ident">into</span>(), <span class="ident">user</span>.<span class="ident">into</span>(), <span class="ident">presence</span>, <span class="ident">nonce</span>)
-    }
-
-    <span class="kw">fn</span> <span class="ident">_new_single_user</span>(
-        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-        <span class="ident">user</span>: <span class="ident">UserId</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="ident">SingleUser</span> {
-            <span class="ident">guild_id</span>,
-            <span class="ident">presences</span>,
-            <span class="ident">user_ids</span>: <span class="ident">user</span>,
-            <span class="ident">nonce</span>,
-        }
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_multi_user</span>(
-        <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">users</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">_new_multi_user</span>(<span class="ident">guild_id</span>.<span class="ident">into</span>(), <span class="ident">users</span>, <span class="ident">presences</span>, <span class="ident">nonce</span>)
-    }
-
-    <span class="kw">fn</span> <span class="ident">_new_multi_user</span>(
-        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-        <span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-        <span class="ident">presences</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-        <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="ident">MultiUser</span> {
-            <span class="ident">guild_id</span>,
-            <span class="ident">user_ids</span>,
-            <span class="ident">presences</span>,
-            <span class="ident">nonce</span>,
-        }
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>::<span class="ident">One</span>(<span class="ident">id</span>)
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RequestGuildMemberInfo</span> {
-    <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-    <span class="kw">pub</span> <span class="ident">presences</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">query</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">user_ids</span>: <span class="ident">u64</span>,
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;&gt;</span> <span class="kw">for</span> <span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>::<span class="ident">Multiple</span>(<span class="ident">ids</span>)
+    }
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../";window.currentCrate = "twilight_model";</script><script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script><script defer src="../../../../search-index.js"></script></body></html>
