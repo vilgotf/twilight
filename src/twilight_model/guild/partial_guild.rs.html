@@ -217,6 +217,7 @@
 <span id="216">216</span>
 <span id="217">217</span>
 <span id="218">218</span>
+<span id="219">219</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">guild</span>::{
@@ -253,6 +254,7 @@
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">owner_id</span>: <span class="ident">UserId</span>,
     <span class="kw">pub</span> <span class="ident">owner</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;permissions_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">permissions</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Permissions</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">preferred_locale</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">premium_subscription_count</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
@@ -391,7 +393,7 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;owner&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;permissions&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;permissions_new&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2048&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;preferred_locale&quot;</span>),
