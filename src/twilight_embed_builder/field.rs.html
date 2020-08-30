@@ -235,6 +235,25 @@
 <span id="234">234</span>
 <span id="235">235</span>
 <span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Create embed fields.</span>
 
@@ -417,8 +436,27 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EmbedFieldBuilder</span>, <span class="ident">EmbedFieldError</span>};
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
+    <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>, <span class="ident">const_assert</span>};
+    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
     <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::<span class="ident">EmbedField</span>;
+
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+        <span class="ident">EmbedFieldError</span>: <span class="ident">Clone</span>,
+        <span class="ident">Debug</span>,
+        <span class="ident">Error</span>,
+        <span class="ident">Eq</span>,
+        <span class="ident">PartialEq</span>,
+        <span class="ident">Send</span>,
+        <span class="ident">Sync</span>
+    );
+    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameEmpty</span>: <span class="ident">name</span>, <span class="ident">value</span>);
+    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameTooLong</span>: <span class="ident">name</span>, <span class="ident">value</span>);
+    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueEmpty</span>: <span class="ident">name</span>, <span class="ident">value</span>);
+    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueTooLong</span>: <span class="ident">name</span>, <span class="ident">value</span>);
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">==</span> <span class="number">256</span>);
+    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">VALUE_LENGTH_LIMIT</span> <span class="op">==</span> <span class="number">1024</span>);
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmbedField</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EmbedFieldBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_new_errors</span>() {
