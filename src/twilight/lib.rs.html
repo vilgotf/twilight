@@ -345,31 +345,30 @@
 <span class="doccomment">//! async fn main() -&gt; Result&lt;(), Box&lt;dyn Error + Send + Sync&gt;&gt; {</span>
 <span class="doccomment">//!     let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     // This is also the default.</span>
+<span class="doccomment">//!     // This is the default scheme. It will automatically create as many</span>
+<span class="doccomment">//!     // shards as is suggested by Discord.</span>
 <span class="doccomment">//!     let scheme = ShardScheme::Auto;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     let cluster = Cluster::builder(&amp;token)</span>
 <span class="doccomment">//!         .shard_scheme(scheme)</span>
-<span class="doccomment">//!         // Use intents to only listen to GUILD_MESSAGES events</span>
-<span class="doccomment">//!         .intents(Some(</span>
-<span class="doccomment">//!             GatewayIntents::GUILD_MESSAGES | GatewayIntents::DIRECT_MESSAGES,</span>
-<span class="doccomment">//!         ))</span>
+<span class="doccomment">//!         // Use intents to only receive guild message events.</span>
+<span class="doccomment">//!         .intents(Some(GatewayIntents::GUILD_MESSAGES))</span>
 <span class="doccomment">//!         .build()</span>
 <span class="doccomment">//!         .await?;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     // Start up the cluster</span>
+<span class="doccomment">//!     // Start up the cluster.</span>
 <span class="doccomment">//!     let cluster_spawn = cluster.clone();</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//!     // Start all shards in the cluster in the background.</span>
 <span class="doccomment">//!     tokio::spawn(async move {</span>
 <span class="doccomment">//!         cluster_spawn.up().await;</span>
 <span class="doccomment">//!     });</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     // The http client is seperate from the gateway,</span>
-<span class="doccomment">//!     // so startup a new one</span>
+<span class="doccomment">//!     // HTTP is separate from the gateway, so create a new client.</span>
 <span class="doccomment">//!     let http = HttpClient::new(&amp;token);</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     // Since we only care about messages, make the cache only</span>
-<span class="doccomment">//!     // cache message related events</span>
+<span class="doccomment">//!     // Since we only care about new messages, make the cache only</span>
+<span class="doccomment">//!     // cache new messages.</span>
 <span class="doccomment">//!     let cache = InMemoryCache::builder()</span>
 <span class="doccomment">//!         .event_types(</span>
 <span class="doccomment">//!             EventType::MESSAGE_CREATE</span>
@@ -380,12 +379,12 @@
 <span class="doccomment">//!         .build();</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     let mut events = cluster.events();</span>
-<span class="doccomment">//!     // Startup an event loop for each event in the event stream</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     // Process each event as they come in.</span>
 <span class="doccomment">//!     while let Some((shard_id, event)) = events.next().await {</span>
-<span class="doccomment">//!         // Update the cache</span>
+<span class="doccomment">//!         // Update the cache with the event.</span>
 <span class="doccomment">//!         cache.update(&amp;event);</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!         // Spawn a new task to handle the event</span>
 <span class="doccomment">//!         tokio::spawn(handle_event(shard_id, event, http.clone()));</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//!</span>
@@ -404,6 +403,7 @@
 <span class="doccomment">//!         Event::ShardConnected(_) =&gt; {</span>
 <span class="doccomment">//!             println!(&quot;Connected on shard {}&quot;, shard_id);</span>
 <span class="doccomment">//!         }</span>
+<span class="doccomment">//!         // Other events here...</span>
 <span class="doccomment">//!         _ =&gt; {}</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//!</span>

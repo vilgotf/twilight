@@ -79,31 +79,30 @@ formatters for mentioning a channel or emoji, or pinging a role or user.</p>
 <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;&gt;</span> {
     <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
 
-    <span class="comment">// This is also the default.</span>
+    <span class="comment">// This is the default scheme. It will automatically create as many</span>
+    <span class="comment">// shards as is suggested by Discord.</span>
     <span class="kw">let</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ShardScheme</span>::<span class="ident">Auto</span>;
 
     <span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster</span>::<span class="ident">builder</span>(<span class="kw-2">&amp;</span><span class="ident">token</span>)
         .<span class="ident">shard_scheme</span>(<span class="ident">scheme</span>)
-        <span class="comment">// Use intents to only listen to GUILD_MESSAGES events</span>
-        .<span class="ident">intents</span>(<span class="prelude-val">Some</span>(
-            <span class="ident">GatewayIntents</span>::<span class="ident">GUILD_MESSAGES</span> <span class="op">|</span> <span class="ident">GatewayIntents</span>::<span class="ident">DIRECT_MESSAGES</span>,
-        ))
+        <span class="comment">// Use intents to only receive guild message events.</span>
+        .<span class="ident">intents</span>(<span class="prelude-val">Some</span>(<span class="ident">GatewayIntents</span>::<span class="ident">GUILD_MESSAGES</span>))
         .<span class="ident">build</span>()
         .<span class="kw">await</span><span class="question-mark">?</span>;
 
-    <span class="comment">// Start up the cluster</span>
+    <span class="comment">// Start up the cluster.</span>
     <span class="kw">let</span> <span class="ident">cluster_spawn</span> <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">clone</span>();
 
+    <span class="comment">// Start all shards in the cluster in the background.</span>
     <span class="ident">tokio</span>::<span class="ident">spawn</span>(<span class="kw">async</span> <span class="kw">move</span> {
         <span class="ident">cluster_spawn</span>.<span class="ident">up</span>().<span class="kw">await</span>;
     });
 
-    <span class="comment">// The http client is seperate from the gateway,</span>
-    <span class="comment">// so startup a new one</span>
+    <span class="comment">// HTTP is separate from the gateway, so create a new client.</span>
     <span class="kw">let</span> <span class="ident">http</span> <span class="op">=</span> <span class="ident">HttpClient</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">token</span>);
 
-    <span class="comment">// Since we only care about messages, make the cache only</span>
-    <span class="comment">// cache message related events</span>
+    <span class="comment">// Since we only care about new messages, make the cache only</span>
+    <span class="comment">// cache new messages.</span>
     <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">builder</span>()
         .<span class="ident">event_types</span>(
             <span class="ident">EventType</span>::<span class="ident">MESSAGE_CREATE</span>
@@ -114,12 +113,12 @@ formatters for mentioning a channel or emoji, or pinging a role or user.</p>
         .<span class="ident">build</span>();
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">events</span> <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">events</span>();
-    <span class="comment">// Startup an event loop for each event in the event stream</span>
+
+    <span class="comment">// Process each event as they come in.</span>
     <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">shard_id</span>, <span class="ident">event</span>)) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
-        <span class="comment">// Update the cache</span>
+        <span class="comment">// Update the cache with the event.</span>
         <span class="ident">cache</span>.<span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>);
 
-        <span class="comment">// Spawn a new task to handle the event</span>
         <span class="ident">tokio</span>::<span class="ident">spawn</span>(<span class="ident">handle_event</span>(<span class="ident">shard_id</span>, <span class="ident">event</span>, <span class="ident">http</span>.<span class="ident">clone</span>()));
     }
 
@@ -138,6 +137,7 @@ formatters for mentioning a channel or emoji, or pinging a role or user.</p>
         <span class="ident">Event</span>::<span class="ident">ShardConnected</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
             <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Connected on shard {}&quot;</span>, <span class="ident">shard_id</span>);
         }
+        <span class="comment">// Other events here...</span>
         <span class="kw">_</span> <span class="op">=&gt;</span> {}
     }
 
