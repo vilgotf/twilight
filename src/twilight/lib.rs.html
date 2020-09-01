@@ -228,8 +228,6 @@
 <span id="227">227</span>
 <span id="228">228</span>
 <span id="229">229</span>
-<span id="230">230</span>
-<span id="231">231</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight</span>
 <span class="doccomment">//!</span>
@@ -338,12 +336,10 @@
 <span class="doccomment">//! ```rust,no_run</span>
 <span class="doccomment">//! use std::{env, error::Error};</span>
 <span class="doccomment">//! use tokio::stream::StreamExt;</span>
-<span class="doccomment">//! use twilight::{</span>
-<span class="doccomment">//!     cache_inmemory::{EventType, InMemoryCache},</span>
-<span class="doccomment">//!     gateway::{cluster::{Cluster, ShardScheme}, Event},</span>
-<span class="doccomment">//!     http::Client as HttpClient,</span>
-<span class="doccomment">//!     model::gateway::GatewayIntents,</span>
-<span class="doccomment">//! };</span>
+<span class="doccomment">//! use twilight_cache_inmemory::{EventType, InMemoryCache};</span>
+<span class="doccomment">//! use twilight_gateway::{cluster::{Cluster, ShardScheme}, Event};</span>
+<span class="doccomment">//! use twilight_http::Client as HttpClient;</span>
+<span class="doccomment">//! use twilight_model::gateway::GatewayIntents;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #[tokio::main]</span>
 <span class="doccomment">//! async fn main() -&gt; Result&lt;(), Box&lt;dyn Error + Send + Sync&gt;&gt; {</span>
