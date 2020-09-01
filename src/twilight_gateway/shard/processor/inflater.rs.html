@@ -176,6 +176,16 @@
 <span id="175">175</span>
 <span id="176">176</span>
 <span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">flate2</span>::{<span class="ident">Decompress</span>, <span class="ident">DecompressError</span>, <span class="ident">FlushDecompress</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryInto</span>, <span class="ident">mem</span>};
@@ -204,6 +214,16 @@
             <span class="ident">internal_buffer</span>: <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">INTERNAL_BUFFER_SIZE</span>),
             <span class="ident">shard</span>,
         }
+    }
+
+    <span class="doccomment">/// Return an immutable reference to the buffer.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">buffer_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
+        <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">as_slice</span>()
+    }
+
+    <span class="doccomment">/// Return a mutable reference to the buffer.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">buffer_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>] {
+        <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">as_mut_slice</span>()
     }
 
     <span class="doccomment">/// Extend the internal compressed buffer with bytes.</span>

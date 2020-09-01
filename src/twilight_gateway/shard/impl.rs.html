@@ -568,11 +568,19 @@
 <span id="567">567</span>
 <span id="568">568</span>
 <span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::<span class="ident">ShardBuilder</span>,
     <span class="ident">config</span>::<span class="ident">Config</span>,
     <span class="ident">event</span>::<span class="ident">Events</span>,
+    <span class="ident">json</span>,
     <span class="ident">processor</span>::{<span class="ident">ConnectingError</span>, <span class="ident">Latency</span>, <span class="ident">Session</span>, <span class="ident">ShardProcessor</span>},
     <span class="ident">sink</span>::<span class="ident">ShardSink</span>,
     <span class="ident">stage</span>::<span class="ident">Stage</span>,
@@ -936,6 +944,13 @@
     <span class="doccomment">/// There can be multiple streams of events. All events will be broadcast to</span>
     <span class="doccomment">/// all streams of events.</span>
     <span class="doccomment">///</span>
+    <span class="doccomment">/// **Note** that we *highly* recommend specifying only the events that you</span>
+    <span class="doccomment">/// need via [`some_events`], especially if performance is a concern. This</span>
+    <span class="doccomment">/// will ensure that events you don&#39;t care about aren&#39;t deserialized from</span>
+    <span class="doccomment">/// received websocket messages. Gateway intents only allow specifying</span>
+    <span class="doccomment">/// categories of events, but using [`some_events`] will filter it further</span>
+    <span class="doccomment">/// on the client side.</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// The returned event stream implements [`futures::stream::Stream`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// All event types except for [`EventType::ShardPayload`] are enabled. If</span>
@@ -1050,8 +1065,7 @@
         <span class="kw">let</span> <span class="ident">session</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">session</span>()
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">CommandError</span>::<span class="ident">SessionInactive</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span>
-            <span class="kw">crate</span>::<span class="ident">json_to_string</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">CommandError</span>::<span class="ident">Serializing</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">json</span>::<span class="ident">to_string</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">CommandError</span>::<span class="ident">Serializing</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message</span>::<span class="ident">Text</span>(<span class="ident">json</span>);
 
         <span class="comment">// Tick ratelimiter.</span>

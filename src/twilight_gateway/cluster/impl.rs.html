@@ -392,6 +392,15 @@
 <span id="391">391</span>
 <span id="392">392</span>
 <span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::{<span class="ident">ClusterBuilder</span>, <span class="ident">ShardScheme</span>},
@@ -715,6 +724,15 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Each item in the stream contains both the shard&#39;s ID and the event</span>
     <span class="doccomment">/// itself.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Note** that we *highly* recommend specifying only the events that you</span>
+    <span class="doccomment">/// need via [`some_events`], especially if performance is a concern. This</span>
+    <span class="doccomment">/// will ensure that events you don&#39;t care about aren&#39;t deserialized from</span>
+    <span class="doccomment">/// received websocket messages. Gateway intents only allow specifying</span>
+    <span class="doccomment">/// categories of events, but using [`some_events`] will filter it further</span>
+    <span class="doccomment">/// on the client side.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`some_events`]: #method.some_events</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">events</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">u64</span>, <span class="ident">Event</span>)<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span> {
         <span class="self">self</span>.<span class="ident">some_events</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">default</span>())
     }
