@@ -1201,7 +1201,7 @@
             <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">str</span>::<span class="ident">from_utf8_mut</span>(<span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">buffer_mut</span>())
                 .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ProcessError</span>::<span class="ident">PayloadNotUtf8</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
 
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">json</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">json</span>, <span class="string">&quot;Received JSON&quot;</span>);
             <span class="kw">let</span> <span class="ident">emitter</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">emitter</span>.<span class="ident">clone</span>();
 
             <span class="kw">let</span> (<span class="ident">op</span>, <span class="ident">seq</span>, <span class="ident">event_type</span>) <span class="op">=</span>
