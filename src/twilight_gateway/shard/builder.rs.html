@@ -278,7 +278,7 @@
     <span class="ident">sync</span>::<span class="ident">Arc</span>,
 };
 <span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Client</span> <span class="kw">as</span> <span class="ident">HttpClient</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::{<span class="ident">payload</span>::<span class="ident">update_status</span>::<span class="ident">UpdateStatusInfo</span>, <span class="ident">GatewayIntents</span>};
+<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::{<span class="ident">payload</span>::<span class="ident">update_status</span>::<span class="ident">UpdateStatusInfo</span>, <span class="ident">Intents</span>};
 
 <span class="doccomment">/// Large threshold configuration is invalid.</span>
 <span class="doccomment">///</span>
@@ -413,7 +413,7 @@
     <span class="doccomment">/// Set the gateway intents.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Default is Discord&#39;s default.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GatewayIntents</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Intents</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">intents</span> <span class="op">=</span> <span class="ident">intents</span>;
 
         <span class="self">self</span>

@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["OpCode",""]],"mod":[["connection_info",""],["event",""],["payload",""],["presence",""]],"struct":[["GatewayIntents",""],["SessionStartLimit","Current gateway session utilisation status."]]});
+initSidebarItems({"enum":[["OpCode",""]],"mod":[["connection_info",""],["event",""],["payload",""],["presence",""]],"struct":[["Intents",""],["SessionStartLimit","Current gateway session utilisation status."]]});

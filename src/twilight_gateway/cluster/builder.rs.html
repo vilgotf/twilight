@@ -353,7 +353,7 @@
     <span class="ident">sync</span>::<span class="ident">Arc</span>,
 };
 <span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Client</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::{<span class="ident">payload</span>::<span class="ident">update_status</span>::<span class="ident">UpdateStatusInfo</span>, <span class="ident">GatewayIntents</span>};
+<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::{<span class="ident">payload</span>::<span class="ident">update_status</span>::<span class="ident">UpdateStatusInfo</span>, <span class="ident">Intents</span>};
 
 <span class="doccomment">/// Starting a cluster failed.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
@@ -465,12 +465,12 @@
 <span class="doccomment">/// ```rust,no_run</span>
 <span class="doccomment">/// use std::env;</span>
 <span class="doccomment">/// use twilight_gateway::Cluster;</span>
-<span class="doccomment">/// use twilight_model::gateway::GatewayIntents;</span>
+<span class="doccomment">/// use twilight_model::gateway::Intents;</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # #[tokio::main] async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
 <span class="doccomment">/// let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// let intents = GatewayIntents::GUILD_MESSAGES;</span>
+<span class="doccomment">/// let intents = Intents::GUILD_MESSAGES;</span>
 <span class="doccomment">/// let cluster = Cluster::builder(token)</span>
 <span class="doccomment">///     .intents(Some(intents))</span>
 <span class="doccomment">///     .large_threshold(100)?</span>
@@ -562,7 +562,7 @@
     <span class="doccomment">/// Refer to the shard&#39;s [`ShardBuilder::intents`] for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ShardBuilder::intents`]: ../shard/struct.ShardBuilder.html#method.intents</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GatewayIntents</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Intents</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">1</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">1</span>.<span class="ident">intents</span>(<span class="ident">intents</span>);
 
         <span class="self">self</span>

@@ -7,11 +7,11 @@
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::<span class="ident">Cluster</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::<span class="ident">GatewayIntents</span>;
+<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::<span class="ident">Intents</span>;
 
 <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
 
-<span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">GatewayIntents</span>::<span class="ident">GUILD_MESSAGES</span>;
+<span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGES</span>;
 <span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster</span>::<span class="ident">builder</span>(<span class="ident">token</span>)
     .<span class="ident">intents</span>(<span class="prelude-val">Some</span>(<span class="ident">intents</span>))
     .<span class="ident">large_threshold</span>(<span class="number">100</span>)<span class="question-mark">?</span>
@@ -35,7 +35,7 @@ information.</p>
 50.</p>
 <p>Returns <a href="../shard/enum.LargeThresholdError.html#variant.TooMany"><code>LargeThresholdError::TooMany</code></a> if the provided value is above
 250.</p>
-</div><h4 id='method.intents' class="method"><code>pub fn <a href='#method.intents' class='fnname'>intents</a>(self, intents: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../twilight_model/gateway/intents/struct.GatewayIntents.html" title="struct twilight_model::gateway::intents::GatewayIntents">GatewayIntents</a>&gt;) -&gt; Self</code><a class='srclink' href='../../src/twilight_gateway/cluster/builder.rs.html#227-231' title='goto source code'>[src]</a></h4><div class='docblock'><p>Sets the intents to use when identifying with the gateway.</p>
+</div><h4 id='method.intents' class="method"><code>pub fn <a href='#method.intents' class='fnname'>intents</a>(self, intents: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../twilight_model/gateway/intents/struct.Intents.html" title="struct twilight_model::gateway::intents::Intents">Intents</a>&gt;) -&gt; Self</code><a class='srclink' href='../../src/twilight_gateway/cluster/builder.rs.html#227-231' title='goto source code'>[src]</a></h4><div class='docblock'><p>Sets the intents to use when identifying with the gateway.</p>
 <p>Refer to the shard's <a href="../shard/struct.ShardBuilder.html#method.intents"><code>ShardBuilder::intents</code></a> for more information.</p>
 </div><h4 id='method.presence' class="method"><code>pub fn <a href='#method.presence' class='fnname'>presence</a>(self, presence: <a class="struct" href="../../twilight_model/gateway/payload/update_status/struct.UpdateStatusInfo.html" title="struct twilight_model::gateway::payload::update_status::UpdateStatusInfo">UpdateStatusInfo</a>) -&gt; Self</code><a class='srclink' href='../../src/twilight_gateway/cluster/builder.rs.html#238-242' title='goto source code'>[src]</a></h4><div class='docblock'><p>Set the presence to use when identifying with the gateway.</p>
 <p>Refer to the shard's <a href="../shard/struct.ShardBuilder.html#method.presence"><code>ShardBuilder::presence</code></a> for more information.</p>

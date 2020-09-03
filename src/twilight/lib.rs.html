@@ -339,7 +339,7 @@
 <span class="doccomment">//! use twilight_cache_inmemory::{EventType, InMemoryCache};</span>
 <span class="doccomment">//! use twilight_gateway::{cluster::{Cluster, ShardScheme}, Event};</span>
 <span class="doccomment">//! use twilight_http::Client as HttpClient;</span>
-<span class="doccomment">//! use twilight_model::gateway::GatewayIntents;</span>
+<span class="doccomment">//! use twilight_model::gateway::Intents;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #[tokio::main]</span>
 <span class="doccomment">//! async fn main() -&gt; Result&lt;(), Box&lt;dyn Error + Send + Sync&gt;&gt; {</span>
@@ -352,7 +352,7 @@
 <span class="doccomment">//!     let cluster = Cluster::builder(&amp;token)</span>
 <span class="doccomment">//!         .shard_scheme(scheme)</span>
 <span class="doccomment">//!         // Use intents to only receive guild message events.</span>
-<span class="doccomment">//!         .intents(Some(GatewayIntents::GUILD_MESSAGES))</span>
+<span class="doccomment">//!         .intents(Some(Intents::GUILD_MESSAGES))</span>
 <span class="doccomment">//!         .build()</span>
 <span class="doccomment">//!         .await?;</span>
 <span class="doccomment">//!</span>

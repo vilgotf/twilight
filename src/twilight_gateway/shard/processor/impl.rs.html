@@ -893,7 +893,7 @@
         <span class="ident">identify</span>::{<span class="ident">Identify</span>, <span class="ident">IdentifyInfo</span>, <span class="ident">IdentifyProperties</span>},
         <span class="ident">resume</span>::<span class="ident">Resume</span>,
     },
-    <span class="ident">GatewayIntents</span>, <span class="ident">OpCode</span>,
+    <span class="ident">Intents</span>, <span class="ident">OpCode</span>,
 };
 <span class="kw">use</span> <span class="ident">url</span>::{<span class="ident">ParseError</span> <span class="kw">as</span> <span class="ident">UrlParseError</span>, <span class="ident">Url</span>};
 
@@ -1014,7 +1014,7 @@
     <span class="doccomment">/// The intents are provided.</span>
     <span class="ident">IntentsDisallowed</span> {
         <span class="doccomment">/// The configured intents for the shard.</span>
-        <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GatewayIntents</span><span class="op">&gt;</span>,
+        <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Intents</span><span class="op">&gt;</span>,
         <span class="doccomment">/// The ID of the shard.</span>
         <span class="ident">shard_id</span>: <span class="ident">u64</span>,
     },
@@ -1023,7 +1023,7 @@
     <span class="doccomment">/// The intents are provided.</span>
     <span class="ident">IntentsInvalid</span> {
         <span class="doccomment">/// Configured intents for the shard.</span>
-        <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GatewayIntents</span><span class="op">&gt;</span>,
+        <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Intents</span><span class="op">&gt;</span>,
         <span class="doccomment">/// ID of the shard.</span>
         <span class="ident">shard_id</span>: <span class="ident">u64</span>,
     },
