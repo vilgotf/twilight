@@ -335,6 +335,7 @@
 <span id="334">334</span>
 <span id="335">335</span>
 <span id="336">336</span>
+<span id="337">337</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">config</span>::<span class="ident">Config</span> <span class="kw">as</span> <span class="ident">ClusterConfig</span>,
@@ -388,6 +389,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Auto`]: #variant.Auto</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ShardScheme</span> {
     <span class="doccomment">/// Specifies to retrieve the amount of shards recommended by Discord and</span>
     <span class="doccomment">/// then start all of them.</span>
