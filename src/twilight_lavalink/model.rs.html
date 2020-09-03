@@ -954,49 +954,49 @@
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Destroy</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OutgoingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Destroy</span>) <span class="op">-&gt;</span> <span class="ident">OutgoingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Destroy</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutgoingEvent</span> {
             <span class="self">Self</span>::<span class="ident">Destroy</span>(<span class="ident">event</span>)
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Equalizer</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OutgoingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Equalizer</span>) <span class="op">-&gt;</span> <span class="ident">OutgoingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Equalizer</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutgoingEvent</span> {
             <span class="self">Self</span>::<span class="ident">Equalizer</span>(<span class="ident">event</span>)
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Pause</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OutgoingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Pause</span>) <span class="op">-&gt;</span> <span class="ident">OutgoingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Pause</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutgoingEvent</span> {
             <span class="self">Self</span>::<span class="ident">Pause</span>(<span class="ident">event</span>)
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Play</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OutgoingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Play</span>) <span class="op">-&gt;</span> <span class="ident">OutgoingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Play</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutgoingEvent</span> {
             <span class="self">Self</span>::<span class="ident">Play</span>(<span class="ident">event</span>)
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Seek</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OutgoingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Seek</span>) <span class="op">-&gt;</span> <span class="ident">OutgoingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Seek</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutgoingEvent</span> {
             <span class="self">Self</span>::<span class="ident">Seek</span>(<span class="ident">event</span>)
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Stop</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OutgoingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Stop</span>) <span class="op">-&gt;</span> <span class="ident">OutgoingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Stop</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutgoingEvent</span> {
             <span class="self">Self</span>::<span class="ident">Stop</span>(<span class="ident">event</span>)
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">VoiceUpdate</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OutgoingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">VoiceUpdate</span>) <span class="op">-&gt;</span> <span class="ident">OutgoingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">VoiceUpdate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutgoingEvent</span> {
             <span class="self">Self</span>::<span class="ident">VoiceUpdate</span>(<span class="ident">event</span>)
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Volume</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OutgoingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Volume</span>) <span class="op">-&gt;</span> <span class="ident">OutgoingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Volume</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutgoingEvent</span> {
             <span class="self">Self</span>::<span class="ident">Volume</span>(<span class="ident">event</span>)
         }
     }
@@ -1014,7 +1014,7 @@
 
     <span class="kw">impl</span> <span class="ident">Destroy</span> {
         <span class="doccomment">/// Create a new destroy event.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">op</span>: <span class="ident">Opcode</span>::<span class="ident">Destroy</span>,
@@ -1023,7 +1023,7 @@
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Destroy</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">op</span>: <span class="ident">Opcode</span>::<span class="ident">Destroy</span>,
@@ -1046,13 +1046,13 @@
 
     <span class="kw">impl</span> <span class="ident">Equalizer</span> {
         <span class="doccomment">/// Create a new equalizer event.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">bands</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EqualizerBand</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">bands</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EqualizerBand</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">bands</span>))
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EqualizerBand</span><span class="op">&gt;</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Equalizer</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">bands</span>): (<span class="ident">GuildId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EqualizerBand</span><span class="op">&gt;</span>)) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">bands</span>): (<span class="ident">GuildId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EqualizerBand</span><span class="op">&gt;</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">bands</span>,
                 <span class="ident">guild_id</span>,
@@ -1074,13 +1074,13 @@
 
     <span class="kw">impl</span> <span class="ident">EqualizerBand</span> {
         <span class="doccomment">/// Create a new equalizer band.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">band</span>: <span class="ident">i64</span>, <span class="ident">gain</span>: <span class="ident">f64</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">band</span>: <span class="ident">i64</span>, <span class="ident">gain</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">band</span>, <span class="ident">gain</span>))
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">i64</span>, <span class="ident">f64</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EqualizerBand</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">band</span>, <span class="ident">gain</span>): (<span class="ident">i64</span>, <span class="ident">f64</span>)) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">band</span>, <span class="ident">gain</span>): (<span class="ident">i64</span>, <span class="ident">f64</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">band</span>, <span class="ident">gain</span> }
         }
     }
@@ -1104,13 +1104,13 @@
         <span class="doccomment">/// Create a new pause event.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Set to `true` to pause the player or `false` to resume it.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">pause</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">pause</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">pause</span>))
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">bool</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pause</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">pause</span>): (<span class="ident">GuildId</span>, <span class="ident">bool</span>)) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">pause</span>): (<span class="ident">GuildId</span>, <span class="ident">bool</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">op</span>: <span class="ident">Opcode</span>::<span class="ident">Pause</span>,
@@ -1155,40 +1155,40 @@
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
             <span class="ident">track</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-            <span class="ident">start_time</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;&gt;</span>,
-            <span class="ident">end_time</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;&gt;</span>,
+            <span class="ident">start_time</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="ident">end_time</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span>,
             <span class="ident">no_replace</span>: <span class="ident">bool</span>,
-        ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>, <span class="ident">start_time</span>, <span class="ident">end_time</span>, <span class="ident">no_replace</span>))
         }
     }
 
-    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Play</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>): (<span class="ident">GuildId</span>, <span class="ident">T</span>)) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Play</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>): (<span class="ident">GuildId</span>, <span class="ident">T</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>, <span class="bool-val">true</span>))
         }
     }
 
-    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Play</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>, <span class="ident">start_time</span>): (<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>)) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Play</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>, <span class="ident">start_time</span>): (<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>, <span class="ident">start_time</span>, <span class="prelude-val">None</span>, <span class="bool-val">true</span>))
         }
     }
 
-    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;&gt;</span>, <span class="ident">E</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>, <span class="ident">E</span>)<span class="op">&gt;</span>
+    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">E</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>, <span class="ident">E</span>)<span class="op">&gt;</span>
         <span class="kw">for</span> <span class="ident">Play</span>
     {
-        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>, <span class="ident">start_time</span>, <span class="ident">end_time</span>): (<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>, <span class="ident">E</span>)) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>, <span class="ident">start_time</span>, <span class="ident">end_time</span>): (<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>, <span class="ident">E</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">track</span>, <span class="ident">start_time</span>, <span class="ident">end_time</span>, <span class="bool-val">true</span>))
         }
     }
 
-    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;&gt;</span>, <span class="ident">E</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>, <span class="ident">E</span>, <span class="ident">bool</span>)<span class="op">&gt;</span>
+    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">E</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>, <span class="ident">E</span>, <span class="ident">bool</span>)<span class="op">&gt;</span>
         <span class="kw">for</span> <span class="ident">Play</span>
     {
         <span class="kw">fn</span> <span class="ident">from</span>(
             (<span class="ident">guild_id</span>, <span class="ident">track</span>, <span class="ident">start_time</span>, <span class="ident">end_time</span>, <span class="ident">no_replace</span>): (<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">S</span>, <span class="ident">E</span>, <span class="ident">bool</span>),
-        ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">end_time</span>: <span class="ident">end_time</span>.<span class="ident">into</span>(),
                 <span class="ident">guild_id</span>,
@@ -1215,13 +1215,13 @@
 
     <span class="kw">impl</span> <span class="ident">Seek</span> {
         <span class="doccomment">/// Create a new seek event.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">position</span>: <span class="ident">i64</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">position</span>: <span class="ident">i64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">position</span>))
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">i64</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Seek</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">position</span>): (<span class="ident">GuildId</span>, <span class="ident">i64</span>)) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">position</span>): (<span class="ident">GuildId</span>, <span class="ident">i64</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">op</span>: <span class="ident">Opcode</span>::<span class="ident">Seek</span>,
@@ -1243,13 +1243,13 @@
 
     <span class="kw">impl</span> <span class="ident">Stop</span> {
         <span class="doccomment">/// Create a new stop event.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>(<span class="ident">guild_id</span>)
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Stop</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">op</span>: <span class="ident">Opcode</span>::<span class="ident">Stop</span>,
@@ -1278,13 +1278,13 @@
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
             <span class="ident">session_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
             <span class="ident">event</span>: <span class="ident">SlimVoiceServerUpdate</span>,
-        ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">session_id</span>, <span class="ident">event</span>))
         }
     }
 
-    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">SlimVoiceServerUpdate</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VoiceUpdate</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">session_id</span>, <span class="ident">event</span>): (<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">SlimVoiceServerUpdate</span>)) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">SlimVoiceServerUpdate</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VoiceUpdate</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">session_id</span>, <span class="ident">event</span>): (<span class="ident">GuildId</span>, <span class="ident">T</span>, <span class="ident">SlimVoiceServerUpdate</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">event</span>,
                 <span class="ident">guild_id</span>,
@@ -1309,7 +1309,7 @@
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">VoiceServerUpdate</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SlimVoiceServerUpdate</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">update</span>: <span class="ident">VoiceServerUpdate</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">update</span>: <span class="ident">VoiceServerUpdate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">endpoint</span>: <span class="ident">update</span>.<span class="ident">endpoint</span>,
                 <span class="ident">guild_id</span>: <span class="ident">update</span>.<span class="ident">guild_id</span>,
@@ -1333,13 +1333,13 @@
 
     <span class="kw">impl</span> <span class="ident">Volume</span> {
         <span class="doccomment">/// Create a new volume event.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">volume</span>: <span class="ident">i64</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">volume</span>: <span class="ident">i64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span>::<span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">volume</span>))
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">GuildId</span>, <span class="ident">i64</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Volume</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">volume</span>): (<span class="ident">GuildId</span>, <span class="ident">i64</span>)) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">guild_id</span>, <span class="ident">volume</span>): (<span class="ident">GuildId</span>, <span class="ident">i64</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">op</span>: <span class="ident">Opcode</span>::<span class="ident">Volume</span>,
@@ -1372,13 +1372,13 @@
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">PlayerUpdate</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IncomingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">PlayerUpdate</span>) <span class="op">-&gt;</span> <span class="ident">IncomingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">PlayerUpdate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IncomingEvent</span> {
             <span class="self">Self</span>::<span class="ident">PlayerUpdate</span>(<span class="ident">event</span>)
         }
     }
 
     <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Stats</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IncomingEvent</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Stats</span>) <span class="op">-&gt;</span> <span class="ident">IncomingEvent</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event</span>: <span class="ident">Stats</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IncomingEvent</span> {
             <span class="self">Self</span>::<span class="ident">Stats</span>(<span class="ident">event</span>)
         }
     }

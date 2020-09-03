@@ -124,7 +124,7 @@
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
         <span class="ident">allow</span>: <span class="ident">Permissions</span>,
         <span class="ident">deny</span>: <span class="ident">Permissions</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">allow</span>,
             <span class="ident">channel_id</span>,
@@ -134,12 +134,12 @@
     }
 
     <span class="doccomment">/// Specify this override to be for a member.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">member</span>(<span class="self">self</span>, <span class="ident">user_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">UpdateChannelPermissionConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">member</span>(<span class="self">self</span>, <span class="ident">user_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UpdateChannelPermissionConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">configure</span>(<span class="string">&quot;member&quot;</span>, <span class="ident">user_id</span>.<span class="ident">into</span>().<span class="number">0</span>)
     }
 
     <span class="doccomment">/// Specify this override to be for a role.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">role</span>(<span class="self">self</span>, <span class="ident">role_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">UpdateChannelPermissionConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">role</span>(<span class="self">self</span>, <span class="ident">role_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UpdateChannelPermissionConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">configure</span>(<span class="string">&quot;role&quot;</span>, <span class="ident">role_id</span>.<span class="ident">into</span>().<span class="number">0</span>)
     }
 
@@ -147,7 +147,7 @@
         <span class="self">self</span>,
         <span class="ident">kind</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">target_id</span>: <span class="ident">u64</span>,
-    ) <span class="op">-&gt;</span> <span class="ident">UpdateChannelPermissionConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UpdateChannelPermissionConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="ident">UpdateChannelPermissionConfigured</span>::<span class="ident">new</span>(
             <span class="self">self</span>.<span class="ident">http</span>,
             <span class="self">self</span>.<span class="ident">channel_id</span>,

@@ -66,19 +66,19 @@
     <span class="doccomment">/// Creates a builder to configure and construct an [`InMemoryCache`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`InMemoryCache`]: struct.InMemoryCache.html</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">default</span>()
     }
 
     <span class="doccomment">/// Consume the builder, returning a configured cache.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">InMemoryCache</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InMemoryCache</span> {
         <span class="ident">InMemoryCache</span>::<span class="ident">new_with_config</span>(<span class="self">self</span>.<span class="number">0</span>)
     }
 
     <span class="doccomment">/// Sets the list of event types for the cache to handle.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Defaults to all types.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">event_types</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">event_types</span>: <span class="ident">EventType</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">event_types</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">event_types</span>: <span class="ident">EventType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">event_types</span> <span class="op">=</span> <span class="ident">event_types</span>;
 
         <span class="self">self</span>
@@ -87,7 +87,7 @@
     <span class="doccomment">/// Sets the number of messages to cache per channel.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Defaults to 100.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message_cache_size</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">message_cache_size</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message_cache_size</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">message_cache_size</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">message_cache_size</span> <span class="op">=</span> <span class="ident">message_cache_size</span>;
 
         <span class="self">self</span>

@@ -58,7 +58,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PartialEq</span><span class="op">&lt;</span><span class="ident">Member</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">CachedMember</span> {
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Member</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Member</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         (
             <span class="self">self</span>.<span class="ident">deaf</span>,
             <span class="self">self</span>.<span class="ident">joined_at</span>.<span class="ident">as_ref</span>(),
@@ -66,7 +66,7 @@
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">nick</span>,
             <span class="self">self</span>.<span class="ident">premium_since</span>.<span class="ident">as_ref</span>(),
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">roles</span>,
-        ) <span class="op">==</span> (
+        ) <span class="op">=</span><span class="op">=</span> (
             <span class="ident">other</span>.<span class="ident">deaf</span>,
             <span class="ident">other</span>.<span class="ident">joined_at</span>.<span class="ident">as_ref</span>(),
             <span class="ident">other</span>.<span class="ident">mute</span>,

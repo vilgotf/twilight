@@ -1025,15 +1025,15 @@
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">GatewayEvent</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">EventConversionError</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">event</span>: <span class="ident">Event</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">event</span>: <span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">event</span> {
-            <span class="ident">Event</span>::<span class="ident">GatewayHeartbeat</span>(<span class="ident">v</span>) <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">Heartbeat</span>(<span class="ident">v</span>),
-            <span class="ident">Event</span>::<span class="ident">GatewayHeartbeatAck</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">HeartbeatAck</span>,
-            <span class="ident">Event</span>::<span class="ident">GatewayHello</span>(<span class="ident">v</span>) <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">Hello</span>(<span class="ident">v</span>),
-            <span class="ident">Event</span>::<span class="ident">GatewayInvalidateSession</span>(<span class="ident">v</span>) <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidateSession</span>(<span class="ident">v</span>),
-            <span class="ident">Event</span>::<span class="ident">GatewayReconnect</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">Reconnect</span>,
+            <span class="ident">Event</span>::<span class="ident">GatewayHeartbeat</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Heartbeat</span>(<span class="ident">v</span>),
+            <span class="ident">Event</span>::<span class="ident">GatewayHeartbeatAck</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">HeartbeatAck</span>,
+            <span class="ident">Event</span>::<span class="ident">GatewayHello</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Hello</span>(<span class="ident">v</span>),
+            <span class="ident">Event</span>::<span class="ident">GatewayInvalidateSession</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidateSession</span>(<span class="ident">v</span>),
+            <span class="ident">Event</span>::<span class="ident">GatewayReconnect</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Reconnect</span>,
 
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EventConversionError</span>::<span class="ident">new</span>(<span class="ident">event</span>)),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EventConversionError</span>::<span class="ident">new</span>(<span class="ident">event</span>)),
         })
     }
 }
@@ -1074,7 +1074,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This might be useful if you scan the payload for this information and</span>
     <span class="doccomment">/// do some work with the event type prior to deserializing the payload.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">op</span>: <span class="ident">u8</span>, <span class="ident">sequence</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">event_type</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">op</span>: <span class="ident">u8</span>, <span class="ident">sequence</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">event_type</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">event_type</span>: <span class="ident">event_type</span>.<span class="ident">into</span>(),
             <span class="ident">op</span>,
@@ -1082,7 +1082,7 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">deser</span> <span class="op">=</span> <span class="ident">GatewayEventDeserializer</span>::<span class="ident">from_json</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">GatewayEventDeserializer</span> {
             <span class="ident">event_type</span>,
@@ -1098,23 +1098,23 @@
     }
 
     <span class="doccomment">/// Return an immutable reference to the event type of the payload.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">event_type_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">event_type_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">event_type</span>.<span class="ident">as_deref</span>()
     }
 
     <span class="doccomment">/// Return the opcode of the payload.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u8</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="self">self</span>.<span class="ident">op</span>
     }
 
     <span class="doccomment">/// Return the sequence of the payload.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sequence</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sequence</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">sequence</span>
     }
 
     <span class="doccomment">/// Consume the deserializer, returning its opcode, sequence, and event type</span>
     <span class="doccomment">/// components.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_parts</span>(<span class="self">self</span>) <span class="op">-&gt;</span> (<span class="ident">u8</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_parts</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u8</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) {
         (<span class="self">self</span>.<span class="ident">op</span>, <span class="self">self</span>.<span class="ident">sequence</span>, <span class="self">self</span>.<span class="ident">event_type</span>)
     }
 }
@@ -1141,7 +1141,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This might be useful if you scan the payload for this information and</span>
     <span class="doccomment">/// do some work with the event type prior to deserializing the payload.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">op</span>: <span class="ident">u8</span>, <span class="ident">sequence</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">event_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">op</span>: <span class="ident">u8</span>, <span class="ident">sequence</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">event_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">event_type</span>,
             <span class="ident">op</span>,
@@ -1155,7 +1155,7 @@
     <span class="doccomment">/// This will scan the payload for the opcode and, optionally, event type if</span>
     <span class="doccomment">/// provided. The opcode key (&quot;op&quot;), must be in the payload while the event</span>
     <span class="doccomment">/// type key (&quot;t&quot;) is optional and only required for event ops.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">find_opcode</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">event_type</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">find_event_type</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">sequence</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">find_sequence</span>(<span class="ident">input</span>);
@@ -1168,27 +1168,27 @@
     }
 
     <span class="doccomment">/// Return an immutable reference to the event type of the payload.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">event_type_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">event_type_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">event_type</span>
     }
 
     <span class="doccomment">/// Return the opcode of the payload.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u8</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="self">self</span>.<span class="ident">op</span>
     }
 
     <span class="doccomment">/// Return the sequence of the payload.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sequence</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sequence</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">sequence</span>
     }
 
     <span class="doccomment">/// Consume the deserializer, returning its opcode and event type</span>
     <span class="doccomment">/// components.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_parts</span>(<span class="self">self</span>) <span class="op">-&gt;</span> (<span class="ident">u8</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_parts</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u8</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>) {
         (<span class="self">self</span>.<span class="ident">op</span>, <span class="self">self</span>.<span class="ident">sequence</span>, <span class="self">self</span>.<span class="ident">event_type</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">find_event_type</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">find_event_type</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span> {
         <span class="comment">// We&#39;re going to search for the event type key from the start. Discord</span>
         <span class="comment">// always puts it at the front before the D key from some testing of</span>
         <span class="comment">// several hundred payloads.</span>
@@ -1203,7 +1203,7 @@
         <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">get</span>(<span class="ident">from</span>..)<span class="question-mark">?</span>.<span class="ident">find</span>(<span class="op">|</span><span class="ident">c</span>: <span class="ident">char</span><span class="op">|</span> <span class="op">!</span><span class="ident">c</span>.<span class="ident">is_whitespace</span>())<span class="question-mark">?</span> <span class="op">+</span> <span class="ident">from</span> <span class="op">+</span> <span class="number">1</span>;
 
         <span class="comment">// Check if the character just before the cursor is &#39;&quot;&#39;.</span>
-        <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">as_bytes</span>().<span class="ident">get</span>(<span class="ident">start</span> <span class="op">-</span> <span class="number">1</span>).<span class="ident">copied</span>()<span class="question-mark">?</span> <span class="op">!=</span> <span class="string">b&#39;&quot;&#39;</span> {
+        <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">as_bytes</span>().<span class="ident">get</span>(<span class="ident">start</span> <span class="op">-</span> <span class="number">1</span>).<span class="ident">copied</span>()<span class="question-mark">?</span> <span class="op">!</span><span class="op">=</span> <span class="string">b&#39;&quot;&#39;</span> {
             <span class="kw">return</span> <span class="prelude-val">None</span>;
         }
 
@@ -1212,15 +1212,15 @@
         <span class="ident">input</span>.<span class="ident">get</span>(<span class="ident">start</span>..<span class="ident">start</span> <span class="op">+</span> <span class="ident">to</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">find_opcode</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">find_opcode</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">find_integer</span>(<span class="ident">input</span>, <span class="string">r#&quot;&quot;op&quot;:&quot;#</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">find_sequence</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">find_sequence</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">find_integer</span>(<span class="ident">input</span>, <span class="string">r#&quot;&quot;s&quot;:&quot;#</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">find_integer</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromStr</span><span class="op">&gt;</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">find_integer</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromStr</span><span class="op">&gt;</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Find the op key&#39;s position and then search for where the first</span>
         <span class="comment">// character that&#39;s not base 10 is. This&#39;ll give us the bytes with the</span>
         <span class="comment">// op which can be parsed.</span>
@@ -1243,37 +1243,37 @@
 <span class="kw">struct</span> <span class="ident">GatewayEventVisitor</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">u8</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">GatewayEventVisitor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">field</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">T</span>: <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">field</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">T</span>: <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>, <span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>,
         <span class="ident">field</span>: <span class="ident">Field</span>,
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">found</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
         <span class="kw">loop</span> {
             <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">next_key</span>::<span class="op">&lt;</span><span class="ident">Field</span><span class="op">&gt;</span>() {
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="kw">if</span> <span class="ident">key</span> <span class="op">==</span> <span class="ident">field</span> <span class="op">=&gt;</span> <span class="ident">found</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>),
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>)) <span class="op">|</span> <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="kw">if</span> <span class="ident">key</span> <span class="op">=</span><span class="op">=</span> <span class="ident">field</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">found</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>),
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>)) <span class="op">|</span> <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
                     <span class="kw">continue</span>;
                 }
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">break</span>;
                 }
             }
         }
 
-        <span class="ident">found</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> {
+        <span class="ident">found</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="kw">match</span> <span class="ident">field</span> {
-                <span class="ident">Field</span>::<span class="ident">D</span> <span class="op">=&gt;</span> <span class="string">&quot;d&quot;</span>,
-                <span class="ident">Field</span>::<span class="ident">Op</span> <span class="op">=&gt;</span> <span class="string">&quot;op&quot;</span>,
-                <span class="ident">Field</span>::<span class="ident">S</span> <span class="op">=&gt;</span> <span class="string">&quot;s&quot;</span>,
-                <span class="ident">Field</span>::<span class="ident">T</span> <span class="op">=&gt;</span> <span class="string">&quot;t&quot;</span>,
+                <span class="ident">Field</span>::<span class="ident">D</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;d&quot;</span>,
+                <span class="ident">Field</span>::<span class="ident">Op</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;op&quot;</span>,
+                <span class="ident">Field</span>::<span class="ident">S</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;s&quot;</span>,
+                <span class="ident">Field</span>::<span class="ident">T</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;t&quot;</span>,
             })
         })
     }
 
-    <span class="kw">fn</span> <span class="ident">ignore_all</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">ignore_all</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;ignoring all other fields&quot;</span>);
 
         <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>)) <span class="op">|</span> <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span> <span class="ident">map</span>.<span class="ident">next_key</span>::<span class="op">&lt;</span><span class="ident">Field</span><span class="op">&gt;</span>() {
@@ -1289,12 +1289,12 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">GatewayEventVisitor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">GatewayEvent</span>;
 
-    <span class="kw">fn</span> <span class="ident">expecting</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">formatter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">expecting</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">formatter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="ident">formatter</span>.<span class="ident">write_str</span>(<span class="string">&quot;struct GatewayEvent&quot;</span>)
     }
 
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">visit_map</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">V</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">GatewayEvent</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">visit_map</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">GatewayEvent</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -1314,7 +1314,7 @@
 
         <span class="kw">let</span> <span class="ident">op_deser</span>: <span class="ident">U8Deserializer</span><span class="op">&lt;</span><span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">into_deserializer</span>();
 
-        <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="ident">OpCode</span>::<span class="ident">deserialize</span>(<span class="ident">op_deser</span>).<span class="ident">ok</span>().<span class="ident">ok_or_else</span>(<span class="op">||</span> {
+        <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="ident">OpCode</span>::<span class="ident">deserialize</span>(<span class="ident">op_deser</span>).<span class="ident">ok</span>().<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">op</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>, <span class="string">&quot;unknown opcode&quot;</span>);
             <span class="kw">let</span> <span class="ident">unexpected</span> <span class="op">=</span> <span class="ident">Unexpected</span>::<span class="ident">Unsigned</span>(<span class="ident">u64</span>::<span class="ident">from</span>(<span class="self">self</span>.<span class="number">0</span>));
 
@@ -1322,10 +1322,10 @@
         })<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">op</span> {
-            <span class="ident">OpCode</span>::<span class="ident">Event</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">Event</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>
                     .<span class="number">2</span>
-                    .<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">DeError</span>::<span class="ident">custom</span>(<span class="string">&quot;event type not provided beforehand&quot;</span>))<span class="question-mark">?</span>;
+                    .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">custom</span>(<span class="string">&quot;event type not provided beforehand&quot;</span>))<span class="question-mark">?</span>;
 
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing gateway dispatch&quot;</span>);
 
@@ -1336,13 +1336,13 @@
                     <span class="kw">let</span> <span class="ident">_span_child_enter</span> <span class="op">=</span> <span class="ident">span_child</span>.<span class="ident">enter</span>();
 
                     <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">next_key</span>() {
-                        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=&gt;</span> {
+                        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
 
                             <span class="ident">key</span>
                         }
-                        <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> <span class="kw">break</span>,
-                        <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=&gt;</span> {
+                        <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">break</span>,
+                        <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
                             <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
@@ -1352,7 +1352,7 @@
                     };
 
                     <span class="kw">match</span> <span class="ident">key</span> {
-                        <span class="ident">Field</span>::<span class="ident">D</span> <span class="op">=&gt;</span> {
+                        <span class="ident">Field</span>::<span class="ident">D</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="kw">if</span> <span class="ident">d</span>.<span class="ident">is_some</span>() {
                                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;d&quot;</span>));
                             }
@@ -1361,7 +1361,7 @@
 
                             <span class="ident">d</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value_seed</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>);
                         }
-                        <span class="ident">Field</span>::<span class="ident">Op</span> <span class="op">|</span> <span class="ident">Field</span>::<span class="ident">S</span> <span class="op">|</span> <span class="ident">Field</span>::<span class="ident">T</span> <span class="op">=&gt;</span> {
+                        <span class="ident">Field</span>::<span class="ident">Op</span> <span class="op">|</span> <span class="ident">Field</span>::<span class="ident">S</span> <span class="op">|</span> <span class="ident">Field</span>::<span class="ident">T</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
                             <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">key</span><span class="op">=</span><span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;ignoring key&quot;</span>);
@@ -1369,14 +1369,14 @@
                     }
                 }
 
-                <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">d</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;d&quot;</span>))<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">1</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;s&quot;</span>))<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">d</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;d&quot;</span>))<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">1</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;s&quot;</span>))<span class="question-mark">?</span>;
 
                 <span class="self">Self</span>::<span class="ident">ignore_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>)<span class="question-mark">?</span>;
 
                 <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="ident">s</span>, <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">d</span>))
             }
-            <span class="ident">OpCode</span>::<span class="ident">Heartbeat</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">Heartbeat</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing gateway heartbeat&quot;</span>);
                 <span class="kw">let</span> <span class="ident">seq</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">field</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>, <span class="ident">Field</span>::<span class="ident">D</span>)<span class="question-mark">?</span>;
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">seq</span> <span class="op">=</span> <span class="op">%</span><span class="ident">seq</span>);
@@ -1385,14 +1385,14 @@
 
                 <span class="ident">GatewayEvent</span>::<span class="ident">Heartbeat</span>(<span class="ident">seq</span>)
             }
-            <span class="ident">OpCode</span>::<span class="ident">HeartbeatAck</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">HeartbeatAck</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing gateway heartbeat ack&quot;</span>);
 
                 <span class="self">Self</span>::<span class="ident">ignore_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>)<span class="question-mark">?</span>;
 
                 <span class="ident">GatewayEvent</span>::<span class="ident">HeartbeatAck</span>
             }
-            <span class="ident">OpCode</span>::<span class="ident">Hello</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">Hello</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing gateway hello&quot;</span>);
                 <span class="kw">let</span> <span class="ident">hello</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">field</span>::<span class="op">&lt;</span><span class="ident">Hello</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>, <span class="ident">Field</span>::<span class="ident">D</span>)<span class="question-mark">?</span>;
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">hello</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">hello</span>);
@@ -1401,7 +1401,7 @@
 
                 <span class="ident">GatewayEvent</span>::<span class="ident">Hello</span>(<span class="ident">hello</span>.<span class="ident">heartbeat_interval</span>)
             }
-            <span class="ident">OpCode</span>::<span class="ident">InvalidSession</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">InvalidSession</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing invalid session&quot;</span>);
                 <span class="kw">let</span> <span class="ident">invalidate</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">field</span>::<span class="op">&lt;</span><span class="ident">bool</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>, <span class="ident">Field</span>::<span class="ident">D</span>)<span class="question-mark">?</span>;
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">invalidate</span> <span class="op">=</span> <span class="op">%</span><span class="ident">invalidate</span>);
@@ -1410,26 +1410,26 @@
 
                 <span class="ident">GatewayEvent</span>::<span class="ident">InvalidateSession</span>(<span class="ident">invalidate</span>)
             }
-            <span class="ident">OpCode</span>::<span class="ident">Identify</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">unknown_variant</span>(<span class="string">&quot;Identify&quot;</span>, <span class="ident">VALID_OPCODES</span>)),
-            <span class="ident">OpCode</span>::<span class="ident">Reconnect</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">Identify</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">unknown_variant</span>(<span class="string">&quot;Identify&quot;</span>, <span class="ident">VALID_OPCODES</span>)),
+            <span class="ident">OpCode</span>::<span class="ident">Reconnect</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">Self</span>::<span class="ident">ignore_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>)<span class="question-mark">?</span>;
 
                 <span class="ident">GatewayEvent</span>::<span class="ident">Reconnect</span>
             }
-            <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">unknown_variant</span>(
                     <span class="string">&quot;RequestGuildMembers&quot;</span>,
                     <span class="ident">VALID_OPCODES</span>,
                 ))
             }
-            <span class="ident">OpCode</span>::<span class="ident">Resume</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">unknown_variant</span>(<span class="string">&quot;Resume&quot;</span>, <span class="ident">VALID_OPCODES</span>)),
-            <span class="ident">OpCode</span>::<span class="ident">StatusUpdate</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">Resume</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">unknown_variant</span>(<span class="string">&quot;Resume&quot;</span>, <span class="ident">VALID_OPCODES</span>)),
+            <span class="ident">OpCode</span>::<span class="ident">StatusUpdate</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">unknown_variant</span>(<span class="string">&quot;StatusUpdate&quot;</span>, <span class="ident">VALID_OPCODES</span>))
             }
-            <span class="ident">OpCode</span>::<span class="ident">VoiceServerPing</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">VoiceServerPing</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">unknown_variant</span>(<span class="string">&quot;VoiceServerPing&quot;</span>, <span class="ident">VALID_OPCODES</span>))
             }
-            <span class="ident">OpCode</span>::<span class="ident">VoiceStateUpdate</span> <span class="op">=&gt;</span> {
+            <span class="ident">OpCode</span>::<span class="ident">VoiceStateUpdate</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">unknown_variant</span>(<span class="string">&quot;VoiceStateUpdate&quot;</span>, <span class="ident">VALID_OPCODES</span>))
             }
         })
@@ -1439,7 +1439,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">DeserializeSeed</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">GatewayEventDeserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">GatewayEvent</span>;
 
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(<span class="self">self</span>, <span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">const</span> <span class="ident">FIELDS</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="string">&quot;d&quot;</span>, <span class="string">&quot;s&quot;</span>];
 
         <span class="ident">deserializer</span>.<span class="ident">deserialize_struct</span>(
@@ -1453,7 +1453,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">DeserializeSeed</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">GatewayEventDeserializerOwned</span> {
     <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">GatewayEvent</span>;
 
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(<span class="self">self</span>, <span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">const</span> <span class="ident">FIELDS</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="string">&quot;d&quot;</span>, <span class="string">&quot;s&quot;</span>];
 
         <span class="ident">deserializer</span>.<span class="ident">deserialize_struct</span>(
@@ -1465,15 +1465,15 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Serialize</span> <span class="kw">for</span> <span class="ident">GatewayEvent</span> {
-    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Serializer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">fn</span> <span class="ident">opcode</span>(<span class="ident">gateway_event</span>: <span class="kw-2">&amp;</span><span class="ident">GatewayEvent</span>) <span class="op">-&gt;</span> <span class="ident">OpCode</span> {
+    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Serializer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">opcode</span>(<span class="ident">gateway_event</span>: <span class="kw-2">&amp;</span><span class="ident">GatewayEvent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OpCode</span> {
             <span class="kw">match</span> <span class="ident">gateway_event</span> {
-                <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">OpCode</span>::<span class="ident">Event</span>,
-                <span class="ident">GatewayEvent</span>::<span class="ident">Heartbeat</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">OpCode</span>::<span class="ident">Heartbeat</span>,
-                <span class="ident">GatewayEvent</span>::<span class="ident">HeartbeatAck</span> <span class="op">=&gt;</span> <span class="ident">OpCode</span>::<span class="ident">HeartbeatAck</span>,
-                <span class="ident">GatewayEvent</span>::<span class="ident">Hello</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">OpCode</span>::<span class="ident">Hello</span>,
-                <span class="ident">GatewayEvent</span>::<span class="ident">InvalidateSession</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">OpCode</span>::<span class="ident">InvalidSession</span>,
-                <span class="ident">GatewayEvent</span>::<span class="ident">Reconnect</span> <span class="op">=&gt;</span> <span class="ident">OpCode</span>::<span class="ident">Reconnect</span>,
+                <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OpCode</span>::<span class="ident">Event</span>,
+                <span class="ident">GatewayEvent</span>::<span class="ident">Heartbeat</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OpCode</span>::<span class="ident">Heartbeat</span>,
+                <span class="ident">GatewayEvent</span>::<span class="ident">HeartbeatAck</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OpCode</span>::<span class="ident">HeartbeatAck</span>,
+                <span class="ident">GatewayEvent</span>::<span class="ident">Hello</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OpCode</span>::<span class="ident">Hello</span>,
+                <span class="ident">GatewayEvent</span>::<span class="ident">InvalidateSession</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OpCode</span>::<span class="ident">InvalidSession</span>,
+                <span class="ident">GatewayEvent</span>::<span class="ident">Reconnect</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OpCode</span>::<span class="ident">Reconnect</span>,
             }
         }
 
@@ -1494,21 +1494,21 @@
         <span class="ident">s</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;op&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">opcode</span>(<span class="self">self</span>))<span class="question-mark">?</span>;
 
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;dispatch already handled&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">Heartbeat</span>(<span class="ident">sequence</span>) <span class="op">=&gt;</span> {
+            <span class="self">Self</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;dispatch already handled&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">Heartbeat</span>(<span class="ident">sequence</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">s</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;d&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">sequence</span>)<span class="question-mark">?</span>;
             }
-            <span class="self">Self</span>::<span class="ident">Hello</span>(<span class="ident">interval</span>) <span class="op">=&gt;</span> {
+            <span class="self">Self</span>::<span class="ident">Hello</span>(<span class="ident">interval</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">hello</span> <span class="op">=</span> <span class="ident">Hello</span> {
                     <span class="ident">heartbeat_interval</span>: <span class="kw-2">*</span><span class="ident">interval</span>,
                 };
 
                 <span class="ident">s</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;d&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">hello</span>)<span class="question-mark">?</span>;
             }
-            <span class="self">Self</span>::<span class="ident">InvalidateSession</span>(<span class="ident">invalidate</span>) <span class="op">=&gt;</span> {
+            <span class="self">Self</span>::<span class="ident">InvalidateSession</span>(<span class="ident">invalidate</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">s</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;d&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">invalidate</span>)<span class="question-mark">?</span>;
             }
-            <span class="self">Self</span>::<span class="ident">HeartbeatAck</span> <span class="op">|</span> <span class="self">Self</span>::<span class="ident">Reconnect</span> <span class="op">=&gt;</span> {
+            <span class="self">Self</span>::<span class="ident">HeartbeatAck</span> <span class="op">|</span> <span class="self">Self</span>::<span class="ident">Reconnect</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">s</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;d&quot;</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>)<span class="question-mark">?</span>;
             }
         }

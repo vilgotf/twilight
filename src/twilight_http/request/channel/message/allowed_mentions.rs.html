@@ -299,8 +299,8 @@
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;It will not be added unless `build()` is called.&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AllowedMentions</span> {
     <span class="ident">parse</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ParseTypes</span><span class="op">&gt;</span>,
-    <span class="ident">users</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;&gt;</span>,
-    <span class="ident">roles</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">users</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">roles</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VisitAllowedMentionsEveryone</span>: <span class="ident">Sized</span> {
@@ -364,14 +364,14 @@
 <span class="doccomment">/// # Ok(()) }</span>
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">R</span><span class="op">&gt;</span> {
-    <span class="ident">create_message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">create_message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">e</span>: <span class="ident">E</span>,
     <span class="ident">u</span>: <span class="ident">U</span>,
     <span class="ident">r</span>: <span class="ident">R</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span><span class="op">&gt;</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">for_builder</span>(<span class="ident">create_message</span>: <span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">for_builder</span>(<span class="ident">create_message</span>: <span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">create_message</span>: <span class="prelude-val">Some</span>(<span class="ident">create_message</span>),
             <span class="ident">e</span>: <span class="ident">Unspecified</span>,
@@ -381,7 +381,7 @@
     }
 
     <span class="doccomment">/// Create the builder.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">create_message</span>: <span class="prelude-val">None</span>,
             <span class="ident">e</span>: <span class="ident">Unspecified</span>,
@@ -392,14 +392,14 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">new</span>()
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">R</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Unspecified</span>, <span class="ident">U</span>, <span class="ident">R</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Enable parsing for the `@everyone` and `@here` tags.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_everyone</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Parsed</span>, <span class="ident">U</span>, <span class="ident">R</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_everyone</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Parsed</span>, <span class="ident">U</span>, <span class="ident">R</span><span class="op">&gt;</span> {
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
             <span class="ident">e</span>: <span class="ident">Parsed</span>,
@@ -411,7 +411,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">R</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">Unspecified</span>, <span class="ident">R</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Enable parsing for all user tags.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_users</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">Parsed</span>, <span class="ident">R</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_users</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">Parsed</span>, <span class="ident">R</span><span class="op">&gt;</span> {
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
@@ -424,8 +424,8 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_specific_users</span>(
         <span class="self">self</span>,
         <span class="ident">u</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">UserId</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">ExplicitUser</span>, <span class="ident">R</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">u</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">ExplicitUser</span>, <span class="ident">R</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">u</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
@@ -437,7 +437,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">Unspecified</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Enable parsing for all role tags.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_roles</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">Parsed</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_roles</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">Parsed</span><span class="op">&gt;</span> {
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
@@ -450,8 +450,8 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_specific_roles</span>(
         <span class="self">self</span>,
         <span class="ident">r</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">RoleId</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">ExplicitRole</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">ExplicitRole</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
@@ -466,7 +466,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If there are already some specific `RoleId`s in this builder, extend them with the content</span>
     <span class="doccomment">/// of `r`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_specific_roles</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">r</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">RoleId</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_specific_roles</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">r</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">RoleId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">r</span>.<span class="number">0</span>.<span class="ident">extend</span>(<span class="ident">r</span>);
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
@@ -482,7 +482,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If there are already some specific `UserId`s in this builder, extend them with the content</span>
     <span class="doccomment">/// of `u`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_specific_users</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">u</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">UserId</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_specific_users</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">u</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">UserId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">u</span>.<span class="number">0</span>.<span class="ident">extend</span>(<span class="ident">u</span>);
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
@@ -503,9 +503,9 @@
     <span class="doccomment">/// Return a [`CreateMessage`] struct with the specified `allowed_mentions`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`CreateMessage`]: ../create_message/struct.CreateMessage.html</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">create_message</span> {
-            <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">builder</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">builder</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">AllowedMentions</span>::<span class="ident">default</span>();
                 <span class="self">self</span>.<span class="ident">e</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
                 <span class="self">self</span>.<span class="ident">u</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
@@ -513,7 +513,7 @@
                 <span class="ident">builder</span>.<span class="ident">fields</span>.<span class="ident">allowed_mentions</span>.<span class="ident">replace</span>(<span class="ident">m</span>);
                 <span class="ident">builder</span>
             }
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(
                 <span class="string">&quot;Tried to build to a messagebuilder but none was provided during construction&quot;</span>
             ),
         }
@@ -523,7 +523,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`AllowedMentions`]: ./struct.AllowedMentions.html</span>
     <span class="doccomment">/// [`ClientBuilder#default_allowed_mentions`]: ../../../../client/struct.ClientBuilder.html#method.default_allowed_mentions</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_solo</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">AllowedMentions</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_solo</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentions</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">AllowedMentions</span>::<span class="ident">default</span>();
 
         <span class="self">self</span>.<span class="ident">e</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);

@@ -282,9 +282,9 @@
 
 <span class="doccomment">/// Large threshold configuration is invalid.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returned by [`ShardConfigBuilder::large_threshold`].</span>
+<span class="doccomment">/// Returned by [`ShardBuilder::large_threshold`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ShardConfigBuilder::large_threshold`]: struct.ShardConfigBuilder.html#method.large_threshold</span>
+<span class="doccomment">/// [`ShardBuilder::large_threshold`]: struct.ShardBuilder.html#method.large_threshold</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">LargeThresholdError</span> {
     <span class="doccomment">/// Provided large threshold value is too few in number.</span>
@@ -300,10 +300,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">LargeThresholdError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">TooFew</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;provided large threshold value is fewer than 50&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">TooMany</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;provided large threshold value is more than 250&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">TooFew</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;provided large threshold value is fewer than 50&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">TooMany</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;provided large threshold value is more than 250&quot;</span>),
         }
     }
 }
@@ -312,9 +312,9 @@
 
 <span class="doccomment">/// Shard ID configuration is invalid.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returned by [`ShardConfigBuilder::shard`].</span>
+<span class="doccomment">/// Returned by [`ShardBuilder::shard`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ShardConfigBuilder::shard`]: struct.ShardConfigBuilder.html#method.shard</span>
+<span class="doccomment">/// [`ShardBuilder::shard`]: struct.ShardBuilder.html#method.shard</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ShardIdError</span> {
     <span class="doccomment">/// Provided shard ID is higher than provided total shard count.</span>
@@ -327,9 +327,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ShardIdError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">IdTooLarge</span> { <span class="ident">id</span>, <span class="ident">total</span> } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">IdTooLarge</span> { <span class="ident">id</span>, <span class="ident">total</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
                 <span class="string">&quot;provided shard ID {} is larger than the total {}&quot;</span>,
                 <span class="ident">id</span>, <span class="ident">total</span>,
             )),
@@ -373,11 +373,11 @@
     <span class="doccomment">/// Create a new builder to configure and construct a shard.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Refer to each method to learn their default values.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">token</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="kw-2">mut</span> <span class="ident">token</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="kw-2">mut</span> <span class="ident">token</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">token</span>.<span class="ident">starts_with</span>(<span class="string">&quot;Bot &quot;</span>) {
             <span class="ident">token</span>.<span class="ident">insert_str</span>(<span class="number">0</span>, <span class="string">&quot;Bot &quot;</span>);
         }
@@ -396,7 +396,7 @@
     }
 
     <span class="doccomment">/// Consume the builder, constructing a shard.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Shard</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Shard</span> {
         <span class="ident">Shard</span>::<span class="ident">new_with_config</span>(<span class="self">self</span>.<span class="number">0</span>)
     }
 
@@ -404,7 +404,7 @@
     <span class="doccomment">/// information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Default is a new, unconfigured instance of an HTTP client.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">http_client</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">http_client</span>: <span class="ident">HttpClient</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">http_client</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">http_client</span>: <span class="ident">HttpClient</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">http_client</span> <span class="op">=</span> <span class="ident">http_client</span>;
 
         <span class="self">self</span>
@@ -413,7 +413,7 @@
     <span class="doccomment">/// Set the gateway intents.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Default is Discord&#39;s default.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GatewayIntents</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GatewayIntents</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">intents</span> <span class="op">=</span> <span class="ident">intents</span>;
 
         <span class="self">self</span>
@@ -440,15 +440,15 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`LargeThresholdError::TooFew`]: enum.LargeThresholdError.html#variant.TooFew</span>
     <span class="doccomment">/// [`LargeThresholdError::TooMany`]: enum.LargeThresholdError.html#variant.TooMany</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">large_threshold</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">large_threshold</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">LargeThresholdError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">large_threshold</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">large_threshold</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">LargeThresholdError</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">large_threshold</span> {
-            <span class="number">0</span>..<span class="op">=</span><span class="number">49</span> <span class="op">=&gt;</span> {
+            <span class="number">0</span>..<span class="op">=</span><span class="number">49</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">LargeThresholdError</span>::<span class="ident">TooFew</span> {
                     <span class="ident">value</span>: <span class="ident">large_threshold</span>,
                 })
             }
-            <span class="number">50</span>..<span class="op">=</span><span class="number">250</span> <span class="op">=&gt;</span> {}
-            <span class="number">251</span>..<span class="op">=</span><span class="ident">u64</span>::<span class="ident">MAX</span> <span class="op">=&gt;</span> {
+            <span class="number">50</span>..<span class="op">=</span><span class="number">250</span> <span class="op">=</span><span class="op">&gt;</span> {}
+            <span class="number">251</span>..<span class="op">=</span><span class="ident">u64</span>::<span class="ident">MAX</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">LargeThresholdError</span>::<span class="ident">TooMany</span> {
                     <span class="ident">value</span>: <span class="ident">large_threshold</span>,
                 })
@@ -464,7 +464,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Default is no presence, which defaults to strictly being &quot;online&quot;</span>
     <span class="doccomment">/// with no special qualities.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presence</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">presence</span>: <span class="ident">UpdateStatusInfo</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presence</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">presence</span>: <span class="ident">UpdateStatusInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">presence</span>.<span class="ident">replace</span>(<span class="ident">presence</span>);
 
         <span class="self">self</span>
@@ -481,7 +481,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`Cluster`]: ../cluster/struct.Cluster.html</span>
     <span class="doccomment">/// [`queue`]: ../queue/index.html</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queue</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">queue</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Queue</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queue</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">queue</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Queue</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">queue</span> <span class="op">=</span> <span class="ident">queue</span>;
 
         <span class="self">self</span>
@@ -521,8 +521,8 @@
     <span class="doccomment">/// larger than the total.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ShardIdError::IdTooLarge`]: enum.ShardIdError.html#variant.IdTooLarge</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>, <span class="ident">shard_total</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ShardIdError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">shard_id</span> <span class="op">&gt;=</span> <span class="ident">shard_total</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>, <span class="ident">shard_total</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ShardIdError</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="ident">shard_id</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">shard_total</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ShardIdError</span>::<span class="ident">IdTooLarge</span> {
                 <span class="ident">id</span>: <span class="ident">shard_id</span>,
                 <span class="ident">total</span>: <span class="ident">shard_total</span>,
@@ -535,8 +535,8 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ShardBuilder</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">token</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ShardBuilder</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">token</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">new</span>(<span class="ident">token</span>.<span class="ident">into</span>())
     }
 }

@@ -753,51 +753,51 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedValidationError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">AuthorNameTooLarge</span> { <span class="ident">chars</span> } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">AuthorNameTooLarge</span> { <span class="ident">chars</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;the author name is {} characters long, but the max is {}&quot;</span>,
                 <span class="ident">chars</span>,
                 <span class="self">Self</span>::<span class="ident">AUTHOR_NAME_LENGTH</span>
             ),
-            <span class="self">Self</span>::<span class="ident">DescriptionTooLarge</span> { <span class="ident">chars</span> } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">DescriptionTooLarge</span> { <span class="ident">chars</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;the description is {} characters long, but the max is {}&quot;</span>,
                 <span class="ident">chars</span>,
                 <span class="self">Self</span>::<span class="ident">DESCRIPTION_LENGTH</span>
             ),
-            <span class="self">Self</span>::<span class="ident">EmbedTooLarge</span> { <span class="ident">chars</span> } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">EmbedTooLarge</span> { <span class="ident">chars</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;the combined total length of the embed is {} characters long, but the max is {}&quot;</span>,
                 <span class="ident">chars</span>,
                 <span class="self">Self</span>::<span class="ident">EMBED_TOTAL_LENGTH</span>
             ),
-            <span class="self">Self</span>::<span class="ident">FieldNameTooLarge</span> { <span class="ident">chars</span> } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">FieldNameTooLarge</span> { <span class="ident">chars</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;a field name is {} characters long, but the max is {}&quot;</span>,
                 <span class="ident">chars</span>,
                 <span class="self">Self</span>::<span class="ident">FIELD_NAME_LENGTH</span>
             ),
-            <span class="self">Self</span>::<span class="ident">FieldValueTooLarge</span> { <span class="ident">chars</span> } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">FieldValueTooLarge</span> { <span class="ident">chars</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;a field value is {} characters long, but the max is {}&quot;</span>,
                 <span class="ident">chars</span>,
                 <span class="self">Self</span>::<span class="ident">FIELD_VALUE_LENGTH</span>
             ),
-            <span class="self">Self</span>::<span class="ident">FooterTextTooLarge</span> { <span class="ident">chars</span> } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">FooterTextTooLarge</span> { <span class="ident">chars</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;the footer&#39;s text is {} characters long, but the max is {}&quot;</span>,
                 <span class="ident">chars</span>,
                 <span class="self">Self</span>::<span class="ident">FOOTER_TEXT_LENGTH</span>
             ),
-            <span class="self">Self</span>::<span class="ident">TitleTooLarge</span> { <span class="ident">chars</span> } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">TitleTooLarge</span> { <span class="ident">chars</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;the title&#39;s length is {} characters long, but the max is {}&quot;</span>,
                 <span class="ident">chars</span>,
                 <span class="self">Self</span>::<span class="ident">TITLE_LENGTH</span>
             ),
-            <span class="self">Self</span>::<span class="ident">TooManyFields</span> { <span class="ident">amount</span> } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">TooManyFields</span> { <span class="ident">amount</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;there are {} fields, but the maximum amount is {}&quot;</span>,
                 <span class="ident">amount</span>,
@@ -809,32 +809,32 @@
 
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">EmbedValidationError</span> {}
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ban_delete_message_days</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ban_delete_message_days</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/guild#create-guild-ban-query-string-params&gt;</span>
-    <span class="ident">value</span> <span class="op">&lt;=</span> <span class="number">7</span>
+    <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">7</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_name</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_name</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="ident">_channel_name</span>(<span class="ident">value</span>.<span class="ident">as_ref</span>())
 }
 
-<span class="kw">fn</span> <span class="ident">_channel_name</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">_channel_name</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">value</span>.<span class="ident">chars</span>().<span class="ident">count</span>();
 
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/channel#channel-object-channel-structure&gt;</span>
-    <span class="ident">len</span> <span class="op">&gt;=</span> <span class="number">2</span> <span class="op">&amp;&amp;</span> <span class="ident">len</span> <span class="op">&lt;=</span> <span class="number">100</span>
+    <span class="ident">len</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">2</span> <span class="op">&amp;&amp;</span> <span class="ident">len</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content_limit</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content_limit</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="ident">_content_limit</span>(<span class="ident">value</span>.<span class="ident">as_ref</span>())
 }
 
-<span class="kw">fn</span> <span class="ident">_content_limit</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">_content_limit</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/channel#create-message-params&gt;</span>
-    <span class="ident">value</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&lt;=</span> <span class="number">2000</span>
+    <span class="ident">value</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="number">2000</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">embed</span>(<span class="ident">embed</span>: <span class="kw-2">&amp;</span><span class="ident">Embed</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">EmbedValidationError</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">embed</span>(<span class="ident">embed</span>: <span class="kw-2">&amp;</span><span class="ident">Embed</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">EmbedValidationError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">total</span> <span class="op">=</span> <span class="number">0</span>;
 
     <span class="kw">if</span> <span class="ident">embed</span>.<span class="ident">fields</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">EmbedValidationError</span>::<span class="ident">FIELD_COUNT</span> {
@@ -854,7 +854,7 @@
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedValidationError</span>::<span class="ident">AuthorNameTooLarge</span> { <span class="ident">chars</span> });
         }
 
-        <span class="ident">total</span> <span class="op">+=</span> <span class="ident">chars</span>;
+        <span class="ident">total</span> <span class="op">+</span><span class="op">=</span> <span class="ident">chars</span>;
     }
 
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">description</span>) <span class="op">=</span> <span class="ident">embed</span>.<span class="ident">description</span>.<span class="ident">as_ref</span>() {
@@ -864,7 +864,7 @@
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedValidationError</span>::<span class="ident">DescriptionTooLarge</span> { <span class="ident">chars</span> });
         }
 
-        <span class="ident">total</span> <span class="op">+=</span> <span class="ident">chars</span>;
+        <span class="ident">total</span> <span class="op">+</span><span class="op">=</span> <span class="ident">chars</span>;
     }
 
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">footer</span>) <span class="op">=</span> <span class="ident">embed</span>.<span class="ident">footer</span>.<span class="ident">as_ref</span>() {
@@ -874,7 +874,7 @@
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedValidationError</span>::<span class="ident">FooterTextTooLarge</span> { <span class="ident">chars</span> });
         }
 
-        <span class="ident">total</span> <span class="op">+=</span> <span class="ident">chars</span>;
+        <span class="ident">total</span> <span class="op">+</span><span class="op">=</span> <span class="ident">chars</span>;
     }
 
     <span class="kw">for</span> <span class="ident">field</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">embed</span>.<span class="ident">fields</span> {
@@ -890,7 +890,7 @@
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedValidationError</span>::<span class="ident">FieldValueTooLarge</span> { <span class="ident">chars</span>: <span class="ident">value_chars</span> });
         }
 
-        <span class="ident">total</span> <span class="op">+=</span> <span class="ident">name_chars</span> <span class="op">+</span> <span class="ident">value_chars</span>;
+        <span class="ident">total</span> <span class="op">+</span><span class="op">=</span> <span class="ident">name_chars</span> <span class="op">+</span> <span class="ident">value_chars</span>;
     }
 
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">title</span>) <span class="op">=</span> <span class="ident">embed</span>.<span class="ident">title</span>.<span class="ident">as_ref</span>() {
@@ -900,7 +900,7 @@
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedValidationError</span>::<span class="ident">TitleTooLarge</span> { <span class="ident">chars</span> });
         }
 
-        <span class="ident">total</span> <span class="op">+=</span> <span class="ident">chars</span>;
+        <span class="ident">total</span> <span class="op">+</span><span class="op">=</span> <span class="ident">chars</span>;
     }
 
     <span class="kw">if</span> <span class="ident">total</span> <span class="op">&gt;</span> <span class="ident">EmbedValidationError</span>::<span class="ident">EMBED_TOTAL_LENGTH</span> {
@@ -910,67 +910,67 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_audit_log_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_audit_log_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/audit-log#get-guild-audit-log-query-string-parameters&gt;</span>
-    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;=</span> <span class="number">100</span>
+    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_channel_messages_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_channel_messages_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/channel#get-channel-messages-query-string-params&gt;</span>
-    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;=</span> <span class="number">100</span>
+    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_current_user_guilds_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_current_user_guilds_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/user#get-current-user-guilds-query-string-params&gt;</span>
-    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;=</span> <span class="number">100</span>
+    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_guild_members_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_guild_members_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/guild#list-guild-members-query-string-params&gt;</span>
-    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;=</span> <span class="number">1000</span>
+    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">1000</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_reactions_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_reactions_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/channel#get-reactions-query-string-params&gt;</span>
-    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;=</span> <span class="number">100</span>
+    <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_name</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_name</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="ident">_guild_name</span>(<span class="ident">value</span>.<span class="ident">as_ref</span>())
 }
 
-<span class="kw">fn</span> <span class="ident">_guild_name</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">_guild_name</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">value</span>.<span class="ident">chars</span>().<span class="ident">count</span>();
 
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/guild#guild-object-guild-structure&gt;</span>
-    <span class="ident">len</span> <span class="op">&gt;=</span> <span class="number">2</span> <span class="op">&amp;&amp;</span> <span class="ident">len</span> <span class="op">&lt;=</span> <span class="number">100</span>
+    <span class="ident">len</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">2</span> <span class="op">&amp;&amp;</span> <span class="ident">len</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_prune_days</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_prune_days</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/guild#get-guild-prune-count-query-string-params&gt;</span>
     <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nickname</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nickname</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="ident">_nickname</span>(<span class="ident">value</span>.<span class="ident">as_ref</span>())
 }
 
-<span class="kw">fn</span> <span class="ident">_nickname</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">_nickname</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">value</span>.<span class="ident">chars</span>().<span class="ident">count</span>();
 
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/user#usernames-and-nicknames&gt;</span>
-    <span class="ident">len</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">len</span> <span class="op">&lt;=</span> <span class="number">32</span>
+    <span class="ident">len</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">len</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">32</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">username</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">username</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/user#usernames-and-nicknames&gt;</span>
     <span class="ident">_username</span>(<span class="ident">value</span>.<span class="ident">as_ref</span>())
 }
 
-<span class="kw">fn</span> <span class="ident">_username</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">_username</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">value</span>.<span class="ident">chars</span>().<span class="ident">count</span>();
 
-    <span class="ident">len</span> <span class="op">&gt;=</span> <span class="number">2</span> <span class="op">&amp;&amp;</span> <span class="ident">len</span> <span class="op">&lt;=</span> <span class="number">32</span>
+    <span class="ident">len</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">2</span> <span class="op">&amp;&amp;</span> <span class="ident">len</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">32</span>
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
@@ -978,7 +978,7 @@
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
     <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::{<span class="ident">EmbedAuthor</span>, <span class="ident">EmbedField</span>, <span class="ident">EmbedFooter</span>};
 
-    <span class="kw">fn</span> <span class="ident">base_embed</span>() <span class="op">-&gt;</span> <span class="ident">Embed</span> {
+    <span class="kw">fn</span> <span class="ident">base_embed</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Embed</span> {
         <span class="ident">Embed</span> {
             <span class="ident">author</span>: <span class="prelude-val">None</span>,
             <span class="ident">color</span>: <span class="prelude-val">None</span>,

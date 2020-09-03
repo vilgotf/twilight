@@ -304,12 +304,12 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedFieldError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">NameEmpty</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the field name is empty&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">NameTooLong</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the field name is too long&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">ValueEmpty</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the field value is empty&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">ValueTooLong</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the field value is too long&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">NameEmpty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the field name is empty&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">NameTooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the field name is too long&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">ValueEmpty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the field value is empty&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">ValueTooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the field value is too long&quot;</span>),
         }
     }
 }
@@ -322,7 +322,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Fields are not inlined by default. Use [`inline`] to inline a field.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedBuilder::field`]: struct.EmbedBuilder.html#method.field</span>
+<span class="doccomment">/// [`EmbedBuilder::field`]: ../builder/struct.EmbedBuilder.html#method.field</span>
 <span class="doccomment">/// [`inline`]: #method.inline</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;must be built into an embed field&quot;</span>]</span>
@@ -366,11 +366,11 @@
     <span class="doccomment">/// [`EmbedFieldError::NameTooLong`]: enum.EmbedFieldError.html#variant.NameTooLong</span>
     <span class="doccomment">/// [`EmbedFieldError::ValueEmpty`]: enum.EmbedFieldError.html#variant.ValueEmpty</span>
     <span class="doccomment">/// [`EmbedFieldError::ValueTooLong`]: enum.EmbedFieldError.html#variant.ValueTooLong</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedFieldError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedFieldError</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">name</span>.<span class="ident">into</span>(), <span class="ident">value</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">name</span>: <span class="ident">String</span>, <span class="ident">value</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedFieldError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">name</span>: <span class="ident">String</span>, <span class="ident">value</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedFieldError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameEmpty</span> { <span class="ident">name</span>, <span class="ident">value</span> });
         }
@@ -396,7 +396,7 @@
 
     <span class="doccomment">/// Build into an embed field.</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;should be used as part of an embed builder&quot;</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">EmbedField</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EmbedField</span> {
         <span class="self">self</span>.<span class="number">0</span>
     }
 
@@ -415,7 +415,7 @@
     <span class="doccomment">///     .build();</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inline</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inline</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">inline</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
         <span class="self">self</span>
@@ -428,7 +428,7 @@
     <span class="doccomment">/// This is equivalent to calling [`EmbedFieldBuilder::build`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`EmbedFieldBuilder::build`]: #method.build</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">builder</span>: <span class="ident">EmbedFieldBuilder</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">builder</span>: <span class="ident">EmbedFieldBuilder</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">builder</span>.<span class="ident">build</span>()
     }
 }
@@ -454,8 +454,8 @@
     <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueEmpty</span>: <span class="ident">name</span>, <span class="ident">value</span>);
     <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueTooLong</span>: <span class="ident">name</span>, <span class="ident">value</span>);
     <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">==</span> <span class="number">256</span>);
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">VALUE_LENGTH_LIMIT</span> <span class="op">==</span> <span class="number">1024</span>);
+    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
+    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">VALUE_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">1024</span>);
     <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmbedField</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EmbedFieldBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -463,27 +463,27 @@
         <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
             <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;&quot;</span>, <span class="string">&quot;a&quot;</span>),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameEmpty</span> { <span class="ident">name</span>, <span class="ident">value</span> })
-            <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span>
+            <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span>
         ));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
             <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">257</span>), <span class="string">&quot;a&quot;</span>),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameTooLong</span> { <span class="ident">name</span>, <span class="ident">value</span> })
-            <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">257</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span>
+            <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">257</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span>
         ));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
             <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;&quot;</span>),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueEmpty</span> { <span class="ident">name</span>, <span class="ident">value</span> })
-            <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">is_empty</span>()
+            <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">is_empty</span>()
         ));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
             <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">1025</span>)),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueTooLong</span> { <span class="ident">name</span>, <span class="ident">value</span> })
-            <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1025</span>
+            <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1025</span>
         ));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_builder_inline</span>() <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">test_builder_inline</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">EmbedField</span> {
             <span class="ident">inline</span>: <span class="bool-val">true</span>,
             <span class="ident">name</span>: <span class="string">&quot;name&quot;</span>.<span class="ident">to_owned</span>(),
@@ -497,7 +497,7 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_builder_no_inline</span>() <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">test_builder_no_inline</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">EmbedField</span> {
             <span class="ident">inline</span>: <span class="bool-val">false</span>,
             <span class="ident">name</span>: <span class="string">&quot;name&quot;</span>.<span class="ident">to_owned</span>(),

@@ -189,13 +189,13 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CreateInvite</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
     <span class="ident">fields</span>: <span class="ident">CreateInviteFields</span>,
-    <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Invite</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Invite</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>,
     <span class="ident">reason</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">CreateInvite</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">channel_id</span>,
             <span class="ident">fields</span>: <span class="ident">CreateInviteFields</span>::<span class="ident">default</span>(),
@@ -209,7 +209,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If no age is specified, Discord sets the age to 86400 seconds, or 24 hours.</span>
     <span class="doccomment">/// Set to 0 to never expire.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_age</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">max_age</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_age</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">max_age</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">max_age</span>.<span class="ident">replace</span>(<span class="ident">max_age</span>);
 
         <span class="self">self</span>
@@ -218,14 +218,14 @@
     <span class="doccomment">/// Set the maximum uses for an invite, or 0 for infinite.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Discord defaults this to 0, or infinite.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_uses</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">max_uses</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_uses</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">max_uses</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">max_uses</span>.<span class="ident">replace</span>(<span class="ident">max_uses</span>);
 
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Specify true if the invite should grant temporary membership. Defaults to false.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">temporary</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">temporary</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">temporary</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">temporary</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">temporary</span>.<span class="ident">replace</span>(<span class="ident">temporary</span>);
 
         <span class="self">self</span>
@@ -237,34 +237,34 @@
     <span class="doccomment">/// invites). Refer to [the discord docs] for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/resources/channel#create-channel-invite</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unique</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">unique</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unique</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">unique</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">unique</span>.<span class="ident">replace</span>(<span class="ident">unique</span>);
 
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Set the target user for this invite.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_user</span>: <span class="ident">UserId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_user</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">target_user</span>.<span class="ident">replace</span>(<span class="ident">target_user</span>.<span class="number">0</span>.<span class="ident">to_string</span>());
 
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Set the target user type for this invite.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user_type</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_user_type</span>: <span class="ident">TargetUserType</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user_type</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_user_type</span>: <span class="ident">TargetUserType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">target_user_type</span>.<span class="ident">replace</span>(<span class="ident">target_user_type</span>);
 
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Attach an audit log reason to this request.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reason</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">reason</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reason</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">reason</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">reason</span>.<span class="ident">replace</span>(<span class="ident">reason</span>.<span class="ident">into</span>());
 
         <span class="self">self</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">request</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">reason</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">reason</span> {
             <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">audit_header</span>(<span class="kw-2">&amp;</span><span class="ident">reason</span>)<span class="question-mark">?</span>;
             <span class="ident">Request</span>::<span class="ident">from</span>((

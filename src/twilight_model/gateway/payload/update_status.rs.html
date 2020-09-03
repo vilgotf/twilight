@@ -68,10 +68,10 @@
 <span class="kw">impl</span> <span class="ident">UpdateStatus</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">afk</span>: <span class="ident">bool</span>,
-        <span class="ident">game</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;&gt;</span>,
-        <span class="ident">since</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;&gt;</span>,
+        <span class="ident">game</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">since</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">status</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Status</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">d</span>: <span class="ident">UpdateStatusInfo</span>::<span class="ident">new</span>(<span class="ident">afk</span>, <span class="ident">game</span>, <span class="ident">since</span>, <span class="ident">status</span>),
             <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">StatusUpdate</span>,
@@ -90,14 +90,14 @@
 <span class="kw">impl</span> <span class="ident">UpdateStatusInfo</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">afk</span>: <span class="ident">bool</span>,
-        <span class="ident">game</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;&gt;</span>,
-        <span class="ident">since</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;&gt;</span>,
+        <span class="ident">game</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">since</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">status</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Status</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">afk</span>, <span class="ident">game</span>.<span class="ident">into</span>(), <span class="ident">since</span>.<span class="ident">into</span>(), <span class="ident">status</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">afk</span>: <span class="ident">bool</span>, <span class="ident">game</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;</span>, <span class="ident">since</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">status</span>: <span class="ident">Status</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">afk</span>: <span class="ident">bool</span>, <span class="ident">game</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;</span>, <span class="ident">since</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">status</span>: <span class="ident">Status</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">afk</span>,
             <span class="ident">game</span>,

@@ -253,19 +253,19 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">UpdateMessageError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">ContentInvalid</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the message content is invalid&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">EmbedTooLarge</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the embed&#39;s contents are too long&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">ContentInvalid</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the message content is invalid&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">EmbedTooLarge</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the embed&#39;s contents are too long&quot;</span>),
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">UpdateMessageError</span> {
-    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="ident">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">ContentInvalid</span> { .. } <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-            <span class="self">Self</span>::<span class="ident">EmbedTooLarge</span> { <span class="ident">source</span>, .. } <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span>::<span class="ident">ContentInvalid</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::<span class="ident">EmbedTooLarge</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
         }
     }
 }
@@ -285,10 +285,10 @@
     <span class="comment">// - None: Don&#39;t serialize the field at all, not modifying the state.</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">option_option</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">option_option</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">embed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Embed</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">embed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Embed</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">flags</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MessageFlags</span><span class="op">&gt;</span>,
 }
@@ -336,13 +336,13 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UpdateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
     <span class="ident">fields</span>: <span class="ident">UpdateMessageFields</span>,
-    <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Message</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Message</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>,
     <span class="ident">message_id</span>: <span class="ident">MessageId</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">UpdateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>, <span class="ident">message_id</span>: <span class="ident">MessageId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>, <span class="ident">message_id</span>: <span class="ident">MessageId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">channel_id</span>,
             <span class="ident">fields</span>: <span class="ident">UpdateMessageFields</span>::<span class="ident">default</span>(),
@@ -367,11 +367,11 @@
     <span class="doccomment">/// too long.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`UpdateMessageError::ContentInvalid`]: enum.UpdateMessageError.html#variant.ContentInvalid</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content</span>(<span class="self">self</span>, <span class="ident">content</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateMessageError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content</span>(<span class="self">self</span>, <span class="ident">content</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateMessageError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_content</span>(<span class="ident">content</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_content</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateMessageError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">_content</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateMessageError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content_ref</span>) <span class="op">=</span> <span class="ident">content</span>.<span class="ident">as_ref</span>() {
             <span class="kw">if</span> <span class="op">!</span><span class="ident">validate</span>::<span class="ident">content_limit</span>(<span class="ident">content_ref</span>) {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UpdateMessageError</span>::<span class="ident">ContentInvalid</span> {
@@ -391,11 +391,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that if there is no content then you will not be</span>
     <span class="doccomment">/// able to remove the embed of the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">embed</span>(<span class="self">self</span>, <span class="ident">embed</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Embed</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateMessageError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">embed</span>(<span class="self">self</span>, <span class="ident">embed</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Embed</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateMessageError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_embed</span>(<span class="ident">embed</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_embed</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">embed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Embed</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateMessageError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">_embed</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">embed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Embed</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateMessageError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">embed_ref</span>) <span class="op">=</span> <span class="ident">embed</span>.<span class="ident">as_ref</span>() {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">source</span>) <span class="op">=</span> <span class="ident">validate</span>::<span class="ident">embed</span>(<span class="kw-2">&amp;</span><span class="ident">embed_ref</span>) {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UpdateMessageError</span>::<span class="ident">EmbedTooLarge</span> {
@@ -411,11 +411,11 @@
     }
 
     <span class="doccomment">/// Suppress the embeds in the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">suppress_embeds</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">suppress</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">suppress_embeds</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">suppress</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">flags</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">flags</span>.<span class="ident">unwrap_or_else</span>(<span class="ident">MessageFlags</span>::<span class="ident">empty</span>);
 
         <span class="kw">if</span> <span class="ident">suppress</span> {
-            <span class="ident">flags</span> <span class="op">|=</span> <span class="ident">MessageFlags</span>::<span class="ident">SUPPRESS_EMBEDS</span>;
+            <span class="ident">flags</span> <span class="op">|</span><span class="op">=</span> <span class="ident">MessageFlags</span>::<span class="ident">SUPPRESS_EMBEDS</span>;
         } <span class="kw">else</span> {
             <span class="ident">flags</span> <span class="op">&amp;=</span> <span class="op">!</span><span class="ident">MessageFlags</span>::<span class="ident">SUPPRESS_EMBEDS</span>;
         }
@@ -430,13 +430,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`build_solo`]: ../allowed_mentions/struct.AllowedMentionsBuilder.html#method.build_solo</span>
     <span class="doccomment">/// [`AllowedMentions`]: ../allowed_mentions/struct.AllowedMentions.html</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">allowed_mentions</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">allowed</span>: <span class="ident">AllowedMentions</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">allowed_mentions</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">allowed</span>: <span class="ident">AllowedMentions</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">allowed_mentions</span>.<span class="ident">replace</span>(<span class="ident">allowed</span>);
 
         <span class="self">self</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request</span>(<span class="ident">Request</span>::<span class="ident">from</span>((
             <span class="kw">crate</span>::<span class="ident">json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>,
             <span class="ident">Route</span>::<span class="ident">UpdateMessage</span> {

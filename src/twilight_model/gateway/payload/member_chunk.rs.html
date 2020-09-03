@@ -547,12 +547,12 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MemberChunkVisitor</span> {
     <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">MemberChunk</span>;
 
-    <span class="kw">fn</span> <span class="ident">expecting</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">expecting</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;struct MemberChunk&quot;</span>)
     }
 
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">visit_map</span><span class="op">&lt;</span><span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">V</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">visit_map</span><span class="op">&lt;</span><span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">chunk_count</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">chunk_index</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="prelude-val">None</span>;
@@ -569,13 +569,13 @@
             <span class="kw">let</span> <span class="ident">_span_child_enter</span> <span class="op">=</span> <span class="ident">span_child</span>.<span class="ident">enter</span>();
 
             <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">next_key</span>() {
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
 
                     <span class="ident">key</span>
                 }
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> <span class="kw">break</span>,
-                <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">break</span>,
+                <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="comment">// Encountered when we run into an unknown key.</span>
                     <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
@@ -586,28 +586,28 @@
             };
 
             <span class="kw">match</span> <span class="ident">key</span> {
-                <span class="ident">Field</span>::<span class="ident">ChunkCount</span> <span class="op">=&gt;</span> {
+                <span class="ident">Field</span>::<span class="ident">ChunkCount</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">chunk_count</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;chunk_count&quot;</span>));
                     }
 
                     <span class="ident">chunk_count</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">ChunkIndex</span> <span class="op">=&gt;</span> {
+                <span class="ident">Field</span>::<span class="ident">ChunkIndex</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">chunk_index</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;chunk_index&quot;</span>));
                     }
 
                     <span class="ident">chunk_index</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">GuildId</span> <span class="op">=&gt;</span> {
+                <span class="ident">Field</span>::<span class="ident">GuildId</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">guild_id</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;guild_id&quot;</span>));
                     }
 
                     <span class="ident">guild_id</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">Members</span> <span class="op">=&gt;</span> {
+                <span class="ident">Field</span>::<span class="ident">Members</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">members</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;members&quot;</span>));
                     }
@@ -619,21 +619,21 @@
 
                     <span class="ident">members</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value_seed</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">Nonce</span> <span class="op">=&gt;</span> {
+                <span class="ident">Field</span>::<span class="ident">Nonce</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">nonce</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;nonce&quot;</span>));
                     }
 
                     <span class="ident">nonce</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">NotFound</span> <span class="op">=&gt;</span> {
+                <span class="ident">Field</span>::<span class="ident">NotFound</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">not_found</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;not_found&quot;</span>));
                     }
 
                     <span class="ident">not_found</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">Presences</span> <span class="op">=&gt;</span> {
+                <span class="ident">Field</span>::<span class="ident">Presences</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">presences</span>.<span class="ident">is_some</span>() {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;presences&quot;</span>));
                     }
@@ -645,10 +645,10 @@
             }
         }
 
-        <span class="kw">let</span> <span class="ident">chunk_count</span> <span class="op">=</span> <span class="ident">chunk_count</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;chunk_count&quot;</span>))<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">chunk_index</span> <span class="op">=</span> <span class="ident">chunk_index</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;chunk_index&quot;</span>))<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">guild_id</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;guild_id&quot;</span>))<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">members</span> <span class="op">=</span> <span class="ident">members</span>.<span class="ident">ok_or_else</span>(<span class="op">||</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;members&quot;</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">chunk_count</span> <span class="op">=</span> <span class="ident">chunk_count</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;chunk_count&quot;</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">chunk_index</span> <span class="op">=</span> <span class="ident">chunk_index</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;chunk_index&quot;</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">guild_id</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;guild_id&quot;</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">members</span> <span class="op">=</span> <span class="ident">members</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;members&quot;</span>))<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">not_found</span> <span class="op">=</span> <span class="ident">not_found</span>.<span class="ident">unwrap_or_default</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">presences</span> <span class="op">=</span> <span class="ident">presences</span>.<span class="ident">unwrap_or_default</span>();
 
@@ -682,7 +682,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MemberChunk</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">const</span> <span class="ident">FIELDS</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[
             <span class="string">&quot;chunk_count&quot;</span>,
             <span class="string">&quot;chunk_index&quot;</span>,
@@ -996,11 +996,11 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>.<span class="ident">not_found</span>, <span class="ident">actual</span>.<span class="ident">not_found</span>);
 
         <span class="kw">for</span> <span class="ident">member</span> <span class="kw">in</span> <span class="ident">actual</span>.<span class="ident">members</span>.<span class="ident">values</span>() {
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">expected</span>.<span class="ident">members</span>.<span class="ident">values</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span> <span class="op">==</span> <span class="ident">member</span>));
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">expected</span>.<span class="ident">members</span>.<span class="ident">values</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span> <span class="op">=</span><span class="op">=</span> <span class="ident">member</span>));
         }
 
         <span class="kw">for</span> <span class="ident">presences</span> <span class="kw">in</span> <span class="ident">actual</span>.<span class="ident">presences</span>.<span class="ident">values</span>() {
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">expected</span>.<span class="ident">presences</span>.<span class="ident">values</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span> <span class="op">==</span> <span class="ident">presences</span>));
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">expected</span>.<span class="ident">presences</span>.<span class="ident">values</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span> <span class="op">=</span><span class="op">=</span> <span class="ident">presences</span>));
         }
     }
 }

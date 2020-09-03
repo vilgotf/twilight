@@ -119,26 +119,26 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">RatelimitError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">NoHeaders</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;No headers are present&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">HeaderMissing</span> { <span class="ident">name</span> } <span class="op">=&gt;</span> {
+            <span class="self">Self</span>::<span class="ident">NoHeaders</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;No headers are present&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">HeaderMissing</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;At least one header, {:?}, is missing&quot;</span>, <span class="ident">name</span>)
             }
-            <span class="self">Self</span>::<span class="ident">HeaderNotUtf8</span> { <span class="ident">name</span>, <span class="ident">value</span>, .. } <span class="op">=&gt;</span> {
+            <span class="self">Self</span>::<span class="ident">HeaderNotUtf8</span> { <span class="ident">name</span>, <span class="ident">value</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;The header {:?} has invalid UTF-16: {:?}&quot;</span>, <span class="ident">name</span>, <span class="ident">value</span>)
             }
-            <span class="self">Self</span>::<span class="ident">ParsingBoolText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">ParsingBoolText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;The header {:?} should be a bool but isn&#39;t: {:?}&quot;</span>,
                 <span class="ident">name</span>, <span class="ident">text</span>
             ),
-            <span class="self">Self</span>::<span class="ident">ParsingFloatText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">ParsingFloatText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;The header {:?} should be a float but isn&#39;t: {:?}&quot;</span>,
                 <span class="ident">name</span>, <span class="ident">text</span>
             ),
-            <span class="self">Self</span>::<span class="ident">ParsingIntText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">ParsingIntText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;The header {:?} should be an integer but isn&#39;t: {:?}&quot;</span>,
                 <span class="ident">name</span>, <span class="ident">text</span>
@@ -148,13 +148,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">StdError</span> <span class="kw">for</span> <span class="ident">RatelimitError</span> {
-    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">StdError</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="ident">dyn</span> <span class="ident">StdError</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">HeaderNotUtf8</span> { <span class="ident">source</span>, .. } <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">ParsingBoolText</span> { <span class="ident">source</span>, .. } <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">ParsingFloatText</span> { <span class="ident">source</span>, .. } <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">ParsingIntText</span> { <span class="ident">source</span>, .. } <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">NoHeaders</span> <span class="op">|</span> <span class="self">Self</span>::<span class="ident">HeaderMissing</span> { .. } <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::<span class="ident">HeaderNotUtf8</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span>::<span class="ident">ParsingBoolText</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span>::<span class="ident">ParsingFloatText</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span>::<span class="ident">ParsingIntText</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span>::<span class="ident">NoHeaders</span> <span class="op">|</span> <span class="self">Self</span>::<span class="ident">HeaderMissing</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }

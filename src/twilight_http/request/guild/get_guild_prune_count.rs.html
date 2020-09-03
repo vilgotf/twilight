@@ -113,9 +113,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">GetGuildPruneCountError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">DaysInvalid</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the number of days is invalid&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">DaysInvalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the number of days is invalid&quot;</span>),
         }
     }
 }
@@ -131,13 +131,13 @@
 <span class="doccomment">/// Get the counts of guild members to be pruned.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GetGuildPruneCount</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">fields</span>: <span class="ident">GetGuildPruneCountFields</span>,
-    <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">GuildPrune</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">GuildPrune</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
     <span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">GetGuildPruneCount</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">fields</span>: <span class="ident">GetGuildPruneCountFields</span>::<span class="ident">default</span>(),
             <span class="ident">fut</span>: <span class="prelude-val">None</span>,
@@ -157,7 +157,7 @@
     <span class="doccomment">/// is 0.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`GetGuildPruneCountError::DaysInvalid`]: enum.GetGuildPruneCountError.html#variant.DaysInvalid</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">days</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">days</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">GetGuildPruneCountError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">days</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">days</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">GetGuildPruneCountError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">validate</span>::<span class="ident">guild_prune_days</span>(<span class="ident">days</span>) {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GetGuildPruneCountError</span>::<span class="ident">DaysInvalid</span>);
         }
@@ -168,15 +168,15 @@
     }
 
     <span class="doccomment">/// List of roles to include when calculating prune count</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">include_roles</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">roles</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">RoleId</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="ident">roles</span> <span class="op">=</span> <span class="ident">roles</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="number">0</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">include_roles</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">roles</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">RoleId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">roles</span> <span class="op">=</span> <span class="ident">roles</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="number">0</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">include_roles</span> <span class="op">=</span> <span class="ident">roles</span>;
 
         <span class="self">self</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request</span>(<span class="ident">Request</span>::<span class="ident">from</span>(
             <span class="ident">Route</span>::<span class="ident">GetGuildPruneCount</span> {
                 <span class="ident">days</span>: <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">days</span>,

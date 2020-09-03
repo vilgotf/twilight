@@ -73,10 +73,10 @@
 <span class="kw">impl</span> <span class="ident">UpdateVoiceState</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">channel_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;&gt;</span>,
+        <span class="ident">channel_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">self_deaf</span>: <span class="ident">bool</span>,
         <span class="ident">self_mute</span>: <span class="ident">bool</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">d</span>: <span class="ident">UpdateVoiceStateInfo</span>::<span class="ident">new</span>(<span class="ident">guild_id</span>, <span class="ident">channel_id</span>, <span class="ident">self_deaf</span>, <span class="ident">self_mute</span>),
             <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">VoiceStateUpdate</span>,
@@ -95,10 +95,10 @@
 <span class="kw">impl</span> <span class="ident">UpdateVoiceStateInfo</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">guild_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
-        <span class="ident">channel_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;&gt;</span>,
+        <span class="ident">channel_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">self_deaf</span>: <span class="ident">bool</span>,
         <span class="ident">self_mute</span>: <span class="ident">bool</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">guild_id</span>.<span class="ident">into</span>(), <span class="ident">channel_id</span>.<span class="ident">into</span>(), <span class="ident">self_deaf</span>, <span class="ident">self_mute</span>)
     }
 
@@ -107,7 +107,7 @@
         <span class="ident">channel_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span>,
         <span class="ident">self_deaf</span>: <span class="ident">bool</span>,
         <span class="ident">self_mute</span>: <span class="ident">bool</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">channel_id</span>,
             <span class="ident">guild_id</span>,

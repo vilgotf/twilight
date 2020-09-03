@@ -438,7 +438,7 @@
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="ident">TrackInfo</span>,
     <span class="doccomment">/// The base64 track string that you use in the [`Play`] event.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Play`]: ../model/struct.Play.html</span>
+    <span class="doccomment">/// [`Play`]: ../model/outgoing/struct.Play.html</span>
     <span class="kw">pub</span> <span class="ident">track</span>: <span class="ident">String</span>,
 }
 
@@ -650,7 +650,7 @@
     <span class="ident">address</span>: <span class="ident">SocketAddr</span>,
     <span class="ident">identifier</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
     <span class="ident">authorization</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">u8</span>]<span class="op">&gt;</span>, <span class="ident">HttpError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">u8</span>]<span class="op">&gt;</span>, <span class="ident">HttpError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">identifier</span> <span class="op">=</span>
         <span class="ident">percent_encoding</span>::<span class="ident">percent_encode</span>(<span class="ident">identifier</span>.<span class="ident">as_ref</span>().<span class="ident">as_bytes</span>(), <span class="ident">NON_ALPHANUMERIC</span>);
     <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;http://{}/loadtracks?identifier={}&quot;</span>, <span class="ident">address</span>, <span class="ident">identifier</span>);
@@ -672,7 +672,7 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_route_planner</span>(
     <span class="ident">address</span>: <span class="ident">SocketAddr</span>,
     <span class="ident">authorization</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">u8</span>]<span class="op">&gt;</span>, <span class="ident">HttpError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">u8</span>]<span class="op">&gt;</span>, <span class="ident">HttpError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">Request</span>::<span class="ident">get</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/routeplanner/status&quot;</span>, <span class="ident">address</span>));
 
     <span class="kw">let</span> <span class="ident">auth_value</span> <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">from_str</span>(<span class="ident">authorization</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
@@ -688,7 +688,7 @@
     <span class="ident">node_address</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>,
     <span class="ident">authorization</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
     <span class="ident">route_address</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">IpAddr</span><span class="op">&gt;</span>,
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span>, <span class="ident">HttpError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">HttpError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">Request</span>::<span class="ident">post</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/routeplanner/status&quot;</span>, <span class="ident">node_address</span>.<span class="ident">into</span>()));
 
     <span class="kw">let</span> <span class="ident">auth_value</span> <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">from_str</span>(<span class="ident">authorization</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;

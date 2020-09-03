@@ -72,7 +72,7 @@
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">http_client</span>: <span class="ident">Client</span>,
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">shard_config</span>: <span class="ident">ShardConfig</span>,
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">shard_scheme</span>: <span class="ident">ShardScheme</span>,
-    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">queue</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Queue</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">queue</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Queue</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">resume_sessions</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">ResumeSession</span><span class="op">&gt;</span>,
 }
 
@@ -83,17 +83,17 @@
     <span class="doccomment">/// Refer to [`ClusterBuilder::http_client`] for the default value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClusterBuilder::http_client`]: struct.ClusterBuilder.html#method.http_client</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">http_client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Client</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">http_client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Client</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">http_client</span>
     }
 
     <span class="doccomment">/// Return an immutable reference to the configuration used to create</span>
     <span class="doccomment">/// shards.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Refer to [`shard::config::ClusterBuilder`]&#39;s methods for the default values.</span>
+    <span class="doccomment">/// Refer to [`ShardBuilder`]&#39;s methods for the default values.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`shard::config::ClusterBuilder`]: ../../shard/config/struct.ShardConfigBuilder.html#methods</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ShardConfig</span> {
+    <span class="doccomment">/// [`ShardBuilder`]: ../shard/struct.ShardBuilder.html#methods</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ShardConfig</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">shard_config</span>
     }
 
@@ -102,13 +102,13 @@
     <span class="doccomment">/// Refer to [`ClusterBuilder::shard_scheme`] for the default value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClusterBuilder::shard_scheme`]: struct.ClusterBuilder.html#method.shard_scheme</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard_scheme</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ShardScheme</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard_scheme</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ShardScheme</span> {
         <span class="self">self</span>.<span class="ident">shard_scheme</span>
     }
 
     <span class="doccomment">/// Return an immutable reference to the queue used for initiating shard</span>
     <span class="doccomment">/// sessions.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queue</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Queue</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queue</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Queue</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">queue</span>
     }
 }

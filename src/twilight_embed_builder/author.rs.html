@@ -256,10 +256,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedAuthorNameError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Empty</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the author name is empty&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">TooLong</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the author name is too long&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">Empty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the author name is empty&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">TooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the author name is too long&quot;</span>),
         }
     }
 }
@@ -270,7 +270,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This can be passed into [`EmbedBuilder::author`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedBuilder::author`]: struct.EmbedBuilder.html#method.author</span>
+<span class="doccomment">/// [`EmbedBuilder::author`]: ../builder/struct.EmbedBuilder.html#method.author</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;must be built into an embed author&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EmbedAuthorBuilder</span>(<span class="ident">EmbedAuthor</span>);
@@ -284,18 +284,18 @@
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NAME_LENGTH_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">256</span>;
 
     <span class="doccomment">/// Create a new default embed author builder.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">default</span>()
     }
 
     <span class="doccomment">/// Build into an embed author.</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;should be used as part of an embed builder&quot;</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">EmbedAuthor</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EmbedAuthor</span> {
         <span class="self">self</span>.<span class="number">0</span>
     }
 
     <span class="doccomment">/// Add an author icon.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">icon_url</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">image_source</span>: <span class="ident">ImageSource</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">icon_url</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">image_source</span>: <span class="ident">ImageSource</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">icon_url</span>.<span class="ident">replace</span>(<span class="ident">image_source</span>.<span class="number">0</span>);
 
         <span class="self">self</span>
@@ -316,11 +316,11 @@
     <span class="doccomment">/// [`NAME_LENGTH_LIMIT`]: #const.NAME_LENGTH_LIMIT</span>
     <span class="doccomment">/// [`EmbedAuthorNameError::Empty`]: enum.EmbedAuthorNameError.html#variant.Empty</span>
     <span class="doccomment">/// [`EmbedAuthorNameError::TooLong`]: enum.EmbedAuthorNameError.html#variant.TooLong</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>, <span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedAuthorNameError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>, <span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedAuthorNameError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_name</span>(<span class="ident">name</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_name</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedAuthorNameError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">_name</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedAuthorNameError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">Empty</span> { <span class="ident">name</span> });
         }
@@ -335,11 +335,11 @@
     }
 
     <span class="doccomment">/// The author&#39;s url.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">url</span>(<span class="self">self</span>, <span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">url</span>(<span class="self">self</span>, <span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">_url</span>(<span class="ident">url</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_url</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">url</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">_url</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">url</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">url</span>.<span class="ident">replace</span>(<span class="ident">url</span>);
 
         <span class="self">self</span>
@@ -347,7 +347,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">EmbedAuthorBuilder</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>(<span class="ident">EmbedAuthor</span> {
             <span class="ident">icon_url</span>: <span class="prelude-val">None</span>,
             <span class="ident">name</span>: <span class="prelude-val">None</span>,
@@ -363,7 +363,7 @@
     <span class="doccomment">/// This is equivalent to calling [`EmbedAuthorBuilder::build`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`EmbedAuthorBuilder::build`]: #method.build</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">builder</span>: <span class="ident">EmbedAuthorBuilder</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">builder</span>: <span class="ident">EmbedAuthorBuilder</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">builder</span>.<span class="ident">build</span>()
     }
 }
@@ -396,7 +396,7 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">==</span> <span class="number">256</span>);
+    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
     <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmbedAuthor</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EmbedAuthorBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -430,7 +430,7 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_builder</span>() <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">test_builder</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">EmbedAuthor</span> {
             <span class="ident">icon_url</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;https://example.com/1.png&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">name</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;an author&quot;</span>.<span class="ident">to_owned</span>()),

@@ -25,7 +25,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AuditLogEntry</span> {
     <span class="kw">pub</span> <span class="ident">action_type</span>: <span class="ident">AuditLogEvent</span>,
-    <span class="kw">pub</span> <span class="ident">changes</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuditLogChange</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">changes</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuditLogChange</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">AuditLogEntryId</span>,
     <span class="kw">pub</span> <span class="ident">options</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AuditLogOptionalEntryInfo</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">reason</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,

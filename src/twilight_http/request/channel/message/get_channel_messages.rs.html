@@ -184,9 +184,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">GetChannelMessagesError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">LimitInvalid</span> { .. } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the limit is invalid&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">LimitInvalid</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the limit is invalid&quot;</span>),
         }
     }
 }
@@ -241,12 +241,12 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GetChannelMessages</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
     <span class="ident">fields</span>: <span class="ident">GetChannelMessagesFields</span>,
-    <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">GetChannelMessages</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">channel_id</span>,
             <span class="ident">fields</span>: <span class="ident">GetChannelMessagesFields</span>::<span class="ident">default</span>(),
@@ -255,7 +255,7 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">after</span>(<span class="self">self</span>, <span class="ident">message_id</span>: <span class="ident">MessageId</span>) <span class="op">-&gt;</span> <span class="ident">GetChannelMessagesConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">after</span>(<span class="self">self</span>, <span class="ident">message_id</span>: <span class="ident">MessageId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetChannelMessagesConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="ident">GetChannelMessagesConfigured</span>::<span class="ident">new</span>(
             <span class="self">self</span>.<span class="ident">http</span>,
             <span class="self">self</span>.<span class="ident">channel_id</span>,
@@ -266,7 +266,7 @@
         )
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">around</span>(<span class="self">self</span>, <span class="ident">message_id</span>: <span class="ident">MessageId</span>) <span class="op">-&gt;</span> <span class="ident">GetChannelMessagesConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">around</span>(<span class="self">self</span>, <span class="ident">message_id</span>: <span class="ident">MessageId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetChannelMessagesConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="ident">GetChannelMessagesConfigured</span>::<span class="ident">new</span>(
             <span class="self">self</span>.<span class="ident">http</span>,
             <span class="self">self</span>.<span class="ident">channel_id</span>,
@@ -277,7 +277,7 @@
         )
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">before</span>(<span class="self">self</span>, <span class="ident">message_id</span>: <span class="ident">MessageId</span>) <span class="op">-&gt;</span> <span class="ident">GetChannelMessagesConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">before</span>(<span class="self">self</span>, <span class="ident">message_id</span>: <span class="ident">MessageId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetChannelMessagesConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="ident">GetChannelMessagesConfigured</span>::<span class="ident">new</span>(
             <span class="self">self</span>.<span class="ident">http</span>,
             <span class="self">self</span>.<span class="ident">channel_id</span>,
@@ -298,7 +298,7 @@
     <span class="doccomment">/// 100.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`GetChannelMessages::LimitInvalid`]: enum.GetChannelMessagesError.html#variant.LimitInvalid</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">limit</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">GetChannelMessagesError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">limit</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">GetChannelMessagesError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">validate</span>::<span class="ident">get_channel_messages_limit</span>(<span class="ident">limit</span>) {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GetChannelMessagesError</span>::<span class="ident">LimitInvalid</span> { <span class="ident">limit</span> });
         }
@@ -308,7 +308,7 @@
         <span class="prelude-val">Ok</span>(<span class="self">self</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request</span>(<span class="ident">Request</span>::<span class="ident">from</span>(
             <span class="ident">Route</span>::<span class="ident">GetMessages</span> {
                 <span class="ident">after</span>: <span class="prelude-val">None</span>,

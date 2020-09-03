@@ -291,9 +291,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">UserIdsError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">TooMany</span> { <span class="ident">ids</span> } <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">TooMany</span> { <span class="ident">ids</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
                 <span class="string">&quot;{} user IDs were provided when only a maximum of 100 is allowed&quot;</span>,
                 <span class="ident">ids</span>.<span class="ident">len</span>(),
             )),
@@ -316,7 +316,7 @@
     <span class="doccomment">/// documentation for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`RequestGuildMembersBuilder::new`]: struct.RequestGuildMembersBuilder.html#method.new</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="ident">RequestGuildMembersBuilder</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RequestGuildMembersBuilder</span> {
         <span class="ident">RequestGuildMembersBuilder</span>::<span class="ident">new</span>(<span class="ident">guild_id</span>)
     }
 }
@@ -332,7 +332,7 @@
     <span class="doccomment">/// [`RequestGuildMembers`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`RequestGuildMembers`]: struct.RequestGuildMembers.html</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">guild_id</span>,
             <span class="ident">nonce</span>: <span class="prelude-val">None</span>,
@@ -343,11 +343,11 @@
     <span class="doccomment">/// Set the nonce to identify the member chunk response.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, this uses Discord&#39;s default.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nonce</span>(<span class="self">self</span>, <span class="ident">nonce</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nonce</span>(<span class="self">self</span>, <span class="ident">nonce</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">_nonce</span>(<span class="ident">nonce</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_nonce</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">nonce</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">_nonce</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">nonce</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">nonce</span>.<span class="ident">replace</span>(<span class="ident">nonce</span>);
 
         <span class="self">self</span>
@@ -356,7 +356,7 @@
     <span class="doccomment">/// Request that guild members&#39; presences are included in member chunks.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, this uses Discord&#39;s default.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presences</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">presences</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presences</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">presences</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">presences</span>.<span class="ident">replace</span>(<span class="ident">presences</span>);
 
         <span class="self">self</span>
@@ -389,11 +389,11 @@
     <span class="doccomment">/// assert_eq!(Some(&quot;a&quot;), request.d.query.as_deref());</span>
     <span class="doccomment">/// assert_eq!(Some(true), request.d.presences);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">query</span>(<span class="self">self</span>, <span class="ident">query</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">RequestGuildMembers</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">query</span>(<span class="self">self</span>, <span class="ident">query</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RequestGuildMembers</span> {
         <span class="self">self</span>.<span class="ident">_query</span>(<span class="ident">query</span>.<span class="ident">into</span>(), <span class="ident">limit</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">_query</span>(<span class="self">self</span>, <span class="ident">query</span>: <span class="ident">String</span>, <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">RequestGuildMembers</span> {
+    <span class="kw">fn</span> <span class="ident">_query</span>(<span class="self">self</span>, <span class="ident">query</span>: <span class="ident">String</span>, <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RequestGuildMembers</span> {
         <span class="ident">RequestGuildMembers</span> {
             <span class="ident">d</span>: <span class="ident">RequestGuildMembersInfo</span> {
                 <span class="ident">guild_id</span>: <span class="self">self</span>.<span class="ident">guild_id</span>,
@@ -426,7 +426,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// assert_eq!(Some(RequestGuildMemberId::One(UserId(2))), request.d.user_ids);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_id</span>(<span class="self">self</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-&gt;</span> <span class="ident">RequestGuildMembers</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_id</span>(<span class="self">self</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RequestGuildMembers</span> {
         <span class="ident">RequestGuildMembers</span> {
             <span class="ident">d</span>: <span class="ident">RequestGuildMembersInfo</span> {
                 <span class="ident">guild_id</span>: <span class="self">self</span>.<span class="ident">guild_id</span>,
@@ -470,12 +470,12 @@
     <span class="doccomment">/// provided.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_ids</span>(
         <span class="self">self</span>,
-        <span class="ident">user_ids</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RequestGuildMembers</span>, <span class="ident">UserIdsError</span><span class="op">&gt;</span> {
+        <span class="ident">user_ids</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RequestGuildMembers</span>, <span class="ident">UserIdsError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_user_ids</span>(<span class="ident">user_ids</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_user_ids</span>(<span class="self">self</span>, <span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RequestGuildMembers</span>, <span class="ident">UserIdsError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">_user_ids</span>(<span class="self">self</span>, <span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RequestGuildMembers</span>, <span class="ident">UserIdsError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">user_ids</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">100</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UserIdsError</span>::<span class="ident">TooMany</span> { <span class="ident">ids</span>: <span class="ident">user_ids</span> });
         }
@@ -508,7 +508,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">query</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">user_ids</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">user_ids</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// One or a list of IDs in a request.</span>
@@ -522,13 +522,13 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">One</span>(<span class="ident">id</span>)
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;&gt;</span> <span class="kw">for</span> <span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">Multiple</span>(<span class="ident">ids</span>)
     }
 }

@@ -73,7 +73,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Identify</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">info</span>: <span class="ident">IdentifyInfo</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">info</span>: <span class="ident">IdentifyInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">d</span>: <span class="ident">info</span>,
             <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">Identify</span>,
@@ -114,7 +114,7 @@
         <span class="ident">os</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">referrer</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">referring_domain</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">browser</span>: <span class="ident">browser</span>.<span class="ident">into</span>(),
             <span class="ident">device</span>: <span class="ident">device</span>.<span class="ident">into</span>(),

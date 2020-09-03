@@ -748,251 +748,251 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ErrorCode</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">num</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u64</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">num</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">GeneralError</span> <span class="op">=&gt;</span> <span class="number">0</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownAccount</span> <span class="op">=&gt;</span> <span class="number">10001</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownApplication</span> <span class="op">=&gt;</span> <span class="number">10002</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownChannel</span> <span class="op">=&gt;</span> <span class="number">10003</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownGuild</span> <span class="op">=&gt;</span> <span class="number">10004</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownIntegration</span> <span class="op">=&gt;</span> <span class="number">10005</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownInvite</span> <span class="op">=&gt;</span> <span class="number">10006</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownMember</span> <span class="op">=&gt;</span> <span class="number">10007</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownMessage</span> <span class="op">=&gt;</span> <span class="number">10008</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownPermissionOverwrite</span> <span class="op">=&gt;</span> <span class="number">10009</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownProvider</span> <span class="op">=&gt;</span> <span class="number">10010</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownRole</span> <span class="op">=&gt;</span> <span class="number">10011</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownToken</span> <span class="op">=&gt;</span> <span class="number">10012</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownUser</span> <span class="op">=&gt;</span> <span class="number">10013</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownEmoji</span> <span class="op">=&gt;</span> <span class="number">10014</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownWebhook</span> <span class="op">=&gt;</span> <span class="number">10015</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownBan</span> <span class="op">=&gt;</span> <span class="number">10026</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownSKU</span> <span class="op">=&gt;</span> <span class="number">10027</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownStoreListing</span> <span class="op">=&gt;</span> <span class="number">10028</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownEntitlement</span> <span class="op">=&gt;</span> <span class="number">10029</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownBuild</span> <span class="op">=&gt;</span> <span class="number">10030</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownLobby</span> <span class="op">=&gt;</span> <span class="number">10031</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownBranch</span> <span class="op">=&gt;</span> <span class="number">10032</span>,
-            <span class="self">Self</span>::<span class="ident">UnknownRedistributable</span> <span class="op">=&gt;</span> <span class="number">10036</span>,
-            <span class="self">Self</span>::<span class="ident">BotsCannotUseEndpoint</span> <span class="op">=&gt;</span> <span class="number">20001</span>,
-            <span class="self">Self</span>::<span class="ident">OnlyBotsCanUseEndpoint</span> <span class="op">=&gt;</span> <span class="number">20002</span>,
-            <span class="self">Self</span>::<span class="ident">MaximumGuildsReached</span> <span class="op">=&gt;</span> <span class="number">30001</span>,
-            <span class="self">Self</span>::<span class="ident">MaximumFriendsReached</span> <span class="op">=&gt;</span> <span class="number">30002</span>,
-            <span class="self">Self</span>::<span class="ident">MaximumPinsReached</span> <span class="op">=&gt;</span> <span class="number">30003</span>,
-            <span class="self">Self</span>::<span class="ident">MaximumRolesReached</span> <span class="op">=&gt;</span> <span class="number">30005</span>,
-            <span class="self">Self</span>::<span class="ident">MaximumWebhooksReached</span> <span class="op">=&gt;</span> <span class="number">30007</span>,
-            <span class="self">Self</span>::<span class="ident">MaximumReactionsReached</span> <span class="op">=&gt;</span> <span class="number">30010</span>,
-            <span class="self">Self</span>::<span class="ident">MaximumGuildChannelsReached</span> <span class="op">=&gt;</span> <span class="number">30013</span>,
-            <span class="self">Self</span>::<span class="ident">MaximumAttachmentsReached</span> <span class="op">=&gt;</span> <span class="number">30015</span>,
-            <span class="self">Self</span>::<span class="ident">MaximumInvitesReached</span> <span class="op">=&gt;</span> <span class="number">30016</span>,
-            <span class="self">Self</span>::<span class="ident">Unauthorized</span> <span class="op">=&gt;</span> <span class="number">40001</span>,
-            <span class="self">Self</span>::<span class="ident">AccountNeedsVerification</span> <span class="op">=&gt;</span> <span class="number">40002</span>,
-            <span class="self">Self</span>::<span class="ident">RequestEntityTooLarge</span> <span class="op">=&gt;</span> <span class="number">40005</span>,
-            <span class="self">Self</span>::<span class="ident">FeatureTemporarilyDisabled</span> <span class="op">=&gt;</span> <span class="number">40006</span>,
-            <span class="self">Self</span>::<span class="ident">UserBannedFromGuild</span> <span class="op">=&gt;</span> <span class="number">40007</span>,
-            <span class="self">Self</span>::<span class="ident">Missingaccess</span> <span class="op">=&gt;</span> <span class="number">50001</span>,
-            <span class="self">Self</span>::<span class="ident">InvalidAccountType</span> <span class="op">=&gt;</span> <span class="number">50002</span>,
-            <span class="self">Self</span>::<span class="ident">InvalidDMChannelAction</span> <span class="op">=&gt;</span> <span class="number">50003</span>,
-            <span class="self">Self</span>::<span class="ident">GuildWidgetDisabled</span> <span class="op">=&gt;</span> <span class="number">50004</span>,
-            <span class="self">Self</span>::<span class="ident">MessageNotAuthoredByUser</span> <span class="op">=&gt;</span> <span class="number">50005</span>,
-            <span class="self">Self</span>::<span class="ident">EmptyMessage</span> <span class="op">=&gt;</span> <span class="number">50006</span>,
-            <span class="self">Self</span>::<span class="ident">CannotSendMessageToUser</span> <span class="op">=&gt;</span> <span class="number">50007</span>,
-            <span class="self">Self</span>::<span class="ident">CannotSendMessagesInVoiceChannel</span> <span class="op">=&gt;</span> <span class="number">50008</span>,
-            <span class="self">Self</span>::<span class="ident">VerificationLevelTooHigh</span> <span class="op">=&gt;</span> <span class="number">50009</span>,
-            <span class="self">Self</span>::<span class="ident">OAuthApplicationHasNoBot</span> <span class="op">=&gt;</span> <span class="number">50010</span>,
-            <span class="self">Self</span>::<span class="ident">OAuthApplicationLimitReached</span> <span class="op">=&gt;</span> <span class="number">50011</span>,
-            <span class="self">Self</span>::<span class="ident">InvalidOAuthSstate</span> <span class="op">=&gt;</span> <span class="number">50012</span>,
-            <span class="self">Self</span>::<span class="ident">PermissionsLacking</span> <span class="op">=&gt;</span> <span class="number">50013</span>,
-            <span class="self">Self</span>::<span class="ident">InvalidAuthenticationTokenProvided</span> <span class="op">=&gt;</span> <span class="number">50014</span>,
-            <span class="self">Self</span>::<span class="ident">NoteTooLong</span> <span class="op">=&gt;</span> <span class="number">50015</span>,
-            <span class="self">Self</span>::<span class="ident">InvalidMessageDeleteRange</span> <span class="op">=&gt;</span> <span class="number">50016</span>,
-            <span class="self">Self</span>::<span class="ident">MessagePinnedInWrongChannel</span> <span class="op">=&gt;</span> <span class="number">50019</span>,
-            <span class="self">Self</span>::<span class="ident">InviteCodeInvalidOrTaken</span> <span class="op">=&gt;</span> <span class="number">50020</span>,
-            <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span> <span class="op">=&gt;</span> <span class="number">50021</span>,
-            <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span> <span class="op">=&gt;</span> <span class="number">50025</span>,
-            <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span> <span class="op">=&gt;</span> <span class="number">50034</span>,
-            <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span> <span class="op">=&gt;</span> <span class="number">50035</span>,
-            <span class="self">Self</span>::<span class="ident">InviteAcceptedToGuildBotNotIn</span> <span class="op">=&gt;</span> <span class="number">50036</span>,
-            <span class="self">Self</span>::<span class="ident">InvalidApiVersion</span> <span class="op">=&gt;</span> <span class="number">50041</span>,
-            <span class="self">Self</span>::<span class="ident">ReactionBlocked</span> <span class="op">=&gt;</span> <span class="number">90001</span>,
-            <span class="self">Self</span>::<span class="ident">ApiResourceOverloaded</span> <span class="op">=&gt;</span> <span class="number">130_000</span>,
-            <span class="self">Self</span>::<span class="ident">Other</span>(<span class="ident">other</span>) <span class="op">=&gt;</span> <span class="kw-2">*</span><span class="ident">other</span>,
+            <span class="self">Self</span>::<span class="ident">GeneralError</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownAccount</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10001</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownApplication</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10002</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownChannel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10003</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownGuild</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10004</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownIntegration</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10005</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownInvite</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10006</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownMember</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10007</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10008</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownPermissionOverwrite</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10009</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownProvider</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10010</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownRole</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10011</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10012</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10013</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownEmoji</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10014</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownWebhook</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10015</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownBan</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10026</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownSKU</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10027</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownStoreListing</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10028</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownEntitlement</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10029</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownBuild</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10030</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownLobby</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10031</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownBranch</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10032</span>,
+            <span class="self">Self</span>::<span class="ident">UnknownRedistributable</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10036</span>,
+            <span class="self">Self</span>::<span class="ident">BotsCannotUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">20001</span>,
+            <span class="self">Self</span>::<span class="ident">OnlyBotsCanUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">20002</span>,
+            <span class="self">Self</span>::<span class="ident">MaximumGuildsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30001</span>,
+            <span class="self">Self</span>::<span class="ident">MaximumFriendsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30002</span>,
+            <span class="self">Self</span>::<span class="ident">MaximumPinsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30003</span>,
+            <span class="self">Self</span>::<span class="ident">MaximumRolesReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30005</span>,
+            <span class="self">Self</span>::<span class="ident">MaximumWebhooksReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30007</span>,
+            <span class="self">Self</span>::<span class="ident">MaximumReactionsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30010</span>,
+            <span class="self">Self</span>::<span class="ident">MaximumGuildChannelsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30013</span>,
+            <span class="self">Self</span>::<span class="ident">MaximumAttachmentsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30015</span>,
+            <span class="self">Self</span>::<span class="ident">MaximumInvitesReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30016</span>,
+            <span class="self">Self</span>::<span class="ident">Unauthorized</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">40001</span>,
+            <span class="self">Self</span>::<span class="ident">AccountNeedsVerification</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">40002</span>,
+            <span class="self">Self</span>::<span class="ident">RequestEntityTooLarge</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">40005</span>,
+            <span class="self">Self</span>::<span class="ident">FeatureTemporarilyDisabled</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">40006</span>,
+            <span class="self">Self</span>::<span class="ident">UserBannedFromGuild</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">40007</span>,
+            <span class="self">Self</span>::<span class="ident">Missingaccess</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50001</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidAccountType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50002</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidDMChannelAction</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50003</span>,
+            <span class="self">Self</span>::<span class="ident">GuildWidgetDisabled</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50004</span>,
+            <span class="self">Self</span>::<span class="ident">MessageNotAuthoredByUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50005</span>,
+            <span class="self">Self</span>::<span class="ident">EmptyMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50006</span>,
+            <span class="self">Self</span>::<span class="ident">CannotSendMessageToUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50007</span>,
+            <span class="self">Self</span>::<span class="ident">CannotSendMessagesInVoiceChannel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50008</span>,
+            <span class="self">Self</span>::<span class="ident">VerificationLevelTooHigh</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50009</span>,
+            <span class="self">Self</span>::<span class="ident">OAuthApplicationHasNoBot</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50010</span>,
+            <span class="self">Self</span>::<span class="ident">OAuthApplicationLimitReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50011</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidOAuthSstate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50012</span>,
+            <span class="self">Self</span>::<span class="ident">PermissionsLacking</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50013</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidAuthenticationTokenProvided</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50014</span>,
+            <span class="self">Self</span>::<span class="ident">NoteTooLong</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50015</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidMessageDeleteRange</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50016</span>,
+            <span class="self">Self</span>::<span class="ident">MessagePinnedInWrongChannel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50019</span>,
+            <span class="self">Self</span>::<span class="ident">InviteCodeInvalidOrTaken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50020</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50021</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50025</span>,
+            <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50034</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50035</span>,
+            <span class="self">Self</span>::<span class="ident">InviteAcceptedToGuildBotNotIn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50036</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidApiVersion</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50041</span>,
+            <span class="self">Self</span>::<span class="ident">ReactionBlocked</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">90001</span>,
+            <span class="self">Self</span>::<span class="ident">ApiResourceOverloaded</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">130_000</span>,
+            <span class="self">Self</span>::<span class="ident">Other</span>(<span class="ident">other</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">other</span>,
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ErrorCode</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">int</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">int</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">int</span> {
-            <span class="number">0</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">GeneralError</span>,
-            <span class="number">10001</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownAccount</span>,
-            <span class="number">10002</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownApplication</span>,
-            <span class="number">10003</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownChannel</span>,
-            <span class="number">10004</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownGuild</span>,
-            <span class="number">10005</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownIntegration</span>,
-            <span class="number">10006</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownInvite</span>,
-            <span class="number">10007</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownMember</span>,
-            <span class="number">10008</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownMessage</span>,
-            <span class="number">10009</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownPermissionOverwrite</span>,
-            <span class="number">10010</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownProvider</span>,
-            <span class="number">10011</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownRole</span>,
-            <span class="number">10012</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownToken</span>,
-            <span class="number">10013</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownUser</span>,
-            <span class="number">10014</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownEmoji</span>,
-            <span class="number">10015</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownWebhook</span>,
-            <span class="number">10026</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownBan</span>,
-            <span class="number">10027</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownSKU</span>,
-            <span class="number">10028</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownStoreListing</span>,
-            <span class="number">10029</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownEntitlement</span>,
-            <span class="number">10030</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownBuild</span>,
-            <span class="number">10031</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownLobby</span>,
-            <span class="number">10032</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownBranch</span>,
-            <span class="number">10036</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownRedistributable</span>,
-            <span class="number">20001</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">BotsCannotUseEndpoint</span>,
-            <span class="number">20002</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">OnlyBotsCanUseEndpoint</span>,
-            <span class="number">30001</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumGuildsReached</span>,
-            <span class="number">30002</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumFriendsReached</span>,
-            <span class="number">30003</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumPinsReached</span>,
-            <span class="number">30005</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumRolesReached</span>,
-            <span class="number">30007</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumWebhooksReached</span>,
-            <span class="number">30010</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumReactionsReached</span>,
-            <span class="number">30013</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumGuildChannelsReached</span>,
-            <span class="number">30015</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumAttachmentsReached</span>,
-            <span class="number">30016</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumInvitesReached</span>,
-            <span class="number">40001</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">Unauthorized</span>,
-            <span class="number">40002</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">AccountNeedsVerification</span>,
-            <span class="number">40005</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">RequestEntityTooLarge</span>,
-            <span class="number">40006</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">FeatureTemporarilyDisabled</span>,
-            <span class="number">40007</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">UserBannedFromGuild</span>,
-            <span class="number">50001</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">Missingaccess</span>,
-            <span class="number">50002</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidAccountType</span>,
-            <span class="number">50003</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidDMChannelAction</span>,
-            <span class="number">50004</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">GuildWidgetDisabled</span>,
-            <span class="number">50005</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MessageNotAuthoredByUser</span>,
-            <span class="number">50006</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">EmptyMessage</span>,
-            <span class="number">50007</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">CannotSendMessageToUser</span>,
-            <span class="number">50008</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">CannotSendMessagesInVoiceChannel</span>,
-            <span class="number">50009</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">VerificationLevelTooHigh</span>,
-            <span class="number">50010</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">OAuthApplicationHasNoBot</span>,
-            <span class="number">50011</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">OAuthApplicationLimitReached</span>,
-            <span class="number">50012</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidOAuthSstate</span>,
-            <span class="number">50013</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">PermissionsLacking</span>,
-            <span class="number">50014</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidAuthenticationTokenProvided</span>,
-            <span class="number">50015</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">NoteTooLong</span>,
-            <span class="number">50016</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidMessageDeleteRange</span>,
-            <span class="number">50019</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MessagePinnedInWrongChannel</span>,
-            <span class="number">50020</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InviteCodeInvalidOrTaken</span>,
-            <span class="number">50021</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span>,
-            <span class="number">50025</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span>,
-            <span class="number">50034</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span>,
-            <span class="number">50035</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span>,
-            <span class="number">50036</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InviteAcceptedToGuildBotNotIn</span>,
-            <span class="number">50041</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidApiVersion</span>,
-            <span class="number">90001</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">ReactionBlocked</span>,
-            <span class="number">130_000</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">ApiResourceOverloaded</span>,
-            <span class="ident">other</span> <span class="op">=&gt;</span> <span class="self">Self</span>::<span class="ident">Other</span>(<span class="ident">other</span>),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">GeneralError</span>,
+            <span class="number">10001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownAccount</span>,
+            <span class="number">10002</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownApplication</span>,
+            <span class="number">10003</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownChannel</span>,
+            <span class="number">10004</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownGuild</span>,
+            <span class="number">10005</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownIntegration</span>,
+            <span class="number">10006</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownInvite</span>,
+            <span class="number">10007</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownMember</span>,
+            <span class="number">10008</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownMessage</span>,
+            <span class="number">10009</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownPermissionOverwrite</span>,
+            <span class="number">10010</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownProvider</span>,
+            <span class="number">10011</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownRole</span>,
+            <span class="number">10012</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownToken</span>,
+            <span class="number">10013</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownUser</span>,
+            <span class="number">10014</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownEmoji</span>,
+            <span class="number">10015</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownWebhook</span>,
+            <span class="number">10026</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownBan</span>,
+            <span class="number">10027</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownSKU</span>,
+            <span class="number">10028</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownStoreListing</span>,
+            <span class="number">10029</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownEntitlement</span>,
+            <span class="number">10030</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownBuild</span>,
+            <span class="number">10031</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownLobby</span>,
+            <span class="number">10032</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownBranch</span>,
+            <span class="number">10036</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownRedistributable</span>,
+            <span class="number">20001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">BotsCannotUseEndpoint</span>,
+            <span class="number">20002</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">OnlyBotsCanUseEndpoint</span>,
+            <span class="number">30001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumGuildsReached</span>,
+            <span class="number">30002</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumFriendsReached</span>,
+            <span class="number">30003</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumPinsReached</span>,
+            <span class="number">30005</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumRolesReached</span>,
+            <span class="number">30007</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumWebhooksReached</span>,
+            <span class="number">30010</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumReactionsReached</span>,
+            <span class="number">30013</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumGuildChannelsReached</span>,
+            <span class="number">30015</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumAttachmentsReached</span>,
+            <span class="number">30016</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumInvitesReached</span>,
+            <span class="number">40001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Unauthorized</span>,
+            <span class="number">40002</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">AccountNeedsVerification</span>,
+            <span class="number">40005</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">RequestEntityTooLarge</span>,
+            <span class="number">40006</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">FeatureTemporarilyDisabled</span>,
+            <span class="number">40007</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UserBannedFromGuild</span>,
+            <span class="number">50001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Missingaccess</span>,
+            <span class="number">50002</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidAccountType</span>,
+            <span class="number">50003</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidDMChannelAction</span>,
+            <span class="number">50004</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">GuildWidgetDisabled</span>,
+            <span class="number">50005</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MessageNotAuthoredByUser</span>,
+            <span class="number">50006</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">EmptyMessage</span>,
+            <span class="number">50007</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">CannotSendMessageToUser</span>,
+            <span class="number">50008</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">CannotSendMessagesInVoiceChannel</span>,
+            <span class="number">50009</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">VerificationLevelTooHigh</span>,
+            <span class="number">50010</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">OAuthApplicationHasNoBot</span>,
+            <span class="number">50011</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">OAuthApplicationLimitReached</span>,
+            <span class="number">50012</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidOAuthSstate</span>,
+            <span class="number">50013</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">PermissionsLacking</span>,
+            <span class="number">50014</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidAuthenticationTokenProvided</span>,
+            <span class="number">50015</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">NoteTooLong</span>,
+            <span class="number">50016</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidMessageDeleteRange</span>,
+            <span class="number">50019</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MessagePinnedInWrongChannel</span>,
+            <span class="number">50020</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InviteCodeInvalidOrTaken</span>,
+            <span class="number">50021</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span>,
+            <span class="number">50025</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span>,
+            <span class="number">50034</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span>,
+            <span class="number">50035</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span>,
+            <span class="number">50036</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InviteAcceptedToGuildBotNotIn</span>,
+            <span class="number">50041</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidApiVersion</span>,
+            <span class="number">90001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">ReactionBlocked</span>,
+            <span class="number">130_000</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">ApiResourceOverloaded</span>,
+            <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Other</span>(<span class="ident">other</span>),
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ErrorCode</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">GeneralError</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;General error (such as a malformed request body, amongst other things)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownAccount</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown account&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownApplication</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown application&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownChannel</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown channel&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownGuild</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown guild&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownIntegration</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown integration&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownInvite</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown invite&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownMember</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown member&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownMessage</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown message&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownPermissionOverwrite</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown permission overwrite&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownProvider</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown provider&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownRole</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown role&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownToken</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown token&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownUser</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown user&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownEmoji</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown emoji&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownWebhook</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown webhook&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownBan</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown ban&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownSKU</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown SKU&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownStoreListing</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown Store Listing&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownEntitlement</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown entitlement&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownBuild</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown build&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownLobby</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown lobby&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownBranch</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown branch&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UnknownRedistributable</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown redistributable&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">BotsCannotUseEndpoint</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Bots cannot use this endpoint&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">OnlyBotsCanUseEndpoint</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Only bots can use this endpoint&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MaximumGuildsReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of guilds reached (100)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MaximumFriendsReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of friends reached (1000)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MaximumPinsReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of pins reached for the channel (50)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MaximumRolesReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of guild roles reached (250)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MaximumWebhooksReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of webhooks reached (10)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MaximumReactionsReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of reactions reached (20)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MaximumGuildChannelsReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of guild channels reached (500)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MaximumAttachmentsReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of attachments in a message reached (10)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MaximumInvitesReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of invites reached (1000)&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">Unauthorized</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unauthorized. Provide a valid token and try again&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">AccountNeedsVerification</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;You need to verify your account in order to perform this action&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">RequestEntityTooLarge</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Request entity too large. Try sending something smaller in size&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">FeatureTemporarilyDisabled</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;This feature has been temporarily disabled server-side&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">UserBannedFromGuild</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;The user is banned from this guild&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">Missingaccess</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Missing access&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InvalidAccountType</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid account type&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InvalidDMChannelAction</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot execute action on a DM channel&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">GuildWidgetDisabled</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Guild widget disabled&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MessageNotAuthoredByUser</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot edit a message authored by another user&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">EmptyMessage</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot send an empty message&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">CannotSendMessageToUser</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot send messages to this user&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">CannotSendMessagesInVoiceChannel</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot send messages in a voice channel&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">VerificationLevelTooHigh</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Channel verification level is too high for you to gain access&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">OAuthApplicationHasNoBot</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;OAuth2 application does not have a bot&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">OAuthApplicationLimitReached</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;OAuth2 application limit reached&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InvalidOAuthSstate</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid OAuth2 state&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">PermissionsLacking</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;You lack permissions to perform that action&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InvalidAuthenticationTokenProvided</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid authentication token provided&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">NoteTooLong</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Note was too long&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InvalidMessageDeleteRange</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Provided too few or too many messages to delete. Must provide at least 2 and fewer than 100 messages to delete&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MessagePinnedInWrongChannel</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;A message can only be pinned to the channel it was sent in&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InviteCodeInvalidOrTaken</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invite code was either invalid or taken&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot execute action on a system message&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid OAuth2 access token provided&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;A message provided was too old to bulk delete&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid form body (returned for both application/json and multipart/form-data bodies), or invalid Content-Type provided&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InviteAcceptedToGuildBotNotIn</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;An invite was accepted to a guild the application&#39;s bot is not in&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">InvalidApiVersion</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid API version provided&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">ReactionBlocked</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Reaction was blocked&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">ApiResourceOverloaded</span> <span class="op">=&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;API resource is currently overloaded. Try again a little later&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">Other</span>(<span class="ident">number</span>) <span class="op">=&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;An error code Twilight doesn&#39;t have registered: {}&quot;</span>, <span class="ident">number</span>),
+            <span class="self">Self</span>::<span class="ident">GeneralError</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;General error (such as a malformed request body, amongst other things)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownAccount</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown account&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownApplication</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown application&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownChannel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown channel&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownGuild</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown guild&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownIntegration</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown integration&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownInvite</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown invite&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownMember</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown member&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown message&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownPermissionOverwrite</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown permission overwrite&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownProvider</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown provider&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownRole</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown role&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown token&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown user&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownEmoji</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown emoji&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownWebhook</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown webhook&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownBan</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown ban&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownSKU</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown SKU&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownStoreListing</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown Store Listing&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownEntitlement</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown entitlement&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownBuild</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown build&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownLobby</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown lobby&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownBranch</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown branch&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UnknownRedistributable</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown redistributable&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">BotsCannotUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Bots cannot use this endpoint&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">OnlyBotsCanUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Only bots can use this endpoint&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MaximumGuildsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of guilds reached (100)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MaximumFriendsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of friends reached (1000)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MaximumPinsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of pins reached for the channel (50)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MaximumRolesReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of guild roles reached (250)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MaximumWebhooksReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of webhooks reached (10)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MaximumReactionsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of reactions reached (20)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MaximumGuildChannelsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of guild channels reached (500)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MaximumAttachmentsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of attachments in a message reached (10)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MaximumInvitesReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of invites reached (1000)&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">Unauthorized</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unauthorized. Provide a valid token and try again&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">AccountNeedsVerification</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;You need to verify your account in order to perform this action&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">RequestEntityTooLarge</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Request entity too large. Try sending something smaller in size&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">FeatureTemporarilyDisabled</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;This feature has been temporarily disabled server-side&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">UserBannedFromGuild</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;The user is banned from this guild&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">Missingaccess</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Missing access&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidAccountType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid account type&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidDMChannelAction</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot execute action on a DM channel&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">GuildWidgetDisabled</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Guild widget disabled&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MessageNotAuthoredByUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot edit a message authored by another user&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">EmptyMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot send an empty message&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">CannotSendMessageToUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot send messages to this user&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">CannotSendMessagesInVoiceChannel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot send messages in a voice channel&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">VerificationLevelTooHigh</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Channel verification level is too high for you to gain access&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">OAuthApplicationHasNoBot</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;OAuth2 application does not have a bot&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">OAuthApplicationLimitReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;OAuth2 application limit reached&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidOAuthSstate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid OAuth2 state&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">PermissionsLacking</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;You lack permissions to perform that action&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidAuthenticationTokenProvided</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid authentication token provided&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">NoteTooLong</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Note was too long&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidMessageDeleteRange</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Provided too few or too many messages to delete. Must provide at least 2 and fewer than 100 messages to delete&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MessagePinnedInWrongChannel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;A message can only be pinned to the channel it was sent in&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InviteCodeInvalidOrTaken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invite code was either invalid or taken&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot execute action on a system message&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid OAuth2 access token provided&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;A message provided was too old to bulk delete&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid form body (returned for both application/json and multipart/form-data bodies), or invalid Content-Type provided&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InviteAcceptedToGuildBotNotIn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;An invite was accepted to a guild the application&#39;s bot is not in&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidApiVersion</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid API version provided&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">ReactionBlocked</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Reaction was blocked&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">ApiResourceOverloaded</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;API resource is currently overloaded. Try again a little later&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">Other</span>(<span class="ident">number</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;An error code Twilight doesn&#39;t have registered: {}&quot;</span>, <span class="ident">number</span>),
         }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ErrorCode</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">struct</span> <span class="ident">ErrorCodeVisitor</span>;
 
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ErrorCodeVisitor</span> {
             <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">ErrorCode</span>;
 
-            <span class="kw">fn</span> <span class="ident">expecting</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+            <span class="kw">fn</span> <span class="ident">expecting</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;a positive integer&quot;</span>)
             }
 
-            <span class="kw">fn</span> <span class="ident">visit_u8</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u8</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+            <span class="kw">fn</span> <span class="ident">visit_u8</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">visit_u64</span>(<span class="ident">u64</span>::<span class="ident">from</span>(<span class="ident">value</span>))
             }
 
-            <span class="kw">fn</span> <span class="ident">visit_u16</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u16</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+            <span class="kw">fn</span> <span class="ident">visit_u16</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u16</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">visit_u64</span>(<span class="ident">u64</span>::<span class="ident">from</span>(<span class="ident">value</span>))
             }
 
-            <span class="kw">fn</span> <span class="ident">visit_u32</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+            <span class="kw">fn</span> <span class="ident">visit_u32</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">visit_u64</span>(<span class="ident">u64</span>::<span class="ident">from</span>(<span class="ident">value</span>))
             }
 
-            <span class="kw">fn</span> <span class="ident">visit_u64</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">int</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+            <span class="kw">fn</span> <span class="ident">visit_u64</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">int</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
                 <span class="prelude-val">Ok</span>(<span class="ident">ErrorCode</span>::<span class="ident">from</span>(<span class="ident">int</span>))
             }
         }
@@ -1002,7 +1002,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Serialize</span> <span class="kw">for</span> <span class="ident">ErrorCode</span> {
-    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Serializer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Serializer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="ident">serializer</span>.<span class="ident">serialize_u64</span>(<span class="self">self</span>.<span class="ident">num</span>())
     }
 }
@@ -1018,11 +1018,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ApiError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">General</span>(<span class="ident">inner</span>) <span class="op">=&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">inner</span>, <span class="ident">f</span>),
-            <span class="self">Self</span>::<span class="ident">Message</span>(<span class="ident">inner</span>) <span class="op">=&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">inner</span>, <span class="ident">f</span>),
-            <span class="self">Self</span>::<span class="ident">Ratelimited</span>(<span class="ident">inner</span>) <span class="op">=&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">inner</span>, <span class="ident">f</span>),
+            <span class="self">Self</span>::<span class="ident">General</span>(<span class="ident">inner</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">inner</span>, <span class="ident">f</span>),
+            <span class="self">Self</span>::<span class="ident">Message</span>(<span class="ident">inner</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">inner</span>, <span class="ident">f</span>),
+            <span class="self">Self</span>::<span class="ident">Ratelimited</span>(<span class="ident">inner</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">inner</span>, <span class="ident">f</span>),
         }
     }
 }
@@ -1035,7 +1035,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">GeneralApiError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
             <span class="string">&quot;Error code {}: {}&quot;</span>,
             <span class="self">self</span>.<span class="ident">code</span>.<span class="ident">num</span>(),
@@ -1050,11 +1050,11 @@
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageApiError</span> {
     <span class="doccomment">/// Fields within a provided embed were invalid.</span>
-    <span class="kw">pub</span> <span class="ident">embed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MessageApiErrorEmbedField</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">embed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MessageApiErrorEmbedField</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">MessageApiError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;message fields invalid: &quot;</span>)<span class="question-mark">?</span>;
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">embed</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">embed</span> {
@@ -1065,7 +1065,7 @@
             <span class="kw">for</span> (<span class="ident">idx</span>, <span class="ident">field</span>) <span class="kw">in</span> <span class="ident">embed</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
                 <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">field</span>, <span class="ident">f</span>)<span class="question-mark">?</span>;
 
-                <span class="kw">if</span> <span class="ident">idx</span> <span class="op">==</span> <span class="ident">field_count</span> {
+                <span class="kw">if</span> <span class="ident">idx</span> <span class="op">=</span><span class="op">=</span> <span class="ident">field_count</span> {
                     <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;, &quot;</span>)<span class="question-mark">?</span>;
                 }
             }
@@ -1079,8 +1079,8 @@
 
 <span class="doccomment">/// Field within a [`MessageApiError`] [embed] list.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`MessageApiError`]: enum.MessageApiError.html</span>
-<span class="doccomment">/// [embed]: enum.MessageApiError.html#structfield.embed</span>
+<span class="doccomment">/// [`MessageApiError`]: struct.MessageApiError.html</span>
+<span class="doccomment">/// [embed]: struct.MessageApiError.html#structfield.embed</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
@@ -1090,9 +1090,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">MessageApiErrorEmbedField</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Fields</span> <span class="op">=&gt;</span> <span class="string">&quot;fields&quot;</span>,
+            <span class="self">Self</span>::<span class="ident">Fields</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;fields&quot;</span>,
         })
     }
 }
@@ -1106,7 +1106,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">RatelimitedApiError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Got &quot;</span>)<span class="question-mark">?</span>;
 
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">global</span> {

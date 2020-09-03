@@ -68,10 +68,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Key</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">GuildId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">GuildStatus</span> {
-    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">GuildId</span> {
+    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GuildId</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Online</span>(<span class="ident">g</span>) <span class="op">=&gt;</span> <span class="ident">g</span>.<span class="ident">id</span>,
-            <span class="self">Self</span>::<span class="ident">Offline</span>(<span class="ident">u</span>) <span class="op">=&gt;</span> <span class="ident">u</span>.<span class="ident">id</span>,
+            <span class="self">Self</span>::<span class="ident">Online</span>(<span class="ident">g</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">g</span>.<span class="ident">id</span>,
+            <span class="self">Self</span>::<span class="ident">Offline</span>(<span class="ident">u</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">u</span>.<span class="ident">id</span>,
         }
     }
 }
