@@ -80,7 +80,9 @@
 <span id="79">79</span>
 <span id="80">80</span>
 <span id="81">81</span>
+<span id="82">82</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">Serialize</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Arc</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
     <span class="ident">guild</span>::<span class="ident">Emoji</span>,
@@ -88,7 +90,7 @@
     <span class="ident">user</span>::<span class="ident">User</span>,
 };
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CachedEmoji</span> {
     <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">EmojiId</span>,
     <span class="kw">pub</span> <span class="ident">animated</span>: <span class="ident">bool</span>,
