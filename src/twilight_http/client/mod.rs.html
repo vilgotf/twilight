@@ -1597,10 +1597,6 @@
 <span id="1596">1596</span>
 <span id="1597">1597</span>
 <span id="1598">1598</span>
-<span id="1599">1599</span>
-<span id="1600">1600</span>
-<span id="1601">1601</span>
-<span id="1602">1602</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -1983,12 +1979,8 @@
         <span class="ident">GetChannelMessages</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_channel_permission</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
-        <span class="ident">target_id</span>: <span class="ident">u64</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeleteChannelPermission</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <span class="ident">DeleteChannelPermission</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>, <span class="ident">target_id</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_channel_permission</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeleteChannelPermission</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="ident">DeleteChannelPermission</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }
 
     <span class="doccomment">/// Update the permissions for a role or a user in a channel.</span>
