@@ -124,6 +124,8 @@
 <span id="123">123</span>
 <span id="124">124</span>
 <span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-gateway</span>
 <span class="doccomment">//!</span>
@@ -199,17 +201,19 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### zlib</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The `simd-zlib` feature enables [`flate2`]&#39;s [`cloudflare_zlib`] feature which</span>
-<span class="doccomment">//! uses Cloudflares SIMD-accelerated fork of zlib.</span>
+<span class="doccomment">//! The `stock-zlib` feature enables [`flate2`]&#39;s `zlib` feature which makes</span>
+<span class="doccomment">//! [`flate2`] use system zlib instead of [`zlib-ng`].</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! This is not enabled by default.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`async-tungstenite`]: https://crates.io/crates/async-tungstenite</span>
-<span class="doccomment">//! [`cloudflare_zlib`]: https://crates.io/crates/cloudflare-zlib</span>
 <span class="doccomment">//! [`flate2`]: https://crates.io/crates/flate2</span>
 <span class="doccomment">//! [`native-tls`]: https://crates.io/crates/native-tls</span>
 <span class="doccomment">//! [`rustls`]: https://crates.io/crates/rustls</span>
 <span class="doccomment">//! [`serde_json`]: https://crates.io/crates/serde_json</span>
 <span class="doccomment">//! [`simd-json`]: https://crates.io/crates/simd-json</span>
 <span class="doccomment">//! [`twilight-http`]: https://twilight-rs.github.io/twilight/twilight_http/index.html</span>
+<span class="doccomment">//! [`zlib-ng`]: https://github.com/zlib-ng/zlib-ng</span>
 <span class="doccomment">//! [discord badge]: https://img.shields.io/discord/745809834183753828?color=%237289DA&amp;label=discord%20server&amp;logo=discord&amp;style=for-the-badge</span>
 <span class="doccomment">//! [discord link]: https://discord.gg/7jj8n7D</span>
 <span class="doccomment">//! [docs:discord:sharding]: https://discord.com/developers/docs/topics/gateway#sharding</span>
