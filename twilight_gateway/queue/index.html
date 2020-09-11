@@ -21,7 +21,7 @@ configuration methods.</p>
 <p>Large bots, and smaller bots out of design, may need to implement their own
 queue. The most common reason to need this is if you have clusters in
 multiple processes. You'll need a broker to manage ratelimiting across them
-all so a <a href="../../twilight_gateway/queue/trait.Queue.html" title="`Queue`"><code>Queue</code></a> trait is provided that shards can use to make requests to
+all so a <a href="../../twilight_gateway/queue/trait.Queue.html" title="Queue"><code>Queue</code></a> trait is provided that shards can use to make requests to
 create sessions.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table><tr class='module-item'><td><a class="struct" href="struct.LargeBotQueue.html" title='twilight_gateway::queue::LargeBotQueue struct'>LargeBotQueue</a></td><td class='docblock-short'><p>Queue built for single-process clusters that require identifying via
