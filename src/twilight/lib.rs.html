@@ -222,12 +222,6 @@
 <span id="221">221</span>
 <span id="222">222</span>
 <span id="223">223</span>
-<span id="224">224</span>
-<span id="225">225</span>
-<span id="226">226</span>
-<span id="227">227</span>
-<span id="228">228</span>
-<span id="229">229</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight</span>
 <span class="doccomment">//!</span>
@@ -235,101 +229,104 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ![project logo][logo]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `twilight` is a powerful asynchronous, flexible, and scalable ecosystem of</span>
-<span class="doccomment">//! Rust libraries for the Discord API.</span>
+<span class="doccomment">//! `twilight` is a powerful, flexible, and scalable ecosystem of Rust libraries</span>
+<span class="doccomment">//! for the Discord API.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The ecosystem of first-class crates includes `twilight-cache-inmemory`,</span>
 <span class="doccomment">//! `twilight-command-parser`, `twilight-gateway`, `twilight-http`,</span>
 <span class="doccomment">//! `twilight-model`, and more. These are explained in detail below.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The main `twilight` crate is a &quot;skeleton crate&quot;: it includes all of the</span>
-<span class="doccomment">//! non-vendor-specific crates in the `twilight` ecosystem.</span>
+<span class="doccomment">//! The main `twilight` crate is purely an advertisement crate: it has *no*</span>
+<span class="doccomment">//! functionality. Please use the individual crates listed below instead!</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Installation</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Twilight requires the latest stable Rust version.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Add this to your `Cargo.toml`&#39;s `[dependencies]` section:</span>
+<span class="doccomment">//! We recommend that most users start out with these crates added to your</span>
+<span class="doccomment">//! `Cargo.toml`&#39;s `[dependencies]` section:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```toml</span>
-<span class="doccomment">//! twilight = { branch = &quot;trunk&quot;, git = &quot;https://github.com/twilight-rs/twilight.git&quot; }</span>
+<span class="doccomment">//! twilight-cache-inmemory = { branch = &quot;trunk&quot;, git = &quot;https://github.com/twilight-rs/twilight.git&quot; }</span>
+<span class="doccomment">//! twilight-gateway = { branch = &quot;trunk&quot;, git = &quot;https://github.com/twilight-rs/twilight.git&quot; }</span>
+<span class="doccomment">//! twilight-http = { branch = &quot;trunk&quot;, git = &quot;https://github.com/twilight-rs/twilight.git&quot; }</span>
+<span class="doccomment">//! twilight-model = { branch = &quot;trunk&quot;, git = &quot;https://github.com/twilight-rs/twilight.git&quot; }</span>
 <span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! If you need any other functionality that Twilight provides, you can just add</span>
+<span class="doccomment">//! that dependency in.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Core Crates</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! These are essential crates that most users will use together for a full</span>
 <span class="doccomment">//! development experience. You may not need all of these - such as</span>
-<span class="doccomment">//! `twilight-cache` - but they are often used together to accomplish most of</span>
-<span class="doccomment">//! what you need.</span>
+<span class="doccomment">//! `twilight-command-parser` - but they are often used together to accomplish</span>
+<span class="doccomment">//! most of what you need.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-model`</span>
+<span class="doccomment">//! ### [`twilight-model`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `twilight-model` is a set of models defining structures, enums, and bitflags</span>
-<span class="doccomment">//! for the entirety of the Discord API. It is split into a number of</span>
-<span class="doccomment">//! sub-modules, such as `gateway` for containing the WebSocket gateway types,</span>
-<span class="doccomment">//! `guild` for containing types owned by guilds (servers), `voice` containing</span>
-<span class="doccomment">//! the types used by the Voice WebSocket API, and more.</span>
+<span class="doccomment">//! Models defining structures, enums, and bitflags for the entirety of the</span>
+<span class="doccomment">//! Discord API. It is split into a number of sub-modules, such as `gateway` for</span>
+<span class="doccomment">//! containing the WebSocket gateway types, `guild` for containing types owned</span>
+<span class="doccomment">//! by guilds (servers), `voice` containing the types used by the Voice</span>
+<span class="doccomment">//! WebSocket API, and more.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! These are all in a single crate so that you can use `gateway` models without</span>
 <span class="doccomment">//! depending on `twilight-gateway`. One use case is if you write your own WebSocket</span>
 <span class="doccomment">//! gateway implementation.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-cache-inmemory`</span>
+<span class="doccomment">//! ### [`twilight-cache-inmemory`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `twilight-cache-inmemory` is an in-process-memory based cache. It&#39;s</span>
-<span class="doccomment">//! responsible for holding information about things like guilds, channels, role</span>
-<span class="doccomment">//! information, voice states, and any other data that comes from Discord.</span>
+<span class="doccomment">//! In-process-memory based cache over objects received from the gateway. It&#39;s</span>
+<span class="doccomment">//! responsible for holding and managing information about things like guilds,</span>
+<span class="doccomment">//! channels, role information, voice states, and any other events that come</span>
+<span class="doccomment">//! from Discord.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-gateway`</span>
+<span class="doccomment">//! ### [`twilight-gateway`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `twilight-gateway` is an implementation of Discord&#39;s sharding gateway sessions.</span>
-<span class="doccomment">//! This is responsible for receiving stateful events in real-time from Discord</span>
-<span class="doccomment">//! and sending *some* stateful information.</span>
+<span class="doccomment">//! Implementation of Discord&#39;s sharding gateway sessions. This is responsible</span>
+<span class="doccomment">//! for receiving stateful events in real-time from Discord and sending *some*</span>
+<span class="doccomment">//! stateful information.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-command-parser`</span>
+<span class="doccomment">//! ### [`twilight-command-parser`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `twilight-command-parser` is a crate for parsing commands out of messages</span>
-<span class="doccomment">//! received over the gateway. It finds messages commanding your bot and parses</span>
-<span class="doccomment">//! the arguments out.</span>
+<span class="doccomment">//! Helpful crate for parsing commands out of messages received over the gateway. It finds messages commanding your bot and parses the arguments out.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-http`</span>
+<span class="doccomment">//! ### [`twilight-http`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `twilight-http` is an HTTP client supporting all of the Discord REST API. It is</span>
-<span class="doccomment">//! based on `hyper`. It meets Discord&#39;s ratelimiting requirements and supports</span>
-<span class="doccomment">//! proxying.</span>
+<span class="doccomment">//! HTTP client supporting all of the Discord REST API. It is based on `hyper`.</span>
+<span class="doccomment">//! It meets Discord&#39;s ratelimiting requirements and supports proxying.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-standby`</span>
+<span class="doccomment">//! ### [`twilight-standby`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `twilight-standby` is an event processor that allows for tasks to wait for an</span>
-<span class="doccomment">//! event to come in. This is useful, for example, when you have a reaction menu</span>
-<span class="doccomment">//! and want to wait for a reaction to it to come in.</span>
+<span class="doccomment">//! Event processor that allows for tasks to wait for an event to come in. This</span>
+<span class="doccomment">//! is useful, for example, when you have a reaction menu and want to wait for a</span>
+<span class="doccomment">//! specific reaction on it to come in.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Additional Crates</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! These are crates that are officially supported by Twilight, but aren&#39;t</span>
-<span class="doccomment">//! considered core crates due to being vendor-specific or non-essential for most</span>
-<span class="doccomment">//! users.</span>
+<span class="doccomment">//! considered core crates due to being vendor-specific or non-essential for</span>
+<span class="doccomment">//! most users.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-embed-builder`</span>
+<span class="doccomment">//! ### [`twilight-embed-builder`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`twilight-embed-builder`] is a utility crate for creating and validating</span>
-<span class="doccomment">//! message embeds, to be used when creating or updating messages.</span>
+<span class="doccomment">//! Utility crate for creating and validating message embeds, to be used when creating or updating messages.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-lavalink`</span>
+<span class="doccomment">//! ### [`twilight-lavalink`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`twilight-lavalink`] is a client for [Lavalink] as part of the twilight</span>
-<span class="doccomment">//! ecosystem.</span>
+<span class="doccomment">//! Client for [Lavalink] as part of the twilight ecosystem.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! It includes support for managing multiple nodes, a player manager for</span>
 <span class="doccomment">//! conveniently using players to send events and retrieve information for each</span>
 <span class="doccomment">//! guild, and an HTTP module for creating requests using the [`http`] crate and</span>
 <span class="doccomment">//! providing models to deserialize their responses.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### `twilight-mention`</span>
+<span class="doccomment">//! ### [`twilight-mention`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`twilight-mention`] is a utility crate for creating display formatters for</span>
-<span class="doccomment">//! various model types that format mentions. For example, it can create</span>
-<span class="doccomment">//! formatters for mentioning a channel or emoji, or pinging a role or user.</span>
+<span class="doccomment">//! Create display formatters for various model types that format mentions. For</span>
+<span class="doccomment">//! example, it can create formatters for mentioning a channel or emoji, or</span>
+<span class="doccomment">//! pinging a role or user.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Examples</span>
 <span class="doccomment">//!</span>
@@ -413,11 +410,14 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Note about tracing</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! When using tracing you won&#39;t, by default, see logs from any libraries that use the</span>
-<span class="doccomment">//! `log` crate. You can add that back by using the [`tracing-log`] crate and</span>
-<span class="doccomment">//! initializing it like this:</span>
-<span class="doccomment">//! ```rust,ignore</span>
+<span class="doccomment">//! When using the `tracing` crate you won&#39;t, by default, see logs from any</span>
+<span class="doccomment">//! libraries that use the `log` crate. You can add that back by using the</span>
+<span class="doccomment">//! [`tracing-log`] crate and initializing it like this:</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```rust</span>
+<span class="doccomment">//! # fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
 <span class="doccomment">//! tracing_log::LogTracer::init()?;</span>
+<span class="doccomment">//! # Ok(()) }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## License</span>
@@ -436,27 +436,15 @@
 <span class="doccomment">//! [license link]: https://github.com/twilight-rs/twilight/blob/trunk/LICENSE.md</span>
 <span class="doccomment">//! [logo]: https://raw.githubusercontent.com/twilight-rs/twilight/trunk/logo.png</span>
 <span class="doccomment">//! [rust badge]: https://img.shields.io/badge/rust-stable-93450a.svg?style=for-the-badge&amp;logo=rust</span>
-<span class="doccomment">//! [`twilight-embed-builder`]: https://github.com/twilight-rs/twilight/tree/trunk/utils/embed-builder</span>
-<span class="doccomment">//! [`twilight-lavalink`]: https://github.com/twilight-rs/twilight/tree/trunk/lavalink</span>
-<span class="doccomment">//! [`twilight-mention`]: https://github.com/twilight-rs/twilight/tree/trunk/utils/mention</span>
 <span class="doccomment">//! [`tracing-log`]: https://github.com/tokio-rs/tracing/tree/master/tracing-log</span>
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;cache-inmemory&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">twilight_cache_inmemory</span> <span class="kw">as</span> <span class="ident">cache_inmemory</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;command-parser&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">twilight_command_parser</span> <span class="kw">as</span> <span class="ident">command_parser</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;gateway&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">twilight_gateway</span> <span class="kw">as</span> <span class="ident">gateway</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;http&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">twilight_http</span> <span class="kw">as</span> <span class="ident">http</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;model&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">twilight_model</span> <span class="kw">as</span> <span class="ident">model</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;standby&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">twilight_standby</span> <span class="kw">as</span> <span class="ident">standby</span>;
+<span class="doccomment">//! [`twilight-cache-inmemory`]: https://twilight.rs/chapter_1_crates/section_4_cache_inmemory.html</span>
+<span class="doccomment">//! [`twilight-command-parser`]: https://twilight.rs/chapter_1_crates/section_5_command_parser.html</span>
+<span class="doccomment">//! [`twilight-embed-builder`]: https://twilight.rs/chapter_1_crates/section_8_first_party/section_1_embed_builder.html</span>
+<span class="doccomment">//! [`twilight-gateway`]: https://twilight.rs/chapter_1_crates/section_3_gateway.html</span>
+<span class="doccomment">//! [`twilight-http`]: https://twilight.rs/chapter_1_crates/section_2_http.html</span>
+<span class="doccomment">//! [`twilight-lavalink`]: https://twilight.rs/chapter_1_crates/section_8_first_party/section_3_lavalink.html</span>
+<span class="doccomment">//! [`twilight-mention`]: https://twilight.rs/chapter_1_crates/section_8_first_party/section_2_mention.html</span>
+<span class="doccomment">//! [`twilight-model`]: https://twilight.rs/chapter_1_crates/section_1_model.html</span>
+<span class="doccomment">//! [`twilight-standby`]: https://twilight.rs/chapter_1_crates/section_6_standby.html</span>
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "twilight";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
