@@ -1036,7 +1036,114 @@
 <span id="1035">1035</span>
 <span id="1036">1036</span>
 <span id="1037">1037</span>
+<span id="1038">1038</span>
+<span id="1039">1039</span>
+<span id="1040">1040</span>
+<span id="1041">1041</span>
+<span id="1042">1042</span>
+<span id="1043">1043</span>
+<span id="1044">1044</span>
+<span id="1045">1045</span>
+<span id="1046">1046</span>
+<span id="1047">1047</span>
+<span id="1048">1048</span>
+<span id="1049">1049</span>
+<span id="1050">1050</span>
+<span id="1051">1051</span>
+<span id="1052">1052</span>
+<span id="1053">1053</span>
+<span id="1054">1054</span>
+<span id="1055">1055</span>
+<span id="1056">1056</span>
+<span id="1057">1057</span>
+<span id="1058">1058</span>
+<span id="1059">1059</span>
+<span id="1060">1060</span>
+<span id="1061">1061</span>
+<span id="1062">1062</span>
+<span id="1063">1063</span>
+<span id="1064">1064</span>
+<span id="1065">1065</span>
+<span id="1066">1066</span>
+<span id="1067">1067</span>
+<span id="1068">1068</span>
+<span id="1069">1069</span>
+<span id="1070">1070</span>
+<span id="1071">1071</span>
+<span id="1072">1072</span>
+<span id="1073">1073</span>
+<span id="1074">1074</span>
+<span id="1075">1075</span>
+<span id="1076">1076</span>
+<span id="1077">1077</span>
+<span id="1078">1078</span>
+<span id="1079">1079</span>
+<span id="1080">1080</span>
+<span id="1081">1081</span>
+<span id="1082">1082</span>
+<span id="1083">1083</span>
+<span id="1084">1084</span>
+<span id="1085">1085</span>
+<span id="1086">1086</span>
+<span id="1087">1087</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="doccomment">//! # twilight-cache-inmemory</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [![discord badge][]][discord link] [![github badge][]][github link] [![license badge][]][license link] ![rust badge]</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! `twilight-cache-inmemory` is an in-process-memory cache for the</span>
+<span class="doccomment">//! [`twilight-rs`] ecosystem. It&#39;s responsible for processing events and</span>
+<span class="doccomment">//! caching things like guilds, channels, users, and voice states.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Installation</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Add the following to your `Cargo.toml`:</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```toml</span>
+<span class="doccomment">//! twilight-cache-inmemory = { branch = &quot;trunk&quot;, git = &quot;https://github.com/twilight-rs/twilight&quot; }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Examples</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Update a cache with events that come in through the gateway:</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```rust,no_run</span>
+<span class="doccomment">//! use std::env;</span>
+<span class="doccomment">//! use tokio::stream::StreamExt;</span>
+<span class="doccomment">//! use twilight_cache_inmemory::InMemoryCache;</span>
+<span class="doccomment">//! use twilight_gateway::Shard;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # #[tokio::main] async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
+<span class="doccomment">//! let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
+<span class="doccomment">//! let mut shard = Shard::new(token);</span>
+<span class="doccomment">//! shard.start().await?;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! // Create a cache, caching up to 10 messages per channel:</span>
+<span class="doccomment">//! let cache = InMemoryCache::builder().message_cache_size(10).build();</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let mut events = shard.events();</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! while let Some(event) = events.next().await {</span>
+<span class="doccomment">//!     // Update the cache with the event.</span>
+<span class="doccomment">//!     cache.update(&amp;event);</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! # Ok(()) }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## License</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! All first-party crates are licensed under [ISC][LICENSE.md]</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [LICENSE.md]: https://github.com/twilight-rs/twilight/blob/trunk/LICENSE.md</span>
+<span class="doccomment">//! [discord badge]: https://img.shields.io/discord/745809834183753828?color=%237289DA&amp;label=discord%20server&amp;logo=discord&amp;style=for-the-badge</span>
+<span class="doccomment">//! [discord link]: https://discord.gg/7jj8n7D</span>
+<span class="doccomment">//! [docs:discord:sharding]: https://discord.com/developers/docs/topics/gateway#sharding</span>
+<span class="doccomment">//! [github badge]: https://img.shields.io/badge/github-twilight-6f42c1.svg?style=for-the-badge&amp;logo=github</span>
+<span class="doccomment">//! [github link]: https://github.com/twilight-rs/twilight</span>
+<span class="doccomment">//! [license badge]: https://img.shields.io/badge/license-ISC-blue.svg?style=for-the-badge&amp;logo=pastebin</span>
+<span class="doccomment">//! [license link]: https://github.com/twilight-rs/twilight/blob/trunk/LICENSE.md</span>
+<span class="doccomment">//! [rust badge]: https://img.shields.io/badge/rust-stable-93450a.svg?style=for-the-badge&amp;logo=rust</span>
+
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">model</span>;
 
 <span class="kw">mod</span> <span class="ident">builder</span>;
@@ -1151,35 +1258,28 @@
 <span class="doccomment">/// This is an implementation of a cache designed to be used by only the</span>
 <span class="doccomment">/// current process.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// # Public Immutability</span>
+<span class="doccomment">/// # Design and Performance</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The defining characteristic of this cache is that returned types (such as a</span>
-<span class="doccomment">/// guild or user) do not use locking for access. Although the internals of the</span>
-<span class="doccomment">/// cache use asynchronous locking for mutability, the returned types themselves</span>
-<span class="doccomment">/// are immutable. If a user is retrieved from the cache, an `Arc&lt;User&gt;` is</span>
-<span class="doccomment">/// returned. If a reference to that user is held but the cache updates the</span>
-<span class="doccomment">/// user, the reference held by you will be outdated, but still exist.</span>
+<span class="doccomment">/// guild or user) do not use locking for access. The internals of the cache use</span>
+<span class="doccomment">/// a concurrent map for mutability and the returned types themselves are Arcs.</span>
+<span class="doccomment">/// If a user is retrieved from the cache, an `Arc&lt;User&gt;` is returned. If a</span>
+<span class="doccomment">/// reference to that user is held but the cache updates the user, the reference</span>
+<span class="doccomment">/// held by you will be outdated, but still exist.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The intended use is that data is held outside the cache for only as long</span>
-<span class="doccomment">/// as necessary, where the state of the value at that time doesn&#39;t need to be</span>
-<span class="doccomment">/// up-to-date.</span>
+<span class="doccomment">/// as necessary, where the state of the value at that point time doesn&#39;t need</span>
+<span class="doccomment">/// to be up-to-date. If you need to ensure you always have the most up-to-date</span>
+<span class="doccomment">/// &quot;version&quot; of a cached resource, then you can re-retrieve it whenever you use</span>
+<span class="doccomment">/// it: retrieval operations are extremely cheap.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Say you&#39;re deleting some of the guilds of a channel. You&#39;ll probably need</span>
-<span class="doccomment">/// the guild to do that, so you retrieve it from the cache. You can then use</span>
-<span class="doccomment">/// the guild to update all of the channels, because for most use cases you</span>
-<span class="doccomment">/// don&#39;t need the guild to be up-to-date in real time, you only need its state</span>
-<span class="doccomment">/// at that *point in time*. If you need the guild to always be up-to-date</span>
-<span class="doccomment">/// between operations, the intent is that you keep getting it from the cache.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Getting something from the cache is cheap and has low contention, so public</span>
-<span class="doccomment">/// immutability is preferred over using mutexes, read-write locks, or other</span>
-<span class="doccomment">/// smart atomic updating cells. Refer to the crate-level documentation for</span>
-<span class="doccomment">/// a list of known first-party and third-party cache implementations.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Caveats</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// - the &quot;last message id&quot; field of channels will *not* be kept up to date as</span>
-<span class="doccomment">/// - messages come in.</span>
+<span class="doccomment">/// For example, say you&#39;re deleting some of the guilds of a channel. You&#39;ll</span>
+<span class="doccomment">/// probably need the guild to do that, so you retrieve it from the cache. You</span>
+<span class="doccomment">/// can then use the guild to update all of the channels, because for most use</span>
+<span class="doccomment">/// cases you don&#39;t need the guild to be up-to-date in real time, you only need</span>
+<span class="doccomment">/// its state at that *point in time* or maybe across the lifetime of an</span>
+<span class="doccomment">/// operation. If you need the guild to always be up-to-date between operations,</span>
+<span class="doccomment">/// then the intent is that you keep getting it from the cache.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InMemoryCache</span>(<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">InMemoryCacheRef</span><span class="op">&gt;</span>);
 
