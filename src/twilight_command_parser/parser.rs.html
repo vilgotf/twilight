@@ -380,7 +380,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`Command`]: struct.Command.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Command</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">prefix</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">find_prefix</span>(<span class="ident">buf</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">prefix</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">find_prefix</span>(<span class="ident">buf</span>)<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">parse_with_prefix</span>(<span class="ident">prefix</span>, <span class="ident">buf</span>)
     }
 
@@ -430,7 +430,7 @@
 
     <span class="kw">fn</span> <span class="ident">find_command</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">buf</span>.<span class="ident">split_whitespace</span>().<span class="ident">next</span>()<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">commands</span>().<span class="ident">iter</span>().<span class="ident">find_map</span>(<span class="op">|</span><span class="ident">command</span><span class="op">|</span> {
+        <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">commands</span>.<span class="ident">iter</span>().<span class="ident">find_map</span>(<span class="op">|</span><span class="ident">command</span><span class="op">|</span> {
             <span class="kw">if</span> <span class="ident">command</span> <span class="op">=</span><span class="op">=</span> <span class="ident">buf</span> {
                 <span class="prelude-val">Some</span>(<span class="ident">command</span>.<span class="ident">as_ref</span>())
             } <span class="kw">else</span> {
@@ -439,10 +439,10 @@
         })
     }
 
-    <span class="kw">fn</span> <span class="ident">find_prefix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)<span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">prefixes</span>().<span class="ident">iter</span>().<span class="ident">find_map</span>(<span class="op">|</span>(<span class="ident">prefix</span>, <span class="ident">padding</span>)<span class="op">|</span> {
+    <span class="kw">fn</span> <span class="ident">find_prefix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">prefixes</span>.<span class="ident">iter</span>().<span class="ident">find_map</span>(<span class="op">|</span><span class="ident">prefix</span><span class="op">|</span> {
             <span class="kw">if</span> <span class="ident">buf</span>.<span class="ident">starts_with</span>(<span class="ident">prefix</span>.<span class="ident">as_ref</span>()) {
-                <span class="prelude-val">Some</span>((<span class="ident">prefix</span>.<span class="ident">as_ref</span>(), <span class="ident">padding</span>.<span class="ident">as_ref</span>()))
+                <span class="prelude-val">Some</span>(<span class="ident">prefix</span>.<span class="ident">as_ref</span>())
             } <span class="kw">else</span> {
                 <span class="prelude-val">None</span>
             }
@@ -513,7 +513,7 @@
 
         <span class="comment">// Case sensitive</span>
         <span class="kw">let</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">parser</span>.<span class="ident">config_mut</span>();
-        <span class="ident">config</span>.<span class="ident">commands_mut</span>().<span class="ident">clear</span>();
+        <span class="ident">config</span>.<span class="ident">commands</span>.<span class="ident">clear</span>();
         <span class="ident">config</span>.<span class="ident">add_command</span>(<span class="string">&quot;echo&quot;</span>, <span class="bool-val">true</span>);
         <span class="ident">config</span>.<span class="ident">add_command</span>(<span class="string">&quot;wei\u{df}&quot;</span>, <span class="bool-val">true</span>);
         <span class="ident">config</span>.<span class="ident">add_command</span>(<span class="string">&quot;\u{394}&quot;</span>, <span class="bool-val">true</span>);
