@@ -281,6 +281,7 @@
 <span id="280">280</span>
 <span id="281">281</span>
 <span id="282">282</span>
+<span id="283">283</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -292,8 +293,9 @@
     <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>},
 };
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="doccomment">/// Returned when the channel can not be created as configured.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">CreateGuildChannelError</span> {
     <span class="doccomment">/// The length of the name is either fewer than 2 UTF-16 characters or</span>
     <span class="doccomment">/// more than 100 UTF-16 characters.</span>

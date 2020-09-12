@@ -138,11 +138,13 @@
 <span id="137">137</span>
 <span id="138">138</span>
 <span id="139">139</span>
+<span id="140">140</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">bitflags</span>::<span class="ident">bitflags</span>;
 
 <span class="macro">bitflags</span><span class="macro">!</span> {
     <span class="doccomment">/// Bitflags to filter what event types to process in the cache.</span>
+    <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventType</span>: <span class="ident">u64</span> {
         <span class="kw">const</span> <span class="ident">BAN_ADD</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="kw">const</span> <span class="ident">BAN_REMOVE</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">1</span>;

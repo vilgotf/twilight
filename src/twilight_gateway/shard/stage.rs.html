@@ -120,6 +120,8 @@
 <span id="119">119</span>
 <span id="120">120</span>
 <span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Utilities for knowing and parsing the current connection stage of a shard.</span>
 <span class="doccomment">//!</span>
@@ -143,6 +145,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Stage`]: enum.Stage.html</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">StageConversionError</span> {
     <span class="doccomment">/// The integer isn&#39;t one that maps to a stage. For example, 7 might not map</span>
     <span class="doccomment">/// to a Stage variant.</span>
@@ -166,6 +169,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Shard`]: ../struct.Shard.html</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">Ord</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u8</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Stage</span> {
     <span class="doccomment">/// Indicator that a shard is now fully connected to the gateway.</span>

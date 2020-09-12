@@ -1482,6 +1482,9 @@
 <span id="1481">1481</span>
 <span id="1482">1482</span>
 <span id="1483">1483</span>
+<span id="1484">1484</span>
+<span id="1485">1485</span>
+<span id="1486">1486</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">reqwest</span>::<span class="ident">Method</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1494,6 +1497,7 @@
 };
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PathParseError</span> {
     <span class="doccomment">/// The ID couldn&#39;t be parsed as an integer.</span>
     <span class="ident">IntegerParsing</span> {
@@ -1542,6 +1546,7 @@
 <span class="doccomment">/// An enum representing a path, most useful for ratelimiting implementations.</span>
 <span class="comment">// If adding to this enum, be sure to add to the `TryFrom` impl.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Path</span> {
     <span class="doccomment">/// Operating on a channel.</span>
     <span class="ident">ChannelsId</span>(<span class="ident">u64</span>),
@@ -1715,6 +1720,7 @@
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Route</span> {
     <span class="doccomment">/// Route information to add a role to guild member.</span>
     <span class="ident">AddMemberRole</span> {

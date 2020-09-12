@@ -265,6 +265,7 @@
 <span id="264">264</span>
 <span id="265">265</span>
 <span id="266">266</span>
+<span id="267">267</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">gateway</span>::<span class="ident">opcode</span>::<span class="ident">OpCode</span>,
@@ -282,6 +283,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`RequestGuildMembersBuilder::user_ids`]: struct.RequestGuildMembersBuilder.html#method.user_ids</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UserIdsError</span> {
     <span class="doccomment">/// More than 100 user IDs were provided.</span>
     <span class="ident">TooMany</span> {

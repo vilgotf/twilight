@@ -598,6 +598,9 @@
 <span id="597">597</span>
 <span id="598">598</span>
 <span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::<span class="ident">ShardBuilder</span>,
@@ -637,6 +640,7 @@
 
 <span class="doccomment">/// Sending a command failed.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">CommandError</span> {
     <span class="doccomment">/// Sending the payload over the WebSocket failed. This is indicative of a</span>
     <span class="doccomment">/// shutdown shard.</span>
@@ -676,6 +680,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This means that the shard has not yet been started.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SessionInactiveError</span>;
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">SessionInactiveError</span> {
@@ -688,6 +693,7 @@
 
 <span class="doccomment">/// Starting a shard and connecting to the gateway failed.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ShardStartError</span> {
     <span class="doccomment">/// Establishing a connection to the gateway failed.</span>
     <span class="ident">Establishing</span> {

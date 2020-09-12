@@ -265,6 +265,7 @@
 <span id="264">264</span>
 <span id="265">265</span>
 <span id="266">266</span>
+<span id="267">267</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">CreateMessage</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">RoleId</span>, <span class="ident">UserId</span>};
@@ -287,6 +288,7 @@
 
 <span class="doccomment">/// Parse types.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">serde</span>::<span class="ident">Deserialize</span>, <span class="ident">serde</span>::<span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;lowercase&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ParseTypes</span> {
     <span class="ident">Users</span>,

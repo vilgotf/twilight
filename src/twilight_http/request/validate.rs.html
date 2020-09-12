@@ -644,6 +644,7 @@
 <span id="643">643</span>
 <span id="644">644</span>
 <span id="645">645</span>
+<span id="646">646</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">/// Contains all of the input validation functions for requests.</span>
 <span class="doccomment">///</span>
@@ -662,6 +663,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [docs]: https://discord.com/developers/docs/resources/channel#embed-limits</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">EmbedValidationError</span> {
     <span class="doccomment">/// The embed author&#39;s name is larger than</span>
     <span class="doccomment">/// [the maximum][`AUTHOR_NAME_LENGTH`].</span>

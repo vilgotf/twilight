@@ -851,6 +851,8 @@
 <span id="850">850</span>
 <span id="851">851</span>
 <span id="852">852</span>
+<span id="853">853</span>
+<span id="854">854</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="kw">super</span>::{
@@ -899,6 +901,7 @@
 
 <span class="doccomment">/// Connecting to the gateway failed.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ConnectingError</span> {
     <span class="ident">Establishing</span> { <span class="ident">source</span>: <span class="ident">TungsteniteError</span> },
     <span class="ident">ParsingUrl</span> { <span class="ident">source</span>: <span class="ident">UrlParseError</span>, <span class="ident">url</span>: <span class="ident">String</span> },
@@ -998,6 +1001,7 @@
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">enum</span> <span class="ident">ReceivingEventError</span> {
     <span class="doccomment">/// Provided authorization token is invalid.</span>
     <span class="ident">AuthorizationInvalid</span> { <span class="ident">shard_id</span>: <span class="ident">u64</span>, <span class="ident">token</span>: <span class="ident">String</span> },

@@ -163,6 +163,7 @@
 <span id="162">162</span>
 <span id="163">163</span>
 <span id="164">164</span>
+<span id="165">165</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -173,6 +174,7 @@
 
 <span class="doccomment">/// The error created when the member can not be updated as configured.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UpdateGuildMemberError</span> {
     <span class="doccomment">/// The nickname is either empty or the length is more than 32 UTF-16 characters.</span>
     <span class="ident">NicknameInvalid</span> { <span class="ident">nickname</span>: <span class="ident">String</span> },

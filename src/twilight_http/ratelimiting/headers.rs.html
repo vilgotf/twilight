@@ -193,12 +193,14 @@
 <span id="192">192</span>
 <span id="193">193</span>
 <span id="194">194</span>
+<span id="195">195</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">error</span>::{<span class="ident">RatelimitError</span>, <span class="ident">RatelimitResult</span>};
 <span class="kw">use</span> <span class="ident">reqwest</span>::<span class="ident">header</span>::{<span class="ident">HeaderMap</span>, <span class="ident">HeaderValue</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RatelimitHeaders</span> {
     <span class="ident">GlobalLimited</span> {
         <span class="ident">reset_after</span>: <span class="ident">u64</span>,

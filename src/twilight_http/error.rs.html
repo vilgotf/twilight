@@ -163,6 +163,8 @@
 <span id="162">162</span>
 <span id="163">163</span>
 <span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">api_error</span>::<span class="ident">ApiError</span>, <span class="ident">ratelimiting</span>::<span class="ident">RatelimitError</span>};
 <span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">oneshot</span>::<span class="ident">Canceled</span>;
@@ -183,6 +185,7 @@
 <span class="kw">pub</span> <span class="kw">type</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span> <span class="op">=</span> <span class="ident">Error</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StdResult</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UrlError</span> {
     <span class="ident">UrlParsing</span> { <span class="ident">source</span>: <span class="ident">UrlParseError</span> },
     <span class="ident">IdParsing</span> { <span class="ident">source</span>: <span class="ident">ParseIntError</span> },
@@ -224,6 +227,7 @@
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Error</span> {
     <span class="ident">BuildingClient</span> {
         <span class="ident">source</span>: <span class="ident">ReqwestError</span>,

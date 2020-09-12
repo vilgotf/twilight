@@ -419,6 +419,8 @@
 <span id="418">418</span>
 <span id="419">419</span>
 <span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::{<span class="ident">ClusterBuilder</span>, <span class="ident">ShardScheme</span>},
@@ -444,6 +446,7 @@
 
 <span class="doccomment">/// Sending a command to a shard failed.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ClusterCommandError</span> {
     <span class="doccomment">/// The shard exists, but sending the provided value failed.</span>
     <span class="ident">Sending</span> {
@@ -479,6 +482,7 @@
 
 <span class="doccomment">/// Starting a cluster failed.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ClusterStartError</span> {
     <span class="doccomment">/// Retrieving the bot&#39;s gateway information via the HTTP API failed.</span>
     <span class="doccomment">///</span>

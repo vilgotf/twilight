@@ -124,6 +124,7 @@
 <span id="123">123</span>
 <span id="124">124</span>
 <span id="125">125</span>
+<span id="126">126</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -134,6 +135,7 @@
 
 <span class="doccomment">/// The error created when the current guilds can not be retrieved as configured.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">GetCurrentUserGuildsError</span> {
     <span class="doccomment">/// The maximum number of guilds to retrieve is 0 or more than 100.</span>
     <span class="ident">LimitInvalid</span> {

@@ -106,6 +106,7 @@
 <span id="105">105</span>
 <span id="106">106</span>
 <span id="107">107</span>
+<span id="108">108</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -119,6 +120,7 @@
 
 <span class="doccomment">/// The error returned if the request can not be created as configured.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">GetChannelMessagesConfiguredError</span> {
     <span class="doccomment">/// The maximum number of messages to retrieve is either 0 or more than 100.</span>
     <span class="ident">LimitInvalid</span> {
