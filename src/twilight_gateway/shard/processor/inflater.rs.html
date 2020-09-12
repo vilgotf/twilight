@@ -186,6 +186,11 @@
 <span id="185">185</span>
 <span id="186">186</span>
 <span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">flate2</span>::{<span class="ident">Decompress</span>, <span class="ident">DecompressError</span>, <span class="ident">FlushDecompress</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryInto</span>, <span class="ident">mem</span>};
@@ -348,10 +353,15 @@
     <span class="doccomment">/// Shrink the capacity of the compressed buffer and payload buffer if the</span>
     <span class="doccomment">/// payload buffer length is less than 25% of its capacity.</span>
     <span class="kw">fn</span> <span class="ident">shrink_if_too_large</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">countdown_to_resize</span> <span class="op">!</span><span class="op">=</span> <span class="ident">u8</span>::<span class="ident">MIN</span> {
+            <span class="kw">return</span>;
+        }
+
         <span class="comment">// Only shrink capacity if it is less than 4 times the size. Doing it</span>
         <span class="comment">// all the time will cause performance issues. So, if it&#39;s greater,</span>
         <span class="comment">// don&#39;t do anything.</span>
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">countdown_to_resize</span> <span class="op">!</span><span class="op">=</span> <span class="ident">u8</span>::<span class="ident">MIN</span> <span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">capacity</span>() <span class="op">/</span> <span class="number">4</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">capacity</span>() <span class="op">/</span> <span class="number">4</span> {
+            <span class="self">self</span>.<span class="ident">countdown_to_resize</span> <span class="op">=</span> <span class="ident">u8</span>::<span class="ident">MAX</span>;
             <span class="kw">return</span>;
         }
 
