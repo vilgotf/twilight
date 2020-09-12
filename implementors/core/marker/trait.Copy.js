@@ -1,6 +1,6 @@
 (function() {var implementors = {};
 implementors["twilight_cache_inmemory"] = [{"text":"impl Copy for EventType","synthetic":false,"types":[]}];
-implementors["twilight_gateway"] = [{"text":"impl Copy for ShardScheme","synthetic":false,"types":[]},{"text":"impl Copy for Stage","synthetic":false,"types":[]},{"text":"impl Copy for EventTypeFlags","synthetic":false,"types":[]}];
+implementors["twilight_gateway"] = [{"text":"impl Copy for Stage","synthetic":false,"types":[]},{"text":"impl Copy for EventTypeFlags","synthetic":false,"types":[]}];
 implementors["twilight_http"] = [{"text":"impl Copy for ErrorCode","synthetic":false,"types":[]}];
 implementors["twilight_lavalink"] = [{"text":"impl Copy for Opcode","synthetic":false,"types":[]},{"text":"impl Copy for TrackEventType","synthetic":false,"types":[]}];
 implementors["twilight_mention"] = [{"text":"impl&lt;T:&nbsp;Copy&gt; Copy for MentionFormat&lt;T&gt;","synthetic":false,"types":[]}];
