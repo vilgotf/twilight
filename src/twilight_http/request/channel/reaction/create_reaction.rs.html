@@ -68,26 +68,18 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
-<span id="70">70</span>
-<span id="71">71</span>
-<span id="72">72</span>
-<span id="73">73</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::{
-    <span class="ident">channel</span>::<span class="ident">ReactionType</span>,
-    <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>},
-};
+<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>};
 
 <span class="doccomment">/// Create a reaction in a [`ChannelId`] on a [`MessageId`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The reaction must be a variant of [`ReactionType`].</span>
+<span class="doccomment">/// The reaction must be a variant of [`RequestReactionType`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">/// ```rust,no_run</span>
-<span class="doccomment">/// use twilight_http::Client;</span>
+<span class="doccomment">/// use twilight_http::{Client, request::channel::reaction::RequestReactionType};</span>
 <span class="doccomment">/// use twilight_model::{</span>
-<span class="doccomment">///     channel::ReactionType,</span>
 <span class="doccomment">///     id::{ChannelId, MessageId},</span>
 <span class="doccomment">/// };</span>
 <span class="doccomment">///</span>
@@ -97,7 +89,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// let channel_id = ChannelId(123);</span>
 <span class="doccomment">/// let message_id = MessageId(456);</span>
-<span class="doccomment">/// let emoji = ReactionType::Unicode { name: String::from(&quot;🌃&quot;) };</span>
+<span class="doccomment">/// let emoji = RequestReactionType::Unicode { name: String::from(&quot;🌃&quot;) };</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// let reaction = client</span>
 <span class="doccomment">///     .create_reaction(channel_id, message_id, emoji)</span>
@@ -107,7 +99,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`ChannelId`]: ../../../../twilight_model/id/struct.ChannelId.html</span>
 <span class="doccomment">/// [`MessageId`]: ../../../../twilight_model/id/struct.MessageId.html</span>
-<span class="doccomment">/// [`ReactionType`]: ../../../../twilight_model/channel/enum.ReactionType.html</span>
+<span class="doccomment">/// [`RequestReactionType`]: enum.RequestReactionType.html</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CreateReaction</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
     <span class="ident">emoji</span>: <span class="ident">String</span>,
@@ -121,7 +113,7 @@
         <span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
         <span class="ident">message_id</span>: <span class="ident">MessageId</span>,
-        <span class="ident">emoji</span>: <span class="ident">ReactionType</span>,
+        <span class="ident">emoji</span>: <span class="ident">RequestReactionType</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">channel_id</span>,

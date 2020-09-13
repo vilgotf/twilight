@@ -30,6 +30,9 @@
 <span id="29">29</span>
 <span id="30">30</span>
 <span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_reactions</span>;
 
@@ -43,23 +46,26 @@
     <span class="ident">delete_all_reactions</span>::<span class="ident">DeleteAllReactions</span>, <span class="ident">delete_reaction</span>::<span class="ident">DeleteReaction</span>,
     <span class="ident">get_reactions</span>::<span class="ident">GetReactions</span>,
 };
-
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Write</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">ReactionType</span>;
+<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::<span class="ident">EmojiId</span>;
 
-<span class="kw">fn</span> <span class="ident">format_emoji</span>(<span class="ident">emoji</span>: <span class="ident">ReactionType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RequestReactionType</span> {
+    <span class="ident">Unicode</span> { <span class="ident">name</span>: <span class="ident">String</span> },
+    <span class="ident">Custom</span> { <span class="ident">id</span>: <span class="ident">EmojiId</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> },
+}
+
+<span class="kw">fn</span> <span class="ident">format_emoji</span>(<span class="ident">emoji</span>: <span class="ident">RequestReactionType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
     <span class="kw">match</span> <span class="ident">emoji</span> {
-        <span class="ident">ReactionType</span>::<span class="ident">Custom</span> { <span class="ident">id</span>, <span class="ident">name</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">RequestReactionType</span>::<span class="ident">Custom</span> { <span class="ident">id</span>, <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">emoji</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">new</span>();
             <span class="kw">match</span> <span class="ident">name</span> {
                 <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">emoji</span>.<span class="ident">push_str</span>(<span class="ident">name</span>.<span class="ident">as_ref</span>()),
                 <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">emoji</span>.<span class="ident">push_str</span>(<span class="string">&quot;e&quot;</span>),
             }
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">emoji</span>, <span class="string">&quot;:{}&quot;</span>, <span class="ident">id</span>);
-
             <span class="ident">emoji</span>
         }
-        <span class="ident">ReactionType</span>::<span class="ident">Unicode</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">name</span>,
+        <span class="ident">RequestReactionType</span>::<span class="ident">Unicode</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">name</span>,
     }
 }
 </pre></div>
