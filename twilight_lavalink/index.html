@@ -22,7 +22,7 @@ default.</p>
 feature.</p>
 <p>To enable <code>native</code>, do something like this in your <code>Cargo.toml</code>:</p>
 <pre><code class="language-toml">[dependencies]
-twilight-lavalink = { branch = &quot;trunk&quot;, default-features = false, features = [&quot;native&quot;], git = &quot;https://github.com/twilight-rs/twilight&quot; }
+twilight-lavalink = { default-features = false, features = [&quot;native&quot;], version = &quot;0.1&quot; }
 </code></pre>
 <h4 id="rustls" class="section-header"><a href="#rustls"><code>rustls</code></a></h4>
 <p>The <code>rustls</code> feature enables <a href="https://crates.io/crates/async-tungstenite"><code>async-tungstenite</code></a>'s <code>async-tls</code> feature, which
