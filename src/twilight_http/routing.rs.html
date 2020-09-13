@@ -1699,7 +1699,7 @@
             [<span class="string">&quot;users&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;guilds&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UsersIdGuilds</span>,
             [<span class="string">&quot;users&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;guilds&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UsersIdGuildsId</span>,
             [<span class="string">&quot;voice&quot;</span>, <span class="string">&quot;regions&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">VoiceRegions</span>,
-            [<span class="string">&quot;webhooks&quot;</span>, <span class="ident">id</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">WebhooksId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+            [<span class="string">&quot;webhooks&quot;</span>, <span class="ident">id</span>] <span class="op">|</span> [<span class="string">&quot;webhooks&quot;</span>, <span class="ident">id</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">WebhooksId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">PathParseError</span>::<span class="ident">NoMatch</span>),
         })
     }
