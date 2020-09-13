@@ -474,7 +474,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// let intents = Intents::GUILD_MESSAGES;</span>
 <span class="doccomment">/// let cluster = Cluster::builder(token)</span>
-<span class="doccomment">///     .intents(Some(intents))</span>
+<span class="doccomment">///     .intents(intents)</span>
 <span class="doccomment">///     .large_threshold(100)?</span>
 <span class="doccomment">///     .build()</span>
 <span class="doccomment">///     .await?;</span>
@@ -564,7 +564,7 @@
     <span class="doccomment">/// Refer to the shard&#39;s [`ShardBuilder::intents`] for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ShardBuilder::intents`]: ../shard/struct.ShardBuilder.html#method.intents</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Intents</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="ident">Intents</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">1</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">1</span>.<span class="ident">intents</span>(<span class="ident">intents</span>);
 
         <span class="self">self</span>
