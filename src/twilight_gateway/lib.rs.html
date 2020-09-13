@@ -126,6 +126,8 @@
 <span id="125">125</span>
 <span id="126">126</span>
 <span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-gateway</span>
 <span class="doccomment">//!</span>
@@ -201,13 +203,15 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### zlib</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The `stock-zlib` feature enables [`flate2`]&#39;s `zlib` feature which makes</span>
-<span class="doccomment">//! [`flate2`] use system zlib instead of [`zlib-ng`].</span>
+<span class="doccomment">//! There are 2 zlib features `stock-zlib` and `simd-zlib` for the library to work</span>
+<span class="doccomment">//! one of them has to be enabled. If both are enabled it will use `stock-zlib`</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! This is not enabled by default.</span>
+<span class="doccomment">//! `stock-zlib` enabled by default.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Enabling **only** `simd-zlib` will make the library use [`zlib-ng`] which is a modern</span>
+<span class="doccomment">//! fork of zlib that is faster and more effective, but it needs `cmake` to compile.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`async-tungstenite`]: https://crates.io/crates/async-tungstenite</span>
-<span class="doccomment">//! [`flate2`]: https://crates.io/crates/flate2</span>
 <span class="doccomment">//! [`native-tls`]: https://crates.io/crates/native-tls</span>
 <span class="doccomment">//! [`rustls`]: https://crates.io/crates/rustls</span>
 <span class="doccomment">//! [`serde_json`]: https://crates.io/crates/serde_json</span>
