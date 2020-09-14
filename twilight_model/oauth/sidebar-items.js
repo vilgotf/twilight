@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["id",""],["team",""]],"struct":[["CurrentApplicationInfo",""]]});
+initSidebarItems({"mod":[["id","IDs for OAuth teams."],["team",""]],"struct":[["CurrentApplicationInfo",""]]});
