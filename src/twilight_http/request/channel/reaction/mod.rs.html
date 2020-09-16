@@ -33,6 +33,16 @@
 <span id="32">32</span>
 <span id="33">33</span>
 <span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_reactions</span>;
 
@@ -47,11 +57,21 @@
     <span class="ident">get_reactions</span>::<span class="ident">GetReactions</span>,
 };
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Write</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::<span class="ident">EmojiId</span>;
+<span class="kw">use</span> <span class="ident">twilight_model</span>::{<span class="ident">channel</span>::<span class="ident">ReactionType</span>, <span class="ident">id</span>::<span class="ident">EmojiId</span>};
 
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RequestReactionType</span> {
-    <span class="ident">Unicode</span> { <span class="ident">name</span>: <span class="ident">String</span> },
     <span class="ident">Custom</span> { <span class="ident">id</span>: <span class="ident">EmojiId</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> },
+    <span class="ident">Unicode</span> { <span class="ident">name</span>: <span class="ident">String</span> },
+}
+
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ReactionType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RequestReactionType</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">other</span>: <span class="ident">ReactionType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw">match</span> <span class="ident">other</span> {
+            <span class="ident">ReactionType</span>::<span class="ident">Custom</span> { <span class="ident">id</span>, <span class="ident">name</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Custom</span> { <span class="ident">id</span>, <span class="ident">name</span> },
+            <span class="ident">ReactionType</span>::<span class="ident">Unicode</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Unicode</span> { <span class="ident">name</span> },
+        }
+    }
 }
 
 <span class="kw">fn</span> <span class="ident">format_emoji</span>(<span class="ident">emoji</span>: <span class="ident">RequestReactionType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
