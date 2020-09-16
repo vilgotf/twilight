@@ -38,6 +38,8 @@
 <span id="37">37</span>
 <span id="38">38</span>
 <span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde_repr</span>::{<span class="ident">Deserialize_repr</span>, <span class="ident">Serialize_repr</span>};
 
@@ -51,6 +53,7 @@
     <span class="ident">Listening</span> <span class="op">=</span> <span class="number">2</span>,
     <span class="ident">Watching</span> <span class="op">=</span> <span class="number">3</span>,
     <span class="ident">Custom</span> <span class="op">=</span> <span class="number">4</span>,
+    <span class="ident">Competing</span> <span class="op">=</span> <span class="number">5</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">ActivityType</span> {
@@ -76,6 +79,7 @@
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityType</span>::<span class="ident">Listening</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">2</span>)]);
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityType</span>::<span class="ident">Watching</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">3</span>)]);
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityType</span>::<span class="ident">Custom</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">4</span>)]);
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityType</span>::<span class="ident">Competing</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">5</span>)]);
     }
 }
 </pre></div>
