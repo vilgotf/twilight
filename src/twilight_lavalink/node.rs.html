@@ -577,6 +577,18 @@
 <span id="576">576</span>
 <span id="577">577</span>
 <span id="578">578</span>
+<span id="579">579</span>
+<span id="580">580</span>
+<span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Nodes for communicating with a Lavalink server.</span>
 <span class="doccomment">//!</span>
@@ -1147,14 +1159,26 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Node</span>, <span class="ident">NodeConfig</span>, <span class="ident">NodeError</span>, <span class="ident">NodeRef</span>};
-    <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Node</span>, <span class="ident">NodeConfig</span>, <span class="ident">NodeError</span>, <span class="ident">Resume</span>};
+    <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>};
+    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
 
+    <span class="macro">assert_fields</span><span class="macro">!</span>(
+        <span class="ident">NodeConfig</span>: <span class="ident">address</span>,
+        <span class="ident">authorization</span>,
+        <span class="ident">resume</span>,
+        <span class="ident">shard_count</span>,
+        <span class="ident">user_id</span>
+    );
     <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">NodeConfig</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">NodeError</span>: <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">NodeRef</span>: <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">NodeError</span>::<span class="ident">BuildingConnectionRequest</span>: <span class="ident">source</span>);
+    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">NodeError</span>::<span class="ident">Connecting</span>: <span class="ident">source</span>);
+    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">NodeError</span>::<span class="ident">SerializingMessage</span>: <span class="ident">message</span>, <span class="ident">source</span>);
+    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">NodeError</span>::<span class="ident">Unauthorized</span>: <span class="ident">address</span>, <span class="ident">authorization</span>);
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">NodeError</span>: <span class="ident">Debug</span>, <span class="ident">Error</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
     <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Node</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">Resume</span>: <span class="ident">timeout</span>);
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Resume</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "twilight_lavalink";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
