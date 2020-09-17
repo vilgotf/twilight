@@ -148,6 +148,17 @@
 <span id="147">147</span>
 <span id="148">148</span>
 <span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Ratelimiting functionality for queueing new gateway sessions.</span>
 <span class="doccomment">//!</span>
@@ -297,6 +308,17 @@
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">rx</span>.<span class="ident">await</span>;
         })
     }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">LocalQueue</span>, <span class="ident">Queue</span>};
+    <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_impl_all</span>, <span class="ident">assert_obj_safe</span>};
+    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
+
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">LocalQueue</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Queue</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">dyn</span> <span class="ident">Queue</span>: <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_obj_safe</span><span class="macro">!</span>(<span class="ident">Queue</span>);
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "twilight_gateway";</script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

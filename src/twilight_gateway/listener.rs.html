@@ -118,6 +118,11 @@
 <span id="117">117</span>
 <span id="118">118</span>
 <span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">EventTypeFlags</span>;
 <span class="kw">use</span> <span class="ident">dashmap</span>::<span class="ident">DashMap</span>;
@@ -222,7 +227,12 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EventTypeFlags</span>, <span class="ident">Listeners</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EventTypeFlags</span>, <span class="ident">Listener</span>, <span class="ident">Listeners</span>};
+    <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
+    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
+
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Listeners</span><span class="op">&lt;</span>()<span class="op">&gt;</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Listener</span><span class="op">&lt;</span>()<span class="op">&gt;</span>: <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_total_event_types</span>() {
