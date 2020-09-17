@@ -1596,6 +1596,11 @@
 <span id="1595">1595</span>
 <span id="1596">1596</span>
 <span id="1597">1597</span>
+<span id="1598">1598</span>
+<span id="1599">1599</span>
+<span id="1600">1600</span>
+<span id="1601">1601</span>
+<span id="1602">1602</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -1610,7 +1615,7 @@
         <span class="ident">channel</span>::<span class="ident">message</span>::<span class="ident">allowed_mentions</span>::<span class="ident">AllowedMentions</span>,
         <span class="ident">guild</span>::{<span class="ident">create_guild</span>::<span class="ident">CreateGuildError</span>, <span class="ident">create_guild_channel</span>::<span class="ident">CreateGuildChannelError</span>},
         <span class="ident">prelude</span>::<span class="kw-2">*</span>,
-        <span class="ident">Request</span>,
+        <span class="ident">GetUserApplicationInfo</span>, <span class="ident">Request</span>,
     },
 };
 <span class="kw">use</span> <span class="ident">bytes</span>::<span class="ident">Bytes</span>;
@@ -2023,6 +2028,11 @@
     <span class="doccomment">/// Get information about the current user.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">current_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetCurrentUser</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetCurrentUser</span>::<span class="ident">new</span>(<span class="self">self</span>)
+    }
+
+    <span class="doccomment">/// Get information about the current bot application.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">current_user_application</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetUserApplicationInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="ident">GetUserApplicationInfo</span>::<span class="ident">new</span>(<span class="self">self</span>)
     }
 
     <span class="doccomment">/// Update the current user.</span>

@@ -238,6 +238,7 @@
 <span id="237">237</span>
 <span id="238">238</span>
 <span id="239">239</span>
+<span id="240">240</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">poll_req</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>: <span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ret</span>: <span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -310,12 +311,13 @@
 
 <span class="kw">mod</span> <span class="ident">get_gateway</span>;
 <span class="kw">mod</span> <span class="ident">get_gateway_authed</span>;
+<span class="kw">mod</span> <span class="ident">get_user_application</span>;
 <span class="kw">mod</span> <span class="ident">get_voice_regions</span>;
 <span class="kw">mod</span> <span class="ident">validate</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
     <span class="ident">get_gateway</span>::<span class="ident">GetGateway</span>, <span class="ident">get_gateway_authed</span>::<span class="ident">GetGatewayAuthed</span>,
-    <span class="ident">get_voice_regions</span>::<span class="ident">GetVoiceRegions</span>,
+    <span class="ident">get_user_application</span>::<span class="ident">GetUserApplicationInfo</span>, <span class="ident">get_voice_regions</span>::<span class="ident">GetVoiceRegions</span>,
 };
 
 <span class="kw">use</span> <span class="kw">crate</span>::{

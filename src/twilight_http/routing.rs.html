@@ -1485,6 +1485,15 @@
 <span id="1484">1484</span>
 <span id="1485">1485</span>
 <span id="1486">1486</span>
+<span id="1487">1487</span>
+<span id="1488">1488</span>
+<span id="1489">1489</span>
+<span id="1490">1490</span>
+<span id="1491">1491</span>
+<span id="1492">1492</span>
+<span id="1493">1493</span>
+<span id="1494">1494</span>
+<span id="1495">1495</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">reqwest</span>::<span class="ident">Method</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1606,6 +1615,7 @@
     <span class="ident">GuildsIdWebhooks</span>(<span class="ident">u64</span>),
     <span class="ident">InvitesCode</span>,
     <span class="ident">UsersId</span>,
+    <span class="ident">OauthApplicationsMe</span>,
     <span class="ident">UsersIdConnections</span>,
     <span class="ident">UsersIdChannels</span>,
     <span class="doccomment">/// Operating on the state of a guild that the user is in.</span>
@@ -1693,6 +1703,7 @@
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;vanity-url&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdVanityUrl</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;webhooks&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdWebhooks</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;invites&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">InvitesCode</span>,
+            [<span class="string">&quot;oauth2&quot;</span>, <span class="string">&quot;applications&quot;</span>, <span class="string">&quot;@me&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OauthApplicationsMe</span>,
             [<span class="string">&quot;users&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UsersId</span>,
             [<span class="string">&quot;users&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;connections&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UsersIdConnections</span>,
             [<span class="string">&quot;users&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;channels&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UsersIdChannels</span>,
@@ -1963,6 +1974,8 @@
         <span class="doccomment">/// The ID of the guild.</span>
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
     },
+    <span class="doccomment">/// Route information to get info about application the current bot user belongs to</span>
+    <span class="ident">GetCurrentUserApplicationInfo</span>,
     <span class="doccomment">/// Route information to get an emoji by ID within a guild.</span>
     <span class="ident">GetEmoji</span> {
         <span class="doccomment">/// The ID of the emoji.</span>
@@ -2567,6 +2580,11 @@
                 <span class="ident">Method</span>::<span class="ident">GET</span>,
                 <span class="ident">Path</span>::<span class="ident">GuildsIdChannels</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;guilds/{}/channels&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
+            ),
+            <span class="self">Self</span>::<span class="ident">GetCurrentUserApplicationInfo</span> <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method</span>::<span class="ident">GET</span>,
+                <span class="ident">Path</span>::<span class="ident">OauthApplicationsMe</span>,
+                <span class="string">&quot;/oauth2/applications/@me&quot;</span>.<span class="ident">into</span>(),
             ),
             <span class="self">Self</span>::<span class="ident">GetEmoji</span> { <span class="ident">emoji_id</span>, <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
                 <span class="ident">Method</span>::<span class="ident">GET</span>,
