@@ -1595,12 +1595,6 @@
 <span id="1594">1594</span>
 <span id="1595">1595</span>
 <span id="1596">1596</span>
-<span id="1597">1597</span>
-<span id="1598">1598</span>
-<span id="1599">1599</span>
-<span id="1600">1600</span>
-<span id="1601">1601</span>
-<span id="1602">1602</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -2996,19 +2990,13 @@
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">form</span>) <span class="op">=</span> <span class="ident">form</span> {
             <span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">multipart</span>(<span class="ident">form</span>);
-        } <span class="kw">else</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">bytes</span>) <span class="op">=</span> <span class="ident">body</span> {
-                <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">bytes</span>.<span class="ident">len</span>();
-
-                <span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">body</span>(<span class="ident">Body</span>::<span class="ident">from</span>(<span class="ident">bytes</span>));
-                <span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">header</span>(<span class="string">&quot;content-length&quot;</span>, <span class="ident">len</span>);
-            } <span class="kw">else</span> {
-                <span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">header</span>(<span class="string">&quot;content-length&quot;</span>, <span class="number">0</span>);
-            }
-
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">bytes</span>) <span class="op">=</span> <span class="ident">body</span> {
+            <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">bytes</span>.<span class="ident">len</span>();
+            <span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">body</span>(<span class="ident">Body</span>::<span class="ident">from</span>(<span class="ident">bytes</span>));
+            <span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">header</span>(<span class="string">&quot;content-length&quot;</span>, <span class="ident">len</span>);
             <span class="kw">let</span> <span class="ident">content_type</span> <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">from_static</span>(<span class="string">&quot;application/json&quot;</span>);
             <span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">header</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="ident">content_type</span>);
-        }
+        };
 
         <span class="kw">let</span> <span class="ident">precision</span> <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">from_static</span>(<span class="string">&quot;millisecond&quot;</span>);
         <span class="kw">let</span> <span class="ident">user_agent</span> <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">from_static</span>(<span class="macro">concat</span><span class="macro">!</span>(
