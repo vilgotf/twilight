@@ -856,6 +856,21 @@
 <span id="855">855</span>
 <span id="856">856</span>
 <span id="857">857</span>
+<span id="858">858</span>
+<span id="859">859</span>
+<span id="860">860</span>
+<span id="861">861</span>
+<span id="862">862</span>
+<span id="863">863</span>
+<span id="864">864</span>
+<span id="865">865</span>
+<span id="866">866</span>
+<span id="867">867</span>
+<span id="868">868</span>
+<span id="869">869</span>
+<span id="870">870</span>
+<span id="871">871</span>
+<span id="872">872</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="kw">super</span>::{
@@ -885,6 +900,7 @@
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
     <span class="ident">str</span>::{<span class="self">self</span>, <span class="ident">Utf8Error</span>},
     <span class="ident">sync</span>::{<span class="ident">atomic</span>::<span class="ident">Ordering</span>, <span class="ident">Arc</span>},
+    <span class="ident">time</span>::<span class="ident">Duration</span>,
 };
 <span class="kw">use</span> <span class="ident">tokio</span>::<span class="ident">sync</span>::<span class="ident">watch</span>::{
     <span class="ident">channel</span> <span class="kw">as</span> <span class="ident">watch_channel</span>, <span class="ident">Receiver</span> <span class="kw">as</span> <span class="ident">WatchReceiver</span>, <span class="ident">Sender</span> <span class="kw">as</span> <span class="ident">WatchSender</span>,
@@ -1620,7 +1636,17 @@
     <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">reconnect</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;reconnection started&quot;</span>);
 
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">1</span>);
+
         <span class="kw">loop</span> {
+            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(
+                <span class="ident">shard_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
+                <span class="ident">shard_total</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">1</span>],
+                <span class="ident">wait_in_seconds</span> <span class="op">=</span> <span class="ident">wait</span>.<span class="ident">as_secs</span>(),
+                <span class="string">&quot;waiting before attempting a reconnect&quot;</span>,
+            );
+            <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">delay_for</span>(<span class="ident">wait</span>).<span class="ident">await</span>;
+
             <span class="comment">// Await allowance when doing a full reconnect.</span>
             <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">queue</span>.<span class="ident">request</span>(<span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()).<span class="ident">await</span>;
 
@@ -1632,6 +1658,10 @@
                 <span class="prelude-val">Ok</span>(<span class="ident">s</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">s</span>,
                 <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;reconnecting failed: {:?}&quot;</span>, <span class="ident">why</span>);
+
+                    <span class="kw">if</span> <span class="ident">wait</span> <span class="op">&lt;</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">128</span>) {
+                        <span class="ident">wait</span> <span class="kw-2">*</span><span class="op">=</span> <span class="number">2</span>;
+                    }
 
                     <span class="kw">continue</span>;
                 }
