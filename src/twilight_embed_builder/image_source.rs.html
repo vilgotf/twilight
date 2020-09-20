@@ -252,14 +252,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`ImageSourceUrlError::ExtensionEmpty`] if an extension exists</span>
+    <span class="doccomment">/// Returns [`ImageSourceAttachmentError::ExtensionEmpty`] if an extension exists</span>
     <span class="doccomment">/// but is empty.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`ImageSourceUrlError::ExtensionMissing`] if an extension is</span>
+    <span class="doccomment">/// Returns [`ImageSourceAttachmentError::ExtensionMissing`] if an extension is</span>
     <span class="doccomment">/// missing.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ImageSourceUrlError::ExtensionEmpty`]: enum.ImageSourceUrlError.html#variant.ExtensionEmpty</span>
-    <span class="doccomment">/// [`ImageSourceUrlError::ExtensionMissing`]: enum.ImageSourceUrlError.html#variant.ExtensionMissing</span>
+    <span class="doccomment">/// [`ImageSourceAttachmentError::ExtensionEmpty`]: enum.ImageSourceAttachmentError.html#variant.ExtensionEmpty</span>
+    <span class="doccomment">/// [`ImageSourceAttachmentError::ExtensionMissing`]: enum.ImageSourceAttachmentError.html#variant.ExtensionMissing</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachment</span>(<span class="ident">filename</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ImageSourceAttachmentError</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">_attachment</span>(<span class="ident">filename</span>.<span class="ident">as_ref</span>())
     }

@@ -230,7 +230,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Errors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returns [`GetChannelMessages::LimitInvalid`] if the amount is less than 1 or greater than 100.</span>
+<span class="doccomment">/// Returns [`GetChannelMessagesError::LimitInvalid`] if the amount is less than 1 or greater than 100.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`ChannelId`]: ../../../../../twilight_model/id/struct.ChannelId.html</span>
 <span class="doccomment">/// [`after`]: #method.after</span>
@@ -239,7 +239,7 @@
 <span class="doccomment">/// [`GetChannelMessagesConfigured`]:</span>
 <span class="doccomment">/// ../get_channel_messages_configured/struct.GetChannelMessagesConfigured.html</span>
 <span class="doccomment">/// [`limit`]: #method.limit</span>
-<span class="doccomment">/// [`GetChannelMessages::LimitInvalid`]: enum.GetChannelMessagesError.html#variant.LimitInvalid</span>
+<span class="doccomment">/// [`GetChannelMessagesError::LimitInvalid`]: enum.GetChannelMessagesError.html#variant.LimitInvalid</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GetChannelMessages</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
     <span class="ident">fields</span>: <span class="ident">GetChannelMessagesFields</span>,
@@ -296,10 +296,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`GetChannelMessages::LimitInvalid`] if the amount is less than 1 or greater than</span>
+    <span class="doccomment">/// Returns [`GetChannelMessagesError::LimitInvalid`] if the amount is less than 1 or greater than</span>
     <span class="doccomment">/// 100.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GetChannelMessages::LimitInvalid`]: enum.GetChannelMessagesError.html#variant.LimitInvalid</span>
+    <span class="doccomment">/// [`GetChannelMessagesError::LimitInvalid`]: enum.GetChannelMessagesError.html#variant.LimitInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">limit</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">GetChannelMessagesError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">validate</span>::<span class="ident">get_channel_messages_limit</span>(<span class="ident">limit</span>) {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GetChannelMessagesError</span>::<span class="ident">LimitInvalid</span> { <span class="ident">limit</span> });

@@ -298,15 +298,15 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`Error::PayloadSerialization`] when there is an error</span>
+    <span class="doccomment">/// Returns [`SessionSendError::Serializing`] when there is an error</span>
     <span class="doccomment">/// serializing the payload into an acceptable format.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`Error::SendingMessage`] when the receiving channel has hung</span>
+    <span class="doccomment">/// Returns [`SessionSendError::Sending`] when the receiving channel has hung</span>
     <span class="doccomment">/// up. This will only happen when the shard has either not started or has</span>
     <span class="doccomment">/// already shutdown.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Error::PayloadSerialization`]: ../enum.Error.html#variant.PayloadSerialization</span>
-    <span class="doccomment">/// [`Error::SendingMessage`]: ../enum.Error.html#variant.SendingMessage</span>
+    <span class="doccomment">/// [`SessionSendError::Serializing`]: enum.SessionSendError.html#variant.Serializing</span>
+    <span class="doccomment">/// [`SessionSendError::Sending`]: enum.SessionSendError.html#variant.Sending</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">payload</span>: <span class="kw">impl</span> <span class="ident">Serialize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">SessionSendError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span>
             <span class="ident">json</span>::<span class="ident">to_vec</span>(<span class="kw-2">&amp;</span><span class="ident">payload</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">SessionSendError</span>::<span class="ident">Serializing</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;

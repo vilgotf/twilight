@@ -182,14 +182,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Errors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returns [`Error::PayloadInvalid`] if the payload wasn&#39;t a valid</span>
+<span class="doccomment">/// Returns [`GatewayEventParsingError::PayloadInvalid`] if the payload wasn&#39;t a valid</span>
 <span class="doccomment">/// `GatewayEvent` data structure.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returns [`Error::PayloadSerialization`] if the payload failed to</span>
+<span class="doccomment">/// Returns [`GatewayEventParsingError::Deserializing`] if the payload failed to</span>
 <span class="doccomment">/// deserialize.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Error::PayloadInvalid`]: ../enum.Error.html#variant.PayloadInvalid</span>
-<span class="doccomment">/// [`Error::PayloadSerialization`]: ../enum.Error.html#variant.PayloadSerialization</span>
+<span class="doccomment">/// [`GatewayEventParsingError::PayloadInvalid`]: enum.GatewayEventParsingError.html#variant.PayloadInvalid</span>
+<span class="doccomment">/// [`GatewayEventParsingError::Deserializing`]: enum.GatewayEventParsingError.html#variant.Deserializing</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd-json&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_gateway_event</span>(
@@ -218,14 +218,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Errors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returns [`Error::PayloadInvalid`] if the payload wasn&#39;t a valid</span>
+<span class="doccomment">/// Returns [`GatewayEventParsingError::PayloadInvalid`] if the payload wasn&#39;t a valid</span>
 <span class="doccomment">/// `GatewayEvent` data structure.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returns [`Error::PayloadSerialization`] if the payload failed to</span>
+<span class="doccomment">/// Returns [`GatewayEventParsingError::Deserializing`] if the payload failed to</span>
 <span class="doccomment">/// deserialize.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Error::PayloadInvalid`]: ../enum.Error.html#variant.PayloadInvalid</span>
-<span class="doccomment">/// [`Error::PayloadSerialization`]: ../enum.Error.html#variant.PayloadSerialization</span>
+<span class="doccomment">/// [`GatewayEventParsingError::PayloadInvalid`]: enum.GatewayEventParsingError.html#variant.PayloadInvalid</span>
+<span class="doccomment">/// [`GatewayEventParsingError::Deserializing`]: enum.GatewayEventParsingError.html#variant.Deserializing</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unsafe_code</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd-json&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>

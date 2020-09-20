@@ -1085,16 +1085,16 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`EmbedError::NotRgb`] if the provided color is not a valid</span>
+    <span class="doccomment">/// Returns [`EmbedColorError::NotRgb`] if the provided color is not a valid</span>
     <span class="doccomment">/// RGB integer. Refer to [`COLOR_MAXIMUM`] to know what the maximum</span>
     <span class="doccomment">/// accepted value is.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`EmbedError::Zero`] if the provided color is 0, which is not</span>
+    <span class="doccomment">/// Returns [`EmbedColorError::Zero`] if the provided color is 0, which is not</span>
     <span class="doccomment">/// an acceptable value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`COLOR_MAXIMUM`]: #const.COLOR_MAXIMUM</span>
-    <span class="doccomment">/// [`EmbedError::NotRgb`]: enum.EmbedColorError.html#variant.NotRgb</span>
-    <span class="doccomment">/// [`EmbedError::Zero`]: enum.EmbedColorError.html#variant.Zero</span>
+    <span class="doccomment">/// [`EmbedColorError::NotRgb`]: enum.EmbedColorError.html#variant.NotRgb</span>
+    <span class="doccomment">/// [`EmbedColorError::Zero`]: enum.EmbedColorError.html#variant.Zero</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">color</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">color</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedColorError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">color</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedColorError</span>::<span class="ident">Zero</span>);
@@ -1126,11 +1126,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`EmbedDescriptionError::DescriptionTooLong`] if the provided</span>
+    <span class="doccomment">/// Returns [`EmbedDescriptionError::TooLong`] if the provided</span>
     <span class="doccomment">/// description is longer than the maximum number of code points.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`DESCRIPTION_LENGTH_LIMIT`]: #const.DESCRIPTION_LENGTH_LIMIT</span>
-    <span class="doccomment">/// [`EmbedDescriptionError::DescriptionTooLong`]: enum.EmbedDescriptionError.html#variant.DescriptionTooLong</span>
+    <span class="doccomment">/// [`EmbedDescriptionError::TooLong`]: enum.EmbedDescriptionError.html#variant.TooLong</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">description</span>(
         <span class="self">self</span>,
         <span class="ident">description</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,

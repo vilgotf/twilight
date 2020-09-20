@@ -1963,7 +1963,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`GetChannelMessages::LimitInvalid`] if the amount is less than 1 or greater than 100.</span>
+    <span class="doccomment">/// Returns [`GetChannelMessagesError::LimitInvalid`] if the amount is less than 1 or greater than 100.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ChannelId`]: ../../twilight_model/id/struct.ChannelId.html</span>
     <span class="doccomment">/// [`after`]: ../request/channel/message/get_channel_messages/struct.GetChannelMessages.html#method.after</span>
@@ -1971,7 +1971,7 @@
     <span class="doccomment">/// [`before`]: ../request/channel/message/get_channel_messages/struct.GetChannelMessages.html#method.before</span>
     <span class="doccomment">/// [`GetChannelMessagesConfigured`]: ../request/channel/message/get_channel_messages_configured/struct.GetChannelMessagesConfigured.html</span>
     <span class="doccomment">/// [`limit`]: ../request/channel/message/get_channel_messages/struct.GetChannelMessages.html#method.limit</span>
-    <span class="doccomment">/// [`GetChannelMessages::LimitInvalid`]: ../request/channel/message/get_channel_messages/enum.GetChannelMessagesError.html#variant.LimitInvalid</span>
+    <span class="doccomment">/// [`GetChannelMessagesError::LimitInvalid`]: ../request/channel/message/get_channel_messages/enum.GetChannelMessagesError.html#variant.LimitInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetChannelMessages</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetChannelMessages</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }

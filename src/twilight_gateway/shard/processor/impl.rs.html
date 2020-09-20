@@ -1487,10 +1487,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`Error::AuthorizationInvalid`] if the provided authorization</span>
+    <span class="doccomment">/// Returns [`ReceivingEventError::AuthorizationInvalid`] if the provided authorization</span>
     <span class="doccomment">/// is invalid.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Error::AuthorizationInvalid`]: ../../error/enum.Error.html#variant.AuthorizationInvalid</span>
+    <span class="doccomment">/// [`ReceivingEventError::AuthorizationInvalid`]: enum.ReceivingEventError.html#variant.AuthorizationInvalid</span>
     <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">next_payload</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ReceivingEventError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">clear</span>();
 

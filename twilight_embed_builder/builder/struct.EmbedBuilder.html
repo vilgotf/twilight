@@ -52,10 +52,10 @@ acceptable value as it would be thrown out by Discord.</p>
     .<span class="ident">description</span>(<span class="string">&quot;a description&quot;</span>)<span class="question-mark">?</span>
     .<span class="ident">build</span>();</pre></div>
 <h1 id="errors-1" class="section-header"><a href="#errors-1">Errors</a></h1>
-<p>Returns <a href="enum.EmbedColorError.html#variant.NotRgb"><code>EmbedError::NotRgb</code></a> if the provided color is not a valid
+<p>Returns <a href="enum.EmbedColorError.html#variant.NotRgb"><code>EmbedColorError::NotRgb</code></a> if the provided color is not a valid
 RGB integer. Refer to <a href="#const.COLOR_MAXIMUM"><code>COLOR_MAXIMUM</code></a> to know what the maximum
 accepted value is.</p>
-<p>Returns <a href="enum.EmbedColorError.html#variant.Zero"><code>EmbedError::Zero</code></a> if the provided color is 0, which is not
+<p>Returns <a href="enum.EmbedColorError.html#variant.Zero"><code>EmbedColorError::Zero</code></a> if the provided color is 0, which is not
 an acceptable value.</p>
 </div><h4 id='method.description' class="method"><code>pub fn <a href='#method.description' class='fnname'>description</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;description: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;Self, <a class="enum" href="../../twilight_embed_builder/builder/enum.EmbedDescriptionError.html" title="enum twilight_embed_builder::builder::EmbedDescriptionError">EmbedDescriptionError</a>&gt;</code><a class='srclink' href='../../src/twilight_embed_builder/builder.rs.html#362-367' title='goto source code'>[src]</a></h4><div class='docblock'><p>Set the description.</p>
 <p>Refer to <a href="#const.DESCRIPTION_LENGTH_LIMIT"><code>DESCRIPTION_LENGTH_LIMIT</code></a> for the maximum number of UTF-16
@@ -66,7 +66,7 @@ code points that can be in a description.</p>
 
 <span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">description</span>(<span class="string">&quot;this is an embed&quot;</span>)<span class="question-mark">?</span>.<span class="ident">build</span>();</pre></div>
 <h1 id="errors-2" class="section-header"><a href="#errors-2">Errors</a></h1>
-<p>Returns <a href="enum.EmbedDescriptionError.html#variant.DescriptionTooLong"><code>EmbedDescriptionError::DescriptionTooLong</code></a> if the provided
+<p>Returns <a href="enum.EmbedDescriptionError.html#variant.TooLong"><code>EmbedDescriptionError::TooLong</code></a> if the provided
 description is longer than the maximum number of code points.</p>
 </div><h4 id='method.field' class="method"><code>pub fn <a href='#method.field' class='fnname'>field</a>(self, field: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="../../twilight_model/channel/embed/field/struct.EmbedField.html" title="struct twilight_model::channel::embed::field::EmbedField">EmbedField</a>&gt;) -&gt; Self</code><a class='srclink' href='../../src/twilight_embed_builder/builder.rs.html#397-399' title='goto source code'>[src]</a></h4><div class='docblock'><p>Add a field to the embed.</p>
 <h1 id="examples-4" class="section-header"><a href="#examples-4">Examples</a></h1>

@@ -283,10 +283,10 @@
 
     <span class="doccomment">/// Returns an iterator of mutable references to the commands.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use the [`command`] and [`remove_command`] methods for an easier way to</span>
+    <span class="doccomment">/// Use the [`add_command`] and [`remove_command`] methods for an easier way to</span>
     <span class="doccomment">/// manage commands.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`command`]: #method.command</span>
+    <span class="doccomment">/// [`add_command`]: #method.add_command</span>
     <span class="doccomment">/// [`remove_command`]: #method.remove_command</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">commands_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CommandsMut</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">CommandsMut</span> {
