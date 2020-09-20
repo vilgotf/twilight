@@ -175,11 +175,11 @@
         <span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Client</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
         <span class="ident">message_id</span>: <span class="ident">MessageId</span>,
-        <span class="ident">emoji</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+        <span class="ident">emoji</span>: <span class="ident">RequestReactionType</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">channel_id</span>,
-            <span class="ident">emoji</span>: <span class="ident">emoji</span>.<span class="ident">into</span>(),
+            <span class="ident">emoji</span>: <span class="kw">super</span>::<span class="ident">format_emoji</span>(<span class="ident">emoji</span>),
             <span class="ident">fields</span>: <span class="ident">GetReactionsFields</span>::<span class="ident">default</span>(),
             <span class="ident">fut</span>: <span class="prelude-val">None</span>,
             <span class="ident">http</span>,
