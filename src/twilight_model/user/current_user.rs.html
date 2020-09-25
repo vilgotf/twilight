@@ -64,6 +64,22 @@
 <span id="63">63</span>
 <span id="64">64</span>
 <span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::<span class="ident">UserId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -73,6 +89,14 @@
     <span class="kw">pub</span> <span class="ident">avatar</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">bot</span>: <span class="ident">bool</span>,
+    <span class="doccomment">/// Discriminator used to differentiate people with the same username.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # serde</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The discriminator field can be deserialized from either a string or an</span>
+    <span class="doccomment">/// integer. The field will always serialize into a string due to that being</span>
+    <span class="doccomment">/// the type Discord&#39;s API uses.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;super::discriminator&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">discriminator</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">email</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">UserId</span>,
@@ -87,6 +111,34 @@
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">CurrentUser</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
 
+    <span class="kw">fn</span> <span class="ident">user_tokens</span>(<span class="ident">discriminator_token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Token</span><span class="op">&gt;</span> {
+        <span class="macro">vec</span><span class="macro">!</span>[
+            <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">name</span>: <span class="string">&quot;CurrentUser&quot;</span>,
+                <span class="ident">len</span>: <span class="number">8</span>,
+            },
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
+            <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar hash&quot;</span>),
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;bot&quot;</span>),
+            <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;discriminator&quot;</span>),
+            <span class="ident">discriminator_token</span>,
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;email&quot;</span>),
+            <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
+            <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;mfa_enabled&quot;</span>),
+            <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;username&quot;</span>),
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;test name&quot;</span>),
+            <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;verified&quot;</span>),
+            <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
+            <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+        ]
+    }
+
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_current_user</span>() {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">CurrentUser</span> {
@@ -100,34 +152,14 @@
             <span class="ident">verified</span>: <span class="bool-val">true</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
-            <span class="kw-2">&amp;</span><span class="ident">value</span>,
-            <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
-                    <span class="ident">name</span>: <span class="string">&quot;CurrentUser&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">8</span>,
-                },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar hash&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;bot&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;discriminator&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;9999&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;email&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;mfa_enabled&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;username&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;test name&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;verified&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
-            ],
-        );
+        <span class="comment">// Deserializing a current user with a string discriminator (which</span>
+        <span class="comment">// Discord provides)</span>
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>, <span class="kw-2">&amp;</span><span class="ident">user_tokens</span>(<span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;9999&quot;</span>)));
+
+        <span class="comment">// Deserializing a current user with an integer discriminator. Userland</span>
+        <span class="comment">// code may have this due to being a more compact memory representation</span>
+        <span class="comment">// of a discriminator.</span>
+        <span class="ident">serde_test</span>::<span class="ident">assert_de_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>, <span class="kw-2">&amp;</span><span class="ident">user_tokens</span>(<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">9999</span>)));
     }
 }
 </pre></div>
