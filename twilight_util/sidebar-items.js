@@ -1,1 +1,1 @@
-initSidebarItems({});
+initSidebarItems({"mod":[["snowflake","Provides the Snowflake trait for defining extractable information from a Discord Snowflake."]]});
