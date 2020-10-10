@@ -1151,6 +1151,7 @@
 <span id="1148">1148</span>
 <span id="1149">1149</span>
 <span id="1150">1150</span>
+<span id="1151">1151</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-standby</span>
 <span class="doccomment">//!</span>
@@ -1215,7 +1216,7 @@
 <span class="doccomment">//! ```rust,no_run</span>
 <span class="doccomment">//! use futures_util::StreamExt;</span>
 <span class="doccomment">//! use std::{env, error::Error};</span>
-<span class="doccomment">//! use twilight_gateway::{Event, Shard};</span>
+<span class="doccomment">//! use twilight_gateway::{Event, Intents, Shard};</span>
 <span class="doccomment">//! use twilight_model::{</span>
 <span class="doccomment">//!     channel::Message,</span>
 <span class="doccomment">//!     gateway::payload::ReactionAdd,</span>
@@ -1226,7 +1227,8 @@
 <span class="doccomment">//! #[tokio::main]</span>
 <span class="doccomment">//! async fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {</span>
 <span class="doccomment">//!     // Start a shard connected to the gateway to receive events.</span>
-<span class="doccomment">//!     let mut shard = Shard::new(env::var(&quot;DISCORD_TOKEN&quot;)?);</span>
+<span class="doccomment">//!     let intents = Intents::GUILD_MESSAGES | Intents::GUILD_MESSAGE_REACTIONS;</span>
+<span class="doccomment">//!     let mut shard = Shard::new(env::var(&quot;DISCORD_TOKEN&quot;)?, intents);</span>
 <span class="doccomment">//!     let mut events = shard.events();</span>
 <span class="doccomment">//!     shard.start().await?;</span>
 <span class="doccomment">//!</span>

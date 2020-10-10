@@ -115,7 +115,6 @@
 <span id="112">112</span>
 <span id="113">113</span>
 <span id="114">114</span>
-<span id="115">115</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">guild</span>::<span class="ident">Permissions</span>, <span class="ident">id</span>::<span class="ident">RoleId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{
@@ -136,7 +135,6 @@
     <span class="kw">pub</span> <span class="ident">managed</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">mentionable</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;permissions_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">permissions</span>: <span class="ident">Permissions</span>,
     <span class="kw">pub</span> <span class="ident">position</span>: <span class="ident">i64</span>,
 }
@@ -223,7 +221,7 @@
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;test&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;permissions_new&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;permissions&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;8&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;position&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">I64</span>(<span class="number">12</span>),

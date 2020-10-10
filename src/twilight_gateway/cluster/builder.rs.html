@@ -346,17 +346,6 @@
 <span id="343">343</span>
 <span id="344">344</span>
 <span id="345">345</span>
-<span id="346">346</span>
-<span id="347">347</span>
-<span id="348">348</span>
-<span id="349">349</span>
-<span id="350">350</span>
-<span id="351">351</span>
-<span id="352">352</span>
-<span id="353">353</span>
-<span id="354">354</span>
-<span id="355">355</span>
-<span id="356">356</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">config</span>::<span class="ident">Config</span> <span class="kw">as</span> <span class="ident">ClusterConfig</span>,
@@ -480,20 +469,17 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Create a cluster with only the `GUILD_MESSAGES` [`intents`] with a</span>
+<span class="doccomment">/// Create a cluster with only the `GUILD_MESSAGES` intents with a</span>
 <span class="doccomment">/// [`large_threshold`] of 100.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```rust,no_run</span>
 <span class="doccomment">/// use std::env;</span>
-<span class="doccomment">/// use twilight_gateway::Cluster;</span>
-<span class="doccomment">/// use twilight_model::gateway::Intents;</span>
+<span class="doccomment">/// use twilight_gateway::{Cluster, Intents};</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # #[tokio::main] async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
 <span class="doccomment">/// let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// let intents = Intents::GUILD_MESSAGES;</span>
-<span class="doccomment">/// let cluster = Cluster::builder(token)</span>
-<span class="doccomment">///     .intents(intents)</span>
+<span class="doccomment">/// let cluster = Cluster::builder(token, Intents::GUILD_MESSAGES)</span>
 <span class="doccomment">///     .large_threshold(100)?</span>
 <span class="doccomment">///     .build()</span>
 <span class="doccomment">///     .await?;</span>
@@ -501,18 +487,17 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Cluster`]: ./struct.Cluster.html</span>
-<span class="doccomment">/// [`intents`]: #method.intents</span>
 <span class="doccomment">/// [`large_threshold`]: #method.large_threshold</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ClusterBuilder</span>(<span class="ident">ClusterConfig</span>, <span class="ident">ShardBuilder</span>);
 
 <span class="kw">impl</span> <span class="ident">ClusterBuilder</span> {
     <span class="doccomment">/// Create a new builder to construct and configure a cluster.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">token</span>.<span class="ident">into</span>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">intents</span>: <span class="ident">Intents</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">token</span>.<span class="ident">into</span>(), <span class="ident">intents</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="kw-2">mut</span> <span class="ident">token</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="kw-2">mut</span> <span class="ident">token</span>: <span class="ident">String</span>, <span class="ident">intents</span>: <span class="ident">Intents</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">token</span>.<span class="ident">starts_with</span>(<span class="string">&quot;Bot &quot;</span>) {
             <span class="ident">token</span>.<span class="ident">insert_str</span>(<span class="number">0</span>, <span class="string">&quot;Bot &quot;</span>);
         }
@@ -520,12 +505,12 @@
         <span class="self">Self</span>(
             <span class="ident">ClusterConfig</span> {
                 <span class="ident">http_client</span>: <span class="ident">Client</span>::<span class="ident">new</span>(<span class="ident">token</span>.<span class="ident">clone</span>()),
-                <span class="ident">shard_config</span>: <span class="ident">ShardBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>.<span class="ident">clone</span>()).<span class="number">0</span>,
+                <span class="ident">shard_config</span>: <span class="ident">ShardBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>.<span class="ident">clone</span>(), <span class="ident">intents</span>).<span class="number">0</span>,
                 <span class="ident">shard_scheme</span>: <span class="ident">ShardScheme</span>::<span class="ident">Auto</span>,
                 <span class="ident">queue</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">LocalQueue</span>::<span class="ident">new</span>())),
                 <span class="ident">resume_sessions</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
             },
-            <span class="ident">ShardBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>),
+            <span class="ident">ShardBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">intents</span>),
         )
     }
 
@@ -578,17 +563,6 @@
         <span class="prelude-val">Ok</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Sets the intents to use when identifying with the gateway.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Refer to the shard&#39;s [`ShardBuilder::intents`] for more information.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ShardBuilder::intents`]: ../shard/struct.ShardBuilder.html#method.intents</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intents</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">intents</span>: <span class="ident">Intents</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="number">1</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">1</span>.<span class="ident">intents</span>(<span class="ident">intents</span>);
-
-        <span class="self">self</span>
-    }
-
     <span class="doccomment">/// Set the presence to use when identifying with the gateway.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Refer to the shard&#39;s [`ShardBuilder::presence`] for more information.</span>
@@ -615,7 +589,7 @@
     <span class="doccomment">/// Configure a cluster to manage shards 0-9 out of 20 shards total:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use twilight_gateway::cluster::{Cluster, ShardScheme};</span>
+    <span class="doccomment">/// use twilight_gateway::{cluster::{Cluster, ShardScheme}, Intents};</span>
     <span class="doccomment">/// use std::{</span>
     <span class="doccomment">///     convert::TryFrom,</span>
     <span class="doccomment">///     env,</span>
@@ -625,7 +599,10 @@
     <span class="doccomment">/// let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
     <span class="doccomment">/// let scheme = ShardScheme::try_from((0..=9, 20))?;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// let cluster = Cluster::builder(token).shard_scheme(scheme).build().await?;</span>
+    <span class="doccomment">/// let cluster = Cluster::builder(token, Intents::GUILD_MESSAGES)</span>
+    <span class="doccomment">///     .shard_scheme(scheme)</span>
+    <span class="doccomment">///     .build()</span>
+    <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
@@ -668,15 +645,16 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ClusterBuilder</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">token</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new</span>(<span class="ident">token</span>)
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">T</span>, <span class="ident">Intents</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ClusterBuilder</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>((<span class="ident">token</span>, <span class="ident">intents</span>): (<span class="ident">T</span>, <span class="ident">Intents</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">intents</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ClusterBuilder</span>, <span class="ident">ShardScheme</span>, <span class="ident">ShardSchemeRangeError</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Intents</span>;
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>};
     <span class="kw">use</span> <span class="ident">std</span>::{
         <span class="ident">convert</span>::<span class="ident">TryFrom</span>,
@@ -687,7 +665,7 @@
 
     <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ShardSchemeRangeError</span>::<span class="ident">IdTooLarge</span>: <span class="ident">end</span>, <span class="ident">start</span>, <span class="ident">total</span>);
     <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ShardScheme</span>::<span class="ident">Range</span>: <span class="ident">from</span>, <span class="ident">to</span>, <span class="ident">total</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">ClusterBuilder</span>: <span class="ident">Debug</span>, <span class="ident">From</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">ClusterBuilder</span>: <span class="ident">Debug</span>, <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">Intents</span>)<span class="op">&gt;</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
     <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">ShardSchemeRangeError</span>: <span class="ident">Debug</span>, <span class="ident">Display</span>, <span class="ident">Error</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
     <span class="macro">assert_impl_all</span><span class="macro">!</span>(
         <span class="ident">ShardScheme</span>: <span class="ident">Clone</span>,

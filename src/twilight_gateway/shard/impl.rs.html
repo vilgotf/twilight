@@ -640,6 +640,7 @@
 <span id="637">637</span>
 <span id="638">638</span>
 <span id="639">639</span>
+<span id="640">640</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::<span class="ident">ShardBuilder</span>,
@@ -650,7 +651,7 @@
     <span class="ident">sink</span>::<span class="ident">ShardSink</span>,
     <span class="ident">stage</span>::<span class="ident">Stage</span>,
 };
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">listener</span>::<span class="ident">Listeners</span>, <span class="ident">EventTypeFlags</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">listener</span>::<span class="ident">Listeners</span>, <span class="ident">EventTypeFlags</span>, <span class="ident">Intents</span>};
 <span class="kw">use</span> <span class="ident">async_tungstenite</span>::<span class="ident">tungstenite</span>::{
     <span class="ident">protocol</span>::{<span class="ident">frame</span>::<span class="ident">coding</span>::<span class="ident">CloseCode</span>, <span class="ident">CloseFrame</span>},
     <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">TungsteniteError</span>, <span class="ident">Message</span>,
@@ -867,13 +868,13 @@
 <span class="doccomment">/// ```no_run</span>
 <span class="doccomment">/// use futures::stream::StreamExt;</span>
 <span class="doccomment">/// use std::env;</span>
-<span class="doccomment">/// use twilight_gateway::{EventTypeFlags, Event, Shard};</span>
+<span class="doccomment">/// use twilight_gateway::{EventTypeFlags, Event, Intents, Shard};</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # #[tokio::main] async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
 <span class="doccomment">/// // Use the value of the &quot;DISCORD_TOKEN&quot; environment variable as the bot&#39;s</span>
 <span class="doccomment">/// // token. Of course, you may pass this into your program however you want.</span>
 <span class="doccomment">/// let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
-<span class="doccomment">/// let mut shard = Shard::new(token);</span>
+<span class="doccomment">/// let mut shard = Shard::new(token, Intents::GUILD_MESSAGES);</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Start the shard.</span>
 <span class="doccomment">/// shard.start().await?;</span>
@@ -913,7 +914,7 @@
     <span class="doccomment">/// current connection stage:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use twilight_gateway::Shard;</span>
+    <span class="doccomment">/// use twilight_gateway::{Intents, Shard};</span>
     <span class="doccomment">/// use std::{env, time::Duration};</span>
     <span class="doccomment">/// use tokio::time as tokio_time;</span>
     <span class="doccomment">///</span>
@@ -921,7 +922,8 @@
     <span class="doccomment">/// # async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error + Send + Sync&gt;&gt; {</span>
     <span class="doccomment">/// let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// let mut shard = Shard::new(token);</span>
+    <span class="doccomment">/// let intents = Intents::GUILD_MESSAGES | Intents::GUILD_MESSAGE_TYPING;</span>
+    <span class="doccomment">/// let mut shard = Shard::new(token, intents);</span>
     <span class="doccomment">/// shard.start().await?;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// tokio_time::delay_for(Duration::from_secs(1)).await;</span>
@@ -932,8 +934,8 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`start`]: #method.start</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">builder</span>(<span class="ident">token</span>).<span class="ident">build</span>()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">intents</span>: <span class="ident">Intents</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>::<span class="ident">builder</span>(<span class="ident">token</span>, <span class="ident">intents</span>).<span class="ident">build</span>()
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new_with_config</span>(<span class="ident">config</span>: <span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -950,8 +952,8 @@
     <span class="doccomment">/// Create a builder to configure and construct a shard.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Refer to the builder for more information.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ShardBuilder</span> {
-        <span class="ident">ShardBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">intents</span>: <span class="ident">Intents</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ShardBuilder</span> {
+        <span class="ident">ShardBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">intents</span>)
     }
 
     <span class="doccomment">/// Return an immutable reference to the configuration used for this client.</span>
@@ -1043,13 +1045,13 @@
     <span class="doccomment">/// and [`Event::ShardDisconnected`] events:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use twilight_gateway::{EventTypeFlags, Event, Shard};</span>
+    <span class="doccomment">/// use twilight_gateway::{EventTypeFlags, Event, Intents, Shard};</span>
     <span class="doccomment">/// use futures::StreamExt;</span>
     <span class="doccomment">/// use std::env;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # #[tokio::main]</span>
     <span class="doccomment">/// # async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error + Send + Sync&gt;&gt; {</span>
-    <span class="doccomment">/// let mut shard = Shard::new(env::var(&quot;DISCORD_TOKEN&quot;)?);</span>
+    <span class="doccomment">/// let mut shard = Shard::new(env::var(&quot;DISCORD_TOKEN&quot;)?, Intents::empty());</span>
     <span class="doccomment">/// shard.start().await?;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let event_types = EventTypeFlags::SHARD_CONNECTED | EventTypeFlags::SHARD_DISCONNECTED;</span>

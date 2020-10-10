@@ -327,46 +327,6 @@
 <span id="324">324</span>
 <span id="325">325</span>
 <span id="326">326</span>
-<span id="327">327</span>
-<span id="328">328</span>
-<span id="329">329</span>
-<span id="330">330</span>
-<span id="331">331</span>
-<span id="332">332</span>
-<span id="333">333</span>
-<span id="334">334</span>
-<span id="335">335</span>
-<span id="336">336</span>
-<span id="337">337</span>
-<span id="338">338</span>
-<span id="339">339</span>
-<span id="340">340</span>
-<span id="341">341</span>
-<span id="342">342</span>
-<span id="343">343</span>
-<span id="344">344</span>
-<span id="345">345</span>
-<span id="346">346</span>
-<span id="347">347</span>
-<span id="348">348</span>
-<span id="349">349</span>
-<span id="350">350</span>
-<span id="351">351</span>
-<span id="352">352</span>
-<span id="353">353</span>
-<span id="354">354</span>
-<span id="355">355</span>
-<span id="356">356</span>
-<span id="357">357</span>
-<span id="358">358</span>
-<span id="359">359</span>
-<span id="360">360</span>
-<span id="361">361</span>
-<span id="362">362</span>
-<span id="363">363</span>
-<span id="364">364</span>
-<span id="365">365</span>
-<span id="366">366</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">activity</span>;
 <span class="kw">mod</span> <span class="ident">activity_assets</span>;
@@ -407,9 +367,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">activities</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">client_status</span>: <span class="ident">ClientStatus</span>,
-    <span class="kw">pub</span> <span class="ident">game</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-    <span class="kw">pub</span> <span class="ident">nick</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">status</span>: <span class="ident">Status</span>,
     <span class="kw">pub</span> <span class="ident">user</span>: <span class="ident">UserOrId</span>,
 }
@@ -441,7 +399,6 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">activities</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">client_status</span>: <span class="ident">ClientStatus</span>,
-    <span class="kw">pub</span> <span class="ident">game</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">nick</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">status</span>: <span class="ident">Status</span>,
@@ -464,9 +421,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">Presence</span> {
             <span class="ident">activities</span>: <span class="ident">presence</span>.<span class="ident">activities</span>,
             <span class="ident">client_status</span>: <span class="ident">presence</span>.<span class="ident">client_status</span>,
-            <span class="ident">game</span>: <span class="ident">presence</span>.<span class="ident">game</span>,
             <span class="ident">guild_id</span>: <span class="ident">presence</span>.<span class="ident">guild_id</span>.<span class="ident">unwrap_or</span>(<span class="self">self</span>.<span class="number">0</span>),
-            <span class="ident">nick</span>: <span class="ident">presence</span>.<span class="ident">nick</span>,
             <span class="ident">status</span>: <span class="ident">presence</span>.<span class="ident">status</span>,
             <span class="ident">user</span>: <span class="ident">presence</span>.<span class="ident">user</span>,
         })
@@ -575,15 +530,13 @@
             <span class="ident">url</span>: <span class="prelude-val">None</span>,
         };
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Presence</span> {
-            <span class="ident">activities</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">activity</span>.<span class="ident">clone</span>()],
+            <span class="ident">activities</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">activity</span>],
             <span class="ident">client_status</span>: <span class="ident">ClientStatus</span> {
                 <span class="ident">desktop</span>: <span class="prelude-val">Some</span>(<span class="ident">Status</span>::<span class="ident">Online</span>),
                 <span class="ident">mobile</span>: <span class="prelude-val">None</span>,
                 <span class="ident">web</span>: <span class="prelude-val">None</span>,
             },
-            <span class="ident">game</span>: <span class="prelude-val">Some</span>(<span class="ident">activity</span>),
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">2</span>),
-            <span class="ident">nick</span>: <span class="prelude-val">None</span>,
             <span class="ident">status</span>: <span class="ident">Status</span>::<span class="ident">Online</span>,
             <span class="ident">user</span>: <span class="ident">UserOrId</span>::<span class="ident">UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">1</span>) },
         };
@@ -610,36 +563,6 @@
                 <span class="ident">Token</span>::<span class="ident">Enum</span> { <span class="ident">name</span>: <span class="string">&quot;Status&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;online&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Unit</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;game&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
-                    <span class="ident">name</span>: <span class="string">&quot;Activity&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">4</span>,
-                },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;type&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">4</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;foo&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;aaaaaaaaaaaaaaaa&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;emoji&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
-                    <span class="ident">name</span>: <span class="string">&quot;ActivityEmoji&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">3</span>,
-                },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;Test&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;animated&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;created_at&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1_571_048_061_237</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;client_status&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;ClientStatus&quot;</span>,
@@ -702,7 +625,6 @@
                 &quot;id&quot;: &quot;1&quot;
             },
             &quot;status&quot;: &quot;online&quot;,
-            &quot;game&quot;: null,
             &quot;client_status&quot;: {
                 &quot;desktop&quot;: &quot;online&quot;
             },
@@ -719,9 +641,7 @@
                     <span class="ident">mobile</span>: <span class="prelude-val">None</span>,
                     <span class="ident">web</span>: <span class="prelude-val">None</span>,
                 },
-                <span class="ident">game</span>: <span class="prelude-val">None</span>,
                 <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">2</span>),
-                <span class="ident">nick</span>: <span class="prelude-val">None</span>,
                 <span class="ident">status</span>: <span class="ident">Status</span>::<span class="ident">Online</span>,
                 <span class="ident">user</span>: <span class="ident">UserOrId</span>::<span class="ident">UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">1</span>) },
             },

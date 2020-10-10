@@ -764,10 +764,6 @@
 <span id="761">761</span>
 <span id="762">762</span>
 <span id="763">763</span>
-<span id="764">764</span>
-<span id="765">765</span>
-<span id="766">766</span>
-<span id="767">767</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">config</span>::<span class="ident">EventType</span>, <span class="ident">InMemoryCache</span>};
 <span class="kw">use</span> <span class="ident">dashmap</span>::<span class="ident">DashMap</span>;
@@ -1034,8 +1030,6 @@
         <span class="ident">guild</span>.<span class="ident">banner</span> <span class="op">=</span> <span class="ident">g</span>.<span class="ident">banner</span>.<span class="ident">clone</span>();
         <span class="ident">guild</span>.<span class="ident">default_message_notifications</span> <span class="op">=</span> <span class="ident">g</span>.<span class="ident">default_message_notifications</span>;
         <span class="ident">guild</span>.<span class="ident">description</span> <span class="op">=</span> <span class="ident">g</span>.<span class="ident">description</span>.<span class="ident">clone</span>();
-        <span class="ident">guild</span>.<span class="ident">embed_channel_id</span> <span class="op">=</span> <span class="ident">g</span>.<span class="ident">embed_channel_id</span>;
-        <span class="ident">guild</span>.<span class="ident">embed_enabled</span>.<span class="ident">replace</span>(<span class="ident">g</span>.<span class="ident">embed_enabled</span>);
         <span class="ident">guild</span>.<span class="ident">features</span> <span class="op">=</span> <span class="ident">g</span>.<span class="ident">features</span>.<span class="ident">clone</span>();
         <span class="ident">guild</span>.<span class="ident">icon</span> <span class="op">=</span> <span class="ident">g</span>.<span class="ident">icon</span>.<span class="ident">clone</span>();
         <span class="ident">guild</span>.<span class="ident">max_members</span> <span class="op">=</span> <span class="ident">g</span>.<span class="ident">max_members</span>;
@@ -1248,9 +1242,7 @@
         <span class="kw">let</span> <span class="ident">presence</span> <span class="op">=</span> <span class="ident">Presence</span> {
             <span class="ident">activities</span>: <span class="self">self</span>.<span class="ident">activities</span>.<span class="ident">clone</span>(),
             <span class="ident">client_status</span>: <span class="self">self</span>.<span class="ident">client_status</span>.<span class="ident">clone</span>(),
-            <span class="ident">game</span>: <span class="self">self</span>.<span class="ident">game</span>.<span class="ident">clone</span>(),
             <span class="ident">guild_id</span>: <span class="self">self</span>.<span class="ident">guild_id</span>,
-            <span class="ident">nick</span>: <span class="self">self</span>.<span class="ident">nick</span>.<span class="ident">clone</span>(),
             <span class="ident">status</span>: <span class="self">self</span>.<span class="ident">status</span>,
             <span class="ident">user</span>: <span class="self">self</span>.<span class="ident">user</span>.<span class="ident">clone</span>(),
         };

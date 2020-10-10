@@ -1127,10 +1127,6 @@
 <span id="1124">1124</span>
 <span id="1125">1125</span>
 <span id="1126">1126</span>
-<span id="1127">1127</span>
-<span id="1128">1128</span>
-<span id="1129">1129</span>
-<span id="1130">1130</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-cache-inmemory</span>
 <span class="doccomment">//!</span>
@@ -1148,11 +1144,11 @@
 <span class="doccomment">//! use std::env;</span>
 <span class="doccomment">//! use tokio::stream::StreamExt;</span>
 <span class="doccomment">//! use twilight_cache_inmemory::InMemoryCache;</span>
-<span class="doccomment">//! use twilight_gateway::Shard;</span>
+<span class="doccomment">//! use twilight_gateway::{Intents, Shard};</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # #[tokio::main] async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
 <span class="doccomment">//! let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
-<span class="doccomment">//! let mut shard = Shard::new(token);</span>
+<span class="doccomment">//! let mut shard = Shard::new(token, Intents::GUILD_MESSAGES);</span>
 <span class="doccomment">//! shard.start().await?;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! // Create a cache, caching up to 10 messages per channel:</span>
@@ -1690,8 +1686,6 @@
             <span class="ident">default_message_notifications</span>: <span class="ident">guild</span>.<span class="ident">default_message_notifications</span>,
             <span class="ident">description</span>: <span class="ident">guild</span>.<span class="ident">description</span>,
             <span class="ident">discovery_splash</span>: <span class="ident">guild</span>.<span class="ident">discovery_splash</span>,
-            <span class="ident">embed_channel_id</span>: <span class="ident">guild</span>.<span class="ident">embed_channel_id</span>,
-            <span class="ident">embed_enabled</span>: <span class="ident">guild</span>.<span class="ident">embed_enabled</span>,
             <span class="ident">explicit_content_filter</span>: <span class="ident">guild</span>.<span class="ident">explicit_content_filter</span>,
             <span class="ident">features</span>: <span class="ident">guild</span>.<span class="ident">features</span>,
             <span class="ident">icon</span>: <span class="ident">guild</span>.<span class="ident">icon</span>,
@@ -2080,8 +2074,6 @@
             <span class="ident">default_message_notifications</span>: <span class="ident">DefaultMessageNotificationLevel</span>::<span class="ident">Mentions</span>,
             <span class="ident">description</span>: <span class="prelude-val">None</span>,
             <span class="ident">discovery_splash</span>: <span class="prelude-val">None</span>,
-            <span class="ident">embed_channel_id</span>: <span class="prelude-val">None</span>,
-            <span class="ident">embed_enabled</span>: <span class="prelude-val">None</span>,
             <span class="ident">emojis</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
             <span class="ident">explicit_content_filter</span>: <span class="ident">ExplicitContentFilter</span>::<span class="ident">AllMembers</span>,
             <span class="ident">features</span>: <span class="macro">vec</span><span class="macro">!</span>[],

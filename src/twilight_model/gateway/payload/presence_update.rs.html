@@ -17,13 +17,10 @@
 <span id="14">14</span>
 <span id="15">15</span>
 <span id="16">16</span>
-<span id="17">17</span>
-<span id="18">18</span>
-<span id="19">19</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">gateway</span>::<span class="ident">presence</span>::{<span class="ident">Activity</span>, <span class="ident">ClientStatus</span>, <span class="ident">Status</span>, <span class="ident">UserOrId</span>},
-    <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>},
+    <span class="ident">id</span>::<span class="ident">GuildId</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -34,9 +31,6 @@
     <span class="kw">pub</span> <span class="ident">client_status</span>: <span class="ident">ClientStatus</span>,
     <span class="kw">pub</span> <span class="ident">game</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Activity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
-    <span class="kw">pub</span> <span class="ident">nick</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">premium_since</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">roles</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">status</span>: <span class="ident">Status</span>,
     <span class="kw">pub</span> <span class="ident">user</span>: <span class="ident">UserOrId</span>,
 }

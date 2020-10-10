@@ -1040,7 +1040,7 @@
     <span class="doccomment">/// The intents are provided.</span>
     <span class="ident">IntentsDisallowed</span> {
         <span class="doccomment">/// The configured intents for the shard.</span>
-        <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Intents</span><span class="op">&gt;</span>,
+        <span class="ident">intents</span>: <span class="ident">Intents</span>,
         <span class="doccomment">/// The ID of the shard.</span>
         <span class="ident">shard_id</span>: <span class="ident">u64</span>,
     },
@@ -1049,7 +1049,7 @@
     <span class="doccomment">/// The intents are provided.</span>
     <span class="ident">IntentsInvalid</span> {
         <span class="doccomment">/// Configured intents for the shard.</span>
-        <span class="ident">intents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Intents</span><span class="op">&gt;</span>,
+        <span class="ident">intents</span>: <span class="ident">Intents</span>,
         <span class="doccomment">/// ID of the shard.</span>
         <span class="ident">shard_id</span>: <span class="ident">u64</span>,
     },
@@ -1138,7 +1138,7 @@
 
         <span class="kw">let</span> <span class="ident">properties</span> <span class="op">=</span> <span class="ident">IdentifyProperties</span>::<span class="ident">new</span>(<span class="string">&quot;twilight.rs&quot;</span>, <span class="string">&quot;twilight.rs&quot;</span>, <span class="ident">OS</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>);
 
-        <span class="ident">url</span>.<span class="ident">push_str</span>(<span class="string">&quot;?v=6&amp;compress=zlib-stream&quot;</span>);
+        <span class="ident">url</span>.<span class="ident">push_str</span>(<span class="string">&quot;?v=8&amp;compress=zlib-stream&quot;</span>);
 
         <span class="kw">let</span> <span class="ident">emitter</span> <span class="op">=</span> <span class="ident">Emitter</span>::<span class="ident">new</span>(<span class="ident">listeners</span>);
         <span class="ident">emitter</span>.<span class="ident">event</span>(<span class="ident">Event</span>::<span class="ident">ShardConnecting</span>(<span class="ident">Connecting</span> {
@@ -1578,13 +1578,13 @@
                 }
                 <span class="ident">CloseCode</span>::<span class="ident">Library</span>(<span class="number">4013</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ReceivingEventError</span>::<span class="ident">IntentsInvalid</span> {
-                        <span class="ident">intents</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">intents</span>().<span class="ident">copied</span>(),
+                        <span class="ident">intents</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">intents</span>(),
                         <span class="ident">shard_id</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
                     });
                 }
                 <span class="ident">CloseCode</span>::<span class="ident">Library</span>(<span class="number">4014</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ReceivingEventError</span>::<span class="ident">IntentsDisallowed</span> {
-                        <span class="ident">intents</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">intents</span>().<span class="ident">copied</span>(),
+                        <span class="ident">intents</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">intents</span>(),
                         <span class="ident">shard_id</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
                     });
                 }
@@ -1619,7 +1619,7 @@
         <span class="kw">let</span> <span class="ident">identify</span> <span class="op">=</span> <span class="ident">Identify</span>::<span class="ident">new</span>(<span class="ident">IdentifyInfo</span> {
             <span class="ident">compression</span>: <span class="bool-val">false</span>,
             <span class="ident">large_threshold</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">large_threshold</span>(),
-            <span class="ident">intents</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">intents</span>().<span class="ident">copied</span>(),
+            <span class="ident">intents</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">intents</span>(),
             <span class="ident">properties</span>: <span class="self">self</span>.<span class="ident">properties</span>.<span class="ident">clone</span>(),
             <span class="ident">shard</span>: <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()),
             <span class="ident">presence</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">presence</span>().<span class="ident">cloned</span>(),

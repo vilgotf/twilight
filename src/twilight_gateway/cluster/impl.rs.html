@@ -448,6 +448,12 @@
 <span id="445">445</span>
 <span id="446">446</span>
 <span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::{<span class="ident">ClusterBuilder</span>, <span class="ident">ShardScheme</span>},
@@ -455,7 +461,7 @@
 };
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">shard</span>::{<span class="ident">CommandError</span>, <span class="ident">Information</span>, <span class="ident">ResumeSession</span>, <span class="ident">Shard</span>},
-    <span class="ident">EventTypeFlags</span>,
+    <span class="ident">EventTypeFlags</span>, <span class="ident">Intents</span>,
 };
 <span class="kw">use</span> <span class="ident">futures_util</span>::{
     <span class="ident">future</span>,
@@ -573,8 +579,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClusterStartError::RetrievingGatewayInfo`]: enum.ClusterStartError.html#variant.RetrievingGatewayInfo</span>
     <span class="doccomment">/// [`builder`]: #method.builder</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">builder</span>(<span class="ident">token</span>).<span class="ident">build</span>().<span class="ident">await</span>
+    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">new</span>(
+        <span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+        <span class="ident">intents</span>: <span class="ident">Intents</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
+        <span class="self">Self</span>::<span class="ident">builder</span>(<span class="ident">token</span>, <span class="ident">intents</span>).<span class="ident">build</span>().<span class="ident">await</span>
     }
 
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">new_with_config</span>(<span class="kw-2">mut</span> <span class="ident">config</span>: <span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
@@ -623,8 +632,8 @@
     }
 
     <span class="doccomment">/// Create a builder to configure and construct a cluster.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ClusterBuilder</span> {
-        <span class="ident">ClusterBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">intents</span>: <span class="ident">Intents</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ClusterBuilder</span> {
+        <span class="ident">ClusterBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">intents</span>)
     }
 
     <span class="doccomment">/// Return an immutable reference to the configuration of this cluster.</span>
@@ -640,7 +649,7 @@
     <span class="doccomment">/// Bring up a cluster, starting shards all 10 shards that a bot uses:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use twilight_gateway::cluster::{Cluster, ShardScheme};</span>
+    <span class="doccomment">/// use twilight_gateway::{cluster::{Cluster, ShardScheme}, Intents};</span>
     <span class="doccomment">/// use std::{</span>
     <span class="doccomment">///     convert::TryFrom,</span>
     <span class="doccomment">///     env,</span>
@@ -650,7 +659,10 @@
     <span class="doccomment">/// # async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error + Send + Sync&gt;&gt; {</span>
     <span class="doccomment">/// let token = env::var(&quot;DISCORD_TOKEN&quot;)?;</span>
     <span class="doccomment">/// let scheme = ShardScheme::try_from((0..=9, 10))?;</span>
-    <span class="doccomment">/// let cluster = Cluster::builder(token).shard_scheme(scheme).build().await?;</span>
+    <span class="doccomment">/// let cluster = Cluster::builder(token, Intents::GUILD_MESSAGES)</span>
+    <span class="doccomment">///     .shard_scheme(scheme)</span>
+    <span class="doccomment">///     .build()</span>
+    <span class="doccomment">///     .await?;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// // Finally, bring up the cluster.</span>
     <span class="doccomment">/// cluster.up().await;</span>
@@ -718,12 +730,12 @@
     <span class="doccomment">/// After waiting a minute, print the ID, latency, and stage of each shard:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use twilight_gateway::cluster::Cluster;</span>
+    <span class="doccomment">/// use twilight_gateway::{Cluster, Intents};</span>
     <span class="doccomment">/// use std::{env, time::Duration};</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # #[tokio::main]</span>
     <span class="doccomment">/// # async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error + Send + Sync&gt;&gt; {</span>
-    <span class="doccomment">/// let cluster = Cluster::new(env::var(&quot;DISCORD_TOKEN&quot;)?).await?;</span>
+    <span class="doccomment">/// let cluster = Cluster::new(env::var(&quot;DISCORD_TOKEN&quot;)?, Intents::empty()).await?;</span>
     <span class="doccomment">/// cluster.up().await;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// tokio::time::delay_for(Duration::from_secs(60)).await;</span>
@@ -824,13 +836,13 @@
     <span class="doccomment">/// updated:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use twilight_gateway::{Cluster, EventTypeFlags, Event};</span>
+    <span class="doccomment">/// use twilight_gateway::{Cluster, EventTypeFlags, Event, Intents};</span>
     <span class="doccomment">/// use futures::StreamExt;</span>
     <span class="doccomment">/// use std::env;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # #[tokio::main]</span>
     <span class="doccomment">/// # async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error + Send + Sync&gt;&gt; {</span>
-    <span class="doccomment">/// let cluster = Cluster::new(env::var(&quot;DISCORD_TOKEN&quot;)?).await?;</span>
+    <span class="doccomment">/// let cluster = Cluster::new(env::var(&quot;DISCORD_TOKEN&quot;)?, Intents::GUILD_MESSAGES).await?;</span>
     <span class="doccomment">/// cluster.up().await;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let types = EventTypeFlags::MESSAGE_CREATE</span>

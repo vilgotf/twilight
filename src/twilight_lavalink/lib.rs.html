@@ -132,6 +132,7 @@
 <span id="129">129</span>
 <span id="130">130</span>
 <span id="131">131</span>
+<span id="132">132</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-lavalink</span>
 <span class="doccomment">//!</span>
@@ -195,7 +196,7 @@
 <span class="doccomment">//!     net::SocketAddr,</span>
 <span class="doccomment">//!     str::FromStr,</span>
 <span class="doccomment">//! };</span>
-<span class="doccomment">//! use twilight_gateway::{Event, Shard};</span>
+<span class="doccomment">//! use twilight_gateway::{Event, Intents, Shard};</span>
 <span class="doccomment">//! use twilight_http::Client as HttpClient;</span>
 <span class="doccomment">//! use twilight_lavalink::{http::LoadedTracks, model::Play, Lavalink};</span>
 <span class="doccomment">//! use twilight_model::{</span>
@@ -216,7 +217,8 @@
 <span class="doccomment">//!     let lavalink = Lavalink::new(user_id, shard_count);</span>
 <span class="doccomment">//!     lavalink.add(lavalink_host, lavalink_auth).await?;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     let mut shard = Shard::new(token);</span>
+<span class="doccomment">//!     let intents = Intents::GUILD_MESSAGES | Intents::GUILD_VOICE_STATES;</span>
+<span class="doccomment">//!     let mut shard = Shard::new(token, intents);</span>
 <span class="doccomment">//!     shard.start().await?;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     let mut events = shard.events();</span>

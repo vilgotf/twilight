@@ -223,7 +223,6 @@
 <span id="220">220</span>
 <span id="221">221</span>
 <span id="222">222</span>
-<span id="223">223</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight</span>
 <span class="doccomment">//!</span>
@@ -348,10 +347,9 @@
 <span class="doccomment">//!     // shards as is suggested by Discord.</span>
 <span class="doccomment">//!     let scheme = ShardScheme::Auto;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     let cluster = Cluster::builder(&amp;token)</span>
+<span class="doccomment">//!     // Use intents to only receive guild message events.</span>
+<span class="doccomment">//!     let cluster = Cluster::builder(&amp;token, Intents::GUILD_MESSAGES)</span>
 <span class="doccomment">//!         .shard_scheme(scheme)</span>
-<span class="doccomment">//!         // Use intents to only receive guild message events.</span>
-<span class="doccomment">//!         .intents(Intents::GUILD_MESSAGES)</span>
 <span class="doccomment">//!         .build()</span>
 <span class="doccomment">//!         .await?;</span>
 <span class="doccomment">//!</span>
