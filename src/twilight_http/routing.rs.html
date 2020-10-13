@@ -1496,6 +1496,13 @@
 <span id="1493">1493</span>
 <span id="1494">1494</span>
 <span id="1495">1495</span>
+<span id="1496">1496</span>
+<span id="1497">1497</span>
+<span id="1498">1498</span>
+<span id="1499">1499</span>
+<span id="1500">1500</span>
+<span id="1501">1501</span>
+<span id="1502">1502</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">reqwest</span>::<span class="ident">Method</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -2012,6 +2019,8 @@
     <span class="ident">GetGuildIntegrations</span> {
         <span class="doccomment">/// The ID of the guild.</span>
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
+        <span class="doccomment">/// Whether to include applications.</span>
+        <span class="ident">include_applications</span>: <span class="ident">bool</span>,
     },
     <span class="doccomment">/// Route information to get a guild&#39;s invites.</span>
     <span class="ident">GetGuildInvites</span> {
@@ -2614,11 +2623,16 @@
                 <span class="ident">Path</span>::<span class="ident">GuildsIdWidget</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;guilds/{}/widget&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGuildIntegrations</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdIntegrations</span>(<span class="ident">guild_id</span>),
-                <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;guilds/{}/integrations&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
-            ),
+            <span class="self">Self</span>::<span class="ident">GetGuildIntegrations</span> {
+                <span class="ident">guild_id</span>,
+                <span class="ident">include_applications</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">GuildsIdIntegrations</span>(<span class="ident">guild_id</span>), {
+                <span class="kw">if</span> <span class="ident">include_applications</span> {
+                    <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;guilds/{}/integrations?include_applications=true&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>()
+                } <span class="kw">else</span> {
+                    <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;guilds/{}/integrations&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>()
+                }
+            }),
             <span class="self">Self</span>::<span class="ident">GetGuildInvites</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
                 <span class="ident">Method</span>::<span class="ident">GET</span>,
                 <span class="ident">Path</span>::<span class="ident">GuildsIdInvites</span>(<span class="ident">guild_id</span>),
