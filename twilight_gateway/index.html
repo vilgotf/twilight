@@ -43,7 +43,7 @@ equivalent to using <a href="https://crates.io/crates/native-tls"><code>native-t
 twilight-gateway = { default-features = false, features = [&quot;native&quot;], version = &quot;0.1&quot; }
 </code></pre>
 <h4 id="rustls" class="section-header"><a href="#rustls"><code>rustls</code></a></h4>
-<p>The <code>rustls</code> feature enables <a href="https://crates.io/crates/async-tungstenite"><code>async-tungstenite</code></a>'s <code>async-tls</code> feature and
+<p>The <code>rustls</code> feature enables <a href="https://crates.io/crates/async-tungstenite"><code>async-tungstenite</code></a>'s <code>tokio-rustls</code> feature and
 <a href="https://twilight-rs.github.io/twilight/twilight_http/index.html"><code>twilight-http</code></a>'s <code>rustls</code> feature, which use <a href="https://crates.io/crates/rustls"><code>rustls</code></a> as the TLS backend.</p>
 <p>This is enabled by default.</p>
 <h3 id="zlib" class="section-header"><a href="#zlib">zlib</a></h3>
