@@ -173,9 +173,11 @@
 <span id="170">170</span>
 <span id="171">171</span>
 <span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>},
+    <span class="ident">id</span>::{<span class="ident">ApplicationId</span>, <span class="ident">GuildId</span>},
     <span class="ident">oauth</span>::{<span class="ident">id</span>::<span class="ident">SkuId</span>, <span class="ident">team</span>::<span class="ident">Team</span>},
     <span class="ident">user</span>::<span class="ident">User</span>,
 };
@@ -189,7 +191,7 @@
     <span class="kw">pub</span> <span class="ident">description</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">icon</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">ApplicationId</span>,
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">owner</span>: <span class="ident">User</span>,
     <span class="kw">pub</span> <span class="ident">primary_sku_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SkuId</span><span class="op">&gt;</span>,
@@ -203,8 +205,8 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">CurrentApplicationInfo</span>, <span class="ident">GuildId</span>, <span class="ident">SkuId</span>, <span class="ident">Team</span>, <span class="ident">User</span>, <span class="ident">UserId</span>};
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">oauth</span>::<span class="ident">id</span>::<span class="ident">TeamId</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">CurrentApplicationInfo</span>, <span class="ident">GuildId</span>, <span class="ident">SkuId</span>, <span class="ident">Team</span>, <span class="ident">User</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">id</span>::<span class="ident">ApplicationId</span>, <span class="ident">id</span>::<span class="ident">UserId</span>, <span class="ident">oauth</span>::<span class="ident">id</span>::<span class="ident">TeamId</span>};
     <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
 
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
@@ -217,7 +219,7 @@
             <span class="ident">description</span>: <span class="string">&quot;a pretty cool application&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">1</span>)),
             <span class="ident">icon</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;icon hash&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">2</span>),
+            <span class="ident">id</span>: <span class="ident">ApplicationId</span>(<span class="number">2</span>),
             <span class="ident">name</span>: <span class="string">&quot;cool application&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">owner</span>: <span class="ident">User</span> {
                 <span class="ident">avatar</span>: <span class="prelude-val">None</span>,
@@ -271,7 +273,9 @@
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;icon hash&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
+                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> {
+                    <span class="ident">name</span>: <span class="string">&quot;ApplicationId&quot;</span>,
+                },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;cool application&quot;</span>),
