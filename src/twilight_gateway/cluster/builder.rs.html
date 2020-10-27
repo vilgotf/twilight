@@ -346,6 +346,31 @@
 <span id="343">343</span>
 <span id="344">344</span>
 <span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">config</span>::<span class="ident">Config</span> <span class="kw">as</span> <span class="ident">ClusterConfig</span>,
@@ -502,10 +527,15 @@
             <span class="ident">token</span>.<span class="ident">insert_str</span>(<span class="number">0</span>, <span class="string">&quot;Bot &quot;</span>);
         }
 
+        <span class="kw">let</span> <span class="ident">http_client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="ident">token</span>.<span class="ident">clone</span>());
+
+        <span class="kw">let</span> <span class="ident">shard_config</span> <span class="op">=</span>
+            <span class="ident">ShardBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>.<span class="ident">clone</span>(), <span class="ident">intents</span>).<span class="ident">http_client</span>(<span class="ident">http_client</span>.<span class="ident">clone</span>());
+
         <span class="self">Self</span>(
             <span class="ident">ClusterConfig</span> {
-                <span class="ident">http_client</span>: <span class="ident">Client</span>::<span class="ident">new</span>(<span class="ident">token</span>.<span class="ident">clone</span>()),
-                <span class="ident">shard_config</span>: <span class="ident">ShardBuilder</span>::<span class="ident">new</span>(<span class="ident">token</span>.<span class="ident">clone</span>(), <span class="ident">intents</span>).<span class="number">0</span>,
+                <span class="ident">http_client</span>,
+                <span class="ident">shard_config</span>: <span class="ident">shard_config</span>.<span class="number">0</span>,
                 <span class="ident">shard_scheme</span>: <span class="ident">ShardScheme</span>::<span class="ident">Auto</span>,
                 <span class="ident">queue</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">LocalQueue</span>::<span class="ident">new</span>())),
                 <span class="ident">resume_sessions</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
@@ -523,9 +553,29 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClusterStartError::RetrievingGatewayInfo`]: enum.ClusterStartError.html#variant.RetrievingGatewayInfo</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Cluster</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_config</span>.<span class="ident">gateway_url</span>.<span class="ident">is_none</span>() {
+            <span class="kw">let</span> <span class="ident">gateway_url</span> <span class="op">=</span> (<span class="self">self</span>.<span class="number">1</span>)
+                .<span class="number">0</span>
+                .<span class="ident">http_client</span>
+                .<span class="ident">gateway</span>()
+                .<span class="ident">authed</span>()
+                .<span class="ident">await</span>
+                .<span class="ident">ok</span>()
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">url</span>);
+
+            <span class="self">self</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">gateway_url</span>(<span class="ident">gateway_url</span>);
+        }
+
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_config</span> <span class="op">=</span> (<span class="self">self</span>.<span class="number">1</span>).<span class="number">0</span>;
 
         <span class="ident">Cluster</span>::<span class="ident">new_with_config</span>(<span class="self">self</span>.<span class="number">0</span>).<span class="ident">await</span>
+    }
+
+    <span class="doccomment">/// Set the URL that will be used to connect to the gateway.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gateway_url</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">gateway_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="number">1</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">1</span>.<span class="ident">gateway_url</span>(<span class="ident">gateway_url</span>);
+
+        <span class="self">self</span>
     }
 
     <span class="doccomment">/// Set the `twilight_http` Client used by the cluster and the shards it</span>
