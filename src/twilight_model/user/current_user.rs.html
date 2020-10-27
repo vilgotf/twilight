@@ -122,6 +122,13 @@
 <span id="119">119</span>
 <span id="120">120</span>
 <span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">PremiumType</span>, <span class="ident">UserFlags</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::<span class="ident">UserId</span>;
@@ -170,7 +177,13 @@
     <span class="kw">pub</span> <span class="ident">premium_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PremiumType</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Public flags on a user&#39;s account.</span>
     <span class="kw">pub</span> <span class="ident">public_flags</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UserFlags</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">verified</span>: <span class="ident">bool</span>,
+    <span class="doccomment">/// Whether the email on this account has been verified.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Requires the `email` oauth scope. See [Discord&#39;s documentation] for</span>
+    <span class="doccomment">/// more information.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [Discord&#39;s documentation]: https://discord.com/developers/docs/resources/user#user-object-user-structure</span>
+    <span class="kw">pub</span> <span class="ident">verified</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
@@ -212,6 +225,7 @@
             <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
             <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span>),
             <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;verified&quot;</span>),
+            <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
             <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
             <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
         ]
@@ -227,7 +241,7 @@
             <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">1</span>),
             <span class="ident">mfa_enabled</span>: <span class="bool-val">true</span>,
             <span class="ident">name</span>: <span class="string">&quot;test name&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">verified</span>: <span class="bool-val">true</span>,
+            <span class="ident">verified</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
             <span class="ident">premium_type</span>: <span class="prelude-val">Some</span>(<span class="ident">PremiumType</span>::<span class="ident">NitroClassic</span>),
             <span class="ident">public_flags</span>: <span class="prelude-val">Some</span>(<span class="ident">UserFlags</span>::<span class="ident">DISCORD_EMPLOYEE</span>),
             <span class="ident">flags</span>: <span class="prelude-val">None</span>,
