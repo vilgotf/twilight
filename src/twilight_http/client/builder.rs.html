@@ -153,6 +153,9 @@
 <span id="150">150</span>
 <span id="151">151</span>
 <span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Client</span>, <span class="ident">State</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -160,10 +163,10 @@
     <span class="ident">ratelimiting</span>::<span class="ident">Ratelimiter</span>,
     <span class="ident">request</span>::<span class="ident">channel</span>::<span class="ident">message</span>::<span class="ident">allowed_mentions</span>::<span class="ident">AllowedMentions</span>,
 };
-<span class="kw">use</span> <span class="ident">reqwest</span>::{<span class="ident">Client</span> <span class="kw">as</span> <span class="ident">ReqwestClient</span>, <span class="ident">ClientBuilder</span> <span class="kw">as</span> <span class="ident">ReqwestClientBuilder</span>, <span class="ident">Proxy</span>};
+<span class="kw">use</span> <span class="ident">reqwest</span>::{<span class="ident">ClientBuilder</span> <span class="kw">as</span> <span class="ident">ReqwestClientBuilder</span>, <span class="ident">Proxy</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">sync</span>::<span class="ident">Arc</span>, <span class="ident">time</span>::<span class="ident">Duration</span>};
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="doccomment">/// A builder for [`Client`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Client`]: struct.Client.html</span>
@@ -172,7 +175,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">proxy</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Proxy</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">proxy_http</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">ratelimiter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Ratelimiter</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">reqwest_client</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ReqwestClient</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">reqwest_client</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ReqwestClientBuilder</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">timeout</span>: <span class="ident">Duration</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
@@ -193,7 +196,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`Client`]: struct.Client.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">ReqwestClientBuilder</span>::<span class="ident">new</span>().<span class="ident">timeout</span>(<span class="self">self</span>.<span class="ident">timeout</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="self">self</span>
+            .<span class="ident">reqwest_client</span>
+            .<span class="ident">unwrap_or_else</span>(<span class="ident">ReqwestClientBuilder</span>::<span class="ident">new</span>)
+            .<span class="ident">timeout</span>(<span class="self">self</span>.<span class="ident">timeout</span>);
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">proxy</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">proxy</span> {
             <span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">proxy</span>(<span class="ident">proxy</span>)
@@ -238,13 +244,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set the reqwest client to use.</span>
+    <span class="doccomment">/// Set a pre-configured reqwest client builder to build off of.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// All of the settings in the client will be overwritten by the settings</span>
-    <span class="doccomment">/// in this configuration, if specified.</span>
+    <span class="doccomment">/// The proxy and timeout settings in the reqwest client will be overridden by</span>
+    <span class="doccomment">/// those in this builder.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The default client is a RusTLS-backed client.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reqwest_client</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">client</span>: <span class="ident">ReqwestClient</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="doccomment">/// The default client uses Rustls as its TLS backend.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reqwest_client</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">client</span>: <span class="ident">ReqwestClientBuilder</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">reqwest_client</span>.<span class="ident">replace</span>(<span class="ident">client</span>);
 
         <span class="self">self</span>
