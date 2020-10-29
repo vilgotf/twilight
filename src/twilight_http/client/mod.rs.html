@@ -1795,7 +1795,7 @@
     <span class="doccomment">/// In guild `1`, add role `2` to user `3`, for the reason `&quot;test&quot;`:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```rust,no_run</span>
-    <span class="doccomment">/// # use twilight_http::Client;</span>
+    <span class="doccomment">/// # use twilight_http::{request::AuditLogReason, Client};</span>
     <span class="doccomment">/// use twilight_model::id::{GuildId, RoleId, UserId};</span>
     <span class="doccomment">/// #</span>
     <span class="doccomment">/// # #[tokio::main]</span>
@@ -1806,7 +1806,7 @@
     <span class="doccomment">/// let role_id = RoleId(2);</span>
     <span class="doccomment">/// let user_id = UserId(3);</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// client.add_role(guild_id, user_id, role_id).reason(&quot;test&quot;).await?;</span>
+    <span class="doccomment">/// client.add_role(guild_id, user_id, role_id).reason(&quot;test&quot;)?.await?;</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_role</span>(
@@ -1879,7 +1879,7 @@
     <span class="doccomment">/// 1 day&#39;s worth of messages, for the reason `&quot;memes&quot;`:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```rust,no_run</span>
-    <span class="doccomment">/// # use twilight_http::Client;</span>
+    <span class="doccomment">/// # use twilight_http::{request::AuditLogReason, Client};</span>
     <span class="doccomment">/// use twilight_model::id::{GuildId, UserId};</span>
     <span class="doccomment">/// #</span>
     <span class="doccomment">/// # #[tokio::main]</span>
@@ -1890,7 +1890,7 @@
     <span class="doccomment">/// let user_id = UserId(200);</span>
     <span class="doccomment">/// client.create_ban(guild_id, user_id)</span>
     <span class="doccomment">///     .delete_message_days(1)?</span>
-    <span class="doccomment">///     .reason(&quot;memes&quot;)</span>
+    <span class="doccomment">///     .reason(&quot;memes&quot;)?</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
