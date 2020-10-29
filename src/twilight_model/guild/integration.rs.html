@@ -168,6 +168,14 @@
 <span id="165">165</span>
 <span id="166">166</span>
 <span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">IntegrationAccount</span>, <span class="ident">IntegrationApplication</span>, <span class="ident">IntegrationExpireBehavior</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -183,18 +191,18 @@
     <span class="kw">pub</span> <span class="ident">application</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">IntegrationApplication</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">enable_emoticons</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">enabled</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">expire_behavior</span>: <span class="ident">IntegrationExpireBehavior</span>,
-    <span class="kw">pub</span> <span class="ident">expire_grace_period</span>: <span class="ident">u64</span>,
+    <span class="kw">pub</span> <span class="ident">expire_behavior</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">IntegrationExpireBehavior</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">expire_grace_period</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">IntegrationId</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">kind</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">revoked</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">role_id</span>: <span class="ident">RoleId</span>,
-    <span class="kw">pub</span> <span class="ident">subscriber_count</span>: <span class="ident">u64</span>,
-    <span class="kw">pub</span> <span class="ident">synced_at</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">syncing</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">user</span>: <span class="ident">User</span>,
+    <span class="kw">pub</span> <span class="ident">revoked</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">role_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">subscriber_count</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">synced_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">syncing</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">user</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Key</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">IntegrationId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">GuildIntegration</span> {
@@ -222,17 +230,17 @@
             <span class="ident">application</span>: <span class="prelude-val">None</span>,
             <span class="ident">enable_emoticons</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
             <span class="ident">enabled</span>: <span class="bool-val">true</span>,
-            <span class="ident">expire_behavior</span>: <span class="ident">IntegrationExpireBehavior</span>::<span class="ident">Kick</span>,
-            <span class="ident">expire_grace_period</span>: <span class="number">3_600</span>,
+            <span class="ident">expire_behavior</span>: <span class="prelude-val">Some</span>(<span class="ident">IntegrationExpireBehavior</span>::<span class="ident">Kick</span>),
+            <span class="ident">expire_grace_period</span>: <span class="prelude-val">Some</span>(<span class="number">3_600</span>),
             <span class="ident">id</span>: <span class="ident">IntegrationId</span>(<span class="number">2</span>),
             <span class="ident">kind</span>: <span class="string">&quot;a&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">name</span>: <span class="string">&quot;integration name&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">revoked</span>: <span class="bool-val">false</span>,
-            <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">3</span>),
-            <span class="ident">subscriber_count</span>: <span class="number">1337</span>,
-            <span class="ident">synced_at</span>: <span class="string">&quot;timestamp&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">syncing</span>: <span class="bool-val">false</span>,
-            <span class="ident">user</span>: <span class="ident">User</span> {
+            <span class="ident">revoked</span>: <span class="prelude-val">Some</span>(<span class="bool-val">false</span>),
+            <span class="ident">role_id</span>: <span class="prelude-val">Some</span>(<span class="ident">RoleId</span>(<span class="number">3</span>)),
+            <span class="ident">subscriber_count</span>: <span class="prelude-val">Some</span>(<span class="number">1337</span>),
+            <span class="ident">synced_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;timestamp&quot;</span>.<span class="ident">to_owned</span>()),
+            <span class="ident">syncing</span>: <span class="prelude-val">Some</span>(<span class="bool-val">false</span>),
+            <span class="ident">user</span>: <span class="prelude-val">Some</span>(<span class="ident">User</span> {
                 <span class="ident">avatar</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;hash&quot;</span>.<span class="ident">to_owned</span>()),
                 <span class="ident">bot</span>: <span class="bool-val">true</span>,
                 <span class="ident">discriminator</span>: <span class="string">&quot;1000&quot;</span>.<span class="ident">to_owned</span>(),
@@ -246,7 +254,7 @@
                 <span class="ident">public_flags</span>: <span class="prelude-val">None</span>,
                 <span class="ident">system</span>: <span class="prelude-val">None</span>,
                 <span class="ident">verified</span>: <span class="prelude-val">None</span>,
-            },
+            }),
         };
 
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
@@ -274,8 +282,10 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;enabled&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;expire_behavior&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">1</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;expire_grace_period&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">3_600</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> {
@@ -287,17 +297,23 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;integration name&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;revoked&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;role_id&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;RoleId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;3&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;subscriber_count&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1337</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;synced_at&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;timestamp&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;syncing&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;User&quot;</span>,
                     <span class="ident">len</span>: <span class="number">13</span>,
