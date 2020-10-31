@@ -295,6 +295,28 @@
 <span id="292">292</span>
 <span id="293">293</span>
 <span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Arguments</span>, <span class="ident">CommandParserConfig</span>};
 
@@ -428,6 +450,10 @@
         <span class="kw">let</span> <span class="ident">command</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">find_command</span>(<span class="ident">command_buf</span>)<span class="question-mark">?</span>;
 
         <span class="ident">idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">command</span>.<span class="ident">len</span>();
+
+        <span class="comment">// Advance from the amount of whitespace that was between the prefix and</span>
+        <span class="comment">// the command name.</span>
+        <span class="ident">idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">command_buf</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="ident">command_buf</span>.<span class="ident">trim_start</span>().<span class="ident">len</span>();
 
         <span class="prelude-val">Some</span>(<span class="ident">Command</span> {
             <span class="ident">arguments</span>: <span class="ident">Arguments</span>::<span class="ident">new</span>(<span class="ident">buf</span>.<span class="ident">get</span>(<span class="ident">idx</span>..)<span class="question-mark">?</span>),
@@ -588,6 +614,24 @@
 
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;=&quot;</span>, <span class="ident">command</span>.<span class="ident">prefix</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;echo&quot;</span>, <span class="ident">command</span>.<span class="ident">name</span>);
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_prefix_mention</span>() {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">CommandParserConfig</span>::<span class="ident">new</span>();
+        <span class="ident">config</span>.<span class="ident">add_prefix</span>(<span class="string">&quot;foo&quot;</span>);
+        <span class="ident">config</span>.<span class="ident">add_command</span>(<span class="string">&quot;dump&quot;</span>, <span class="bool-val">false</span>);
+        <span class="kw">let</span> <span class="ident">parser</span> <span class="op">=</span> <span class="ident">Parser</span>::<span class="ident">new</span>(<span class="ident">config</span>);
+
+        <span class="kw">let</span> <span class="ident">Command</span> {
+            <span class="kw-2">mut</span> <span class="ident">arguments</span>,
+            <span class="ident">name</span>,
+            <span class="ident">prefix</span>,
+        } <span class="op">=</span> <span class="ident">parser</span>.<span class="ident">parse</span>(<span class="string">&quot;foo dump test&quot;</span>).<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;foo&quot;</span>, <span class="ident">prefix</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;dump&quot;</span>, <span class="ident">name</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;test&quot;</span>), <span class="ident">arguments</span>.<span class="ident">next</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">arguments</span>.<span class="ident">next</span>().<span class="ident">is_none</span>());
     }
 }
 </pre></div>
