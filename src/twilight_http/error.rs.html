@@ -167,10 +167,20 @@
 <span id="164">164</span>
 <span id="165">165</span>
 <span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">api_error</span>::<span class="ident">ApiError</span>, <span class="ident">ratelimiting</span>::<span class="ident">RatelimitError</span>};
 <span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">oneshot</span>::<span class="ident">Canceled</span>;
-<span class="kw">use</span> <span class="ident">reqwest</span>::{<span class="ident">header</span>::<span class="ident">InvalidHeaderValue</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">ReqwestError</span>, <span class="ident">StatusCode</span>};
+<span class="kw">use</span> <span class="ident">reqwest</span>::{<span class="ident">header</span>::<span class="ident">InvalidHeaderValue</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">ReqwestError</span>, <span class="ident">Response</span>, <span class="ident">StatusCode</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">StdError</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">FmtError</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
@@ -268,6 +278,13 @@
         <span class="ident">error</span>: <span class="ident">ApiError</span>,
         <span class="ident">status</span>: <span class="ident">StatusCode</span>,
     },
+    <span class="doccomment">/// API service is unavailable. Consider re-sending the request at a</span>
+    <span class="doccomment">/// later time.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This may occur during Discord API stability incidents.</span>
+    <span class="ident">ServiceUnavailable</span> {
+        <span class="ident">response</span>: <span class="ident">Response</span>,
+    },
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">FmtError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Error</span> {
@@ -314,6 +331,9 @@
                 <span class="string">&quot;Response error: status code {}, error: {}&quot;</span>,
                 <span class="ident">status</span>, <span class="ident">error</span>
             ),
+            <span class="self">Self</span>::<span class="ident">ServiceUnavailable</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;api may be temporarily unavailable (received a 503)&quot;</span>)
+            }
         }
     }
 }
@@ -330,7 +350,7 @@
             <span class="self">Self</span>::<span class="ident">BuildingClient</span> { <span class="ident">source</span> }
             <span class="op">|</span> <span class="self">Self</span>::<span class="ident">ChunkingResponse</span> { <span class="ident">source</span> }
             <span class="op">|</span> <span class="self">Self</span>::<span class="ident">RequestError</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">Response</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::<span class="ident">Response</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">ServiceUnavailable</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }

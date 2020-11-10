@@ -1633,6 +1633,7 @@
 <span id="1630">1630</span>
 <span id="1631">1631</span>
 <span id="1632">1632</span>
+<span id="1633">1633</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -3161,15 +3162,16 @@
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">resp</span>);
         }
 
-        <span class="kw">if</span> <span class="ident">status</span> <span class="op">=</span><span class="op">=</span> <span class="ident">StatusCode</span>::<span class="ident">IM_A_TEAPOT</span> {
-            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(
+        <span class="kw">match</span> <span class="ident">status</span> {
+            <span class="ident">StatusCode</span>::<span class="ident">IM_A_TEAPOT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(
                 <span class="string">&quot;discord&#39;s api now runs off of teapots -- proceed to panic: {:?}&quot;</span>,
                 <span class="ident">resp</span>,
-            );
-        }
-
-        <span class="kw">if</span> <span class="ident">status</span> <span class="op">=</span><span class="op">=</span> <span class="ident">StatusCode</span>::<span class="ident">TOO_MANY_REQUESTS</span> {
-            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;429 response: {:?}&quot;</span>, <span class="ident">resp</span>);
+            ),
+            <span class="ident">StatusCode</span>::<span class="ident">TOO_MANY_REQUESTS</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;429 response: {:?}&quot;</span>, <span class="ident">resp</span>),
+            <span class="ident">StatusCode</span>::<span class="ident">SERVICE_UNAVAILABLE</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">ServiceUnavailable</span> { <span class="ident">response</span>: <span class="ident">resp</span> })
+            }
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {}
         }
 
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">resp</span>
