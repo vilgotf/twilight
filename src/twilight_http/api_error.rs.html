@@ -619,6 +619,21 @@
 <span id="616">616</span>
 <span id="617">617</span>
 <span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
+<span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">DeError</span>, <span class="ident">Visitor</span>},
@@ -681,6 +696,8 @@
     <span class="ident">BotsCannotUseEndpoint</span>,
     <span class="doccomment">/// Only bots can use this endpoint</span>
     <span class="ident">OnlyBotsCanUseEndpoint</span>,
+    <span class="doccomment">/// Message cannot be edited due to announcement rate limits</span>
+    <span class="ident">AnnouncementRateLimitReached</span>,
     <span class="doccomment">/// Maximum number of guilds reached (100)</span>
     <span class="ident">MaximumGuildsReached</span>,
     <span class="doccomment">/// Maximum number of friends reached (1000)</span>
@@ -749,8 +766,12 @@
     <span class="ident">InviteCodeInvalidOrTaken</span>,
     <span class="doccomment">/// Cannot execute action on a system message</span>
     <span class="ident">InvalidActionOnSystemMessage</span>,
+    <span class="doccomment">/// Cannot execute action on this channel type</span>
+    <span class="ident">CannotExecuteActionOnChannelType</span>,
     <span class="doccomment">/// Invalid OAuth2 access token provided</span>
     <span class="ident">InvalidOAuthAccessToken</span>,
+    <span class="doccomment">/// Invalid recipient(s)</span>
+    <span class="ident">InvalidRecipient</span>,
     <span class="doccomment">/// A message provided was too old to bulk delete</span>
     <span class="ident">MessageTooOldToBulkDelete</span>,
     <span class="doccomment">/// Invalid form body (returned for both application/json and multipart/form-data bodies), or invalid Content-Type provided</span>
@@ -798,6 +819,7 @@
             <span class="self">Self</span>::<span class="ident">UnknownRedistributable</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10036</span>,
             <span class="self">Self</span>::<span class="ident">BotsCannotUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">20001</span>,
             <span class="self">Self</span>::<span class="ident">OnlyBotsCanUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">20002</span>,
+            <span class="self">Self</span>::<span class="ident">AnnouncementRateLimitReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">20022</span>,
             <span class="self">Self</span>::<span class="ident">MaximumGuildsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30001</span>,
             <span class="self">Self</span>::<span class="ident">MaximumFriendsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30002</span>,
             <span class="self">Self</span>::<span class="ident">MaximumPinsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30003</span>,
@@ -832,7 +854,9 @@
             <span class="self">Self</span>::<span class="ident">MessagePinnedInWrongChannel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50019</span>,
             <span class="self">Self</span>::<span class="ident">InviteCodeInvalidOrTaken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50020</span>,
             <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50021</span>,
+            <span class="self">Self</span>::<span class="ident">CannotExecuteActionOnChannelType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50024</span>,
             <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50025</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidRecipient</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50033</span>,
             <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50034</span>,
             <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50035</span>,
             <span class="self">Self</span>::<span class="ident">InviteAcceptedToGuildBotNotIn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50036</span>,
@@ -873,6 +897,7 @@
             <span class="number">10036</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">UnknownRedistributable</span>,
             <span class="number">20001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">BotsCannotUseEndpoint</span>,
             <span class="number">20002</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">OnlyBotsCanUseEndpoint</span>,
+            <span class="number">20022</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">AnnouncementRateLimitReached</span>,
             <span class="number">30001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumGuildsReached</span>,
             <span class="number">30002</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumFriendsReached</span>,
             <span class="number">30003</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MaximumPinsReached</span>,
@@ -907,7 +932,9 @@
             <span class="number">50019</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MessagePinnedInWrongChannel</span>,
             <span class="number">50020</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InviteCodeInvalidOrTaken</span>,
             <span class="number">50021</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span>,
+            <span class="number">50024</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">CannotExecuteActionOnChannelType</span>,
             <span class="number">50025</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span>,
+            <span class="number">50033</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidRecipient</span>,
             <span class="number">50034</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span>,
             <span class="number">50035</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span>,
             <span class="number">50036</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InviteAcceptedToGuildBotNotIn</span>,
@@ -948,6 +975,7 @@
             <span class="self">Self</span>::<span class="ident">UnknownRedistributable</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown redistributable&quot;</span>),
             <span class="self">Self</span>::<span class="ident">BotsCannotUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Bots cannot use this endpoint&quot;</span>),
             <span class="self">Self</span>::<span class="ident">OnlyBotsCanUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Only bots can use this endpoint&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">AnnouncementRateLimitReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Message cannot be edited due to announcement rate limits&quot;</span>),
             <span class="self">Self</span>::<span class="ident">MaximumGuildsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of guilds reached (100)&quot;</span>),
             <span class="self">Self</span>::<span class="ident">MaximumFriendsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of friends reached (1000)&quot;</span>),
             <span class="self">Self</span>::<span class="ident">MaximumPinsReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Maximum number of pins reached for the channel (50)&quot;</span>),
@@ -982,7 +1010,9 @@
             <span class="self">Self</span>::<span class="ident">MessagePinnedInWrongChannel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;A message can only be pinned to the channel it was sent in&quot;</span>),
             <span class="self">Self</span>::<span class="ident">InviteCodeInvalidOrTaken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invite code was either invalid or taken&quot;</span>),
             <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot execute action on a system message&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">CannotExecuteActionOnChannelType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot execute action on channel type&quot;</span>),
             <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid OAuth2 access token provided&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidRecipient</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid recipient(s)&quot;</span>),
             <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;A message provided was too old to bulk delete&quot;</span>),
             <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid form body (returned for both application/json and multipart/form-data bodies), or invalid Content-Type provided&quot;</span>),
             <span class="self">Self</span>::<span class="ident">InviteAcceptedToGuildBotNotIn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;An invite was accepted to a guild the application&#39;s bot is not in&quot;</span>),
