@@ -155,12 +155,6 @@
 <span id="152">152</span>
 <span id="153">153</span>
 <span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Ratelimiting functionality for queueing new gateway sessions.</span>
 <span class="doccomment">//!</span>
@@ -182,8 +176,8 @@
 <span class="doccomment">//! single-process [Sharding for Very Large Bots] through the use of bucket</span>
 <span class="doccomment">//! releasing.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! By default, the [`Cluster`] and [`Shard`]s use the [`LocalQueue`]. You can</span>
-<span class="doccomment">//! override this in the [`ClusterBuilder::queue`] and [`ShardBuilder::queue`]</span>
+<span class="doccomment">//! By default, the gateway&#39;s `Cluster` and `Shard`s use the [`LocalQueue`]. You</span>
+<span class="doccomment">//! can override this in the `ClusterBuilder::queue` and `ShardBuilder::queue`</span>
 <span class="doccomment">//! configuration methods.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Advanced use cases</span>
@@ -194,12 +188,8 @@
 <span class="doccomment">//! all so a [`Queue`] trait is provided that shards can use to make requests to</span>
 <span class="doccomment">//! create sessions.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`ClusterBuilder::queue`]: ../cluster/struct.ClusterBuilder.html#method.queue</span>
-<span class="doccomment">//! [`Cluster`]: ../cluster/struct.Cluster.html</span>
 <span class="doccomment">//! [`LargeBotQueue`]: struct.LargeBotQueue.html</span>
 <span class="doccomment">//! [`LocalQueue`]: struct.LocalQueue.html</span>
-<span class="doccomment">//! [`ShardBuilder::queue`]: ../shard/struct.ShardBuilder.html#method.queue</span>
-<span class="doccomment">//! [`Shard`]: ../shard/struct.Shard.html</span>
 <span class="doccomment">//! [Sharding for Very Large Bots]: https://discord.com/developers/docs/topics/gateway#sharding-for-very-large-bots</span>
 
 <span class="kw">mod</span> <span class="ident">day_limiter</span>;
@@ -234,13 +224,13 @@
 }
 
 <span class="doccomment">/// A local, in-process implementation of a [`Queue`] which manages the</span>
-<span class="doccomment">/// connection attempts of one or more [`Shard`]s.</span>
+<span class="doccomment">/// connection attempts of one or more shards.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The queue will take incoming requests and then queue them, releasing one of</span>
 <span class="doccomment">/// the requests every 6 seconds. The queue is necessary because there&#39;s a</span>
 <span class="doccomment">/// ratelimit on how often shards can initiate sessions.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// You usually won&#39;t need to handle this yourself, because the [`Cluster`] will</span>
+<span class="doccomment">/// You usually won&#39;t need to handle this yourself, because the `Cluster` will</span>
 <span class="doccomment">/// do that for you when managing multiple shards.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # When not to use this</span>
@@ -258,9 +248,7 @@
 <span class="doccomment">/// [`Queue`], such as the [`gateway-queue`] broker.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`LargeBotQueue`]: ./struct.LargeBotQueue.html</span>
-<span class="doccomment">/// [`Cluster`]: ../cluster/struct.Cluster.html</span>
 <span class="doccomment">/// [`Queue`]: trait.Queue.html</span>
-<span class="doccomment">/// [`Shard`]: ../shard/struct.Shard.html</span>
 <span class="doccomment">/// [`gateway-queue`]: https://github.com/twilight-rs/gateway-queue</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LocalQueue</span>(<span class="ident">UnboundedSender</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>);
