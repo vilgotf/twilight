@@ -177,6 +177,12 @@
 <span id="174">174</span>
 <span id="175">175</span>
 <span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">api_error</span>::<span class="ident">ApiError</span>, <span class="ident">ratelimiting</span>::<span class="ident">RatelimitError</span>};
 <span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">oneshot</span>::<span class="ident">Canceled</span>;
@@ -285,6 +291,11 @@
     <span class="ident">ServiceUnavailable</span> {
         <span class="ident">response</span>: <span class="ident">Response</span>,
     },
+    <span class="doccomment">/// Token in use has become revoked or is otherwise invalid.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This can occur if a bot token is invalidated or an access token expires</span>
+    <span class="doccomment">/// or is revoked. Recreate the client to configure a new token.</span>
+    <span class="ident">Unauthorized</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">FmtError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Error</span> {
@@ -334,6 +345,7 @@
             <span class="self">Self</span>::<span class="ident">ServiceUnavailable</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;api may be temporarily unavailable (received a 503)&quot;</span>)
             }
+            <span class="self">Self</span>::<span class="ident">Unauthorized</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;token in use is invalid, expired, or is revoked&quot;</span>),
         }
     }
 }
@@ -350,7 +362,7 @@
             <span class="self">Self</span>::<span class="ident">BuildingClient</span> { <span class="ident">source</span> }
             <span class="op">|</span> <span class="self">Self</span>::<span class="ident">ChunkingResponse</span> { <span class="ident">source</span> }
             <span class="op">|</span> <span class="self">Self</span>::<span class="ident">RequestError</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">Response</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">ServiceUnavailable</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::<span class="ident">Response</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">ServiceUnavailable</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">Unauthorized</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }

@@ -1634,6 +1634,58 @@
 <span id="1631">1631</span>
 <span id="1632">1632</span>
 <span id="1633">1633</span>
+<span id="1634">1634</span>
+<span id="1635">1635</span>
+<span id="1636">1636</span>
+<span id="1637">1637</span>
+<span id="1638">1638</span>
+<span id="1639">1639</span>
+<span id="1640">1640</span>
+<span id="1641">1641</span>
+<span id="1642">1642</span>
+<span id="1643">1643</span>
+<span id="1644">1644</span>
+<span id="1645">1645</span>
+<span id="1646">1646</span>
+<span id="1647">1647</span>
+<span id="1648">1648</span>
+<span id="1649">1649</span>
+<span id="1650">1650</span>
+<span id="1651">1651</span>
+<span id="1652">1652</span>
+<span id="1653">1653</span>
+<span id="1654">1654</span>
+<span id="1655">1655</span>
+<span id="1656">1656</span>
+<span id="1657">1657</span>
+<span id="1658">1658</span>
+<span id="1659">1659</span>
+<span id="1660">1660</span>
+<span id="1661">1661</span>
+<span id="1662">1662</span>
+<span id="1663">1663</span>
+<span id="1664">1664</span>
+<span id="1665">1665</span>
+<span id="1666">1666</span>
+<span id="1667">1667</span>
+<span id="1668">1668</span>
+<span id="1669">1669</span>
+<span id="1670">1670</span>
+<span id="1671">1671</span>
+<span id="1672">1672</span>
+<span id="1673">1673</span>
+<span id="1674">1674</span>
+<span id="1675">1675</span>
+<span id="1676">1676</span>
+<span id="1677">1677</span>
+<span id="1678">1678</span>
+<span id="1679">1679</span>
+<span id="1680">1680</span>
+<span id="1681">1681</span>
+<span id="1682">1682</span>
+<span id="1683">1683</span>
+<span id="1684">1684</span>
+<span id="1685">1685</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -1658,7 +1710,10 @@
     <span class="ident">convert</span>::<span class="ident">TryFrom</span>,
     <span class="ident">fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
     <span class="ident">result</span>::<span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">StdResult</span>,
-    <span class="ident">sync</span>::<span class="ident">Arc</span>,
+    <span class="ident">sync</span>::{
+        <span class="ident">atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>},
+        <span class="ident">Arc</span>,
+    },
 };
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
     <span class="ident">guild</span>::<span class="ident">Permissions</span>,
@@ -1669,6 +1724,7 @@
 <span class="kw">struct</span> <span class="ident">State</span> {
     <span class="ident">http</span>: <span class="ident">ReqwestClient</span>,
     <span class="ident">ratelimiter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Ratelimiter</span><span class="op">&gt;</span>,
+    <span class="ident">token_invalid</span>: <span class="ident">AtomicBool</span>,
     <span class="ident">token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="ident">use_http</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">default_allowed_mentions</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AllowedMentions</span><span class="op">&gt;</span>,
@@ -1689,6 +1745,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Almost all of the client methods require authentication, and as such, the client must be</span>
 <span class="doccomment">/// supplied with a Discord Token. Get yours [here].</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Unauthorized behavior</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// When the client encounters an Unauthorized response it will take note that</span>
+<span class="doccomment">/// the configured token is invalid. This may occur when the token has been</span>
+<span class="doccomment">/// revoked or expired. When this happens, you must create a new client with the</span>
+<span class="doccomment">/// new token. The client will no longer execute requests in order to</span>
+<span class="doccomment">/// prevent API bans and will always return [`Error::Unauthorized`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
@@ -1721,6 +1785,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [here]: https://discord.com/developers/applications</span>
 <span class="doccomment">/// [`ClientBuilder`]: struct.ClientBuilder.html</span>
+<span class="doccomment">/// [`Error::Unauthorized`]: ../enum.Error.html#variant.Unauthorized</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Client</span> {
     <span class="ident">state</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">State</span><span class="op">&gt;</span>,
@@ -1748,6 +1813,7 @@
             <span class="ident">state</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">State</span> {
                 <span class="ident">http</span>: <span class="ident">ReqwestClient</span>::<span class="ident">new</span>(),
                 <span class="ident">ratelimiter</span>: <span class="prelude-val">Some</span>(<span class="ident">Ratelimiter</span>::<span class="ident">new</span>()),
+                <span class="ident">token_invalid</span>: <span class="ident">AtomicBool</span>::<span class="ident">new</span>(<span class="bool-val">false</span>),
                 <span class="ident">token</span>: <span class="prelude-val">Some</span>(<span class="ident">token</span>),
                 <span class="ident">use_http</span>: <span class="bool-val">false</span>,
                 <span class="ident">default_allowed_mentions</span>: <span class="prelude-val">None</span>,
@@ -3037,7 +3103,19 @@
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">execute_webhook</span>(<span class="ident">id</span>, <span class="ident">token</span>.<span class="ident">ok_or</span>(<span class="ident">UrlError</span>::<span class="ident">SegmentMissing</span>)<span class="question-mark">?</span>))
     }
 
+    <span class="doccomment">/// Execute a request, returning the response.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Errors</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns [`Error::Unauthorized`] if the configured token has become</span>
+    <span class="doccomment">/// invalid due to expiration, revokation, etc.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`Error::Unauthorized`]: ../enum.Error.html#variant.Unauthorized</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">request</span>: <span class="ident">Request</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">token_invalid</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">Unauthorized</span>);
+        }
+
         <span class="kw">let</span> <span class="ident">Request</span> {
             <span class="ident">body</span>,
             <span class="ident">form</span>,
@@ -3108,6 +3186,13 @@
             .<span class="ident">await</span>
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">RequestError</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
 
+        <span class="comment">// If the API sent back an Unauthorized response, then the client&#39;s</span>
+        <span class="comment">// configured token is permanently invalid and future requests must be</span>
+        <span class="comment">// ignored to avoid API bans.</span>
+        <span class="kw">if</span> <span class="ident">resp</span>.<span class="ident">status</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">StatusCode</span>::<span class="ident">UNAUTHORIZED</span> {
+            <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">token_invalid</span>.<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
+        }
+
         <span class="kw">match</span> <span class="ident">RatelimitHeaders</span>::<span class="ident">try_from</span>(<span class="ident">resp</span>.<span class="ident">headers</span>()) {
             <span class="prelude-val">Ok</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send</span>(<span class="prelude-val">Some</span>(<span class="ident">v</span>));
@@ -3122,6 +3207,14 @@
         <span class="prelude-val">Ok</span>(<span class="ident">resp</span>)
     }
 
+    <span class="doccomment">/// Execute a request, chunking and deserializing the response.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Errors</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns [`Error::Unauthorized`] if the configured token has become</span>
+    <span class="doccomment">/// invalid due to expiration, revokation, etc.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`Error::Unauthorized`]: ../enum.Error.html#variant.Unauthorized</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">request</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">request</span>: <span class="ident">Request</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">make_request</span>(<span class="ident">request</span>).<span class="ident">await</span><span class="question-mark">?</span>;
 
@@ -3148,6 +3241,16 @@
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">ChunkingResponse</span> { <span class="ident">source</span> })
     }
 
+    <span class="doccomment">/// Execute a request, checking only that the response was a success.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This will not chunk and deserialize the body of the response.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Errors</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns [`Error::Unauthorized`] if the configured token has become</span>
+    <span class="doccomment">/// invalid due to expiration, revokation, etc.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`Error::Unauthorized`]: ../enum.Error.html#variant.Unauthorized</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">request</span>: <span class="ident">Request</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">make_request</span>(<span class="ident">request</span>).<span class="ident">await</span><span class="question-mark">?</span>;
 
@@ -3207,6 +3310,7 @@
             <span class="ident">state</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">State</span> {
                 <span class="ident">http</span>: <span class="ident">reqwest_client</span>,
                 <span class="ident">ratelimiter</span>: <span class="prelude-val">Some</span>(<span class="ident">Ratelimiter</span>::<span class="ident">new</span>()),
+                <span class="ident">token_invalid</span>: <span class="ident">AtomicBool</span>::<span class="ident">new</span>(<span class="bool-val">false</span>),
                 <span class="ident">token</span>: <span class="prelude-val">None</span>,
                 <span class="ident">use_http</span>: <span class="bool-val">false</span>,
                 <span class="ident">default_allowed_mentions</span>: <span class="prelude-val">None</span>,
