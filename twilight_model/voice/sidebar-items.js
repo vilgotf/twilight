@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["VoiceRegion",""],["VoiceState",""]]});
+initSidebarItems({"enum":[["CloseCode","Voice gateway close event codes."],["OpCode",""]],"struct":[["CloseCodeConversionError",""],["VoiceRegion",""],["VoiceState",""]]});
