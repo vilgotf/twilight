@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["api_error",""],["client",""],["error",""],["ratelimiting",""],["request",""],["routing",""]]});
+initSidebarItems({"constant":[["API_VERSION","Discord API version used by this crate."]],"mod":[["api_error",""],["client",""],["error",""],["ratelimiting",""],["request",""],["routing",""]]});
