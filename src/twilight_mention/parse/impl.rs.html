@@ -602,7 +602,7 @@
         .<span class="ident">as_str</span>()
         .<span class="ident">find</span>(<span class="string">&#39;&gt;&#39;</span>)
         .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">idx</span><span class="op">|</span> <span class="ident">chars</span>.<span class="ident">as_str</span>().<span class="ident">get</span>(..<span class="ident">idx</span>))
-        .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">ParseMentionError</span>::<span class="ident">TrailingArrow</span> { <span class="ident">found</span>: <span class="prelude-val">None</span> })<span class="question-mark">?</span>;
+        .<span class="ident">ok_or</span>(<span class="ident">ParseMentionError</span>::<span class="ident">TrailingArrow</span> { <span class="ident">found</span>: <span class="prelude-val">None</span> })<span class="question-mark">?</span>;
 
     <span class="ident">remaining</span>
         .<span class="ident">parse</span>()

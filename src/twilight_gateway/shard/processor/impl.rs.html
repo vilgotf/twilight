@@ -1288,7 +1288,7 @@
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
             }
 
-            <span class="kw">let</span> <span class="ident">seq</span> <span class="op">=</span> <span class="ident">seq</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">ProcessError</span>::<span class="ident">SequenceMissing</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">seq</span> <span class="op">=</span> <span class="ident">seq</span>.<span class="ident">ok_or</span>(<span class="ident">ProcessError</span>::<span class="ident">SequenceMissing</span>)<span class="question-mark">?</span>;
 
             <span class="kw">if</span> <span class="ident">event_type</span>.<span class="ident">as_deref</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="string">&quot;RESUMED&quot;</span>) {
                 <span class="self">self</span>.<span class="ident">process_resumed</span>(<span class="ident">seq</span>);
