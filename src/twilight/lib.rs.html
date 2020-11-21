@@ -237,6 +237,8 @@
 <span id="234">234</span>
 <span id="235">235</span>
 <span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight</span>
 <span class="doccomment">//!</span>
@@ -247,9 +249,9 @@
 <span class="doccomment">//! `twilight` is a powerful, flexible, and scalable ecosystem of Rust libraries</span>
 <span class="doccomment">//! for the Discord API.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The ecosystem of first-class crates includes `twilight-cache-inmemory`,</span>
-<span class="doccomment">//! `twilight-command-parser`, `twilight-gateway`, `twilight-http`,</span>
-<span class="doccomment">//! `twilight-model`, and more. These are explained in detail below.</span>
+<span class="doccomment">//! The ecosystem of first-class crates includes [`twilight-cache-inmemory`],</span>
+<span class="doccomment">//! [`twilight-command-parser`], [`twilight-gateway`], [`twilight-http`],</span>
+<span class="doccomment">//! [`twilight-model`], and more. These are explained in detail below.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The main `twilight` crate is purely an advertisement crate: it has *no*</span>
 <span class="doccomment">//! functionality. Please use the individual crates listed below instead!</span>
@@ -275,7 +277,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! These are essential crates that most users will use together for a full</span>
 <span class="doccomment">//! development experience. You may not need all of these - such as</span>
-<span class="doccomment">//! `twilight-command-parser` - but they are often used together to accomplish</span>
+<span class="doccomment">//! [`twilight-command-parser`] - but they are often used together to accomplish</span>
 <span class="doccomment">//! most of what you need.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### [`twilight-model`]</span>
@@ -287,8 +289,8 @@
 <span class="doccomment">//! WebSocket API, and more.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! These are all in a single crate so that you can use `gateway` models without</span>
-<span class="doccomment">//! depending on `twilight-gateway`. One use case is if you write your own WebSocket</span>
-<span class="doccomment">//! gateway implementation.</span>
+<span class="doccomment">//! depending on [`twilight-gateway`]. One use case is if you write your own</span>
+<span class="doccomment">//! WebSocket gateway implementation.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### [`twilight-cache-inmemory`]</span>
 <span class="doccomment">//!</span>
@@ -305,7 +307,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### [`twilight-command-parser`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Helpful crate for parsing commands out of messages received over the gateway. It finds messages commanding your bot and parses the arguments out.</span>
+<span class="doccomment">//! Helpful crate for parsing commands out of messages received over the</span>
+<span class="doccomment">//! gateway. It finds messages commanding your bot and parses the arguments out.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### [`twilight-http`]</span>
 <span class="doccomment">//!</span>
@@ -326,7 +329,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### [`twilight-embed-builder`]</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Utility crate for creating and validating message embeds, to be used when creating or updating messages.</span>
+<span class="doccomment">//! Utility crate for creating and validating message embeds, to be used when</span>
+<span class="doccomment">//! creating or updating messages.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### [`twilight-lavalink`]</span>
 <span class="doccomment">//!</span>
@@ -352,8 +356,8 @@
 <span class="doccomment">//! ### [`twilight-gateway-queue`]</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! A trait and some implementations that are used by the gateway to ratelimit</span>
-<span class="doccomment">//! identify calls. Developers should prefer to use the re-exports of these crates</span>
-<span class="doccomment">//! through the gateway.</span>
+<span class="doccomment">//! identify calls. Developers should prefer to use the re-exports of these</span>
+<span class="doccomment">//! crates through the gateway.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Examples</span>
 <span class="doccomment">//!</span>
