@@ -644,6 +644,11 @@
 <span id="641">641</span>
 <span id="642">642</span>
 <span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::<span class="ident">ShardBuilder</span>,
@@ -863,6 +868,11 @@
 <span class="doccomment">/// Shards will [go through a queue][`queue`] to initialize new ratelimited</span>
 <span class="doccomment">/// sessions with the ratelimit. Refer to Discord&#39;s [documentation][docs:shards]</span>
 <span class="doccomment">/// on shards to have a better understanding of what they are.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Cloning</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The shard internally wraps its data within an Arc. This means that the shard</span>
+<span class="doccomment">/// can be cloned and passed around tasks and threads cheaply.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>

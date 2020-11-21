@@ -386,6 +386,11 @@
 <span id="383">383</span>
 <span id="384">384</span>
 <span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Client to manage nodes and players.</span>
 
@@ -470,6 +475,11 @@
 <span class="doccomment">/// You can retrieve players using the [`player`] method. Players contain</span>
 <span class="doccomment">/// information about the active playing information of a guild and allows you to send events to the</span>
 <span class="doccomment">/// connected node, such as [`Play`] events.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Cloning</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The client internally wraps its data within an Arc. This means that the</span>
+<span class="doccomment">/// client can be cloned and passed around tasks and threads cheaply.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Play`]: ../model/outgoing/struct.Play.html</span>
 <span class="doccomment">/// [`player`]: #method.player</span>

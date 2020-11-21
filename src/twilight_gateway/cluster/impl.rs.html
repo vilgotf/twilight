@@ -454,6 +454,11 @@
 <span id="451">451</span>
 <span id="452">452</span>
 <span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::{<span class="ident">ClusterBuilder</span>, <span class="ident">ShardScheme</span>},
@@ -560,6 +565,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// The Cluster can be cloned and will point to the same cluster, so you can</span>
 <span class="doccomment">/// pass it around as needed.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Cloning</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The cluster internally wraps its data within an Arc. This means that the</span>
+<span class="doccomment">/// cluster can be cloned and passed around tasks and threads cheaply.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>

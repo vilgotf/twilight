@@ -1686,6 +1686,11 @@
 <span id="1683">1683</span>
 <span id="1684">1684</span>
 <span id="1685">1685</span>
+<span id="1686">1686</span>
+<span id="1687">1687</span>
+<span id="1688">1688</span>
+<span id="1689">1689</span>
+<span id="1690">1690</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -1746,6 +1751,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Almost all of the client methods require authentication, and as such, the client must be</span>
 <span class="doccomment">/// supplied with a Discord Token. Get yours [here].</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Cloning</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The client internally wraps its data within an Arc. This means that the</span>
+<span class="doccomment">/// client can be cloned and passed around tasks and threads cheaply.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Unauthorized behavior</span>
 <span class="doccomment">///</span>

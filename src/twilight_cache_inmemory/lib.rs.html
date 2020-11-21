@@ -1489,6 +1489,11 @@
 <span id="1486">1486</span>
 <span id="1487">1487</span>
 <span id="1488">1488</span>
+<span id="1489">1489</span>
+<span id="1490">1490</span>
+<span id="1491">1491</span>
+<span id="1492">1492</span>
+<span id="1493">1493</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-cache-inmemory</span>
 <span class="doccomment">//!</span>
@@ -1658,6 +1663,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Events will only be processed if they are properly expressed with</span>
 <span class="doccomment">/// [`Intents`]; refer to function-level documentation for more details.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Cloning</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The cache internally wraps its data within an Arc. This means that the cache</span>
+<span class="doccomment">/// can be cloned and passed around tasks and threads cheaply.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Design and Performance</span>
 <span class="doccomment">///</span>

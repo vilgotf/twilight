@@ -1156,6 +1156,11 @@
 <span id="1153">1153</span>
 <span id="1154">1154</span>
 <span id="1155">1155</span>
+<span id="1156">1156</span>
+<span id="1157">1157</span>
+<span id="1158">1158</span>
+<span id="1159">1159</span>
+<span id="1160">1160</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-standby</span>
 <span class="doccomment">//!</span>
@@ -1355,6 +1360,11 @@
 <span class="doccomment">/// tasks to wait for an event.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Refer to the crate-level documentation for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Cloning</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Standby internally wraps its data within an Arc. This means that standby can</span>
+<span class="doccomment">/// be cloned and passed around tasks and threads cheaply.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Standby</span>(<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">StandbyRef</span><span class="op">&gt;</span>);
 
