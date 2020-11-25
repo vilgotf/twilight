@@ -656,6 +656,7 @@
 <span id="653">653</span>
 <span id="654">654</span>
 <span id="655">655</span>
+<span id="656">656</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::<span class="ident">ShardBuilder</span>,
@@ -677,6 +678,7 @@
     <span class="ident">stream</span>::<span class="ident">StreamExt</span>,
 };
 <span class="kw">use</span> <span class="ident">once_cell</span>::<span class="ident">sync</span>::<span class="ident">OnceCell</span>;
+<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">borrow</span>::<span class="ident">Cow</span>,
     <span class="ident">error</span>::<span class="ident">Error</span>,
@@ -806,7 +808,7 @@
 
 <span class="doccomment">/// Information about a shard, including its latency, current session sequence,</span>
 <span class="doccomment">/// and connection stage.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Information</span> {
     <span class="ident">id</span>: <span class="ident">u64</span>,
     <span class="ident">latency</span>: <span class="ident">Latency</span>,

@@ -249,10 +249,14 @@
 <span id="246">246</span>
 <span id="247">247</span>
 <span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="kw">super</span>::<span class="ident">json</span>, <span class="ident">session</span>::<span class="ident">SessionSendError</span>};
 <span class="kw">use</span> <span class="ident">async_tungstenite</span>::<span class="ident">tungstenite</span>::<span class="ident">Message</span> <span class="kw">as</span> <span class="ident">TungsteniteMessage</span>;
 <span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">mpsc</span>::<span class="ident">UnboundedSender</span>;
+<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">collections</span>::<span class="ident">VecDeque</span>,
     <span class="ident">convert</span>::<span class="ident">TryInto</span>,
@@ -270,12 +274,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Shard`]: struct.Shard.html</span>
 <span class="doccomment">/// [`Shard::info`]: struct.Shard.html#method.info</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Latency</span> {
     <span class="ident">average</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span>,
     <span class="ident">heartbeats</span>: <span class="ident">u32</span>,
     <span class="ident">recent</span>: <span class="ident">VecDeque</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>)]</span>
     <span class="ident">received</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Instant</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>)]</span>
     <span class="ident">sent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Instant</span><span class="op">&gt;</span>,
 }
 
