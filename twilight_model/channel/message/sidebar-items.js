@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["MessageActivityType",""],["MessageType",""]],"struct":[["Message",""],["MessageActivity",""],["MessageApplication",""],["MessageFlags",""],["MessageReaction",""],["MessageReference",""]]});
+initSidebarItems({"enum":[["MessageActivityType",""],["MessageType",""]],"mod":[["sticker","Message stickers."]],"struct":[["Message",""],["MessageActivity",""],["MessageApplication",""],["MessageFlags",""],["MessageReaction",""],["MessageReference",""]]});

@@ -71,6 +71,8 @@
 <span id="68">68</span>
 <span id="69">69</span>
 <span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">Serialize</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
@@ -78,7 +80,7 @@
         <span class="ident">embed</span>::<span class="ident">Embed</span>,
         <span class="ident">message</span>::{
             <span class="ident">Message</span>, <span class="ident">MessageActivity</span>, <span class="ident">MessageApplication</span>, <span class="ident">MessageFlags</span>, <span class="ident">MessageReaction</span>,
-            <span class="ident">MessageReference</span>, <span class="ident">MessageType</span>,
+            <span class="ident">MessageReference</span>, <span class="ident">MessageType</span>, <span class="ident">Sticker</span>,
         },
         <span class="ident">Attachment</span>, <span class="ident">ChannelMention</span>,
     },
@@ -108,6 +110,7 @@
     <span class="kw">pub</span> <span class="ident">pinned</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">reactions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MessageReaction</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">reference</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MessageReference</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">stickers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Sticker</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">tts</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">webhook_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WebhookId</span><span class="op">&gt;</span>,
@@ -136,6 +139,7 @@
             <span class="ident">pinned</span>: <span class="ident">msg</span>.<span class="ident">pinned</span>,
             <span class="ident">reactions</span>: <span class="ident">msg</span>.<span class="ident">reactions</span>,
             <span class="ident">reference</span>: <span class="ident">msg</span>.<span class="ident">reference</span>,
+            <span class="ident">stickers</span>: <span class="ident">msg</span>.<span class="ident">stickers</span>,
             <span class="ident">timestamp</span>: <span class="ident">msg</span>.<span class="ident">timestamp</span>,
             <span class="ident">tts</span>: <span class="ident">msg</span>.<span class="ident">tts</span>,
             <span class="ident">webhook_id</span>: <span class="ident">msg</span>.<span class="ident">webhook_id</span>,
