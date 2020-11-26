@@ -857,7 +857,7 @@
     }
 }
 <span class="doccomment">/// Details to resume a gateway session.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ResumeSession</span> {
     <span class="doccomment">/// ID of the session being resumed.</span>
     <span class="kw">pub</span> <span class="ident">session_id</span>: <span class="ident">String</span>,
