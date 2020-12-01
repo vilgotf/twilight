@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["PermissionOverwriteType",""]],"struct":[["PermissionOverwrite",""]]});
+initSidebarItems({"enum":[["PermissionOverwriteTargetType","Type of a permission overwrite target."],["PermissionOverwriteType",""]],"struct":[["PermissionOverwrite",""]]});
