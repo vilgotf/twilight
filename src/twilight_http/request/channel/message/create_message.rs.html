@@ -250,6 +250,22 @@
 <span id="247">247</span>
 <span id="248">248</span>
 <span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">allowed_mentions</span>::{<span class="ident">AllowedMentions</span>, <span class="ident">AllowedMentionsBuilder</span>, <span class="ident">Unspecified</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
@@ -263,8 +279,8 @@
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
-    <span class="ident">channel</span>::{<span class="ident">embed</span>::<span class="ident">Embed</span>, <span class="ident">Message</span>},
-    <span class="ident">id</span>::<span class="ident">ChannelId</span>,
+    <span class="ident">channel</span>::{<span class="ident">embed</span>::<span class="ident">Embed</span>, <span class="ident">message</span>::<span class="ident">MessageReference</span>, <span class="ident">Message</span>},
+    <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>},
 };
 
 <span class="doccomment">/// The error created when a messsage can not be created as configured.</span>
@@ -310,13 +326,15 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">embed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Embed</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="ident">message_reference</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MessageReference</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">payload_json</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">tts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">allowed_mentions</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AllowedMentions</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="ident">tts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Send a message to a channel.</span>
@@ -359,6 +377,36 @@
             <span class="ident">fut</span>: <span class="prelude-val">None</span>,
             <span class="ident">http</span>,
         }
+    }
+
+    <span class="doccomment">/// Return a new [`AllowedMentionsBuilder`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`AllowedMentionsBuilder`]: ../allowed_mentions/struct.AllowedMentionsBuilder.html</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">allowed_mentions</span>(
+        <span class="self">self</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span><span class="op">&gt;</span> {
+        <span class="ident">AllowedMentionsBuilder</span>::<span class="ident">for_builder</span>(<span class="self">self</span>)
+    }
+
+    <span class="doccomment">/// Attach a new file to the message.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The file is raw binary data. It can be an image, or any other kind of file.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachment</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">file</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">attachments</span>.<span class="ident">insert</span>(<span class="ident">name</span>.<span class="ident">into</span>(), <span class="ident">file</span>.<span class="ident">into</span>());
+
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Insert multiple attachments into the message.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachments</span><span class="op">&lt;</span><span class="ident">N</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">F</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+        <span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="ident">attachments</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">N</span>, <span class="ident">F</span>)<span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">file</span>) <span class="kw">in</span> <span class="ident">attachments</span> {
+            <span class="self">self</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">attachment</span>(<span class="ident">name</span>, <span class="ident">file</span>);
+        }
+
+        <span class="self">self</span>
     }
 
     <span class="doccomment">/// Set the content of the message.</span>
@@ -414,36 +462,6 @@
         <span class="prelude-val">Ok</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Return a new [`AllowedMentionsBuilder`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AllowedMentionsBuilder`]: ../allowed_mentions/struct.AllowedMentionsBuilder.html</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">allowed_mentions</span>(
-        <span class="self">self</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span><span class="op">&gt;</span> {
-        <span class="ident">AllowedMentionsBuilder</span>::<span class="ident">for_builder</span>(<span class="self">self</span>)
-    }
-
-    <span class="doccomment">/// Attach a new file to the message.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The file is raw binary data. It can be an image, or any other kind of file.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachment</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">file</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">attachments</span>.<span class="ident">insert</span>(<span class="ident">name</span>.<span class="ident">into</span>(), <span class="ident">file</span>.<span class="ident">into</span>());
-
-        <span class="self">self</span>
-    }
-
-    <span class="doccomment">/// Insert multiple attachments into the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachments</span><span class="op">&lt;</span><span class="ident">N</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">F</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span><span class="op">&gt;</span>(
-        <span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">attachments</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">N</span>, <span class="ident">F</span>)<span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">file</span>) <span class="kw">in</span> <span class="ident">attachments</span> {
-            <span class="self">self</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">attachment</span>(<span class="ident">name</span>, <span class="ident">file</span>);
-        }
-
-        <span class="self">self</span>
-    }
-
     <span class="doccomment">/// Attach a nonce to the message, for optimistic message sending.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nonce</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">nonce</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">nonce</span>.<span class="ident">replace</span>(<span class="ident">nonce</span>);
@@ -456,6 +474,20 @@
     <span class="doccomment">/// [Discord Docs/Create Message]: https://discord.com/developers/docs/resources/channel#create-message-params</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">payload_json</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">payload_json</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">payload_json</span>.<span class="ident">replace</span>(<span class="ident">payload_json</span>.<span class="ident">into</span>());
+
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Specify the ID of another message to create a reply to.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reply</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">other</span>: <span class="ident">MessageId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">message_reference</span>.<span class="ident">replace</span>(<span class="ident">MessageReference</span> {
+            <span class="comment">// This struct only needs the message_id, but as we also have</span>
+            <span class="comment">// access to the channel_id we send that, as it will be verified</span>
+            <span class="comment">// by Discord.</span>
+            <span class="ident">channel_id</span>: <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">channel_id</span>),
+            <span class="ident">guild_id</span>: <span class="prelude-val">None</span>,
+            <span class="ident">message_id</span>: <span class="prelude-val">Some</span>(<span class="ident">other</span>),
+        });
 
         <span class="self">self</span>
     }

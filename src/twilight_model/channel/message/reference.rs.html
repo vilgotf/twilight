@@ -74,13 +74,15 @@
 <span id="71">71</span>
 <span id="72">72</span>
 <span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">MessageId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageReference</span> {
-    <span class="kw">pub</span> <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
+    <span class="kw">pub</span> <span class="ident">channel_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GuildId</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">message_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MessageId</span><span class="op">&gt;</span>,
 }
@@ -93,7 +95,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_minimal</span>() {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">MessageReference</span> {
-            <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
+            <span class="ident">channel_id</span>: <span class="prelude-val">Some</span>(<span class="ident">ChannelId</span>(<span class="number">1</span>)),
             <span class="ident">guild_id</span>: <span class="prelude-val">None</span>,
             <span class="ident">message_id</span>: <span class="prelude-val">None</span>,
         };
@@ -106,6 +108,7 @@
                     <span class="ident">len</span>: <span class="number">3</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;channel_id&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;ChannelId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;guild_id&quot;</span>),
@@ -120,7 +123,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_complete</span>() {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">MessageReference</span> {
-            <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
+            <span class="ident">channel_id</span>: <span class="prelude-val">Some</span>(<span class="ident">ChannelId</span>(<span class="number">1</span>)),
             <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">2</span>)),
             <span class="ident">message_id</span>: <span class="prelude-val">Some</span>(<span class="ident">MessageId</span>(<span class="number">3</span>)),
         };
@@ -133,6 +136,7 @@
                     <span class="ident">len</span>: <span class="number">3</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;channel_id&quot;</span>),
+                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;ChannelId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;guild_id&quot;</span>),
