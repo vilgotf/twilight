@@ -162,17 +162,21 @@
 <span id="159">159</span>
 <span id="160">160</span>
 <span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">connection</span>;
 <span class="kw">mod</span> <span class="ident">connection_visibility</span>;
 <span class="kw">mod</span> <span class="ident">current_user</span>;
+<span class="kw">mod</span> <span class="ident">current_user_guild</span>;
 <span class="kw">mod</span> <span class="ident">flags</span>;
 <span class="kw">mod</span> <span class="ident">premium_type</span>;
 <span class="kw">mod</span> <span class="ident">profile</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
     <span class="ident">connection</span>::<span class="ident">Connection</span>, <span class="ident">connection_visibility</span>::<span class="ident">ConnectionVisibility</span>, <span class="ident">current_user</span>::<span class="ident">CurrentUser</span>,
-    <span class="ident">flags</span>::<span class="ident">UserFlags</span>, <span class="ident">premium_type</span>::<span class="ident">PremiumType</span>, <span class="ident">profile</span>::<span class="ident">UserProfile</span>,
+    <span class="ident">current_user_guild</span>::<span class="ident">CurrentUserGuild</span>, <span class="ident">flags</span>::<span class="ident">UserFlags</span>, <span class="ident">premium_type</span>::<span class="ident">PremiumType</span>,
+    <span class="ident">profile</span>::<span class="ident">UserProfile</span>,
 };
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::<span class="ident">UserId</span>;

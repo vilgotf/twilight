@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["ConnectionVisibility",""],["PremiumType",""]],"struct":[["Connection",""],["CurrentUser",""],["User",""],["UserFlags",""],["UserProfile",""]]});
+initSidebarItems({"enum":[["ConnectionVisibility",""],["PremiumType",""]],"struct":[["Connection",""],["CurrentUser",""],["CurrentUserGuild","Information about a guild the current user is in."],["User",""],["UserFlags",""],["UserProfile",""]]});
