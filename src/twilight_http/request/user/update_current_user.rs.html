@@ -104,8 +104,6 @@
 <span id="101">101</span>
 <span id="102">102</span>
 <span id="103">103</span>
-<span id="104">104</span>
-<span id="105">105</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -185,8 +183,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`UpdateCurrentUserError::UsernameInvalid`] if the username length is too short or</span>
     <span class="doccomment">/// too long.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UpdateCurrentUserError::UsernameInvalid`]: enum.UpdateCurrentUserError.html#variant.UsernameInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">username</span>(<span class="self">self</span>, <span class="ident">username</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateCurrentUserError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_username</span>(<span class="ident">username</span>.<span class="ident">into</span>())
     }

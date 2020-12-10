@@ -5,7 +5,7 @@
 <a href="https://discord.com/developers/docs/topics/gateway#sharding-for-very-large-bots">Sharding for Very Large Bots</a>.</p>
 <p>Usage with other processes will cause inconsistencies between each process
 cluster's ratelimit buckets. If you use multiple processes for clusters,
-then refer to the <a href="./index.html">module-level</a> documentation.</p>
+then refer to the <a href="../twilight_gateway_queue/index.html">module-level</a> documentation.</p>
 </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="../twilight_gateway_queue/struct.LargeBotQueue.html" title="struct twilight_gateway_queue::LargeBotQueue">LargeBotQueue</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/twilight_gateway_queue/large_bot_queue.rs.html#25-64" title="goto source code">[src]</a></h3><div class="impl-items"><h4 id="method.new" class="method"><code>pub async fn <a href="#method.new" class="fnname">new</a>&lt;'_&gt;(buckets: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, http: &amp;'_ <a class="struct" href="../twilight_http/client/struct.Client.html" title="struct twilight_http::client::Client">Client</a>) -&gt; Self</code><a class="srclink" href="../src/twilight_gateway_queue/large_bot_queue.rs.html#30-63" title="goto source code">[src]</a></h4><div class="docblock"><p>Create a new large bot queue.</p>
 <p>You must provide the number of buckets Discord requires your bot to
 connect with.</p>

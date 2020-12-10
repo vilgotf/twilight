@@ -220,12 +220,6 @@
 <span id="217">217</span>
 <span id="218">218</span>
 <span id="219">219</span>
-<span id="220">220</span>
-<span id="221">221</span>
-<span id="222">222</span>
-<span id="223">223</span>
-<span id="224">224</span>
-<span id="225">225</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Create embed authors.</span>
 
@@ -239,8 +233,6 @@
 <span class="doccomment">/// Error setting an embed author&#39;s name.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is returned from [`EmbedAuthorBuilder::name`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedAuthorBuilder::name`]: struct.EmbedAuthorBuilder.html#method.name</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">EmbedAuthorNameError</span> {
@@ -272,7 +264,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This can be passed into [`EmbedBuilder::author`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedBuilder::author`]: ../builder/struct.EmbedBuilder.html#method.author</span>
+<span class="doccomment">/// [`EmbedBuilder::author`]: crate::EmbedBuilder::author</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;must be built into an embed author&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EmbedAuthorBuilder</span>(<span class="ident">EmbedAuthor</span>);
@@ -282,7 +274,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`name`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`name`]: #method.name</span>
+    <span class="doccomment">/// [`name`]: Self::name</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NAME_LENGTH_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">256</span>;
 
     <span class="doccomment">/// Create a new default embed author builder.</span>
@@ -315,9 +307,7 @@
     <span class="doccomment">/// Returns [`EmbedAuthorNameError::TooLong`] if the provided name is longer</span>
     <span class="doccomment">/// than the maximum number of code points.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`NAME_LENGTH_LIMIT`]: #const.NAME_LENGTH_LIMIT</span>
-    <span class="doccomment">/// [`EmbedAuthorNameError::Empty`]: enum.EmbedAuthorNameError.html#variant.Empty</span>
-    <span class="doccomment">/// [`EmbedAuthorNameError::TooLong`]: enum.EmbedAuthorNameError.html#variant.TooLong</span>
+    <span class="doccomment">/// [`NAME_LENGTH_LIMIT`]: Self::NAME_LENGTH_LIMIT</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>, <span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedAuthorNameError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_name</span>(<span class="ident">name</span>.<span class="ident">into</span>())
     }
@@ -363,8 +353,6 @@
     <span class="doccomment">/// Convert an embed author builder into an embed author.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to calling [`EmbedAuthorBuilder::build`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EmbedAuthorBuilder::build`]: #method.build</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">builder</span>: <span class="ident">EmbedAuthorBuilder</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">builder</span>.<span class="ident">build</span>()
     }

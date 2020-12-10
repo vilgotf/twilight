@@ -181,11 +181,6 @@
 <span id="178">178</span>
 <span id="179">179</span>
 <span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Sources to image URLs and attachments.</span>
 
@@ -259,9 +254,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`ImageSourceAttachmentError::ExtensionMissing`] if an extension is</span>
     <span class="doccomment">/// missing.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ImageSourceAttachmentError::ExtensionEmpty`]: enum.ImageSourceAttachmentError.html#variant.ExtensionEmpty</span>
-    <span class="doccomment">/// [`ImageSourceAttachmentError::ExtensionMissing`]: enum.ImageSourceAttachmentError.html#variant.ExtensionMissing</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachment</span>(<span class="ident">filename</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ImageSourceAttachmentError</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">_attachment</span>(<span class="ident">filename</span>.<span class="ident">as_ref</span>())
     }
@@ -293,8 +285,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`ImageSourceUrlError::ProtocolUnsupported`] if the URL&#39;s protocol is unsupported.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ImageSourceUrlError::ProtocolUnsupported`]: enum.ImageSourceUrlError.html#variant.ProtocolUnsupported</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">url</span>(<span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ImageSourceUrlError</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">_url</span>(<span class="ident">url</span>.<span class="ident">into</span>())
     }

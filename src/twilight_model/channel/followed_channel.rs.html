@@ -46,9 +46,6 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">WebhookId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -59,9 +56,6 @@
 <span class="doccomment">/// It contains the [`ChannelId`] that is being followed</span>
 <span class="doccomment">/// and the [`WebhookId`] that was created in the</span>
 <span class="doccomment">/// target channel.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`ChannelId`]: ../id/struct.ChannelId.html</span>
-<span class="doccomment">/// [`WebhookId`]: ../id/struct.WebhookId.html</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FollowedChannel</span> {
     <span class="kw">pub</span> <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,

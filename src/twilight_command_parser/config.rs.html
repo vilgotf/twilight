@@ -253,8 +253,6 @@
 <span id="250">250</span>
 <span id="251">251</span>
 <span id="252">252</span>
-<span id="253">253</span>
-<span id="254">254</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>::{<span class="ident">Iter</span>, <span class="ident">IterMut</span>};
@@ -263,7 +261,7 @@
 
 <span class="doccomment">/// Configuration for a [`Parser`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Parser`]: struct.Parser.html</span>
+<span class="doccomment">/// [`Parser`]: crate::Parser</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CommandParserConfig</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">commands</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CaseSensitivity</span><span class="op">&gt;</span>,
@@ -288,8 +286,8 @@
     <span class="doccomment">/// Use the [`add_command`] and [`remove_command`] methods for an easier way to</span>
     <span class="doccomment">/// manage commands.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`add_command`]: #method.add_command</span>
-    <span class="doccomment">/// [`remove_command`]: #method.remove_command</span>
+    <span class="doccomment">/// [`add_command`]: Self::add_command</span>
+    <span class="doccomment">/// [`remove_command`]: Self::remove_command</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">commands_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CommandsMut</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">CommandsMut</span> {
             <span class="ident">iter</span>: <span class="self">self</span>.<span class="ident">commands</span>.<span class="ident">iter_mut</span>(),
@@ -301,8 +299,8 @@
     <span class="doccomment">/// Use the [`add_prefix`] and [`remove_prefix`] methods for an easier way</span>
     <span class="doccomment">/// to manage prefixes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`add_prefix`]: #method.add_prefix</span>
-    <span class="doccomment">/// [`remove_prefix`]: #method.remove_prefix</span>
+    <span class="doccomment">/// [`add_prefix`]: Self::add_prefix</span>
+    <span class="doccomment">/// [`remove_prefix`]: Self::remove_prefix</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prefixes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Prefixes</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">Prefixes</span> {
             <span class="ident">iter</span>: <span class="self">self</span>.<span class="ident">prefixes</span>.<span class="ident">iter</span>(),
@@ -329,8 +327,6 @@
     <span class="doccomment">/// config.add_command(&quot;ping&quot;, true);</span>
     <span class="doccomment">/// assert_eq!(1, config.commands().len());</span>
     <span class="doccomment">/// ```</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CommandBuilder`]: struct.CommandBuilder.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_command</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">case_sensitive</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">_add_command</span>(<span class="ident">name</span>.<span class="ident">into</span>(), <span class="ident">case_sensitive</span>)
     }

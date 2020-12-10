@@ -377,14 +377,6 @@
 <span id="374">374</span>
 <span id="375">375</span>
 <span id="376">376</span>
-<span id="377">377</span>
-<span id="378">378</span>
-<span id="379">379</span>
-<span id="380">380</span>
-<span id="381">381</span>
-<span id="382">382</span>
-<span id="383">383</span>
-<span id="384">384</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">MentionIter</span>, <span class="ident">MentionType</span>, <span class="ident">ParseMentionError</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>::<span class="ident">Chars</span>;
@@ -433,10 +425,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`ParseMentionError::TrailingArrow`] if the trailing arrow is</span>
     <span class="doccomment">/// not present after the ID.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ParseMentionError::LeadingArrow`]: enum.ParseMentionError.html#variant.LeadingArrow</span>
-    <span class="doccomment">/// [`ParseMentionError::Sigil`]: enum.ParseMentionError.html#variant.Sigil</span>
-    <span class="doccomment">/// [`ParseMentionError::TrailingArrow`]: enum.ParseMentionError.html#variant.TrailingArrow</span>
     <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ParseMentionError</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="self">Self</span>: <span class="ident">Sized</span>;
@@ -447,7 +435,7 @@
     <span class="doccomment">/// a mention is encountered but did not successfully parse, such as a `&lt;`</span>
     <span class="doccomment">/// but with no trailing mention sigil.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`parse`]: #tymethod.parse</span>
+    <span class="doccomment">/// [`parse`]: Self::parse</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;you must use the iterator to lazily parse mentions&quot;</span>]</span>
     <span class="kw">fn</span> <span class="ident">iter</span>(<span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MentionIter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="self">Self</span><span class="op">&gt;</span>
     <span class="kw">where</span>
@@ -554,10 +542,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Returns [`ParseMentionError::TrailingArrow`] if the trailing arrow is not</span>
 <span class="doccomment">/// present after the ID.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`ParseMentionError::LeadingArrow`]: enum.ParseMentionError.html#variant.LeadingArrow</span>
-<span class="doccomment">/// [`ParseMentionError::Sigil`]: enum.ParseMentionError.html#variant.Sigil</span>
-<span class="doccomment">/// [`ParseMentionError::TrailingArrow`]: enum.ParseMentionError.html#variant.TrailingArrow</span>
 <span class="kw">fn</span> <span class="ident">parse_id</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
     <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
     <span class="ident">sigils</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>],

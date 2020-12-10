@@ -638,25 +638,6 @@
 <span id="635">635</span>
 <span id="636">636</span>
 <span id="637">637</span>
-<span id="638">638</span>
-<span id="639">639</span>
-<span id="640">640</span>
-<span id="641">641</span>
-<span id="642">642</span>
-<span id="643">643</span>
-<span id="644">644</span>
-<span id="645">645</span>
-<span id="646">646</span>
-<span id="647">647</span>
-<span id="648">648</span>
-<span id="649">649</span>
-<span id="650">650</span>
-<span id="651">651</span>
-<span id="652">652</span>
-<span id="653">653</span>
-<span id="654">654</span>
-<span id="655">655</span>
-<span id="656">656</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">builder</span>::<span class="ident">ShardBuilder</span>,
@@ -851,7 +832,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// For example, once a shard is fully booted then it will be [`Connected`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Connected`]: stage/enum.Stage.html#variant.Connected</span>
+    <span class="doccomment">/// [`Connected`]: Stage::Connected</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stage</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stage</span> {
         <span class="self">self</span>.<span class="ident">stage</span>
     }
@@ -925,8 +906,8 @@
 <span class="doccomment">/// # Ok(()) }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`events`]: #method.events</span>
-<span class="doccomment">/// [`queue`]: ../queue/index.html</span>
+<span class="doccomment">/// [`events`]: Self::events</span>
+<span class="doccomment">/// [`queue`]: crate::queue</span>
 <span class="doccomment">/// [docs:shards]: https://discord.com/developers/docs/topics/gateway#sharding</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Shard</span>(<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ShardRef</span><span class="op">&gt;</span>);
@@ -961,7 +942,7 @@
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`start`]: #method.start</span>
+    <span class="doccomment">/// [`start`]: Self::start</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">intents</span>: <span class="ident">Intents</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">builder</span>(<span class="ident">token</span>, <span class="ident">intents</span>).<span class="ident">build</span>()
     }
@@ -1002,10 +983,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`ShardStartError::RetrievingGatewayUrl`] if the gateway URL</span>
     <span class="doccomment">/// couldn&#39;t be retrieved from the HTTP API.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ShardStartError::Establishing`]: enum.ShardStartError.html#variant.Establishing</span>
-    <span class="doccomment">/// [`ShardStartError::ParsingGatewayUrl`]: enum.ShardStartError.html#variant.ParsingGatewayUrl</span>
-    <span class="doccomment">/// [`ShardStartError::RetrievingGatewayUrl`]: enum.ShardStartError.html#variant.RetrievingGatewayUrl</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ShardStartError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">u</span>) <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">config</span>.<span class="ident">gateway_url</span>.<span class="ident">clone</span>() {
             <span class="ident">u</span>
@@ -1057,9 +1034,9 @@
     <span class="doccomment">/// All event types except for [`EventType::ShardPayload`] are enabled. If</span>
     <span class="doccomment">/// you need to enable it, consider calling [`some_events`] instead.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EventType::ShardPayload`]: ../../twilight_model/gateway/event/enum.EventType.html#variant.ShardPayload</span>
+    <span class="doccomment">/// [`EventType::ShardPayload`]: ::twilight_model::gateway::event::EventType::ShardPayload</span>
     <span class="doccomment">/// [`futures::stream::Stream`]: https://docs.rs/futures/*/futures/stream/trait.Stream.html</span>
-    <span class="doccomment">/// [`some_events`]: #method.some_events</span>
+    <span class="doccomment">/// [`some_events`]: Self::some_events</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Events</span> {
         <span class="self">self</span>.<span class="ident">some_events</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">default</span>())
     }
@@ -1099,8 +1076,6 @@
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Event::ShardConnected`]: ../../twilight_model/gateway/event/enum.Event.html#variant.ShardConnected</span>
-    <span class="doccomment">/// [`Event::ShardDisconnected`]: ../../twilight_model/gateway/event/enum.Event.html#variant.ShardDisconnected</span>
     <span class="doccomment">/// [`futures::stream::Stream`]: https://docs.rs/futures/*/futures/stream/trait.Stream.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">some_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event_types</span>: <span class="ident">EventTypeFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Events</span> {
         <span class="kw">let</span> <span class="ident">rx</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">listeners</span>.<span class="ident">add</span>(<span class="ident">event_types</span>);
@@ -1114,8 +1089,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns a [`SessionInactiveError`] if the shard&#39;s session is inactive.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SessionInactiveError`]: struct.SessionInactiveError.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Information</span>, <span class="ident">SessionInactiveError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">session</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">session</span>()<span class="question-mark">?</span>;
 
@@ -1139,8 +1112,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns a [`SessionInactiveError`] if the shard&#39;s session is inactive.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SessionInactiveError`]: struct.SessionInactiveError.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sink</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ShardSink</span>, <span class="ident">SessionInactiveError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">session</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">session</span>()<span class="question-mark">?</span>;
 
@@ -1159,10 +1130,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`CommandError::SessionInactive`] if the shard has not been</span>
     <span class="doccomment">/// started.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CommandError::Sending`]: enum.CommandError.html#variant.Sending</span>
-    <span class="doccomment">/// [`CommandError::Serializing`]: enum.CommandError.html#variant.Serializing</span>
-    <span class="doccomment">/// [`CommandError::SessionInactive`]: enum.CommandError.html#variant.SessionInactive</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">command</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw">impl</span> <span class="ident">serde</span>::<span class="ident">Serialize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">CommandError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">json</span>::<span class="ident">to_vec</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">CommandError</span>::<span class="ident">Serializing</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">command_raw</span>(<span class="ident">json</span>).<span class="ident">await</span>
@@ -1183,10 +1150,7 @@
     <span class="doccomment">/// Returns [`CommandError::SessionInactive`] if the shard has not been</span>
     <span class="doccomment">/// started.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`command`]: #method.command</span>
-    <span class="doccomment">/// [`CommandError::Sending`]: enum.CommandError.html#variant.Sending</span>
-    <span class="doccomment">/// [`CommandError::Serializing`]: enum.CommandError.html#variant.Serializing</span>
-    <span class="doccomment">/// [`CommandError::SessionInactive`]: enum.CommandError.html#variant.SessionInactive</span>
+    <span class="doccomment">/// [`command`]: Self::command</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">command_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">CommandError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">session</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">session</span>()
@@ -1231,7 +1195,7 @@
     <span class="doccomment">/// will be resumable by using the provided session resume information</span>
     <span class="doccomment">/// to [`ClusterBuilder::resume_sessions`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ClusterBuilder::resume_sessions`]: ../cluster/struct.ClusterBuilder.html#method.resume_sessions</span>
+    <span class="doccomment">/// [`ClusterBuilder::resume_sessions`]: crate::cluster::ClusterBuilder::resume_sessions</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shutdown_resumable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u64</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ResumeSession</span><span class="op">&gt;</span>) {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">listeners</span>.<span class="ident">remove_all</span>();
 
@@ -1269,8 +1233,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns a [`SessionInactiveError`] if the shard&#39;s session is inactive.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SessionInactiveError`]: struct.SessionInactiveError.html</span>
     <span class="kw">fn</span> <span class="ident">session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Session</span><span class="op">&gt;</span>, <span class="ident">SessionInactiveError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">session</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">session</span>.<span class="ident">get</span>().<span class="ident">ok_or</span>(<span class="ident">SessionInactiveError</span>)<span class="question-mark">?</span>;
 

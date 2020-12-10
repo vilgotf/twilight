@@ -501,16 +501,6 @@
 <span id="498">498</span>
 <span id="499">499</span>
 <span id="500">500</span>
-<span id="501">501</span>
-<span id="502">502</span>
-<span id="503">503</span>
-<span id="504">504</span>
-<span id="505">505</span>
-<span id="506">506</span>
-<span id="507">507</span>
-<span id="508">508</span>
-<span id="509">509</span>
-<span id="510">510</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Models to deserialize responses into and functions to create `http` crate</span>
 <span class="doccomment">//! requests.</span>
@@ -549,7 +539,7 @@
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="ident">TrackInfo</span>,
     <span class="doccomment">/// The base64 track string that you use in the [`Play`] event.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Play`]: ../model/outgoing/struct.Play.html</span>
+    <span class="doccomment">/// [`Play`]: crate::model::outgoing::Play</span>
     <span class="kw">pub</span> <span class="ident">track</span>: <span class="ident">String</span>,
 }
 
@@ -669,8 +659,6 @@
     <span class="doccomment">/// The type of planner that is currently active.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For this planner, thsi is always [`RoutePlannerType::NanoIp`]</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RoutePlannerType::NanoIp`]: enum.RoutePlannerType.html#variant.NanoIp</span>
     <span class="kw">pub</span> <span class="ident">class</span>: <span class="ident">RoutePlannerType</span>,
     <span class="doccomment">/// The details of the currently active Nano IP route planner.</span>
     <span class="kw">pub</span> <span class="ident">details</span>: <span class="ident">NanoIpDetails</span>,
@@ -697,8 +685,6 @@
     <span class="doccomment">/// The type of planner that is currently active.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For this planner, thsi is always [`RoutePlannerType::RotatingIp`]</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RoutePlannerType::RotatingIp`]: enum.RoutePlannerType.html#variant.RotatingIp</span>
     <span class="kw">pub</span> <span class="ident">class</span>: <span class="ident">RoutePlannerType</span>,
     <span class="doccomment">/// The details of the currently active rotating IP route planner.</span>
     <span class="kw">pub</span> <span class="ident">details</span>: <span class="ident">RotatingIpDetails</span>,
@@ -729,8 +715,6 @@
     <span class="doccomment">/// The type of planner that is currently active.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For this planner, thsi is always [`RoutePlannerType::RotatingNanoIp`]</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RoutePlannerType::RotatingNanoIp`]: enum.RoutePlannerType.html#variant.RotatingNanoIp</span>
     <span class="kw">pub</span> <span class="ident">class</span>: <span class="ident">RoutePlannerType</span>,
     <span class="doccomment">/// The details of the currently active rotating nano IP route planner.</span>
     <span class="kw">pub</span> <span class="ident">details</span>: <span class="ident">RotatingNanoIpDetails</span>,
@@ -755,8 +739,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// The response will include a body which can be deserialized into a</span>
 <span class="doccomment">/// [`LoadedTracks`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`LoadedTracks`]: struct.LoadedTracks.html</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_track</span>(
     <span class="ident">address</span>: <span class="ident">SocketAddr</span>,
     <span class="ident">identifier</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
@@ -778,8 +760,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// The response will include a body which can be deserialized into a</span>
 <span class="doccomment">/// [`RoutePlanner`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`RoutePlanner`]: enum.RoutePlanner.html</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_route_planner</span>(
     <span class="ident">address</span>: <span class="ident">SocketAddr</span>,
     <span class="ident">authorization</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,

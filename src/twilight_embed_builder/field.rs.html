@@ -247,15 +247,6 @@
 <span id="244">244</span>
 <span id="245">245</span>
 <span id="246">246</span>
-<span id="247">247</span>
-<span id="248">248</span>
-<span id="249">249</span>
-<span id="250">250</span>
-<span id="251">251</span>
-<span id="252">252</span>
-<span id="253">253</span>
-<span id="254">254</span>
-<span id="255">255</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Create embed fields.</span>
 
@@ -268,8 +259,6 @@
 <span class="doccomment">/// Error creating an embed field.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is returned from [`EmbedFieldBuilder::new`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedFieldBuilder::new`]: struct.EmbedFieldBuilder.html#method.new</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">EmbedFieldError</span> {
@@ -324,8 +313,8 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Fields are not inlined by default. Use [`inline`] to inline a field.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedBuilder::field`]: ../builder/struct.EmbedBuilder.html#method.field</span>
-<span class="doccomment">/// [`inline`]: #method.inline</span>
+<span class="doccomment">/// [`EmbedBuilder::field`]: crate::EmbedBuilder::field</span>
+<span class="doccomment">/// [`inline`]: Self::inline</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;must be built into an embed field&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EmbedFieldBuilder</span>(<span class="ident">EmbedField</span>);
@@ -335,14 +324,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`new`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`new`]: #method.new</span>
+    <span class="doccomment">/// [`new`]: Self::new</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NAME_LENGTH_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">256</span>;
 
     <span class="doccomment">/// The maximum number of UTF-16 code points that can be in a field value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`new`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`new`]: #method.new</span>
+    <span class="doccomment">/// [`new`]: Self::new</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">VALUE_LENGTH_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">1024</span>;
 
     <span class="doccomment">/// Create a new default embed field builder.</span>
@@ -363,11 +352,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`EmbedFieldError::ValueTooLong`] if the provided value</span>
     <span class="doccomment">/// is longer than 1024 UTF-16 code points.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EmbedFieldError::NameEmpty`]: enum.EmbedFieldError.html#variant.NameEmpty</span>
-    <span class="doccomment">/// [`EmbedFieldError::NameTooLong`]: enum.EmbedFieldError.html#variant.NameTooLong</span>
-    <span class="doccomment">/// [`EmbedFieldError::ValueEmpty`]: enum.EmbedFieldError.html#variant.ValueEmpty</span>
-    <span class="doccomment">/// [`EmbedFieldError::ValueTooLong`]: enum.EmbedFieldError.html#variant.ValueTooLong</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedFieldError</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">name</span>.<span class="ident">into</span>(), <span class="ident">value</span>.<span class="ident">into</span>())
     }
@@ -428,8 +412,6 @@
     <span class="doccomment">/// Convert an embed field builder into an embed field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to calling [`EmbedFieldBuilder::build`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EmbedFieldBuilder::build`]: #method.build</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">builder</span>: <span class="ident">EmbedFieldBuilder</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">builder</span>.<span class="ident">build</span>()
     }

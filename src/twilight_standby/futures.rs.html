@@ -195,7 +195,7 @@
 
 <span class="doccomment">/// The future returned from [`Standby::wait_for_event`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Standby::wait_for_event`]: struct.Standby.html#method.wait_for_event</span>
+<span class="doccomment">/// [`Standby::wait_for_event`]: crate::Standby::wait_for_event</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WaitForEventFuture</span> {
@@ -212,7 +212,7 @@
 
 <span class="doccomment">/// The stream returned from [`Standby::wait_for_event_stream`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Standby::wait_for_event_stream`]: struct.Standby.html#method.wait_for_event_stream</span>
+<span class="doccomment">/// [`Standby::wait_for_event_stream`]: crate::Standby::wait_for_event_stream</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;streams do nothing unless you poll them&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WaitForEventStream</span> {
@@ -229,7 +229,7 @@
 
 <span class="doccomment">/// The future returned from [`Standby::wait_for`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Standby::wait_for`]: struct.Standby.html#method.wait_for</span>
+<span class="doccomment">/// [`Standby::wait_for`]: crate::Standby::wait_for</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WaitForGuildEventFuture</span> {
@@ -246,7 +246,7 @@
 
 <span class="doccomment">/// The stream returned from [`Standby::wait_for_stream`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Standby::wait_for_stream`]: struct.Standby.html#method.wait_for_stream</span>
+<span class="doccomment">/// [`Standby::wait_for_stream`]: crate::Standby::wait_for_stream</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;streams do nothing unless you poll them&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WaitForGuildEventStream</span> {
@@ -263,7 +263,7 @@
 
 <span class="doccomment">/// The future returned from [`Standby::wait_for_message`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Standby::wait_for_message`]: struct.Standby.html#method.wait_for_message</span>
+<span class="doccomment">/// [`Standby::wait_for_message`]: crate::Standby::wait_for_message</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WaitForMessageFuture</span> {
@@ -280,7 +280,7 @@
 
 <span class="doccomment">/// The stream returned from [`Standby::wait_for_message_stream`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Standby::wait_for_message_stream`]: struct.Standby.html#method.wait_for_message_stream</span>
+<span class="doccomment">/// [`Standby::wait_for_message_stream`]: crate::Standby::wait_for_message_stream</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;streams do nothing unless you poll them&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WaitForMessageStream</span> {
@@ -297,7 +297,7 @@
 
 <span class="doccomment">/// The future returned from [`Standby::wait_for_reaction`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Standby::wait_for_reaction`]: struct.Standby.html#method.wait_for_reaction</span>
+<span class="doccomment">/// [`Standby::wait_for_reaction`]: crate::Standby::wait_for_reaction</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;futures do nothing unless you `.await` or poll them&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WaitForReactionFuture</span> {
@@ -314,7 +314,7 @@
 
 <span class="doccomment">/// The stream returned from [`Standby::wait_for_reaction_stream`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Standby::wait_for_reaction_stream`]: struct.Standby.html#method.wait_for_reaction_stream</span>
+<span class="doccomment">/// [`Standby::wait_for_reaction_stream`]: crate::Standby::wait_for_reaction_stream</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;streams do nothing unless you poll them&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WaitForReactionStream</span> {

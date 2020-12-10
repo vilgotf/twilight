@@ -210,9 +210,9 @@
 <span class="doccomment">/// # Ok(()) }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`content`]: #method.content</span>
-<span class="doccomment">/// [`embeds`]: #method.embeds</span>
-<span class="doccomment">/// [`file`]: #method.file</span>
+<span class="doccomment">/// [`content`]: Self::content</span>
+<span class="doccomment">/// [`embeds`]: Self::embeds</span>
+<span class="doccomment">/// [`file`]: Self::file</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ExecuteWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">fields</span>: <span class="ident">ExecuteWebhookFields</span>,
     <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,

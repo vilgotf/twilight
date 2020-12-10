@@ -318,8 +318,6 @@
 <span id="315">315</span>
 <span id="316">316</span>
 <span id="317">317</span>
-<span id="318">318</span>
-<span id="319">319</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -500,8 +498,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`UpdateGuildError::NameInvalid`] if the name length is too</span>
     <span class="doccomment">/// short or too long.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UpdateGuildError::NameInvalid`]: enum.UpdateGuildError.html#variant.NameInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>, <span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateGuildError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_name</span>(<span class="ident">name</span>.<span class="ident">into</span>())
     }

@@ -187,12 +187,6 @@
 <span id="184">184</span>
 <span id="185">185</span>
 <span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Create embed footers.</span>
 
@@ -206,8 +200,6 @@
 <span class="doccomment">/// Error creating an embed footer.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is returned from [`EmbedFooterBuilder::new`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedFooterBuilder::new`]: struct.EmbedFooterBuilder.html#method.new</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">EmbedFooterTextError</span> {
@@ -239,7 +231,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This can be passed into [`EmbedBuilder::footer`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedBuilder::footer`]: ../builder/struct.EmbedBuilder.html#method.footer</span>
+<span class="doccomment">/// [`EmbedBuilder::footer`]: crate::EmbedBuilder::footer</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;must be built into an embed footer&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EmbedFooterBuilder</span>(<span class="ident">EmbedFooter</span>);
@@ -261,9 +253,7 @@
     <span class="doccomment">/// Returns [`EmbedFooterTextError::TooLong`] if the provided text is</span>
     <span class="doccomment">/// longer than the limit defined at [`TEXT_LENGTH_LIMIT`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TEXT_LENGTH_LIMIT`]: #const.TEXT_LENGTH_LIMIT</span>
-    <span class="doccomment">/// [`EmbedFooterTextError::Empty`]: enum.EmbedFooterTextError.html#variant.Empty</span>
-    <span class="doccomment">/// [`EmbedFooterTextError::TooLong`]: enum.EmbedFooterTextError.html#variant.TooLong</span>
+    <span class="doccomment">/// [`TEXT_LENGTH_LIMIT`]: Self::TEXT_LENGTH_LIMIT</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">text</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedFooterTextError</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">text</span>.<span class="ident">into</span>())
     }
@@ -317,8 +307,6 @@
     <span class="doccomment">/// Convert an embed footer builder into an embed footer.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to calling [`EmbedFooterBuilder::build`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EmbedFooterBuilder::build`]: #method.build</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">builder</span>: <span class="ident">EmbedFooterBuilder</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">builder</span>.<span class="ident">build</span>()
     }

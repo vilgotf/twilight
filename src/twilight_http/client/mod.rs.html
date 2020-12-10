@@ -1658,44 +1658,6 @@
 <span id="1655">1655</span>
 <span id="1656">1656</span>
 <span id="1657">1657</span>
-<span id="1658">1658</span>
-<span id="1659">1659</span>
-<span id="1660">1660</span>
-<span id="1661">1661</span>
-<span id="1662">1662</span>
-<span id="1663">1663</span>
-<span id="1664">1664</span>
-<span id="1665">1665</span>
-<span id="1666">1666</span>
-<span id="1667">1667</span>
-<span id="1668">1668</span>
-<span id="1669">1669</span>
-<span id="1670">1670</span>
-<span id="1671">1671</span>
-<span id="1672">1672</span>
-<span id="1673">1673</span>
-<span id="1674">1674</span>
-<span id="1675">1675</span>
-<span id="1676">1676</span>
-<span id="1677">1677</span>
-<span id="1678">1678</span>
-<span id="1679">1679</span>
-<span id="1680">1680</span>
-<span id="1681">1681</span>
-<span id="1682">1682</span>
-<span id="1683">1683</span>
-<span id="1684">1684</span>
-<span id="1685">1685</span>
-<span id="1686">1686</span>
-<span id="1687">1687</span>
-<span id="1688">1688</span>
-<span id="1689">1689</span>
-<span id="1690">1690</span>
-<span id="1691">1691</span>
-<span id="1692">1692</span>
-<span id="1693">1693</span>
-<span id="1694">1694</span>
-<span id="1695">1695</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -1803,8 +1765,6 @@
 <span class="doccomment">/// `client`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [here]: https://discord.com/developers/applications</span>
-<span class="doccomment">/// [`ClientBuilder`]: struct.ClientBuilder.html</span>
-<span class="doccomment">/// [`Error::Unauthorized`]: ../enum.Error.html#variant.Unauthorized</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Client</span> {
     <span class="ident">state</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">State</span><span class="op">&gt;</span>,
@@ -1815,7 +1775,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you want to customize the client, use [`builder`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`builder`]: #method.builder</span>
+    <span class="doccomment">/// [`builder`]: Self::builder</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">token</span>.<span class="ident">into</span>();
 
@@ -1859,7 +1819,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Refer to [`allowed_mentions`] for more information.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`allowed_mentions`]: ../request/channel/message/allowed_mentions/index.html</span>
+    <span class="doccomment">/// [`allowed_mentions`]: crate::request::channel::message::allowed_mentions</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_allowed_mentions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AllowedMentions</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">default_allowed_mentions</span>.<span class="ident">clone</span>()
     }
@@ -1868,8 +1828,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This will return `None` only if ratelimit handling</span>
     <span class="doccomment">/// has been explicitly disabled in the [`ClientBuilder`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ClientBuilder`]: struct.ClientBuilder.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ratelimiter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Ratelimiter</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">ratelimiter</span>.<span class="ident">clone</span>()
     }
@@ -2052,9 +2010,9 @@
     <span class="doccomment">/// Returns a [`UpdateChannelError::TopicInvalid`] when the length of the topic is more than</span>
     <span class="doccomment">/// 1024 UTF-16 characters.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UpdateChannelError::NameInvalid`]: ../request/channel/update_channel/enum.UpdateChannelError.html#variant.NameInvalid</span>
-    <span class="doccomment">/// [`UpdateChannelError::RateLimitPerUserInvalid`]: ../request/channel/update_channel/enum.UpdateChannelError.html#variant.RateLimitPerUserInvalid</span>
-    <span class="doccomment">/// [`UpdateChannelError::TopicInvalid`]: ../request/channel/update_channel/enum.UpdateChannelError.html#variant.TopicInvalid</span>
+    <span class="doccomment">/// [`UpdateChannelError::NameInvalid`]: crate::request::channel::update_channel::UpdateChannelError::NameInvalid</span>
+    <span class="doccomment">/// [`UpdateChannelError::RateLimitPerUserInvalid`]: crate::request::channel::update_channel::UpdateChannelError::RateLimitPerUserInvalid</span>
+    <span class="doccomment">/// [`UpdateChannelError::TopicInvalid`]: crate::request::channel::update_channel::UpdateChannelError::TopicInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_channel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UpdateChannel</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">UpdateChannel</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }
@@ -2063,8 +2021,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The type returned is [`FollowedChannel`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ChannelId`]: ../../twilight_model/id/struct.ChannelId.html</span>
-    <span class="doccomment">/// [`FollowedChannel`]: ../../twilight_model/channel/followed_channel.html#struct.FollowedChannel</span>
+    <span class="doccomment">/// [`FollowedChannel`]: ::twilight_model::channel::FollowedChannel</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">follow_news_channel</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
@@ -2113,13 +2070,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`GetChannelMessagesError::LimitInvalid`] if the amount is less than 1 or greater than 100.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ChannelId`]: ../../twilight_model/id/struct.ChannelId.html</span>
-    <span class="doccomment">/// [`after`]: ../request/channel/message/get_channel_messages/struct.GetChannelMessages.html#method.after</span>
-    <span class="doccomment">/// [`around`]: ../request/channel/message/get_channel_messages/struct.GetChannelMessages.html#method.around</span>
-    <span class="doccomment">/// [`before`]: ../request/channel/message/get_channel_messages/struct.GetChannelMessages.html#method.before</span>
-    <span class="doccomment">/// [`GetChannelMessagesConfigured`]: ../request/channel/message/get_channel_messages_configured/struct.GetChannelMessagesConfigured.html</span>
-    <span class="doccomment">/// [`limit`]: ../request/channel/message/get_channel_messages/struct.GetChannelMessages.html#method.limit</span>
-    <span class="doccomment">/// [`GetChannelMessagesError::LimitInvalid`]: ../request/channel/message/get_channel_messages/enum.GetChannelMessagesError.html#variant.LimitInvalid</span>
+    <span class="doccomment">/// [`after`]: GetChannelMessages::after</span>
+    <span class="doccomment">/// [`around`]: GetChannelMessages::around</span>
+    <span class="doccomment">/// [`before`]: GetChannelMessages::before</span>
+    <span class="doccomment">/// [`GetChannelMessagesConfigured`]: crate::request::channel::message::GetChannelMessagesConfigured</span>
+    <span class="doccomment">/// [`limit`]: GetChannelMessages::limit</span>
+    <span class="doccomment">/// [`GetChannelMessagesError::LimitInvalid`]: crate::request::channel::message::get_channel_messages::GetChannelMessagesError::LimitInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetChannelMessages</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetChannelMessages</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }
@@ -2222,7 +2178,7 @@
     <span class="doccomment">/// Returns [`GetCurrentUserGuildsError::LimitInvalid`] if the amount is greater</span>
     <span class="doccomment">/// than 100.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GetCurrentUserGuildsError::LimitInvalid`]: ../request/user/get_current_user_guilds/enum.GetCurrentUserGuildsError.html#variant.LimitInvalid</span>
+    <span class="doccomment">/// [`GetCurrentUserGuildsError::LimitInvalid`]: crate::request::user::get_current_user_guilds::GetCurrentUserGuildsError::LimitInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">current_user_guilds</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetCurrentUserGuilds</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetCurrentUserGuilds</span>::<span class="ident">new</span>(<span class="self">self</span>)
     }
@@ -2366,7 +2322,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`CreateGuildError::NameInvalid`] if the name length is too short or too long.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CreateGuildError::NameInvalid`]: ../request/guild/create_guild/enum.CreateGuildError.html#variant.NameInvalid</span>
+    <span class="doccomment">/// [`CreateGuildError::NameInvalid`]: crate::request::guild::create_guild::CreateGuildError::NameInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_guild</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -2415,9 +2371,9 @@
     <span class="doccomment">/// than</span>
     <span class="doccomment">/// 1024 UTF-16 characters.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CreateGuildChannelError::NameInvalid`]: ../request/guild/create_guild_channel/enum.CreateGuildChannelError.html#variant.NameInvalid</span>
-    <span class="doccomment">/// [`CreateGuildChannelError::RateLimitPerUserInvalid`]: ../request/guild/create_guild_channel/enum.CreateGuildChannelError.html#variant.RateLimitPerUserInvalid</span>
-    <span class="doccomment">/// [`CreateGuildChannelError::TopicInvalid`]: ../request/guild/create_guild_channel/enum.CreateGuildChannelError.html#variant.TopicInvalid</span>
+    <span class="doccomment">/// [`CreateGuildChannelError::NameInvalid`]: crate::request::guild::create_guild_channel::CreateGuildChannelError::NameInvalid</span>
+    <span class="doccomment">/// [`CreateGuildChannelError::RateLimitPerUserInvalid`]: crate::request::guild::create_guild_channel::CreateGuildChannelError::RateLimitPerUserInvalid</span>
+    <span class="doccomment">/// [`CreateGuildChannelError::TopicInvalid`]: crate::request::guild::create_guild_channel::CreateGuildChannelError::TopicInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_guild_channel</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
@@ -2533,7 +2489,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`GetGuildMembersError::LimitInvalid`] if the limit is invalid.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GetGuildMembersError::LimitInvalid`]: ../request/guild/member/get_guild_members/enum.GetGuildMembersError.html#variant.LimitInvalid</span>
+    <span class="doccomment">/// [`GetGuildMembersError::LimitInvalid`]: crate::request::guild::member::get_guild_members::GetGuildMembersError::LimitInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_members</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetGuildMembers</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetGuildMembers</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">guild_id</span>)
     }
@@ -2557,7 +2513,7 @@
     <span class="doccomment">/// Returns [`UpdateGuildMemberError::NicknameInvalid`] if the nickname length is too short or too</span>
     <span class="doccomment">/// long.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UpdateGuildMemberError::NicknameInvalid`]: ../request/guild/member/update_guild_member/enum.UpdateGuildMemberError.html#variant.NicknameInvalid</span>
+    <span class="doccomment">/// [`UpdateGuildMemberError::NicknameInvalid`]: crate::request::guild::member::update_guild_member::UpdateGuildMemberError::NicknameInvalid</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/resources/guild#modify-guild-member</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_guild_member</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UpdateGuildMember</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
@@ -2641,7 +2597,7 @@
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`with_counts`]: ../request/channel/invite/struct.GetInvite.html#method.with_counts</span>
+    <span class="doccomment">/// [`with_counts`]: crate::request::channel::invite::GetInvite::with_counts</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">invite</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">code</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetInvite</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetInvite</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">code</span>)
     }
@@ -2675,9 +2631,6 @@
     }
 
     <span class="doccomment">/// Get a message by [`ChannelId`] and [`MessageId`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ChannelId`]: ../../twilight_model/id/struct.ChannelId.html</span>
-    <span class="doccomment">/// [`MessageId`]: ../../twilight_model/id/struct.MessageId.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>, <span class="ident">message_id</span>: <span class="ident">MessageId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetMessage</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>, <span class="ident">message_id</span>)
     }
@@ -2711,21 +2664,17 @@
     <span class="doccomment">/// The method [`embed`] returns [`CreateMessageError::EmbedTooLarge`] if the length of the</span>
     <span class="doccomment">/// embed is over 6000 characters.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`content`]:</span>
-    <span class="doccomment">/// ../request/channel/message/create_message/struct.CreateMessage.html#method.content</span>
-    <span class="doccomment">/// [`embed`]: ../request/channel/message/create_message/struct.CreateMessage.html#method.embed</span>
+    <span class="doccomment">/// [`content`]: crate::request::channel::message::create_message::CreateMessage::content</span>
+    <span class="doccomment">/// [`embed`]: crate::request::channel::message::create_message::CreateMessage::embed</span>
     <span class="doccomment">/// [`CreateMessageError::ContentInvalid`]:</span>
-    <span class="doccomment">/// ../request/channel/message/create_message/enum.CreateMessageError.html#variant.ContentInvalid</span>
+    <span class="doccomment">/// crate::request::channel::message::create_message::CreateMessageError::ContentInvalid</span>
     <span class="doccomment">/// [`CreateMessageError::EmbedTooLarge`]:</span>
-    <span class="doccomment">/// ../request/channel/message/create_message/enum.CreateMessageError.html#variant.EmbedTooLarge</span>
+    <span class="doccomment">/// crate::request::channel::message::create_message::CreateMessageError::EmbedTooLarge</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">CreateMessage</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }
 
     <span class="doccomment">/// Delete a message by [`ChannelId`] and [`MessageId`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ChannelId`]: ../../twilight_model/id/struct.ChannelId.html</span>
-    <span class="doccomment">/// [`MessageId`]: ../../twilight_model/id/struct.MessageId.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_message</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
@@ -2740,8 +2689,6 @@
     <span class="doccomment">/// still count towards the lower and upper limits. This method will not delete messages older</span>
     <span class="doccomment">/// than two weeks. Refer to [the discord docs] for more information.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ChannelId`]: ../../twilight_model/id/struct.ChannelId.html</span>
-    <span class="doccomment">/// [`MessageId`]: ../../twilight_model/id/struct.MessageId.html</span>
     <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/resources/channel#bulk-delete-messages</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_messages</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -2789,9 +2736,7 @@
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ChannelId`]: ../../twilight_model/id/struct.ChannelId.html</span>
-    <span class="doccomment">/// [`MessageId`]: ../../twilight_model/id/struct.MessageId.html</span>
-    <span class="doccomment">/// [embed]: #method.embed</span>
+    <span class="doccomment">/// [embed]: Self::embed</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_message</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
@@ -2801,9 +2746,6 @@
     }
 
     <span class="doccomment">/// Crosspost a message by [`ChannelId`] and [`MessageId`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ChannelId`]: ../../twilight_model/id/struct.ChannelId.html</span>
-    <span class="doccomment">/// [`MessageId`]: ../../twilight_model/id/struct.MessageId.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">crosspost_message</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
@@ -2864,10 +2806,6 @@
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ChannelId`]: ../../twilight_model/id/struct.ChannelId.html</span>
-    <span class="doccomment">/// [`MessageId`]: ../../twilight_model/id/struct.MessageId.html</span>
-    <span class="doccomment">/// [`RequestReactionType`]: ../request/channel/reaction/enum.RequestReactionType.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_reaction</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
@@ -3029,8 +2967,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`UrlError::SegmentMissing`] if the URL can not be parsed.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UrlError::SegmentMissing`]: ../error/enum.UrlError.html#variant.SegmentMissing</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_webhook_from_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DeleteWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">id</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">parse_webhook_url</span>(<span class="ident">url</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">delete_webhook</span>(<span class="ident">id</span>))
@@ -3046,8 +2982,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`UrlError::SegmentMissing`] if the URL can not be parsed.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UrlError::SegmentMissing`]: ../error/enum.UrlError.html#variant.SegmentMissing</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_webhook_from_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">UpdateWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">id</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">parse_webhook_url</span>(<span class="ident">url</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">update_webhook</span>(<span class="ident">id</span>))
@@ -3067,8 +3001,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`UrlError::SegmentMissing`] if the URL can not be parsed.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UrlError::SegmentMissing`]: ../error/enum.UrlError.html#variant.SegmentMissing</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_webhook_with_token_from_url</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
@@ -3099,9 +3031,9 @@
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`content`]: ../request/channel/webhook/struct.ExecuteWebhook.html#method.content</span>
-    <span class="doccomment">/// [`embeds`]: ../request/channel/webhook/struct.ExecuteWebhook.html#method.embeds</span>
-    <span class="doccomment">/// [`file`]: ../request/channel/webhook/struct.ExecuteWebhook.html#method.file</span>
+    <span class="doccomment">/// [`content`]: crate::request::channel::webhook::ExecuteWebhook::content</span>
+    <span class="doccomment">/// [`embeds`]: crate::request::channel::webhook::ExecuteWebhook::embeds</span>
+    <span class="doccomment">/// [`file`]: crate::request::channel::webhook::ExecuteWebhook::file</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">execute_webhook</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">webhook_id</span>: <span class="ident">WebhookId</span>,
@@ -3115,8 +3047,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`UrlError::SegmentMissing`] if the URL can not be parsed.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UrlError::SegmentMissing`]: ../error/enum.UrlError.html#variant.SegmentMissing</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">execute_webhook_from_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecuteWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">id</span>, <span class="ident">token</span>) <span class="op">=</span> <span class="ident">parse_webhook_url</span>(<span class="ident">url</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">execute_webhook</span>(<span class="ident">id</span>, <span class="ident">token</span>.<span class="ident">ok_or</span>(<span class="ident">UrlError</span>::<span class="ident">SegmentMissing</span>)<span class="question-mark">?</span>))
@@ -3128,8 +3058,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`Error::Unauthorized`] if the configured token has become</span>
     <span class="doccomment">/// invalid due to expiration, revokation, etc.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Error::Unauthorized`]: ../enum.Error.html#variant.Unauthorized</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">request</span>: <span class="ident">Request</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">token_invalid</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">Unauthorized</span>);
@@ -3233,8 +3161,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`Error::Unauthorized`] if the configured token has become</span>
     <span class="doccomment">/// invalid due to expiration, revokation, etc.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Error::Unauthorized`]: ../enum.Error.html#variant.Unauthorized</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">request</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">request</span>: <span class="ident">Request</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">make_request</span>(<span class="ident">request</span>).<span class="ident">await</span><span class="question-mark">?</span>;
 
@@ -3269,8 +3195,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`Error::Unauthorized`] if the configured token has become</span>
     <span class="doccomment">/// invalid due to expiration, revokation, etc.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Error::Unauthorized`]: ../enum.Error.html#variant.Unauthorized</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">request</span>: <span class="ident">Request</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">make_request</span>(<span class="ident">request</span>).<span class="ident">await</span><span class="question-mark">?</span>;
 

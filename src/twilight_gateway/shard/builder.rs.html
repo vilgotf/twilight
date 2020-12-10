@@ -281,16 +281,6 @@
 <span id="278">278</span>
 <span id="279">279</span>
 <span id="280">280</span>
-<span id="281">281</span>
-<span id="282">282</span>
-<span id="283">283</span>
-<span id="284">284</span>
-<span id="285">285</span>
-<span id="286">286</span>
-<span id="287">287</span>
-<span id="288">288</span>
-<span id="289">289</span>
-<span id="290">290</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">config</span>::<span class="ident">Config</span>, <span class="ident">Shard</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -305,8 +295,6 @@
 <span class="doccomment">/// Large threshold configuration is invalid.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Returned by [`ShardBuilder::large_threshold`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`ShardBuilder::large_threshold`]: struct.ShardBuilder.html#method.large_threshold</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">LargeThresholdError</span> {
     <span class="doccomment">/// Provided large threshold value is too few in number.</span>
@@ -335,8 +323,6 @@
 <span class="doccomment">/// Shard ID configuration is invalid.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Returned by [`ShardBuilder::shard`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`ShardBuilder::shard`]: struct.ShardBuilder.html#method.shard</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ShardIdError</span> {
     <span class="doccomment">/// Provided shard ID is higher than provided total shard count.</span>
@@ -384,10 +370,9 @@
 <span class="doccomment">/// # Ok(()) }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ShardBuilder::new`]: #method.new</span>
-<span class="doccomment">/// [`Shard`]: struct.Shard.html</span>
-<span class="doccomment">/// [`large_threshold`]: #method.large_threshold</span>
-<span class="doccomment">/// [`shard`]: #method.shard</span>
+<span class="doccomment">/// [`ShardBuilder::new`]: Self::new</span>
+<span class="doccomment">/// [`large_threshold`]: Self::large_threshold</span>
+<span class="doccomment">/// [`shard`]: Self::shard</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ShardBuilder</span>(<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">Config</span>);
 
@@ -458,9 +443,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`LargeThresholdError::TooMany`] if the provided value is above</span>
     <span class="doccomment">/// 250.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`LargeThresholdError::TooFew`]: enum.LargeThresholdError.html#variant.TooFew</span>
-    <span class="doccomment">/// [`LargeThresholdError::TooMany`]: enum.LargeThresholdError.html#variant.TooMany</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">large_threshold</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">large_threshold</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">LargeThresholdError</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">large_threshold</span> {
             <span class="number">0</span>..<span class="op">=</span><span class="number">49</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -500,8 +482,8 @@
     <span class="doccomment">/// The default value is a queue used only by this shard, or a queue used by</span>
     <span class="doccomment">/// all shards when ran by a [`Cluster`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Cluster`]: ../cluster/struct.Cluster.html</span>
-    <span class="doccomment">/// [`queue`]: ../queue/index.html</span>
+    <span class="doccomment">/// [`Cluster`]: crate::cluster::Cluster</span>
+    <span class="doccomment">/// [`queue`]: crate::queue</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queue</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">queue</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Queue</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">queue</span> <span class="op">=</span> <span class="ident">queue</span>;
 
@@ -540,8 +522,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`ShardIdError::IdTooLarge`] if the shard ID to connect as is</span>
     <span class="doccomment">/// larger than the total.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ShardIdError::IdTooLarge`]: enum.ShardIdError.html#variant.IdTooLarge</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>, <span class="ident">shard_total</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ShardIdError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">shard_id</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">shard_total</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ShardIdError</span>::<span class="ident">IdTooLarge</span> {

@@ -587,10 +587,6 @@
 <span id="584">584</span>
 <span id="585">585</span>
 <span id="586">586</span>
-<span id="587">587</span>
-<span id="588">588</span>
-<span id="589">589</span>
-<span id="590">590</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Nodes for communicating with a Lavalink server.</span>
 <span class="doccomment">//!</span>
@@ -609,8 +605,7 @@
 <span class="doccomment">//! yourself. For that reason, you should almost always use the `Lavalink`</span>
 <span class="doccomment">//! client which does all of this for you.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`Lavalink`]: ../client/struct.Lavalink.html</span>
-<span class="doccomment">//! [`PlayerManager`]: ../player/struct.PlayerManager.html</span>
+<span class="doccomment">//! [`Lavalink`]: crate::client::Lavalink</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">model</span>::{<span class="ident">IncomingEvent</span>, <span class="ident">Opcode</span>, <span class="ident">OutgoingEvent</span>, <span class="ident">PlayerUpdate</span>, <span class="ident">Stats</span>, <span class="ident">StatsCpu</span>, <span class="ident">StatsMemory</span>},
@@ -702,8 +697,6 @@
 }
 
 <span class="doccomment">/// The configuration that a [`Node`] uses to connect to a Lavalink server.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`Node`]: struct.Node.html</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NodeConfig</span> {
@@ -753,8 +746,7 @@
     <span class="doccomment">/// If adding a node through the [`Lavalink`] client then you don&#39;t need to</span>
     <span class="doccomment">/// do this yourself.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Lavalink`]: ../client/struct.Lavalink.html</span>
-    <span class="doccomment">/// [`Node::connect`]: struct.Node.html#method.connect</span>
+    <span class="doccomment">/// [`Lavalink`]: crate::client::Lavalink</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">user_id</span>: <span class="ident">UserId</span>,
         <span class="ident">shard_count</span>: <span class="ident">u64</span>,
@@ -801,7 +793,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Please refer to the [module] documentation.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [module]: index.html</span>
+<span class="doccomment">/// [module]: crate</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Node</span>(<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">NodeRef</span><span class="op">&gt;</span>);
 
@@ -813,8 +805,8 @@
     <span class="doccomment">/// information about directly creating and using nodes. You are encouraged</span>
     <span class="doccomment">/// to use the [`Lavalink`] client instead.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Lavalink`]: ../client/struct.Lavalink.html</span>
-    <span class="doccomment">/// [module]: index.html</span>
+    <span class="doccomment">/// [`Lavalink`]: crate::client::Lavalink</span>
+    <span class="doccomment">/// [module]: crate</span>
     <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">connect</span>(
         <span class="ident">config</span>: <span class="ident">NodeConfig</span>,
         <span class="ident">players</span>: <span class="ident">PlayerManager</span>,

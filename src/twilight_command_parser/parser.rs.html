@@ -310,13 +310,6 @@
 <span id="307">307</span>
 <span id="308">308</span>
 <span id="309">309</span>
-<span id="310">310</span>
-<span id="311">311</span>
-<span id="312">312</span>
-<span id="313">313</span>
-<span id="314">314</span>
-<span id="315">315</span>
-<span id="316">316</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Arguments</span>, <span class="ident">CommandParserConfig</span>};
 
@@ -372,9 +365,6 @@
 <span class="doccomment">///     }</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`Command`]: struct.Command.html</span>
-<span class="doccomment">/// [`Parser::config_mut`]: #method.config_mut</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">config</span>: <span class="ident">CommandParserConfig</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
@@ -407,8 +397,6 @@
     <span class="doccomment">/// If a matching prefix or command weren&#39;t found, then `None` is returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Refer to the struct-level documentation on how to use this.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Command`]: struct.Command.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Command</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">prefix</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">find_prefix</span>(<span class="ident">buf</span>)<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">parse_with_prefix</span>(<span class="ident">prefix</span>, <span class="ident">buf</span>)
@@ -438,8 +426,6 @@
     <span class="doccomment">/// # Some(())</span>
     <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Command`]: struct.Command.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_with_prefix</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">prefix</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Command</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">buf</span>.<span class="ident">starts_with</span>(<span class="ident">prefix</span>) {
             <span class="kw">return</span> <span class="prelude-val">None</span>;

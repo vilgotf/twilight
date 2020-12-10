@@ -312,10 +312,6 @@
 <span id="309">309</span>
 <span id="310">310</span>
 <span id="311">311</span>
-<span id="312">312</span>
-<span id="313">313</span>
-<span id="314">314</span>
-<span id="315">315</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="kw">super</span>::<span class="ident">payload</span>::<span class="kw-2">*</span>, <span class="ident">Event</span>, <span class="ident">EventConversionError</span>, <span class="ident">EventType</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{
@@ -329,8 +325,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// You can deserialize into a `DispatchEvent` via</span>
 <span class="doccomment">/// [`DispatchEventWithTypeDeserializer`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`DispatchEventWithTypeDeserializer`]: struct.DispatchEventWithTypeDeserializer.html</span>
 <span class="comment">// **NOTE**: When adding a variant, be sure to add it to the DeserializeSeed</span>
 <span class="comment">// implementation.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
@@ -477,8 +471,6 @@
 <span class="doccomment">/// Deserialize into a [`DispatchEvent`] by knowing its event name.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// An event name is something like `&quot;CHANNEL_CREATE&quot;` or `&quot;GUILD_MEMBER_ADD&quot;`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`DispatchEvent`]: enum.DispatchEvent.html</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DispatchEventWithTypeDeserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>);
 

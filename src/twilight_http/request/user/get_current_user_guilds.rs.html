@@ -127,7 +127,6 @@
 <span id="124">124</span>
 <span id="125">125</span>
 <span id="126">126</span>
-<span id="127">127</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -230,7 +229,6 @@
     <span class="doccomment">/// Returns [`GetCurrentUserGuildsError::LimitInvalid`] if the amount is greater</span>
     <span class="doccomment">/// than 100.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GetCurrentUserGuildsError::LimitInvalid`]: enum.GetCurrentUserGuildsError.html#variant.LimitInvalid</span>
     <span class="doccomment">/// [the discord docs]: https://discordapp.com/developers/docs/resources/user#get-current-user-guilds-query-string-params</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">limit</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">GetCurrentUserGuildsError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">validate</span>::<span class="ident">get_current_user_guilds_limit</span>(<span class="ident">limit</span>) {

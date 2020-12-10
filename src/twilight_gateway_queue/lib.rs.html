@@ -151,10 +151,6 @@
 <span id="148">148</span>
 <span id="149">149</span>
 <span id="150">150</span>
-<span id="151">151</span>
-<span id="152">152</span>
-<span id="153">153</span>
-<span id="154">154</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Ratelimiting functionality for queueing new gateway sessions.</span>
 <span class="doccomment">//!</span>
@@ -188,8 +184,6 @@
 <span class="doccomment">//! all so a [`Queue`] trait is provided that shards can use to make requests to</span>
 <span class="doccomment">//! create sessions.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`LargeBotQueue`]: struct.LargeBotQueue.html</span>
-<span class="doccomment">//! [`LocalQueue`]: struct.LocalQueue.html</span>
 <span class="doccomment">//! [Sharding for Very Large Bots]: https://discord.com/developers/docs/topics/gateway#sharding-for-very-large-bots</span>
 
 <span class="kw">mod</span> <span class="ident">day_limiter</span>;
@@ -213,7 +207,7 @@
 <span class="doccomment">/// cluster setup. Refer to the [module-level] documentation for more</span>
 <span class="doccomment">/// information.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [module-level]: ./index.html</span>
+<span class="doccomment">/// [module-level]: crate</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Queue</span>: <span class="ident">Debug</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> {
     <span class="doccomment">/// A shard has requested the ability to request a session initialization</span>
     <span class="doccomment">/// with the gateway.</span>
@@ -247,8 +241,6 @@
 <span class="doccomment">/// If you can&#39;t use this, look into an alternative implementation of the</span>
 <span class="doccomment">/// [`Queue`], such as the [`gateway-queue`] broker.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`LargeBotQueue`]: ./struct.LargeBotQueue.html</span>
-<span class="doccomment">/// [`Queue`]: trait.Queue.html</span>
 <span class="doccomment">/// [`gateway-queue`]: https://github.com/twilight-rs/gateway-queue</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LocalQueue</span>(<span class="ident">UnboundedSender</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>);

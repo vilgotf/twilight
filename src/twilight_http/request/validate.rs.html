@@ -670,7 +670,7 @@
     <span class="doccomment">/// The embed author&#39;s name is larger than</span>
     <span class="doccomment">/// [the maximum][`AUTHOR_NAME_LENGTH`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AUTHOR_NAME_LENGTH`]: #const.AUTHOR_NAME_LENGTH</span>
+    <span class="doccomment">/// [`AUTHOR_NAME_LENGTH`]: Self::AUTHOR_NAME_LENGTH</span>
     <span class="ident">AuthorNameTooLarge</span> {
         <span class="doccomment">/// The number of codepoints that were provided.</span>
         <span class="ident">chars</span>: <span class="ident">usize</span>,
@@ -678,7 +678,7 @@
     <span class="doccomment">/// The embed description is larger than</span>
     <span class="doccomment">/// [the maximum][`DESCRIPTION_LENGTH`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DESCRIPTION_LENGTH`]: #const.DESCRIPTION_LENGTH</span>
+    <span class="doccomment">/// [`DESCRIPTION_LENGTH`]: Self::DESCRIPTION_LENGTH</span>
     <span class="ident">DescriptionTooLarge</span> {
         <span class="doccomment">/// The number of codepoints that were provided.</span>
         <span class="ident">chars</span>: <span class="ident">usize</span>,
@@ -687,35 +687,35 @@
     <span class="doccomment">/// footer, field names and values, and title - is larger than</span>
     <span class="doccomment">/// [the maximum][`EMBED_TOTAL_LENGTH`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EMBED_TOTAL_LENGTH`]: #const.EMBED_TOTAL_LENGTH</span>
+    <span class="doccomment">/// [`EMBED_TOTAL_LENGTH`]: Self::EMBED_TOTAL_LENGTH</span>
     <span class="ident">EmbedTooLarge</span> {
         <span class="doccomment">/// The number of codepoints that were provided.</span>
         <span class="ident">chars</span>: <span class="ident">usize</span>,
     },
     <span class="doccomment">/// A field&#39;s name is larger than [the maximum][`FIELD_NAME_LENGTH`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FIELD_NAME_LENGTH`]: #const.FIELD_NAME_LENGTH</span>
+    <span class="doccomment">/// [`FIELD_NAME_LENGTH`]: Self::FIELD_NAME_LENGTH</span>
     <span class="ident">FieldNameTooLarge</span> {
         <span class="doccomment">/// The number of codepoints that were provided.</span>
         <span class="ident">chars</span>: <span class="ident">usize</span>,
     },
     <span class="doccomment">/// A field&#39;s value is larger than [the maximum][`FIELD_VALUE_LENGTH`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FIELD_VALUE_LENGTH`]: #const.FIELD_VALUE_LENGTH</span>
+    <span class="doccomment">/// [`FIELD_VALUE_LENGTH`]: Self::FIELD_VALUE_LENGTH</span>
     <span class="ident">FieldValueTooLarge</span> {
         <span class="doccomment">/// The number of codepoints that were provided.</span>
         <span class="ident">chars</span>: <span class="ident">usize</span>,
     },
     <span class="doccomment">/// The footer text is larger than [the maximum][`FOOTER_TEXT_LENGTH`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FOOTER_TEXT_LENGTH`]: #const.FOOTER_TEXT_LENGTH</span>
+    <span class="doccomment">/// [`FOOTER_TEXT_LENGTH`]: Self::FOOTER_TEXT_LENGTH</span>
     <span class="ident">FooterTextTooLarge</span> {
         <span class="doccomment">/// The number of codepoints that were provided.</span>
         <span class="ident">chars</span>: <span class="ident">usize</span>,
     },
     <span class="doccomment">/// The title is larger than [the maximum][`TITLE_LENGTH`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TITLE_LENGTH`]: #const.TITLE_LENGTH</span>
+    <span class="doccomment">/// [`TITLE_LENGTH`]: Self::TITLE_LENGTH</span>
     <span class="ident">TitleTooLarge</span> {
         <span class="doccomment">/// The number of codepoints that were provided.</span>
         <span class="ident">chars</span>: <span class="ident">usize</span>,
@@ -723,7 +723,7 @@
     <span class="doccomment">/// There are more than [the maximum][`FIELD_COUNT`] number of fields in the</span>
     <span class="doccomment">/// embed.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FIELD_COUNT`]: #const.FIELD_COUNT</span>
+    <span class="doccomment">/// [`FIELD_COUNT`]: Self::FIELD_COUNT</span>
     <span class="ident">TooManyFields</span> {
         <span class="doccomment">/// The number of fields that were provided.</span>
         <span class="ident">amount</span>: <span class="ident">usize</span>,

@@ -1544,7 +1544,7 @@
 <span class="doccomment">//! [license link]: https://github.com/twilight-rs/twilight/blob/trunk/LICENSE.md</span>
 <span class="doccomment">//! [rust badge]: https://img.shields.io/badge/rust-stable-93450a.svg?style=for-the-badge&amp;logo=rust</span>
 
-<span class="attribute">#![<span class="ident">deny</span>(<span class="ident">rust_2018_idioms</span>, <span class="ident">unused</span>, <span class="ident">warnings</span>)]</span>
+<span class="attribute">#![<span class="ident">deny</span>(<span class="ident">rust_2018_idioms</span>, <span class="ident">broken_intra_doc_links</span>, <span class="ident">unused</span>, <span class="ident">warnings</span>)]</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">model</span>;
 
@@ -1692,7 +1692,7 @@
 <span class="doccomment">/// operation. If you need the guild to always be up-to-date between operations,</span>
 <span class="doccomment">/// then the intent is that you keep getting it from the cache.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Intents`]: ../twilight_model/gateway/struct.Intents.html</span>
+<span class="doccomment">/// [`Intents`]: ::twilight_model::gateway::Intents</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InMemoryCache</span>(<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">InMemoryCacheRef</span><span class="op">&gt;</span>);
 
@@ -1740,7 +1740,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation. This requires the [`GUILDS`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILDS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILDS</span>
+    <span class="doccomment">/// [`GUILDS`]: ::twilight_model::gateway::Intents::GUILDS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_channel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">GuildChannel</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">channels_guild</span>
@@ -1763,7 +1763,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation. This requires the [`GUILD_EMOJIS`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILD_EMOJIS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_EMOJIS</span>
+    <span class="doccomment">/// [`GUILD_EMOJIS`]: ::twilight_model::gateway::Intents::GUILD_EMOJIS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">emoji</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">emoji_id</span>: <span class="ident">EmojiId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedEmoji</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">emoji_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">data</span>))
     }
@@ -1782,7 +1782,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation. This requires the [`GUILDS`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILDS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILDS</span>
+    <span class="doccomment">/// [`GUILDS`]: ::twilight_model::gateway::Intents::GUILDS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedGuild</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>()))
     }
@@ -1792,7 +1792,7 @@
     <span class="doccomment">/// This is a O(m) operation, where m is the amount of channels in the</span>
     <span class="doccomment">/// guild. This requires the [`GUILDS`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILDS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILDS</span>
+    <span class="doccomment">/// [`GUILDS`]: ::twilight_model::gateway::Intents::GUILDS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_channels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">guild_channels</span>
@@ -1805,8 +1805,8 @@
     <span class="doccomment">/// This is a O(m) operation, where m is the amount of emojis in the guild.</span>
     <span class="doccomment">/// This requires both the [`GUILDS`] and [`GUILD_EMOJIS`] intents.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILDS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILDS</span>
-    <span class="doccomment">/// [`GUILD_EMOJIS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_EMOJIS</span>
+    <span class="doccomment">/// [`GUILDS`]: ::twilight_model::gateway::Intents::GUILDS</span>
+    <span class="doccomment">/// [`GUILD_EMOJIS`]: ::twilight_model::gateway::Intents::GUILD_EMOJIS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_emojis</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">EmojiId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">guild_emojis</span>
@@ -1821,7 +1821,7 @@
     <span class="doccomment">/// This is a O(m) operation, where m is the amount of members in the guild.</span>
     <span class="doccomment">/// This requires the [`GUILD_MEMBERS`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILD_MEMBERS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_MEMBERS</span>
+    <span class="doccomment">/// [`GUILD_MEMBERS`]: ::twilight_model::gateway::Intents::GUILD_MEMBERS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_members</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">guild_members</span>
@@ -1836,7 +1836,7 @@
     <span class="doccomment">/// This is a O(m) operation, where m is the amount of members in the guild.</span>
     <span class="doccomment">/// This requires the [`GUILD_PRESENCES`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILD_PRESENCES`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_PRESENCES</span>
+    <span class="doccomment">/// [`GUILD_PRESENCES`]: ::twilight_model::gateway::Intents::GUILD_PRESENCES</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_presences</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">guild_presences</span>
@@ -1849,7 +1849,7 @@
     <span class="doccomment">/// This is a O(m) operation, where m is the amount of roles in the guild.</span>
     <span class="doccomment">/// This requires the [`GUILDS`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILDS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILDS</span>
+    <span class="doccomment">/// [`GUILDS`]: ::twilight_model::gateway::Intents::GUILDS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_roles</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_roles</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">value</span>().<span class="ident">clone</span>())
     }
@@ -1858,7 +1858,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation. This requires the [`GUILD_MEMBERS`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILD_MEMBERS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_MEMBERS</span>
+    <span class="doccomment">/// [`GUILD_MEMBERS`]: ::twilight_model::gateway::Intents::GUILD_MEMBERS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">member</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedMember</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">members</span>
@@ -1871,8 +1871,8 @@
     <span class="doccomment">/// This is an O(log n) operation. This requires one or both of the</span>
     <span class="doccomment">/// [`GUILD_MESSAGES`] or [`DIRECT_MESSAGES`] intents.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILD_MESSAGES`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_MESSAGES</span>
-    <span class="doccomment">/// [`DIRECT_MESSAGES`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.DIRECT_MESSAGES</span>
+    <span class="doccomment">/// [`GUILD_MESSAGES`]: ::twilight_model::gateway::Intents::GUILD_MESSAGES</span>
+    <span class="doccomment">/// [`DIRECT_MESSAGES`]: ::twilight_model::gateway::Intents::DIRECT_MESSAGES</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
@@ -1887,7 +1887,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation. This requires the [`GUILD_PRESENCES`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILD_PRESENCES`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_PRESENCES</span>
+    <span class="doccomment">/// [`GUILD_PRESENCES`]: ::twilight_model::gateway::Intents::GUILD_PRESENCES</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presence</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CachedPresence</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">presences</span>
@@ -1899,7 +1899,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation. This requires the [`DIRECT_MESSAGES`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DIRECT_MESSAGES`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.DIRECT_MESSAGES</span>
+    <span class="doccomment">/// [`DIRECT_MESSAGES`]: ::twilight_model::gateway::Intents::DIRECT_MESSAGES</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">private_channel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PrivateChannel</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">channels_private</span>
@@ -1911,7 +1911,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation. This requires the [`GUILDS`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILDS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILDS</span>
+    <span class="doccomment">/// [`GUILDS`]: ::twilight_model::gateway::Intents::GUILDS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">role</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">role_id</span>: <span class="ident">RoleId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Role</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">roles</span>
@@ -1923,7 +1923,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an O(1) operation. This requires the [`GUILD_MEMBERS`] intent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILD_MEMBERS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_MEMBERS</span>
+    <span class="doccomment">/// [`GUILD_MEMBERS`]: ::twilight_model::gateway::Intents::GUILD_MEMBERS</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">r</span>.<span class="number">0</span>))
     }
@@ -1932,8 +1932,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This requires both the [`GUILDS`] and [`GUILD_VOICE_STATES`] intents.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILDS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILDS</span>
-    <span class="doccomment">/// [`GUILD_VOICE_STATES`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_VOICE_STATES</span>
+    <span class="doccomment">/// [`GUILDS`]: ::twilight_model::gateway::Intents::GUILDS</span>
+    <span class="doccomment">/// [`GUILD_VOICE_STATES`]: ::twilight_model::gateway::Intents::GUILD_VOICE_STATES</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">voice_channel_states</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">VoiceState</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">user_ids</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>)<span class="question-mark">?</span>;
 
@@ -1950,8 +1950,8 @@
     <span class="doccomment">/// This is an O(1) operation. This requires both the [`GUILDS`] and</span>
     <span class="doccomment">/// [`GUILD_VOICE_STATES`] intents.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GUILDS`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILDS</span>
-    <span class="doccomment">/// [`GUILD_VOICE_STATES`]: ../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_VOICE_STATES</span>
+    <span class="doccomment">/// [`GUILDS`]: ::twilight_model::gateway::Intents::GUILDS</span>
+    <span class="doccomment">/// [`GUILD_VOICE_STATES`]: ::twilight_model::gateway::Intents::GUILD_VOICE_STATES</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">voice_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">VoiceState</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">voice_states</span>

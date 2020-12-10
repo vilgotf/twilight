@@ -152,14 +152,6 @@
 <span id="149">149</span>
 <span id="150">150</span>
 <span id="151">151</span>
-<span id="152">152</span>
-<span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Client</span>, <span class="ident">State</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -175,8 +167,6 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="doccomment">/// A builder for [`Client`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`Client`]: struct.Client.html</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ClientBuilder</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">default_allowed_mentions</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AllowedMentions</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">proxy</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Proxy</span><span class="op">&gt;</span>,
@@ -189,8 +179,6 @@
 
 <span class="kw">impl</span> <span class="ident">ClientBuilder</span> {
     <span class="doccomment">/// Create a new builder to create a [`Client`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Client`]: struct.Client.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">default</span>()
     }
@@ -200,8 +188,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Errors if `reqwest` fails to build the client.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Client`]: struct.Client.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">reqwest_client</span>
@@ -270,9 +256,7 @@
     <span class="doccomment">/// before making a request.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If this method is not called at all then a default ratelimiter will be</span>
-    <span class="doccomment">/// created by `ClientBuilder::build`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ClientBuilder::build`]: #method.build</span>
+    <span class="doccomment">/// created by [`ClientBuilder::build`].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ratelimiter</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">ratelimiter</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Ratelimiter</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">ratelimiter</span> <span class="op">=</span> <span class="ident">ratelimiter</span>.<span class="ident">into</span>();
 

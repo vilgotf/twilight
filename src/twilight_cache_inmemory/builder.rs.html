@@ -48,10 +48,6 @@
 <span id="45">45</span>
 <span id="46">46</span>
 <span id="47">47</span>
-<span id="48">48</span>
-<span id="49">49</span>
-<span id="50">50</span>
-<span id="51">51</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">config</span>::{<span class="ident">Config</span>, <span class="ident">EventType</span>},
@@ -59,15 +55,11 @@
 };
 
 <span class="doccomment">/// Builder to configure and construct an [`InMemoryCache`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`InMemoryCache`]: struct.InMemoryCache.html</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InMemoryCacheBuilder</span>(<span class="ident">Config</span>);
 
 <span class="kw">impl</span> <span class="ident">InMemoryCacheBuilder</span> {
     <span class="doccomment">/// Creates a builder to configure and construct an [`InMemoryCache`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`InMemoryCache`]: struct.InMemoryCache.html</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">default</span>()
     }

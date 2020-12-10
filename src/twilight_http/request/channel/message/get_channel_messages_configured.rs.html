@@ -107,8 +107,6 @@
 <span id="104">104</span>
 <span id="105">105</span>
 <span id="106">106</span>
-<span id="107">107</span>
-<span id="108">108</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -148,7 +146,7 @@
 <span class="doccomment">/// This struct is returned when one of `after`, `around`, or `before` is specified in</span>
 <span class="doccomment">/// [`GetChannelMessages`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`GetChannelMessages`]: ../get_channel_messages/struct.GetChannelMessages.html</span>
+<span class="doccomment">/// [`GetChannelMessages`]: super::GetChannelMessages</span>
 <span class="comment">// nb: after, around, and before are mutually exclusive, so we use this</span>
 <span class="comment">// &quot;configured&quot; request to utilize the type system to prevent these from being</span>
 <span class="comment">// set in combination.</span>
@@ -190,8 +188,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`GetChannelMessagesConfiguredError::LimitInvalid`] if the</span>
     <span class="doccomment">/// amount is greater than 21600.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GetChannelMessagesConfiguredError::LimitInvalid`]: enum.GetChannelMessagesConfiguredError.html#variant.LimitInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">limit</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">GetChannelMessagesConfiguredError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">validate</span>::<span class="ident">get_channel_messages_limit</span>(<span class="ident">limit</span>) {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GetChannelMessagesConfiguredError</span>::<span class="ident">LimitInvalid</span> { <span class="ident">limit</span> });

@@ -95,8 +95,6 @@
 <span id="92">92</span>
 <span id="93">93</span>
 <span id="94">94</span>
-<span id="95">95</span>
-<span id="96">96</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -159,8 +157,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`GetGuildPruneCountError::DaysInvalid`] if the number of days</span>
     <span class="doccomment">/// is 0.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GetGuildPruneCountError::DaysInvalid`]: enum.GetGuildPruneCountError.html#variant.DaysInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">days</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">days</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">GetGuildPruneCountError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">validate</span>::<span class="ident">guild_prune_days</span>(<span class="ident">days</span>) {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GetGuildPruneCountError</span>::<span class="ident">DaysInvalid</span>);

@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["CrosspostMessage","Crosspost a message by `ChannelId` and `MessageId`."]]});
+initSidebarItems({"struct":[["CrosspostMessage","Crosspost a message by [`ChannelId`] and [`MessageId`]."]]});

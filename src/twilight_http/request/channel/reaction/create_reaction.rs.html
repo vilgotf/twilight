@@ -66,10 +66,6 @@
 <span id="63">63</span>
 <span id="64">64</span>
 <span id="65">65</span>
-<span id="66">66</span>
-<span id="67">67</span>
-<span id="68">68</span>
-<span id="69">69</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>};
@@ -98,10 +94,6 @@
 <span class="doccomment">///     .await?;</span>
 <span class="doccomment">/// # Ok(()) }</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`ChannelId`]: ../../../../twilight_model/id/struct.ChannelId.html</span>
-<span class="doccomment">/// [`MessageId`]: ../../../../twilight_model/id/struct.MessageId.html</span>
-<span class="doccomment">/// [`RequestReactionType`]: enum.RequestReactionType.html</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CreateReaction</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
     <span class="ident">emoji</span>: <span class="ident">String</span>,

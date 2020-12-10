@@ -987,10 +987,6 @@
 <span id="984">984</span>
 <span id="985">985</span>
 <span id="986">986</span>
-<span id="987">987</span>
-<span id="988">988</span>
-<span id="989">989</span>
-<span id="990">990</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="kw">super</span>::<span class="ident">OpCode</span>, <span class="ident">DispatchEvent</span>, <span class="ident">DispatchEventWithTypeDeserializer</span>, <span class="ident">Event</span>, <span class="ident">EventConversionError</span>,
@@ -1055,8 +1051,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// You should use this if you&#39;re using a mutable deserialization library</span>
 <span class="doccomment">/// like `simd-json`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`GatewayEventDeserializer`]: struct.GatewayEventDeserializer.html</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GatewayEventDeserializerOwned</span> {
     <span class="ident">event_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -1122,8 +1116,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// You should use this if you&#39;re using an immutable deserialization library</span>
 <span class="doccomment">/// like `serde_json`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`GatewayEventDeserializerOwned`]: struct.GatewayEventDeserializerOwned.html</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GatewayEventDeserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">event_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,

@@ -73,7 +73,6 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
-<span id="73">73</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">wildcard_imports</span>)]</span>
 <span class="doccomment">//! Events that the shard emits to event streams.</span>
@@ -87,9 +86,8 @@
 <span class="doccomment">//! the type of an event and to filter events from event streams via</span>
 <span class="doccomment">//! [`Shard::some_events`].</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`Event`]: ../../../twilight_model/gateway/event/enum.Event.html</span>
-<span class="doccomment">//! [`EventType`]: ../../../twilight_model/gateway/event/enum.EventType.html</span>
-<span class="doccomment">//! [`Shard::some_events`]: ../struct.Shard.html#method.some_events</span>
+<span class="doccomment">//! [`EventType`]: ::twilight_model::gateway::event::EventType</span>
+<span class="doccomment">//! [`Shard::some_events`]: super::Shard::some_events</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">EventTypeFlags</span>;
 <span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">mpsc</span>::<span class="ident">UnboundedReceiver</span>;
@@ -112,9 +110,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Refer to [`Shard::some_events`] for an example of how to use this.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Events::event_types`]: #method.event_types</span>
-<span class="doccomment">/// [`Shard`]: struct.Shard.html</span>
-<span class="doccomment">/// [`Shard::some_events`]: struct.Shard.html#method.some_events</span>
+<span class="doccomment">/// [`Events::event_types`]: Self::event_types</span>
+<span class="doccomment">/// [`Shard`]: super::Shard</span>
+<span class="doccomment">/// [`Shard::some_events`]: super::Shard::some_events</span>
 <span class="doccomment">/// [`futures::stream::Stream`]: https://docs.rs/futures/*/futures/stream/trait.Stream.html</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Events</span> {
     <span class="ident">event_types</span>: <span class="ident">EventTypeFlags</span>,

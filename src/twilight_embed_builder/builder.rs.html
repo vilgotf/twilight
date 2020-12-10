@@ -751,26 +751,6 @@
 <span id="748">748</span>
 <span id="749">749</span>
 <span id="750">750</span>
-<span id="751">751</span>
-<span id="752">752</span>
-<span id="753">753</span>
-<span id="754">754</span>
-<span id="755">755</span>
-<span id="756">756</span>
-<span id="757">757</span>
-<span id="758">758</span>
-<span id="759">759</span>
-<span id="760">760</span>
-<span id="761">761</span>
-<span id="762">762</span>
-<span id="763">763</span>
-<span id="764">764</span>
-<span id="765">765</span>
-<span id="766">766</span>
-<span id="767">767</span>
-<span id="768">768</span>
-<span id="769">769</span>
-<span id="770">770</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Create embeds.</span>
 
@@ -787,8 +767,6 @@
 <span class="doccomment">/// Error building an embed.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is returned from [`EmbedBuilder::build`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedBuilder::build`]: struct.EmbedBuilder.html#method.build</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">EmbedBuildError</span> {
@@ -796,8 +774,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Refer to [`EmbedBuilder::EMBED_LENGTH_LIMIT`] for more information about</span>
     <span class="doccomment">/// what goes into this limit.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EmbedBuilder::EMBED_LENGTH_LIMIT`]: struct.EmbedBuilder.html#const.EMBED_LENGTH_LIMIT</span>
     <span class="ident">ContentTooLarge</span> {
         <span class="doccomment">/// The total length of the embed.</span>
         <span class="ident">length</span>: <span class="ident">usize</span>,
@@ -806,8 +782,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Refer to [`EmbedBuilder::EMBED_FIELD_LIMIT`] for more information about</span>
     <span class="doccomment">/// what the limit is.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EmbedBuilder::EMBED_FIELD_LIMIT`]: struct.EmbedBuilder.html#const.EMBED_FIELD_LIMIT</span>
     <span class="ident">TooManyFields</span> {
         <span class="doccomment">/// The provided fields.</span>
         <span class="ident">fields</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EmbedField</span><span class="op">&gt;</span>,
@@ -828,8 +802,6 @@
 <span class="doccomment">/// Error working with an embed builder.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is returned from [`EmbedBuilder::color`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedBuilder::color`]: struct.EmbedBuilder.html#method.color</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">EmbedColorError</span> {
@@ -857,8 +829,6 @@
 <span class="doccomment">/// Error adding a description to an embed builder.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is returned from [`EmbedBuilder::description`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedBuilder::description`]: struct.EmbedBuilder.html#method.description</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">EmbedDescriptionError</span> {
@@ -889,8 +859,6 @@
 <span class="doccomment">/// Error adding a title to an embed builder.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is returned from [`EmbedBuilder::title`].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`EmbedBuilder::title`]: struct.EmbedBuilder.html#method.title</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">EmbedTitleError</span> {
     <span class="doccomment">/// Title is empty.</span>
@@ -923,7 +891,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Refer to the [crate-level documentation] for examples.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [crate-level documentation]: ../index.html</span>
+<span class="doccomment">/// [crate-level documentation]: crate</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">module_name_repetitions</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;must be built into an embed&quot;</span>]</span>
@@ -934,21 +902,21 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`color`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`color`]: #method.color</span>
+    <span class="doccomment">/// [`color`]: Self::color</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">COLOR_MAXIMUM</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0xff_ff_ff</span>;
 
     <span class="doccomment">/// The maximum number of UTF-16 code points that can be in a description.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`description`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`description`]: #method.description</span>
+    <span class="doccomment">/// [`description`]: Self::description</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DESCRIPTION_LENGTH_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">2048</span>;
 
     <span class="doccomment">/// The maximum number of fields that can be in an embed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`build`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`build`]: #method.build</span>
+    <span class="doccomment">/// [`build`]: Self::build</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">EMBED_FIELD_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">25</span>;
 
     <span class="doccomment">/// The maximum total textual length of the embed in UTF-16 code points.</span>
@@ -958,14 +926,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`build`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`build`]: #method.build</span>
+    <span class="doccomment">/// [`build`]: Self::build</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">EMBED_LENGTH_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">6000</span>;
 
     <span class="doccomment">/// The maximum number of UTF-16 code points that can be in a title.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`title`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`title`]: #method.title</span>
+    <span class="doccomment">/// [`title`]: Self::title</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TITLE_LENGTH_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">256</span>;
 
     <span class="doccomment">/// Create a new default embed builder.</span>
@@ -975,8 +943,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to the [default implementation].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [crate-level documentation]: ../index.html</span>
-    <span class="doccomment">/// [default implementation]: #impl-Default</span>
+    <span class="doccomment">/// [crate-level documentation]: crate</span>
+    <span class="doccomment">/// [default implementation]: Self::default</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">default</span>()
     }
@@ -992,9 +960,8 @@
     <span class="doccomment">/// Returns [`EmbedBuildError::TooManyFields`] if there are too many fields</span>
     <span class="doccomment">/// in the embed. Refer to [`EMBED_FIELD_LIMIT`] for the limit value.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EMBED_FIELD_LIMIT`]: #const.EMBED_FIELD_LIMIT</span>
-    <span class="doccomment">/// [`EMBED_LENGTH_LIMIT`]: #const.EMBED_LENGTH_LIMIT</span>
-    <span class="doccomment">/// [`EmbedBuildError::TooManyFields`]: enum.EmbedBuildError.html#variant.TooManyFields</span>
+    <span class="doccomment">/// [`EMBED_FIELD_LIMIT`]: Self::EMBED_FIELD_LIMIT</span>
+    <span class="doccomment">/// [`EMBED_LENGTH_LIMIT`]: Self::EMBED_LENGTH_LIMIT</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;should be used as part of something like a message&quot;</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Embed</span>, <span class="ident">EmbedBuildError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">fields</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">EMBED_FIELD_LIMIT</span> {
@@ -1094,9 +1061,7 @@
     <span class="doccomment">/// Returns [`EmbedColorError::Zero`] if the provided color is 0, which is not</span>
     <span class="doccomment">/// an acceptable value.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`COLOR_MAXIMUM`]: #const.COLOR_MAXIMUM</span>
-    <span class="doccomment">/// [`EmbedColorError::NotRgb`]: enum.EmbedColorError.html#variant.NotRgb</span>
-    <span class="doccomment">/// [`EmbedColorError::Zero`]: enum.EmbedColorError.html#variant.Zero</span>
+    <span class="doccomment">/// [`COLOR_MAXIMUM`]: Self::COLOR_MAXIMUM</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">color</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">color</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedColorError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">color</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedColorError</span>::<span class="ident">Zero</span>);
@@ -1131,8 +1096,7 @@
     <span class="doccomment">/// Returns [`EmbedDescriptionError::TooLong`] if the provided</span>
     <span class="doccomment">/// description is longer than the maximum number of code points.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DESCRIPTION_LENGTH_LIMIT`]: #const.DESCRIPTION_LENGTH_LIMIT</span>
-    <span class="doccomment">/// [`EmbedDescriptionError::TooLong`]: enum.EmbedDescriptionError.html#variant.TooLong</span>
+    <span class="doccomment">/// [`DESCRIPTION_LENGTH_LIMIT`]: Self::DESCRIPTION_LENGTH_LIMIT</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">description</span>(
         <span class="self">self</span>,
         <span class="ident">description</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -1296,9 +1260,7 @@
     <span class="doccomment">/// Returns [`EmbedTitleError::TooLong`] if the provided title is longer</span>
     <span class="doccomment">/// than the limit defined at [`TITLE_LENGTH_LIMIT`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TITLE_LENGTH_LIMIT`]: #const.TITLE_LENGTH_LIMIT</span>
-    <span class="doccomment">/// [`EmbedTitleError::Empty`]: enum.EmbedTitleError.html#variant.Empty</span>
-    <span class="doccomment">/// [`EmbedTitleError::TooLong`]: enum.EmbedTitleError.html#variant.TooLong</span>
+    <span class="doccomment">/// [`TITLE_LENGTH_LIMIT`]: Self::TITLE_LENGTH_LIMIT</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">title</span>(<span class="self">self</span>, <span class="ident">title</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedTitleError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_title</span>(<span class="ident">title</span>.<span class="ident">into</span>())
     }
@@ -1375,8 +1337,6 @@
     <span class="doccomment">/// Convert an embed builder into an embed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to calling [`EmbedBuilder::build`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EmbedBuilder::build`]: #method.build</span>
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">builder</span>: <span class="ident">EmbedBuilder</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="ident">builder</span>.<span class="ident">build</span>()
     }

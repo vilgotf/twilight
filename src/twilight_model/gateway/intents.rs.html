@@ -265,16 +265,16 @@
         <span class="doccomment">///  - [`CHANNEL_DELETE`]</span>
         <span class="doccomment">///  - [`CHANNEL_PINS_UPDATE`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`GUILD_CREATE`]: ./event/enum.Event.html#variant.GuildCreate</span>
-        <span class="doccomment">/// [`GUILD_UPDATE`]: ./event/enum.Event.html#variant.GuildUpdate</span>
-        <span class="doccomment">/// [`GUILD_DELETE`]: ./event/enum.Event.html#variant.GuildDelete</span>
-        <span class="doccomment">/// [`GUILD_ROLE_CREATE`]: ./event/enum.Event.html#variant.RoleCreate</span>
-        <span class="doccomment">/// [`GUILD_ROLE_UPDATE`]: ./event/enum.Event.html#variant.RoleUpdate</span>
-        <span class="doccomment">/// [`GUILD_ROLE_DELETE`]: ./event/enum.Event.html#variant.RoleDelete</span>
-        <span class="doccomment">/// [`CHANNEL_CREATE`]: ./event/enum.Event.html#variant.ChannelCreate</span>
-        <span class="doccomment">/// [`CHANNEL_UPDATE`]: ./event/enum.Event.html#variant.ChannelUpdate</span>
-        <span class="doccomment">/// [`CHANNEL_DELETE`]: ./event/enum.Event.html#variant.ChannelDelete</span>
-        <span class="doccomment">/// [`CHANNEL_PINS_UPDATE`]: ./event/enum.Event.html#variant.ChannelPinsUpdate</span>
+        <span class="doccomment">/// [`GUILD_CREATE`]: super::event::Event::GuildCreate</span>
+        <span class="doccomment">/// [`GUILD_UPDATE`]: super::event::Event::GuildUpdate</span>
+        <span class="doccomment">/// [`GUILD_DELETE`]: super::event::Event::GuildDelete</span>
+        <span class="doccomment">/// [`GUILD_ROLE_CREATE`]: super::event::Event::RoleCreate</span>
+        <span class="doccomment">/// [`GUILD_ROLE_UPDATE`]: super::event::Event::RoleUpdate</span>
+        <span class="doccomment">/// [`GUILD_ROLE_DELETE`]: super::event::Event::RoleDelete</span>
+        <span class="doccomment">/// [`CHANNEL_CREATE`]: super::event::Event::ChannelCreate</span>
+        <span class="doccomment">/// [`CHANNEL_UPDATE`]: super::event::Event::ChannelUpdate</span>
+        <span class="doccomment">/// [`CHANNEL_DELETE`]: super::event::Event::ChannelDelete</span>
+        <span class="doccomment">/// [`CHANNEL_PINS_UPDATE`]: super::event::Event::ChannelPinsUpdate</span>
         <span class="kw">const</span> <span class="ident">GUILDS</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="doccomment">/// Guild members intent.</span>
         <span class="doccomment">///</span>
@@ -286,9 +286,9 @@
         <span class="doccomment">///  - [`GUILD_MEMBER_REMOVE`]</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/topics/gateway#privileged-intents</span>
-        <span class="doccomment">/// [`GUILD_MEMBER_ADD`]: ./event/enum.Event.html#variant.MemberAdd</span>
-        <span class="doccomment">/// [`GUILD_MEMBER_UPDATE`]: ./event/enum.Event.html#variant.MemberUpdate</span>
-        <span class="doccomment">/// [`GUILD_MEMBER_REMOVE`]: ./event/enum.Event.html#variant.MemberRemove</span>
+        <span class="doccomment">/// [`GUILD_MEMBER_ADD`]: super::event::Event::MemberAdd</span>
+        <span class="doccomment">/// [`GUILD_MEMBER_UPDATE`]: super::event::Event::MemberUpdate</span>
+        <span class="doccomment">/// [`GUILD_MEMBER_REMOVE`]: super::event::Event::MemberRemove</span>
         <span class="kw">const</span> <span class="ident">GUILD_MEMBERS</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">1</span>;
         <span class="doccomment">/// Guild bans intent.</span>
         <span class="doccomment">///</span>
@@ -296,29 +296,29 @@
         <span class="doccomment">///  - [`GUILD_BAN_ADD`]</span>
         <span class="doccomment">///  - [`GUILD_BAN_REMOVE`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`GUILD_BAN_ADD`]: ./event/enum.Event.html#variant.BanAdd</span>
-        <span class="doccomment">/// [`GUILD_BAN_REMOVE`]: ./event/enum.Event.html#variant.BanRemove</span>
+        <span class="doccomment">/// [`GUILD_BAN_ADD`]: super::event::Event::BanAdd</span>
+        <span class="doccomment">/// [`GUILD_BAN_REMOVE`]: super::event::Event::BanRemove</span>
         <span class="kw">const</span> <span class="ident">GUILD_BANS</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">2</span>;
         <span class="doccomment">/// Guild emojis intent.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Event(s) received:</span>
         <span class="doccomment">///  - [`GUILD_EMOJIS_UPDATE`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`GUILD_EMOJIS_UPDATE`]: ./event/enum.Event.html#variant.GuildEmojisUpdate</span>
+        <span class="doccomment">/// [`GUILD_EMOJIS_UPDATE`]: super::event::Event::GuildEmojisUpdate</span>
         <span class="kw">const</span> <span class="ident">GUILD_EMOJIS</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">3</span>;
         <span class="doccomment">/// Guild integrations intent.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Event(s) received:</span>
         <span class="doccomment">///  - [`GUILD_INTEGRATIONS_UPDATE`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`GUILD_INTEGRATIONS_UPDATE`]: ./event/enum.Event.html#variant.GuildIntegrationsUpdate</span>
+        <span class="doccomment">/// [`GUILD_INTEGRATIONS_UPDATE`]: super::event::Event::GuildIntegrationsUpdate</span>
         <span class="kw">const</span> <span class="ident">GUILD_INTEGRATIONS</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">4</span>;
         <span class="doccomment">/// Guild webhooks intent.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Event(s) received:</span>
         <span class="doccomment">///  - [`WEBHOOKS_UPDATE`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`WEBHOOKS_UPDATE`]: ./event/enum.Event.html#variant.WebhooksUpdate</span>
+        <span class="doccomment">/// [`WEBHOOKS_UPDATE`]: super::event::Event::WebhooksUpdate</span>
         <span class="kw">const</span> <span class="ident">GUILD_WEBHOOKS</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">5</span>;
         <span class="doccomment">/// Guild invites intent.</span>
         <span class="doccomment">///</span>
@@ -326,15 +326,15 @@
         <span class="doccomment">///  - [`INVITE_CREATE`]</span>
         <span class="doccomment">///  - [`INVITE_DELETE`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`INVITE_CREATE`]: ./event/enum.Event.html#variant.InviteCreate</span>
-        <span class="doccomment">/// [`INVITE_DELETE`]: ./event/enum.Event.html#variant.InviteDelete</span>
+        <span class="doccomment">/// [`INVITE_CREATE`]: super::event::Event::InviteCreate</span>
+        <span class="doccomment">/// [`INVITE_DELETE`]: super::event::Event::InviteDelete</span>
         <span class="kw">const</span> <span class="ident">GUILD_INVITES</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">6</span>;
         <span class="doccomment">/// Guild voice states intent.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Event(s) received:</span>
         <span class="doccomment">///  - [`VOICE_STATE_UPDATE`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`VOICE_STATE_UPDATE`]: ./event/enum.Event.html#variant.VoiceStateUpdate</span>
+        <span class="doccomment">/// [`VOICE_STATE_UPDATE`]: super::event::Event::VoiceStateUpdate</span>
         <span class="kw">const</span> <span class="ident">GUILD_VOICE_STATES</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">7</span>;
         <span class="doccomment">/// Guild presences intent.</span>
         <span class="doccomment">///</span>
@@ -344,7 +344,7 @@
         <span class="doccomment">///  - [`PRESENCE_UPDATE`]</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/topics/gateway#privileged-intents</span>
-        <span class="doccomment">/// [`PRESENCE_UPDATE`]: ./event/enum.Event.html#variant.PresenceUpdate</span>
+        <span class="doccomment">/// [`PRESENCE_UPDATE`]: super::event::Event::PresenceUpdate</span>
         <span class="kw">const</span> <span class="ident">GUILD_PRESENCES</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">8</span>;
         <span class="doccomment">/// Guild messages intent.</span>
         <span class="doccomment">///</span>
@@ -354,10 +354,10 @@
         <span class="doccomment">///  - [`MESSAGE_DELETE`]</span>
         <span class="doccomment">///  - [`MESSAGE_DELETE_BULK`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`MESSAGE_CREATE`]: ./event/enum.Event.html#variant.MessageCreate</span>
-        <span class="doccomment">/// [`MESSAGE_UPDATE`]: ./event/enum.Event.html#variant.MessageUpdate</span>
-        <span class="doccomment">/// [`MESSAGE_DELETE`]: ./event/enum.Event.html#variant.MessageDelete</span>
-        <span class="doccomment">/// [`MESSAGE_DELETE_BULK`]: ./event/enum.Event.html#variant.MessageDeleteBulk</span>
+        <span class="doccomment">/// [`MESSAGE_CREATE`]: super::event::Event::MessageCreate</span>
+        <span class="doccomment">/// [`MESSAGE_UPDATE`]: super::event::Event::MessageUpdate</span>
+        <span class="doccomment">/// [`MESSAGE_DELETE`]: super::event::Event::MessageDelete</span>
+        <span class="doccomment">/// [`MESSAGE_DELETE_BULK`]: super::event::Event::MessageDeleteBulk</span>
         <span class="kw">const</span> <span class="ident">GUILD_MESSAGES</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">9</span>;
         <span class="doccomment">/// Guild message reactions intent.</span>
         <span class="doccomment">///</span>
@@ -367,17 +367,17 @@
         <span class="doccomment">///  - [`MESSAGE_REACTION_REMOVE_ALL`]</span>
         <span class="doccomment">///  - [`MESSAGE_REACTION_REMOVE_EMOJI`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`MESSAGE_REACTION_ADD`]: ./event/enum.Event.html#variant.ReactionAdd</span>
-        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE`]: ./event/enum.Event.html#variant.ReactionRemove</span>
-        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE_ALL`]: ./event/enum.Event.html#variant.ReactionRemoveAll</span>
-        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE_EMOJI`]: ./event/enum.Event.html#variant.ReactionRemoveEmoji</span>
+        <span class="doccomment">/// [`MESSAGE_REACTION_ADD`]: super::event::Event::ReactionAdd</span>
+        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE`]: super::event::Event::ReactionRemove</span>
+        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE_ALL`]: super::event::Event::ReactionRemoveAll</span>
+        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE_EMOJI`]: super::event::Event::ReactionRemoveEmoji</span>
         <span class="kw">const</span> <span class="ident">GUILD_MESSAGE_REACTIONS</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">10</span>;
         <span class="doccomment">/// Guild message typing intent.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Event(s) received:</span>
         <span class="doccomment">///  - [`TYPING_START`]</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`TYPING_START`]: ./event/enum.Event.html#variant.TypingStart</span>
+        <span class="doccomment">/// [`TYPING_START`]: super::event::Event::TypingStart</span>
         <span class="kw">const</span> <span class="ident">GUILD_MESSAGE_TYPING</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">11</span>;
         <span class="doccomment">/// Direct messages intent.</span>
         <span class="doccomment">///</span>
@@ -390,11 +390,11 @@
         <span class="doccomment">/// This is different from the [`GUILD_MESSAGES`] intent in that the bot</span>
         <span class="doccomment">/// will receive message events from locations other than guilds.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`MESSAGE_CREATE`]: ./event/enum.Event.html#variant.MessageCreate</span>
-        <span class="doccomment">/// [`MESSAGE_UPDATE`]: ./event/enum.Event.html#variant.MessageUpdate</span>
-        <span class="doccomment">/// [`MESSAGE_DELETE`]: ./event/enum.Event.html#variant.MessageDelete</span>
-        <span class="doccomment">/// [`MESSAGE_DELETE_BULK`]: ./event/enum.Event.html#variant.MessageDeleteBulk</span>
-        <span class="doccomment">/// [`GUILD_MESSAGES`]: #associatedconstant.GUILD_MESSAGES</span>
+        <span class="doccomment">/// [`MESSAGE_CREATE`]: super::event::Event::MessageCreate</span>
+        <span class="doccomment">/// [`MESSAGE_UPDATE`]: super::event::Event::MessageUpdate</span>
+        <span class="doccomment">/// [`MESSAGE_DELETE`]: super::event::Event::MessageDelete</span>
+        <span class="doccomment">/// [`MESSAGE_DELETE_BULK`]: super::event::Event::MessageDeleteBulk</span>
+        <span class="doccomment">/// [`GUILD_MESSAGES`]: Self::GUILD_MESSAGES</span>
         <span class="kw">const</span> <span class="ident">DIRECT_MESSAGES</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">12</span>;
         <span class="doccomment">/// Direct message reactions intent.</span>
         <span class="doccomment">///</span>
@@ -408,11 +408,11 @@
         <span class="doccomment">/// the bot will receive message reaction events from locations other</span>
         <span class="doccomment">/// than guilds.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`MESSAGE_REACTION_ADD`]: ./event/enum.Event.html#variant.ReactionAdd</span>
-        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE`]: ./event/enum.Event.html#variant.ReactionRemove</span>
-        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE_ALL`]: ./event/enum.Event.html#variant.ReactionRemoveAll</span>
-        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE_EMOJI`]: ./event/enum.Event.html#variant.ReactionRemoveEmoji</span>
-        <span class="doccomment">/// [`GUILD_MESSAGE_REACTIONS`]: #associatedconstant.GUILD_MESSAGE_REACTIONS</span>
+        <span class="doccomment">/// [`MESSAGE_REACTION_ADD`]: super::event::Event::ReactionAdd</span>
+        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE`]: super::event::Event::ReactionRemove</span>
+        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE_ALL`]: super::event::Event::ReactionRemoveAll</span>
+        <span class="doccomment">/// [`MESSAGE_REACTION_REMOVE_EMOJI`]: super::event::Event::ReactionRemoveEmoji</span>
+        <span class="doccomment">/// [`GUILD_MESSAGE_REACTIONS`]: Self::GUILD_MESSAGE_REACTIONS</span>
         <span class="kw">const</span> <span class="ident">DIRECT_MESSAGE_REACTIONS</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">13</span>;
         <span class="doccomment">/// Direct message typing intent.</span>
         <span class="doccomment">///</span>
@@ -423,8 +423,8 @@
         <span class="doccomment">/// the bot will receive typing start events from locations other than</span>
         <span class="doccomment">/// guilds.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// [`TYPING_START`]: ./event/enum.Event.html#variant.TypingStart</span>
-        <span class="doccomment">/// [`GUILD_MESSAGE_TYPING`]: #associatedconstant.GUILD_MESSAGE_TYPING</span>
+        <span class="doccomment">/// [`TYPING_START`]: super::event::Event::TypingStart</span>
+        <span class="doccomment">/// [`GUILD_MESSAGE_TYPING`]: Self::GUILD_MESSAGE_TYPING</span>
         <span class="kw">const</span> <span class="ident">DIRECT_MESSAGE_TYPING</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">14</span>;
     }
 }

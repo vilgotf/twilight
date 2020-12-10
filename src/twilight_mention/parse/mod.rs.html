@@ -107,8 +107,6 @@
 <span id="104">104</span>
 <span id="105">105</span>
 <span id="106">106</span>
-<span id="107">107</span>
-<span id="108">108</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Parse mentions out of strings.</span>
 <span class="doccomment">//!</span>
@@ -193,8 +191,6 @@
 <span class="doccomment">/// assert!(matches!(iter.next(), Some((MentionType::User(UserId(78)), _, _))));</span>
 <span class="doccomment">/// assert!(iter.next().is_none());</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`ParseMention`]: trait.ParseMention.html</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MentionType</span> {

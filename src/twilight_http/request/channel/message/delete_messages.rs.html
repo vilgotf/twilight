@@ -76,8 +76,6 @@
 <span id="73">73</span>
 <span id="74">74</span>
 <span id="75">75</span>
-<span id="76">76</span>
-<span id="77">77</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>};
@@ -93,8 +91,6 @@
 <span class="doccomment">/// still count towards the lower and upper limits. This method will not delete messages older</span>
 <span class="doccomment">/// than two weeks. Refer to [the discord docs] for more information.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ChannelId`]: ../../../../twilight_model/id/struct.ChannelId.html</span>
-<span class="doccomment">/// [`MessageId`]: ../../../../twilight_model/id/struct.MessageId.html</span>
 <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/resources/channel#bulk-delete-messages</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeleteMessages</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,

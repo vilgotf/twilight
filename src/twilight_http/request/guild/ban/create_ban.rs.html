@@ -123,8 +123,6 @@
 <span id="120">120</span>
 <span id="121">121</span>
 <span id="122">122</span>
-<span id="123">123</span>
-<span id="124">124</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -213,8 +211,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`CreateBanError::DeleteMessageDaysInvalid`] if the number of days</span>
     <span class="doccomment">/// is greater than 7.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CreateBanError::DeleteMessageDaysInvalid`]: enum.CreateBanError.html#variant.DeleteMessageDaysInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_message_days</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">days</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">CreateBanError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">validate</span>::<span class="ident">ban_delete_message_days</span>(<span class="ident">days</span>) {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">CreateBanError</span>::<span class="ident">DeleteMessageDaysInvalid</span> { <span class="ident">days</span> });

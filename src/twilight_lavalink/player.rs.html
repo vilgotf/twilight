@@ -191,7 +191,6 @@
 <span id="188">188</span>
 <span id="189">189</span>
 <span id="190">190</span>
-<span id="191">191</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Players containing information about active playing state within guilds and</span>
 <span class="doccomment">//! allowing you to send events to connected nodes.</span>
@@ -200,10 +199,9 @@
 <span class="doccomment">//! use those players to do things like [send events] or [read the position] of</span>
 <span class="doccomment">//! the active audio.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`PlayerManager`]: struct.PlayerManager.html</span>
-<span class="doccomment">//! [players]: struct.Player.html</span>
-<span class="doccomment">//! [send events]: struct.Player.html#method.send</span>
-<span class="doccomment">//! [read the position]: struct.Player.html#method.position</span>
+<span class="doccomment">//! [players]: Player</span>
+<span class="doccomment">//! [send events]: Player::send</span>
+<span class="doccomment">//! [read the position]: Player::position</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">model</span>::<span class="kw-2">*</span>, <span class="ident">node</span>::<span class="ident">Node</span>};
 <span class="kw">use</span> <span class="ident">dashmap</span>::{
@@ -309,8 +307,8 @@
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Pause`]: ../model/outgoing/struct.Pause.html</span>
-    <span class="doccomment">/// [`Play`]: ../model/outgoing/struct.Play.html</span>
+    <span class="doccomment">/// [`Pause`]: crate::model::outgoing::Pause</span>
+    <span class="doccomment">/// [`Play`]: crate::model::outgoing::Play</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">OutgoingEvent</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">TrySendError</span><span class="op">&lt;</span><span class="ident">OutgoingEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_send</span>(<span class="ident">event</span>.<span class="ident">into</span>())
     }

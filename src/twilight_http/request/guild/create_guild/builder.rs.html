@@ -819,23 +819,6 @@
 <span id="816">816</span>
 <span id="817">817</span>
 <span id="818">818</span>
-<span id="819">819</span>
-<span id="820">820</span>
-<span id="821">821</span>
-<span id="822">822</span>
-<span id="823">823</span>
-<span id="824">824</span>
-<span id="825">825</span>
-<span id="826">826</span>
-<span id="827">827</span>
-<span id="828">828</span>
-<span id="829">829</span>
-<span id="830">830</span>
-<span id="831">831</span>
-<span id="832">832</span>
-<span id="833">833</span>
-<span id="834">834</span>
-<span id="835">835</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">CategoryFields</span>, <span class="ident">GuildChannelFields</span>, <span class="ident">RoleFields</span>, <span class="ident">TextFields</span>, <span class="ident">VoiceFields</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -884,7 +867,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`color`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`color`]: #method.color</span>
+    <span class="doccomment">/// [`color`]: Self::color</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">COLOR_MAXIMUM</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0xff_ff_ff</span>;
 
     <span class="kw">const</span> <span class="ident">ROLE_ID</span>: <span class="ident">RoleId</span> <span class="op">=</span> <span class="ident">RoleId</span>(<span class="number">1</span>);
@@ -914,8 +897,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`RoleFieldsError::ColorNotRgb`] if the color is not valid RGB.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RoleFieldsError::ColorNotRgb`]: enum.RoleFieldsError.html#variant.ColorNotRgb</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">color</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">color</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RoleFieldsError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">color</span> <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">COLOR_MAXIMUM</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RoleFieldsError</span>::<span class="ident">ColorNotRgb</span> { <span class="ident">color</span> });
@@ -938,8 +919,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`RoleFieldsError::IdInvalid`] if the id is set to 1.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RoleFieldsError::IdInvalid`]: enum.RoleFieldsError.html#variant.IdInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">RoleId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RoleFieldsError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">id</span> <span class="op">=</span><span class="op">=</span> <span class="self">Self</span>::<span class="ident">ROLE_ID</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RoleFieldsError</span>::<span class="ident">IdInvalid</span>);
@@ -1029,28 +1008,28 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`new`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`new`]: #method.new</span>
+    <span class="doccomment">/// [`new`]: Self::new</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MIN_NAME_LENGTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">2</span>;
 
     <span class="doccomment">/// The maximum number of UTF-16 code points that can be in a channel name.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`new`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`new`]: #method.new</span>
+    <span class="doccomment">/// [`new`]: Self::new</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAX_NAME_LENGTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">100</span>;
 
     <span class="doccomment">/// The maximum length of a rate limit.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`rate_limit_per_user`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`rate_limit_per_user`]: #method.rate_limit_per_user</span>
+    <span class="doccomment">/// [`rate_limit_per_user`]: Self::rate_limit_per_user</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAX_RATE_LIMIT</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">21600</span>;
 
     <span class="doccomment">/// The maximum number of UTF-16 code points that can be in a channel topic.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`topic`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`topic`]: #method.topic</span>
+    <span class="doccomment">/// [`topic`]: Self::topic</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAX_TOPIC_LENGTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">1024</span>;
 
     <span class="doccomment">/// Create a new text fields builder.</span>
@@ -1060,9 +1039,6 @@
     <span class="doccomment">/// Returns [`TextFieldsError::NameTooShort`] if the name is too short.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`TextFieldsError::NameTooLong`] if the name is too long.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TextFieldsError::NameTooShort`]: enum.TextFieldsError.html#variant.NameTooShort</span>
-    <span class="doccomment">/// [`TextFieldsError::NameTooLong`]: enum.TextFieldsError.html#variant.NameTooLong</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">TextFieldsError</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">name</span>.<span class="ident">into</span>())
     }
@@ -1112,8 +1088,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`TextFieldsError::RateLimitInvalid`] if the rate limit is invalid.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TextFieldsError::RateLimitInvalid`]: enum.TextFieldsError.html#variant.RateLimitInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rate_limit_per_user</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">TextFieldsError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">limit</span> <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MAX_RATE_LIMIT</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TextFieldsError</span>::<span class="ident">RateLimitInvalid</span> { <span class="ident">limit</span> });
@@ -1129,8 +1103,6 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`TextFieldsError::TopicTooLong`] if the topic is too long.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TextFieldsError::TopicTooLong`]: enum.TextFieldsError.html#variant.TopicTooLong</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">topic</span>(<span class="self">self</span>, <span class="ident">topic</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">TextFieldsError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">_topic</span>(<span class="ident">topic</span>.<span class="ident">into</span>())
     }
@@ -1187,14 +1159,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`new`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`new`]: #method.new</span>
+    <span class="doccomment">/// [`new`]: Self::new</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MIN_NAME_LENGTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">2</span>;
 
     <span class="doccomment">/// The maximum number of UTF-16 code points that can be in a channel name.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`new`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`new`]: #method.new</span>
+    <span class="doccomment">/// [`new`]: Self::new</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAX_NAME_LENGTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">100</span>;
 
     <span class="doccomment">/// Create a new voice fields builder.</span>
@@ -1204,9 +1176,6 @@
     <span class="doccomment">/// Returns [`VoiceFieldsError::NameTooShort`] if the name is too short.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`VoiceFieldsError::NameTooLong`] if the name is too long.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`VoiceFieldsError::NameTooShort`]: enum.VoiceFieldsError.html#variant.NameTooShort</span>
-    <span class="doccomment">/// [`VoiceFieldsError::NameTooLong`]: enum.VoiceFieldsError.html#variant.NameTooLong</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">VoiceFieldsError</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">name</span>.<span class="ident">into</span>())
     }
@@ -1302,14 +1271,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`new`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`new`]: #method.new</span>
+    <span class="doccomment">/// [`new`]: Self::new</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MIN_NAME_LENGTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">2</span>;
 
     <span class="doccomment">/// The maximum number of UTF-16 code points that can be in a channel name.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used by [`new`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`new`]: #method.new</span>
+    <span class="doccomment">/// [`new`]: Self::new</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAX_NAME_LENGTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">100</span>;
 
     <span class="doccomment">/// Create a new category fields builder.</span>
@@ -1319,9 +1288,6 @@
     <span class="doccomment">/// Returns [`CategoryFieldsError::NameTooShort`] if the name is too short.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`CategoryFieldsError::NameTooLong`] if the name is too long.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CategoryFieldsError::NameTooShort`]: enum.CategoryFieldsError.html#variant.NameTooShort</span>
-    <span class="doccomment">/// [`CategoryFieldsError::NameTooLong`]: enum.CategoryFieldsError.html#variant.NameTooLong</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">CategoryFieldsError</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">name</span>.<span class="ident">into</span>())
     }
