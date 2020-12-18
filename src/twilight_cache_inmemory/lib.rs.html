@@ -1494,6 +1494,31 @@
 <span id="1491">1491</span>
 <span id="1492">1492</span>
 <span id="1493">1493</span>
+<span id="1494">1494</span>
+<span id="1495">1495</span>
+<span id="1496">1496</span>
+<span id="1497">1497</span>
+<span id="1498">1498</span>
+<span id="1499">1499</span>
+<span id="1500">1500</span>
+<span id="1501">1501</span>
+<span id="1502">1502</span>
+<span id="1503">1503</span>
+<span id="1504">1504</span>
+<span id="1505">1505</span>
+<span id="1506">1506</span>
+<span id="1507">1507</span>
+<span id="1508">1508</span>
+<span id="1509">1509</span>
+<span id="1510">1510</span>
+<span id="1511">1511</span>
+<span id="1512">1512</span>
+<span id="1513">1513</span>
+<span id="1514">1514</span>
+<span id="1515">1515</span>
+<span id="1516">1516</span>
+<span id="1517">1517</span>
+<span id="1518">1518</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-cache-inmemory</span>
 <span class="doccomment">//!</span>
@@ -1626,6 +1651,8 @@
     }
 }
 
+<span class="comment">// When adding a field here, be sure to add it to `InMemoryCache::clear` if</span>
+<span class="comment">// necessary.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">struct</span> <span class="ident">InMemoryCacheRef</span> {
     <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
@@ -1959,21 +1986,34 @@
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="ident">r</span>.<span class="ident">value</span>()))
     }
 
-    <span class="doccomment">/// Clears the entire state of the Cache. This is equal to creating a new</span>
-    <span class="doccomment">/// empty Cache.</span>
+    <span class="doccomment">/// Clear the state of the Cache.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is equal to creating a new empty cache.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">channels_guild</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">channels_private</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>
             .<span class="ident">current_user</span>
             .<span class="ident">lock</span>()
             .<span class="ident">expect</span>(<span class="string">&quot;current user poisoned&quot;</span>)
             .<span class="ident">take</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">groups</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_channels</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_emojis</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_members</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_presences</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guild_roles</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">members</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">presences</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">roles</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">unavailable_guilds</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">clear</span>();
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">clear</span>();
     }
 
     <span class="kw">fn</span> <span class="ident">cache_current_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">current_user</span>: <span class="ident">CurrentUser</span>) {
@@ -2986,6 +3026,16 @@
             <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">guild_2_emoji_ids</span>.<span class="ident">len</span>(), <span class="ident">guild_emojis</span>.<span class="ident">len</span>());
             <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_2_emoji_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">guild_emojis</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
         }
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_clear</span>() {
+        <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">new</span>();
+        <span class="ident">cache</span>.<span class="ident">cache_emoji</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="ident">emoji</span>(<span class="ident">EmojiId</span>(<span class="number">3</span>), <span class="prelude-val">None</span>));
+        <span class="ident">cache</span>.<span class="ident">cache_member</span>(<span class="ident">GuildId</span>(<span class="number">2</span>), <span class="ident">member</span>(<span class="ident">UserId</span>(<span class="number">4</span>), <span class="ident">GuildId</span>(<span class="number">2</span>)));
+        <span class="ident">cache</span>.<span class="ident">clear</span>();
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">members</span>.<span class="ident">is_empty</span>());
     }
 }
 </pre></div>
