@@ -70,6 +70,7 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
+<span id="70">70</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">guild</span>::<span class="ident">Role</span>, <span class="ident">id</span>::<span class="ident">GuildId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -99,6 +100,7 @@
                 <span class="ident">name</span>: <span class="string">&quot;a role&quot;</span>.<span class="ident">to_owned</span>(),
                 <span class="ident">permissions</span>: <span class="ident">Permissions</span>::<span class="ident">SEND_MESSAGES</span>,
                 <span class="ident">position</span>: <span class="number">12</span>,
+                <span class="ident">tags</span>: <span class="prelude-val">None</span>,
             },
         };
 
