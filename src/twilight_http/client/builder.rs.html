@@ -174,7 +174,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">ratelimiter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Ratelimiter</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">reqwest_client</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ReqwestClientBuilder</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">timeout</span>: <span class="ident">Duration</span>,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ClientBuilder</span> {
@@ -285,7 +285,7 @@
             <span class="ident">token</span>.<span class="ident">insert_str</span>(<span class="number">0</span>, <span class="string">&quot;Bot &quot;</span>);
         }
 
-        <span class="self">self</span>.<span class="ident">token</span>.<span class="ident">replace</span>(<span class="ident">token</span>);
+        <span class="self">self</span>.<span class="ident">token</span>.<span class="ident">replace</span>(<span class="ident">token</span>.<span class="ident">into_boxed_str</span>());
 
         <span class="self">self</span>
     }

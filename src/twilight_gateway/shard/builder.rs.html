@@ -397,7 +397,7 @@
             <span class="ident">presence</span>: <span class="prelude-val">None</span>,
             <span class="ident">queue</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">LocalQueue</span>::<span class="ident">new</span>())),
             <span class="ident">shard</span>: [<span class="number">0</span>, <span class="number">1</span>],
-            <span class="ident">token</span>,
+            <span class="ident">token</span>: <span class="ident">token</span>.<span class="ident">into_boxed_str</span>(),
             <span class="ident">session_id</span>: <span class="prelude-val">None</span>,
             <span class="ident">sequence</span>: <span class="prelude-val">None</span>,
         })
@@ -410,7 +410,7 @@
 
     <span class="doccomment">/// Set the URL used for connecting to Discord&#39;s gateway</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gateway_url</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">gateway_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">gateway_url</span> <span class="op">=</span> <span class="ident">gateway_url</span>;
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">gateway_url</span> <span class="op">=</span> <span class="ident">gateway_url</span>.<span class="ident">map</span>(<span class="ident">String</span>::<span class="ident">into_boxed_str</span>);
 
         <span class="self">self</span>
     }

@@ -198,10 +198,6 @@
 <span id="195">195</span>
 <span id="196">196</span>
 <span id="197">197</span>
-<span id="198">198</span>
-<span id="199">199</span>
-<span id="200">200</span>
-<span id="201">201</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="kw">super</span>::{<span class="ident">json</span>, <span class="ident">stage</span>::<span class="ident">Stage</span>},
@@ -268,7 +264,7 @@
     <span class="kw">pub</span> <span class="ident">heartbeater_handle</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">MutexSync</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AbortHandle</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">heartbeats</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Heartbeats</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">heartbeat_interval</span>: <span class="ident">AtomicU64</span>,
-    <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">MutexSync</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">MutexSync</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">seq</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">AtomicU64</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">stage</span>: <span class="ident">AtomicU8</span>,
     <span class="kw">pub</span> <span class="ident">tx</span>: <span class="ident">UnboundedSender</span><span class="op">&lt;</span><span class="ident">TungsteniteMessage</span><span class="op">&gt;</span>,
@@ -355,15 +351,11 @@
         <span class="self">self</span>.<span class="ident">send</span>(<span class="ident">Heartbeat</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">seq</span>()))
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;id poisoned&quot;</span>).<span class="ident">clone</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">new_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) {
-        <span class="self">self</span>.<span class="ident">_set_id</span>(<span class="ident">new_id</span>.<span class="ident">into</span>())
-    }
-
-    <span class="kw">fn</span> <span class="ident">_set_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">new_id</span>: <span class="ident">String</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">new_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) {
         <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;id poisoned&quot;</span>).<span class="ident">replace</span>(<span class="ident">new_id</span>);
     }
 
