@@ -1318,7 +1318,7 @@
 }
 
 <span class="kw">struct</span> <span class="ident">Bystander</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
-    <span class="ident">func</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">E</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span>,
+    <span class="ident">func</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">E</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span>,
     <span class="ident">sender</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
@@ -2085,7 +2085,7 @@
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for</span>() {
         <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">event</span> {
             <span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">e</span>.<span class="ident">guild_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">1</span>),
@@ -2097,7 +2097,7 @@
         }));
 
         <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
-            <span class="ident">wait</span>.<span class="ident">await</span>,
+            <span class="ident">wait</span>.<span class="kw">await</span>,
             <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">RoleDelete</span> {
                 <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                 <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">2</span>),
@@ -2107,7 +2107,7 @@
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_stream</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_stream</span>() {
         <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_stream</span>(
             <span class="ident">GuildId</span>(<span class="number">1</span>),
@@ -2123,14 +2123,14 @@
         }));
 
         <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
-            <span class="ident">stream</span>.<span class="ident">next</span>().<span class="ident">await</span>,
+            <span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>,
             <span class="prelude-val">Some</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">RoleDelete</span> {
                 <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                 <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">2</span>),
             }))
         ));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
-            <span class="ident">stream</span>.<span class="ident">next</span>().<span class="ident">await</span>,
+            <span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>,
             <span class="prelude-val">Some</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">RoleDelete</span> {
                 <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                 <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">3</span>),
@@ -2146,7 +2146,7 @@
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_event</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_event</span>() {
         <span class="kw">let</span> <span class="ident">ready</span> <span class="op">=</span> <span class="ident">Ready</span> {
             <span class="ident">guilds</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
             <span class="ident">session_id</span>: <span class="ident">String</span>::<span class="ident">new</span>(),
@@ -2177,17 +2177,17 @@
         <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">event</span>), <span class="ident">wait</span>.<span class="ident">await</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">event</span>), <span class="ident">wait</span>.<span class="kw">await</span>);
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_event_stream</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_event_stream</span>() {
         <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stream</span> <span class="op">=</span>
             <span class="ident">standby</span>.<span class="ident">wait_for_event_stream</span>(<span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">Resumed</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">Resumed</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="ident">await</span>, <span class="prelude-val">Some</span>(<span class="ident">Event</span>::<span class="ident">Resumed</span>));
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>, <span class="prelude-val">Some</span>(<span class="ident">Event</span>::<span class="ident">Resumed</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
         <span class="ident">drop</span>(<span class="ident">stream</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">Resumed</span>);
@@ -2195,7 +2195,7 @@
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_message</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_message</span>() {
         <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">message</span>();
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MessageCreate</span>(<span class="ident">message</span>)));
 
@@ -2205,19 +2205,19 @@
         });
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">MessageId</span>(<span class="number">3</span>)), <span class="ident">wait</span>.<span class="ident">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">msg</span><span class="op">|</span> <span class="ident">msg</span>.<span class="ident">id</span>));
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">MessageId</span>(<span class="number">3</span>)), <span class="ident">wait</span>.<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">msg</span><span class="op">|</span> <span class="ident">msg</span>.<span class="ident">id</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_message_stream</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_message_stream</span>() {
         <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_message_stream</span>(<span class="ident">ChannelId</span>(<span class="number">1</span>), <span class="op">|</span><span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">MessageCreate</span><span class="op">|</span> <span class="bool-val">true</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MessageCreate</span>(<span class="ident">message</span>()))));
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MessageCreate</span>(<span class="ident">message</span>()))));
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="ident">await</span>.<span class="ident">is_some</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="ident">await</span>.<span class="ident">is_some</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
         <span class="ident">drop</span>(<span class="ident">stream</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">len</span>());
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MessageCreate</span>(<span class="ident">message</span>()))));
@@ -2225,7 +2225,7 @@
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_reaction</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_reaction</span>() {
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>())));
 
         <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
@@ -2235,19 +2235,19 @@
 
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">UserId</span>(<span class="number">3</span>)), <span class="ident">wait</span>.<span class="ident">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">reaction</span><span class="op">|</span> <span class="ident">reaction</span>.<span class="ident">user_id</span>));
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">UserId</span>(<span class="number">3</span>)), <span class="ident">wait</span>.<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">reaction</span><span class="op">|</span> <span class="ident">reaction</span>.<span class="ident">user_id</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">reactions</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_reaction_stream</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_wait_for_reaction_stream</span>() {
         <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_reaction_stream</span>(<span class="ident">MessageId</span>(<span class="number">4</span>), <span class="op">|</span><span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">ReactionAdd</span><span class="op">|</span> <span class="bool-val">true</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="ident">await</span>.<span class="ident">is_some</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="ident">await</span>.<span class="ident">is_some</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
         <span class="ident">drop</span>(<span class="ident">stream</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">reactions</span>.<span class="ident">len</span>());
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
@@ -2255,7 +2255,7 @@
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_handles_wrong_events</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_handles_wrong_events</span>() {
         <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_event</span>(<span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">Resumed</span>);
 
@@ -2263,7 +2263,7 @@
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">PresencesReplace</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">Resumed</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">Resumed</span>), <span class="ident">wait</span>.<span class="ident">await</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">Resumed</span>), <span class="ident">wait</span>.<span class="kw">await</span>);
     }
 
     <span class="doccomment">/// Test that generic event handlers will be given the opportunity to</span>
@@ -2271,18 +2271,18 @@
     <span class="doccomment">/// and guild events. Similarly, guild handlers should be able to process</span>
     <span class="doccomment">/// specific handler events as well.</span>
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">test_process_nonspecific_handling</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_process_nonspecific_handling</span>() {
         <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
 
         <span class="comment">// generic event handler gets message creates</span>
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_event</span>(<span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">MessageCreate</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MessageCreate</span>(<span class="ident">message</span>()))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="ident">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="kw">_</span>))));
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="kw">_</span>))));
 
         <span class="comment">// generic event handler gets reaction adds</span>
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_event</span>(<span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">ReactionAdd</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="ident">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="kw">_</span>))));
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="kw">_</span>))));
 
         <span class="comment">// generic event handler gets other guild events</span>
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_event</span>(<span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">RoleDelete</span>);
@@ -2290,14 +2290,14 @@
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
             <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">2</span>),
         }));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="ident">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="kw">_</span>))));
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="kw">_</span>))));
 
         <span class="comment">// guild event handler gets message creates or reaction events</span>
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> {
             <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">ReactionAdd</span>
         });
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="ident">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="kw">_</span>))));
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="kw">_</span>))));
     }
 }
 </pre></div>

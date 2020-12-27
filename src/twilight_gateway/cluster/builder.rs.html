@@ -539,14 +539,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`ClusterStartError::RetrievingGatewayInfo`] if there was an</span>
     <span class="doccomment">/// HTTP error Retrieving the gateway information.</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Cluster</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Cluster</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> (<span class="self">self</span>.<span class="number">1</span>).<span class="number">0</span>.<span class="ident">gateway_url</span>.<span class="ident">is_none</span>() {
             <span class="kw">let</span> <span class="ident">gateway_url</span> <span class="op">=</span> (<span class="self">self</span>.<span class="number">1</span>)
                 .<span class="number">0</span>
                 .<span class="ident">http_client</span>
                 .<span class="ident">gateway</span>()
                 .<span class="ident">authed</span>()
-                .<span class="ident">await</span>
+                .<span class="kw">await</span>
                 .<span class="ident">ok</span>()
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">url</span>);
 
@@ -555,7 +555,7 @@
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_config</span> <span class="op">=</span> (<span class="self">self</span>.<span class="number">1</span>).<span class="number">0</span>;
 
-        <span class="ident">Cluster</span>::<span class="ident">new_with_config</span>(<span class="self">self</span>.<span class="number">0</span>).<span class="ident">await</span>
+        <span class="ident">Cluster</span>::<span class="ident">new_with_config</span>(<span class="self">self</span>.<span class="number">0</span>).<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Set the URL that will be used to connect to the gateway.</span>
@@ -650,7 +650,7 @@
     <span class="doccomment">/// Refer to the [`queue`] module for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`queue`]: crate::queue</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queue</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">queue</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Queue</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queue</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">queue</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Queue</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">queue</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="ident">queue</span>);
         <span class="self">self</span>.<span class="number">1</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">1</span>.<span class="ident">queue</span>(<span class="ident">queue</span>);
 
@@ -705,7 +705,7 @@
     );
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_shard_scheme</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">test_shard_scheme</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">ShardScheme</span>::<span class="ident">Range</span> {
                 <span class="ident">from</span>: <span class="number">0</span>,

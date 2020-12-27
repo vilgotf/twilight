@@ -40,7 +40,7 @@ won't miss any events.</p>
 
 <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_message</span>(<span class="ident">ChannelId</span>(<span class="number">123</span>), <span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">MessageCreate</span><span class="op">|</span> {
     <span class="ident">event</span>.<span class="ident">author</span>.<span class="ident">id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">UserId</span>(<span class="number">456</span>) <span class="op">&amp;&amp;</span> <span class="ident">event</span>.<span class="ident">content</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;test&quot;</span>
-}).<span class="ident">await</span><span class="question-mark">?</span>;</pre></div>
+}).<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
 <h3 id="a-full-example" class="section-header"><a href="#a-full-example">A full example</a></h3>
 <p>A full sample bot connecting to the gateway, processing events, and
 including a handler to wait for reactions:</p>
@@ -57,16 +57,16 @@ including a handler to wait for reactions:</p>
 <span class="kw">use</span> <span class="ident">twilight_standby</span>::<span class="ident">Standby</span>;
 
 <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">main</span>]</span>
-<span class="ident">async</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="comment">// Start a shard connected to the gateway to receive events.</span>
     <span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGES</span> <span class="op">|</span> <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGE_REACTIONS</span>;
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>, <span class="ident">intents</span>);
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">events</span> <span class="op">=</span> <span class="ident">shard</span>.<span class="ident">events</span>();
-    <span class="ident">shard</span>.<span class="ident">start</span>().<span class="ident">await</span><span class="question-mark">?</span>;
+    <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
 
-    <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="ident">await</span> {
+    <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
         <span class="comment">// Have standby process the event, which will fulfill any futures that</span>
         <span class="comment">// are waiting for an event.</span>
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>);
@@ -84,12 +84,12 @@ including a handler to wait for reactions:</p>
 
 <span class="comment">// Wait for a reaction from the user who sent the message, and then print it</span>
 <span class="comment">// once they react.</span>
-<span class="ident">async</span> <span class="kw">fn</span> <span class="ident">react</span>(<span class="ident">msg</span>: <span class="ident">Message</span>, <span class="ident">standby</span>: <span class="ident">Standby</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">react</span>(<span class="ident">msg</span>: <span class="ident">Message</span>, <span class="ident">standby</span>: <span class="ident">Standby</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">author_id</span> <span class="op">=</span> <span class="ident">msg</span>.<span class="ident">author</span>.<span class="ident">id</span>;
 
     <span class="kw">let</span> <span class="ident">reaction</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_reaction</span>(<span class="ident">msg</span>.<span class="ident">id</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">ReactionAdd</span><span class="op">|</span> {
         <span class="ident">event</span>.<span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">author_id</span>
-    }).<span class="ident">await</span><span class="question-mark">?</span>;
+    }).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;user reacted with {:?}&quot;</span>, <span class="ident">reaction</span>.<span class="ident">emoji</span>);
 

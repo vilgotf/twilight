@@ -268,7 +268,7 @@
     );
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_conversion</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">test_conversion</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Stage</span>::<span class="ident">Connected</span>, <span class="ident">Stage</span>::<span class="ident">try_from</span>(<span class="number">0</span>)<span class="question-mark">?</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Stage</span>::<span class="ident">Disconnected</span>, <span class="ident">Stage</span>::<span class="ident">try_from</span>(<span class="number">1</span>)<span class="question-mark">?</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Stage</span>::<span class="ident">Handshaking</span>, <span class="ident">Stage</span>::<span class="ident">try_from</span>(<span class="number">2</span>)<span class="question-mark">?</span>);

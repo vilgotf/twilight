@@ -436,7 +436,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">ClientError</span> {
-    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="ident">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span>::<span class="ident">NodesUnconfigured</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
             <span class="self">Self</span>::<span class="ident">SendingVoiceUpdate</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
@@ -547,7 +547,7 @@
     <span class="doccomment">/// to the client when attempting to retrieve a guild&#39;s player.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [crate documentation]: crate#examples</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ClientError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ClientError</span><span class="op">&gt;</span> {
         <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;processing event: {:?}&quot;</span>, <span class="ident">event</span>);
 
         <span class="kw">let</span> (<span class="ident">guild_id</span>, <span class="ident">half</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">event</span> {
@@ -648,7 +648,7 @@
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">waiting</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>);
 
         <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;getting player for guild {}&quot;</span>, <span class="ident">guild_id</span>);
-        <span class="kw">let</span> <span class="ident">player</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">player</span>(<span class="ident">guild_id</span>).<span class="ident">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">player</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">player</span>(<span class="ident">guild_id</span>).<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;sending voice update for guild {}: {:?}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">update</span>);
         <span class="ident">player</span>
             .<span class="ident">send</span>(<span class="ident">update</span>)
@@ -662,7 +662,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If a node already exists with the provided address, then it will be</span>
     <span class="doccomment">/// replaced.</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">add</span>(
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">add</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">address</span>: <span class="ident">SocketAddr</span>,
         <span class="ident">authorization</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -675,7 +675,7 @@
             <span class="ident">user_id</span>: <span class="self">self</span>.<span class="number">0</span>.<span class="ident">user_id</span>,
         };
 
-        <span class="kw">let</span> (<span class="ident">node</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">Node</span>::<span class="ident">connect</span>(<span class="ident">config</span>, <span class="self">self</span>.<span class="number">0</span>.<span class="ident">players</span>.<span class="ident">clone</span>()).<span class="ident">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> (<span class="ident">node</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">Node</span>::<span class="ident">connect</span>(<span class="ident">config</span>, <span class="self">self</span>.<span class="number">0</span>.<span class="ident">players</span>.<span class="ident">clone</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">nodes</span>.<span class="ident">insert</span>(<span class="ident">address</span>, <span class="ident">node</span>.<span class="ident">clone</span>());
 
         <span class="prelude-val">Ok</span>((<span class="ident">node</span>, <span class="ident">rx</span>))
@@ -685,7 +685,7 @@
     <span class="doccomment">/// client.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The node is returned if it existed.</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">address</span>: <span class="ident">SocketAddr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">SocketAddr</span>, <span class="ident">Node</span>)<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">address</span>: <span class="ident">SocketAddr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">SocketAddr</span>, <span class="ident">Node</span>)<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">nodes</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">address</span>)
     }
 
@@ -700,12 +700,12 @@
     <span class="doccomment">/// nodes available in the client.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`Node::penalty`]: crate::node::Node::penalty</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">best</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Node</span>, <span class="ident">ClientError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">best</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Node</span>, <span class="ident">ClientError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lowest</span> <span class="op">=</span> <span class="ident">i32</span>::<span class="ident">MAX</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">best</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
         <span class="kw">for</span> <span class="ident">node</span> <span class="kw">in</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">nodes</span>.<span class="ident">iter</span>() {
-            <span class="kw">let</span> <span class="ident">penalty</span> <span class="op">=</span> <span class="ident">node</span>.<span class="ident">value</span>().<span class="ident">penalty</span>().<span class="ident">await</span>;
+            <span class="kw">let</span> <span class="ident">penalty</span> <span class="op">=</span> <span class="ident">node</span>.<span class="ident">value</span>().<span class="ident">penalty</span>().<span class="kw">await</span>;
 
             <span class="kw">if</span> <span class="ident">penalty</span> <span class="op">&lt;</span> <span class="ident">lowest</span> {
                 <span class="ident">lowest</span> <span class="op">=</span> <span class="ident">penalty</span>;
@@ -734,12 +734,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`PlayerManager::get`]: crate::player::PlayerManager::get</span>
     <span class="doccomment">/// [`add`]: Self::add</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">player</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">GuildId</span>, <span class="ident">Player</span><span class="op">&gt;</span>, <span class="ident">ClientError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">player</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">GuildId</span>, <span class="ident">Player</span><span class="op">&gt;</span>, <span class="ident">ClientError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">player</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">players</span>().<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>) {
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">player</span>);
         }
 
-        <span class="kw">let</span> <span class="ident">node</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">best</span>().<span class="ident">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">node</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">best</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">players</span>().<span class="ident">get_or_insert</span>(<span class="ident">guild_id</span>, <span class="ident">node</span>).<span class="ident">downgrade</span>())
     }

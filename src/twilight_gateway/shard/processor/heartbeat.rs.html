@@ -448,8 +448,8 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="self">self</span>) {
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">try_run</span>().<span class="ident">await</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="self">self</span>) {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">try_run</span>().<span class="kw">await</span> {
             <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Error sending heartbeat: {:?}&quot;</span>, <span class="ident">why</span>);
         }
     }
@@ -458,13 +458,13 @@
     <span class="comment">// got disconnected due to the session ending. This task should have</span>
     <span class="comment">// *also* become aborted. Log if that&#39;s the case, because that&#39;s a</span>
     <span class="comment">// programmatic error.</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">try_run</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">SessionSendError</span><span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">try_run</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">SessionSendError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">duration</span> <span class="op">=</span> <span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="self">self</span>.<span class="ident">interval</span>);
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
         <span class="kw">loop</span> {
-            <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">delay_for</span>(<span class="ident">duration</span>).<span class="ident">await</span>;
+            <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">delay_for</span>(<span class="ident">duration</span>).<span class="kw">await</span>;
 
             <span class="comment">// Check if a heartbeat acknowledgement was received.</span>
             <span class="comment">//</span>

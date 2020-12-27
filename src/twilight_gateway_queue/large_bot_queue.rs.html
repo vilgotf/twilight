@@ -137,7 +137,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// You must provide the number of buckets Discord requires your bot to</span>
     <span class="doccomment">/// connect with.</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">buckets</span>: <span class="ident">usize</span>, <span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="ident">twilight_http</span>::<span class="ident">Client</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">buckets</span>: <span class="ident">usize</span>, <span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="ident">twilight_http</span>::<span class="ident">Client</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">queues</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">buckets</span>);
         <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">buckets</span> {
             <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">unbounded</span>();
@@ -147,7 +147,7 @@
             <span class="ident">queues</span>.<span class="ident">push</span>(<span class="ident">tx</span>)
         }
 
-        <span class="kw">let</span> <span class="ident">limiter</span> <span class="op">=</span> <span class="ident">DayLimiter</span>::<span class="ident">new</span>(<span class="ident">http</span>).<span class="ident">await</span>.<span class="ident">expect</span>(
+        <span class="kw">let</span> <span class="ident">limiter</span> <span class="op">=</span> <span class="ident">DayLimiter</span>::<span class="ident">new</span>(<span class="ident">http</span>).<span class="kw">await</span>.<span class="ident">expect</span>(
             <span class="string">&quot;Getting the first session limits failed, \
              Is network connection available?&quot;</span>,
         );
@@ -157,7 +157,7 @@
         <span class="comment">// And will return false if you do not use those features of if</span>
         <span class="comment">// You use the feature but then dynamically set a lower feature.</span>
         <span class="kw">if</span> <span class="ident">tracing</span>::<span class="macro">level_enabled</span><span class="macro">!</span>(<span class="ident">tracing</span>::<span class="ident">Level</span>::<span class="ident">INFO</span>) {
-            <span class="kw">let</span> <span class="ident">lock</span> <span class="op">=</span> <span class="ident">limiter</span>.<span class="number">0</span>.<span class="ident">lock</span>().<span class="ident">await</span>;
+            <span class="kw">let</span> <span class="ident">lock</span> <span class="op">=</span> <span class="ident">limiter</span>.<span class="number">0</span>.<span class="ident">lock</span>().<span class="kw">await</span>;
             <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(
                 <span class="string">&quot;{}/{} identifies used before next reset in {:.2?}&quot;</span>,
                 <span class="ident">lock</span>.<span class="ident">current</span>,
@@ -173,13 +173,13 @@
     }
 }
 
-<span class="ident">async</span> <span class="kw">fn</span> <span class="ident">waiter</span>(<span class="kw-2">mut</span> <span class="ident">rx</span>: <span class="ident">UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>) {
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">waiter</span>(<span class="kw-2">mut</span> <span class="ident">rx</span>: <span class="ident">UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>) {
     <span class="kw">const</span> <span class="ident">DUR</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">6</span>);
-    <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">req</span>) <span class="op">=</span> <span class="ident">rx</span>.<span class="ident">next</span>().<span class="ident">await</span> {
+    <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">req</span>) <span class="op">=</span> <span class="ident">rx</span>.<span class="ident">next</span>().<span class="kw">await</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">req</span>.<span class="ident">send</span>(()) {
             <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed with: {:?}&quot;</span>, <span class="ident">err</span>);
         }
-        <span class="ident">delay_for</span>(<span class="ident">DUR</span>).<span class="ident">await</span>;
+        <span class="ident">delay_for</span>(<span class="ident">DUR</span>).<span class="kw">await</span>;
     }
 }
 
@@ -187,21 +187,21 @@
     <span class="doccomment">/// Request to be able to identify with the gateway. This will place this</span>
     <span class="doccomment">/// request behind all other requests, and the returned future will resolve</span>
     <span class="doccomment">/// once the request has been completed.</span>
-    <span class="kw">fn</span> <span class="ident">request</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;_</span> <span class="self">self</span>, <span class="ident">shard_id</span>: [<span class="ident">u64</span>; <span class="number">2</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">request</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;_</span> <span class="self">self</span>, <span class="ident">shard_id</span>: [<span class="ident">u64</span>; <span class="number">2</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
         <span class="kw">let</span> <span class="ident">bucket</span> <span class="op">=</span> (<span class="ident">shard_id</span>[<span class="number">0</span>] <span class="op">%</span> (<span class="self">self</span>.<span class="ident">buckets</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span>)) <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
 
-        <span class="ident">Box</span>::<span class="ident">pin</span>(<span class="ident">async</span> <span class="kw">move</span> {
-            <span class="self">self</span>.<span class="ident">limiter</span>.<span class="ident">get</span>().<span class="ident">await</span>;
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">buckets</span>[<span class="ident">bucket</span>].<span class="ident">clone</span>().<span class="ident">send</span>(<span class="ident">tx</span>).<span class="ident">await</span> {
+        <span class="ident">Box</span>::<span class="ident">pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
+            <span class="self">self</span>.<span class="ident">limiter</span>.<span class="ident">get</span>().<span class="kw">await</span>;
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">buckets</span>[<span class="ident">bucket</span>].<span class="ident">clone</span>().<span class="ident">send</span>(<span class="ident">tx</span>).<span class="kw">await</span> {
                 <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed with: {:?}&quot;</span>, <span class="ident">err</span>);
                 <span class="kw">return</span>;
             }
 
             <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;waiting for allowance on shard {}&quot;</span>, <span class="ident">shard_id</span>[<span class="number">0</span>]);
 
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">rx</span>.<span class="ident">await</span>;
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">rx</span>.<span class="kw">await</span>;
         })
     }
 }

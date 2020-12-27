@@ -503,7 +503,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">ClusterCommandError</span> {
-    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="ident">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span>::<span class="ident">Sending</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
             <span class="self">Self</span>::<span class="ident">ShardNonexistent</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
@@ -539,7 +539,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">ClusterStartError</span> {
-    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="ident">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span>::<span class="ident">RetrievingGatewayInfo</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
         }
@@ -581,14 +581,14 @@
     <span class="doccomment">/// HTTP error Retrieving the gateway information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`builder`]: Self::builder</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">new</span>(
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">intents</span>: <span class="ident">Intents</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">builder</span>(<span class="ident">token</span>, <span class="ident">intents</span>).<span class="ident">build</span>().<span class="ident">await</span>
+        <span class="self">Self</span>::<span class="ident">builder</span>(<span class="ident">token</span>, <span class="ident">intents</span>).<span class="ident">build</span>().<span class="kw">await</span>
     }
 
-    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">new_with_config</span>(<span class="kw-2">mut</span> <span class="ident">config</span>: <span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">new_with_config</span>(<span class="kw-2">mut</span> <span class="ident">config</span>: <span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ClusterStartError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> [<span class="ident">from</span>, <span class="ident">to</span>, <span class="ident">total</span>] <span class="op">=</span> <span class="kw">match</span> <span class="ident">config</span>.<span class="ident">shard_scheme</span>() {
             <span class="ident">ShardScheme</span>::<span class="ident">Auto</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">http</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">http_client</span>();
@@ -596,7 +596,7 @@
                 <span class="kw">let</span> <span class="ident">gateway</span> <span class="op">=</span> <span class="ident">http</span>
                     .<span class="ident">gateway</span>()
                     .<span class="ident">authed</span>()
-                    .<span class="ident">await</span>
+                    .<span class="kw">await</span>
                     .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ClusterStartError</span>::<span class="ident">RetrievingGatewayInfo</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
 
                 [<span class="number">0</span>, <span class="ident">gateway</span>.<span class="ident">shards</span> <span class="op">-</span> <span class="number">1</span>, <span class="ident">gateway</span>.<span class="ident">shards</span>]
@@ -670,11 +670,11 @@
     <span class="doccomment">/// cluster.up().await;</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">up</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">up</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="ident">future</span>::<span class="ident">join_all</span>(
             (<span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_from</span>..<span class="op">=</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_to</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="self">Self</span>::<span class="ident">start</span>(<span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>), <span class="ident">id</span>)),
         )
-        .<span class="ident">await</span>;
+        .<span class="kw">await</span>;
     }
 
     <span class="doccomment">/// Bring down the cluster, stopping all of the shards that it&#39;s managing.</span>
@@ -771,7 +771,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`ClusterCommandError::ShardNonexistent`] if the provided shard</span>
     <span class="doccomment">/// ID does not exist in the cluster.</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">command</span>(
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">command</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">id</span>: <span class="ident">u64</span>,
         <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw">impl</span> <span class="ident">serde</span>::<span class="ident">Serialize</span>,
@@ -782,7 +782,7 @@
 
         <span class="ident">shard</span>
             .<span class="ident">command</span>(<span class="ident">value</span>)
-            .<span class="ident">await</span>
+            .<span class="kw">await</span>
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ClusterCommandError</span>::<span class="ident">Sending</span> { <span class="ident">source</span> })
     }
 
@@ -795,14 +795,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`ClusterCommandError::ShardNonexistent`] if the provided shard</span>
     <span class="doccomment">/// ID does not exist in the cluster.</span>
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">command_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">u64</span>, <span class="ident">value</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ClusterCommandError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">command_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">u64</span>, <span class="ident">value</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ClusterCommandError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">shard</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">shard</span>(<span class="ident">id</span>)
             .<span class="ident">ok_or</span>(<span class="ident">ClusterCommandError</span>::<span class="ident">ShardNonexistent</span> { <span class="ident">id</span> })<span class="question-mark">?</span>;
 
         <span class="ident">shard</span>
             .<span class="ident">command_raw</span>(<span class="ident">value</span>)
-            .<span class="ident">await</span>
+            .<span class="kw">await</span>
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ClusterCommandError</span>::<span class="ident">Sending</span> { <span class="ident">source</span> })
     }
 
@@ -877,7 +877,7 @@
     <span class="doccomment">/// Accepts weak references to the queue and map of shards, because by the</span>
     <span class="doccomment">/// time the future is polled the cluster may have already dropped, bringing</span>
     <span class="doccomment">/// down the queue and shards with it.</span>
-    <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">start</span>(<span class="ident">cluster</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ClusterRef</span><span class="op">&gt;</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shard</span><span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">start</span>(<span class="ident">cluster</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ClusterRef</span><span class="op">&gt;</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shard</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">cluster</span>
             .<span class="ident">shards</span>
             .<span class="ident">lock</span>()
@@ -885,7 +885,7 @@
             .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">shard_id</span>)<span class="question-mark">?</span>
             .<span class="ident">clone</span>();
 
-        <span class="ident">shard</span>.<span class="ident">start</span>().<span class="ident">await</span>.<span class="ident">ok</span>()<span class="question-mark">?</span>;
+        <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span>.<span class="ident">ok</span>()<span class="question-mark">?</span>;
 
         <span class="prelude-val">Some</span>(<span class="ident">shard</span>)
     }

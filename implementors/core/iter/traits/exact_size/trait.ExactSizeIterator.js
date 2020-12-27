@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["twilight_command_parser"] = [{"text":"impl&lt;'a&gt; ExactSizeIterator for Commands&lt;'a&gt;","synthetic":false,"types":[]},{"text":"impl&lt;'a&gt; ExactSizeIterator for CommandsMut&lt;'a&gt;","synthetic":false,"types":[]},{"text":"impl&lt;'a&gt; ExactSizeIterator for Prefixes&lt;'a&gt;","synthetic":false,"types":[]},{"text":"impl&lt;'a&gt; ExactSizeIterator for PrefixesMut&lt;'a&gt;","synthetic":false,"types":[]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

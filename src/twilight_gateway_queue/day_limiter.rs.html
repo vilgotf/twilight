@@ -138,7 +138,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">DayLimiterError</span> {
-    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="ident">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span>::<span class="ident">RetrievingSessionAvailability</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
         }
@@ -158,11 +158,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DayLimiter</span> {
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="ident">twilight_http</span>::<span class="ident">Client</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DayLimiterError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">http</span>: <span class="kw-2">&amp;</span><span class="ident">twilight_http</span>::<span class="ident">Client</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DayLimiterError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="ident">http</span>
             .<span class="ident">gateway</span>()
             .<span class="ident">authed</span>()
-            .<span class="ident">await</span>
+            .<span class="kw">await</span>
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">DayLimiterError</span>::<span class="ident">RetrievingSessionAvailability</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">last_check</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
@@ -181,14 +181,14 @@
         })))
     }
 
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">lock</span>().<span class="ident">await</span>;
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">lock</span>().<span class="kw">await</span>;
         <span class="kw">if</span> <span class="ident">lock</span>.<span class="ident">current</span> <span class="op">&lt;</span> <span class="ident">lock</span>.<span class="ident">total</span> {
             <span class="ident">lock</span>.<span class="ident">current</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">lock</span>.<span class="ident">last_check</span> <span class="op">+</span> <span class="ident">lock</span>.<span class="ident">next_reset</span>;
-            <span class="ident">time</span>::<span class="ident">delay_until</span>(<span class="ident">wait</span>).<span class="ident">await</span>;
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">info</span>) <span class="op">=</span> <span class="ident">lock</span>.<span class="ident">http</span>.<span class="ident">gateway</span>().<span class="ident">authed</span>().<span class="ident">await</span> {
+            <span class="ident">time</span>::<span class="ident">delay_until</span>(<span class="ident">wait</span>).<span class="kw">await</span>;
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">info</span>) <span class="op">=</span> <span class="ident">lock</span>.<span class="ident">http</span>.<span class="ident">gateway</span>().<span class="ident">authed</span>().<span class="kw">await</span> {
                 <span class="kw">let</span> <span class="ident">last_check</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
                 <span class="kw">let</span> <span class="ident">next_reset</span> <span class="op">=</span> <span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="ident">info</span>.<span class="ident">session_start_limit</span>.<span class="ident">remaining</span>);
                 <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;next session start limit reset in: {:.2?}&quot;</span>, <span class="ident">next_reset</span>);
