@@ -133,6 +133,15 @@
 <span id="130">130</span>
 <span id="131">131</span>
 <span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-gateway</span>
 <span class="doccomment">//!</span>
@@ -215,6 +224,15 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Enabling **only** `simd-zlib` will make the library use [`zlib-ng`] which is a modern</span>
 <span class="doccomment">//! fork of zlib that is faster and more effective, but it needs `cmake` to compile.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ### Metrics</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The `metrics` feature provides metrics information via the `metrics` crate.</span>
+<span class="doccomment">//! Some of the metrics logged are counters about received event counts and</span>
+<span class="doccomment">//! their types and gauges about the capacity and efficiency of the inflater of</span>
+<span class="doccomment">//! each shard.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! This is disabled by default.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`async-tungstenite`]: https://crates.io/crates/async-tungstenite</span>
 <span class="doccomment">//! [`native-tls`]: https://crates.io/crates/native-tls</span>
