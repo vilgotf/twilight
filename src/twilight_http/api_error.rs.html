@@ -638,6 +638,17 @@
 <span id="635">635</span>
 <span id="636">636</span>
 <span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
+<span id="642">642</span>
+<span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">DeError</span>, <span class="ident">Visitor</span>},
@@ -1163,12 +1174,15 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RatelimitedApiError</span> {
+    <span class="doccomment">/// Whether the ratelimit is a global ratelimit.</span>
     <span class="kw">pub</span> <span class="ident">global</span>: <span class="ident">bool</span>,
+    <span class="doccomment">/// Human readable message provided by the API.</span>
     <span class="kw">pub</span> <span class="ident">message</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">retry_after</span>: <span class="ident">u64</span>,
+    <span class="doccomment">/// Amount of time to wait before retrying.</span>
+    <span class="kw">pub</span> <span class="ident">retry_after</span>: <span class="ident">f64</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">RatelimitedApiError</span> {
@@ -1180,6 +1194,14 @@
         }
 
         <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;ratelimited for {}s&quot;</span>, <span class="self">self</span>.<span class="ident">retry_after</span>)
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Eq</span> <span class="kw">for</span> <span class="ident">RatelimitedApiError</span> {}
+
+<span class="kw">impl</span> <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">RatelimitedApiError</span> {
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">global</span> <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>.<span class="ident">global</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">message</span> <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>.<span class="ident">message</span>
     }
 }
 
@@ -1255,7 +1277,7 @@
         <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">RatelimitedApiError</span> {
             <span class="ident">global</span>: <span class="bool-val">true</span>,
             <span class="ident">message</span>: <span class="string">&quot;You are being rate limited.&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">retry_after</span>: <span class="number">6457</span>,
+            <span class="ident">retry_after</span>: <span class="number">6.457</span>,
         };
 
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
@@ -1270,7 +1292,7 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;message&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;You are being rate limited.&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;retry_after&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">6457</span>),
+                <span class="ident">Token</span>::<span class="ident">F64</span>(<span class="number">6.457</span>),
                 <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
             ],
         );
