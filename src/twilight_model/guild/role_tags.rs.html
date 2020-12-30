@@ -125,6 +125,13 @@
 <span id="122">122</span>
 <span id="123">123</span>
 <span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::{<span class="ident">IntegrationId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -151,6 +158,13 @@
         }
 
         <span class="kw">fn</span> <span class="ident">visit_none</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
+        }
+
+        <span class="comment">// `visit_none` is used by `serde_json` when a present `null` value is</span>
+        <span class="comment">// encountered, but other implementations - such as `simd_json` - may</span>
+        <span class="comment">// use `visit_unit` instead.</span>
+        <span class="kw">fn</span> <span class="ident">visit_unit</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
             <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
         }
     }
