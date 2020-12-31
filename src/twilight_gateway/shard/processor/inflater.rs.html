@@ -183,19 +183,9 @@
 <span id="180">180</span>
 <span id="181">181</span>
 <span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">flate2</span>::{<span class="ident">Decompress</span>, <span class="ident">DecompressError</span>, <span class="ident">FlushDecompress</span>};
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryInto</span>, <span class="ident">mem</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryInto</span>, <span class="ident">mem</span>, <span class="ident">time</span>::<span class="ident">Instant</span>};
 
 <span class="kw">const</span> <span class="ident">ZLIB_SUFFIX</span>: [<span class="ident">u8</span>; <span class="number">4</span>] <span class="op">=</span> [<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xff</span>, <span class="number">0xff</span>];
 <span class="kw">const</span> <span class="ident">INTERNAL_BUFFER_SIZE</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">32</span> <span class="op">*</span> <span class="number">1024</span>;
@@ -206,7 +196,7 @@
     <span class="ident">compressed</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
     <span class="ident">internal_buffer</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
     <span class="ident">buffer</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
-    <span class="ident">countdown_to_resize</span>: <span class="ident">u8</span>,
+    <span class="ident">last_resize</span>: <span class="ident">Instant</span>,
     <span class="ident">shard</span>: [<span class="ident">u64</span>; <span class="number">2</span>],
 }
 
@@ -216,9 +206,9 @@
         <span class="self">Self</span> {
             <span class="ident">buffer</span>: <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">INTERNAL_BUFFER_SIZE</span>),
             <span class="ident">compressed</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">countdown_to_resize</span>: <span class="ident">u8</span>::<span class="ident">max_value</span>(),
             <span class="ident">decompress</span>: <span class="ident">Decompress</span>::<span class="ident">new</span>(<span class="bool-val">true</span>),
             <span class="ident">internal_buffer</span>: <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">INTERNAL_BUFFER_SIZE</span>),
+            <span class="ident">last_resize</span>: <span class="ident">Instant</span>::<span class="ident">now</span>(),
             <span class="ident">shard</span>,
         }
     }
@@ -321,9 +311,7 @@
     <span class="doccomment">/// capacity will be shrunk to the length.</span>
     <span class="attribute">#[<span class="ident">tracing</span>::<span class="ident">instrument</span>(<span class="ident">level</span> <span class="op">=</span> <span class="string">&quot;trace&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="self">self</span>.<span class="ident">countdown_to_resize</span> <span class="op">-</span><span class="op">=</span> <span class="number">1</span>;
-
-        <span class="self">self</span>.<span class="ident">shrink_if_too_large</span>();
+        <span class="self">self</span>.<span class="ident">shrink</span>();
 
         <span class="self">self</span>.<span class="ident">compressed</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="ident">internal_buffer</span>.<span class="ident">clear</span>();
@@ -352,18 +340,10 @@
         );
     }
 
-    <span class="doccomment">/// Shrink the capacity of the compressed buffer and payload buffer if the</span>
-    <span class="doccomment">/// payload buffer length is less than 25% of its capacity.</span>
-    <span class="kw">fn</span> <span class="ident">shrink_if_too_large</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">countdown_to_resize</span> <span class="op">!</span><span class="op">=</span> <span class="ident">u8</span>::<span class="ident">MIN</span> {
-            <span class="kw">return</span>;
-        }
-
-        <span class="comment">// Only shrink capacity if it is less than 4 times the size. Doing it</span>
-        <span class="comment">// all the time will cause performance issues. So, if it&#39;s greater,</span>
-        <span class="comment">// don&#39;t do anything.</span>
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">capacity</span>() <span class="op">/</span> <span class="number">4</span> {
-            <span class="self">self</span>.<span class="ident">countdown_to_resize</span> <span class="op">=</span> <span class="ident">u8</span>::<span class="ident">MAX</span>;
+    <span class="doccomment">/// Shrink the capacity of the compressed buffer and payload buffer if at</span>
+    <span class="doccomment">/// least 60 seconds have passed since the last shrink.</span>
+    <span class="kw">fn</span> <span class="ident">shrink</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">last_resize</span>.<span class="ident">elapsed</span>().<span class="ident">as_secs</span>() <span class="op">&lt;</span> <span class="number">60</span> {
             <span class="kw">return</span>;
         }
 
@@ -383,7 +363,7 @@
             <span class="string">&quot;buffer capacity&quot;</span>,
         );
 
-        <span class="self">self</span>.<span class="ident">countdown_to_resize</span> <span class="op">=</span> <span class="ident">u8</span>::<span class="ident">MAX</span>;
+        <span class="self">self</span>.<span class="ident">last_resize</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
     }
 }
 </pre></div>
