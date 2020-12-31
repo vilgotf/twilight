@@ -141,6 +141,8 @@
 <span id="138">138</span>
 <span id="139">139</span>
 <span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">bitflags</span>::<span class="ident">bitflags</span>;
 
@@ -171,6 +173,7 @@
         <span class="kw">const</span> <span class="ident">REACTION_ADD</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">20</span>;
         <span class="kw">const</span> <span class="ident">REACTION_REMOVE</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">21</span>;
         <span class="kw">const</span> <span class="ident">REACTION_REMOVE_ALL</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">22</span>;
+        <span class="kw">const</span> <span class="ident">REACTION_REMOVE_EMOJI</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">33</span>;
         <span class="kw">const</span> <span class="ident">READY</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">23</span>;
         <span class="kw">const</span> <span class="ident">ROLE_CREATE</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">24</span>;
         <span class="kw">const</span> <span class="ident">ROLE_DELETE</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">25</span>;
@@ -264,6 +267,7 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">30</span>, <span class="ident">EventType</span>::<span class="ident">VOICE_SERVER_UPDATE</span>.<span class="ident">bits</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">31</span>, <span class="ident">EventType</span>::<span class="ident">VOICE_STATE_UPDATE</span>.<span class="ident">bits</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">32</span>, <span class="ident">EventType</span>::<span class="ident">WEBHOOKS_UPDATE</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">33</span>, <span class="ident">EventType</span>::<span class="ident">REACTION_REMOVE_EMOJI</span>.<span class="ident">bits</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
