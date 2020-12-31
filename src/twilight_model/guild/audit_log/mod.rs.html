@@ -43,10 +43,10 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AuditLog</span> {
-    <span class="ident">audit_log_entries</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuditLogEntry</span><span class="op">&gt;</span>,
-    <span class="ident">integrations</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PartialGuildIntegration</span><span class="op">&gt;</span>,
-    <span class="ident">users</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;</span>,
-    <span class="ident">webhooks</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Webhook</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">audit_log_entries</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuditLogEntry</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">integrations</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PartialGuildIntegration</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">users</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">webhooks</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Webhook</span><span class="op">&gt;</span>,
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../";window.currentCrate = "twilight_model";</script><script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script><script defer src="../../../../search-index.js"></script></body></html>
