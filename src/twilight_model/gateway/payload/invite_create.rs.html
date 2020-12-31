@@ -30,6 +30,9 @@
 <span id="27">27</span>
 <span id="28">28</span>
 <span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">UserId</span>},
@@ -44,10 +47,13 @@
     <span class="kw">pub</span> <span class="ident">code</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">created_at</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">inviter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">max_age</span>: <span class="ident">u64</span>,
     <span class="kw">pub</span> <span class="ident">max_uses</span>: <span class="ident">u64</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">target_user_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetUserType</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">target_user</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PartialUser</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">temporary</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">uses</span>: <span class="ident">u8</span>, <span class="comment">// will always be zero</span>

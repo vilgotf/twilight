@@ -271,46 +271,6 @@
 <span id="268">268</span>
 <span id="269">269</span>
 <span id="270">270</span>
-<span id="271">271</span>
-<span id="272">272</span>
-<span id="273">273</span>
-<span id="274">274</span>
-<span id="275">275</span>
-<span id="276">276</span>
-<span id="277">277</span>
-<span id="278">278</span>
-<span id="279">279</span>
-<span id="280">280</span>
-<span id="281">281</span>
-<span id="282">282</span>
-<span id="283">283</span>
-<span id="284">284</span>
-<span id="285">285</span>
-<span id="286">286</span>
-<span id="287">287</span>
-<span id="288">288</span>
-<span id="289">289</span>
-<span id="290">290</span>
-<span id="291">291</span>
-<span id="292">292</span>
-<span id="293">293</span>
-<span id="294">294</span>
-<span id="295">295</span>
-<span id="296">296</span>
-<span id="297">297</span>
-<span id="298">298</span>
-<span id="299">299</span>
-<span id="300">300</span>
-<span id="301">301</span>
-<span id="302">302</span>
-<span id="303">303</span>
-<span id="304">304</span>
-<span id="305">305</span>
-<span id="306">306</span>
-<span id="307">307</span>
-<span id="308">308</span>
-<span id="309">309</span>
-<span id="310">310</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">voice</span>::<span class="ident">VoiceState</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -378,7 +338,7 @@
                 },
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;VoiceState&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">12</span>,
+                    <span class="ident">len</span>: <span class="number">11</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;channel_id&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">None</span>,
@@ -392,7 +352,7 @@
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Member&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">9</span>,
+                    <span class="ident">len</span>: <span class="number">8</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;deaf&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
@@ -409,8 +369,6 @@
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;nick&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;premium_since&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;roles&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;RoleId&quot;</span> },
@@ -419,7 +377,7 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;User&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">13</span>,
+                    <span class="ident">len</span>: <span class="number">5</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">None</span>,
@@ -427,27 +385,11 @@
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;discriminator&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;0909&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;email&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;flags&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;locale&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;mfa_enabled&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;username&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;foo&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;premium_type&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;public_flags&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;system&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;verified&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
                 <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;mute&quot;</span>),
@@ -462,8 +404,6 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;a&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;suppress&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;token&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user_id&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
@@ -526,7 +466,7 @@
                 },
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;VoiceState&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">12</span>,
+                    <span class="ident">len</span>: <span class="number">11</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;channel_id&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">None</span>,
@@ -540,7 +480,7 @@
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Member&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">9</span>,
+                    <span class="ident">len</span>: <span class="number">8</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;deaf&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
@@ -556,8 +496,6 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;nick&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;Twilight&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;premium_since&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;roles&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">2</span>) },
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;RoleId&quot;</span> },
@@ -568,7 +506,7 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;User&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">13</span>,
+                    <span class="ident">len</span>: <span class="number">5</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
@@ -577,27 +515,11 @@
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;discriminator&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;4242&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;email&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;flags&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1234123123123&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;locale&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;mfa_enabled&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;username&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;Twilight Sparkle&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;premium_type&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;public_flags&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;system&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;verified&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
                 <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;mute&quot;</span>),
@@ -612,8 +534,6 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;asdasdas1da98da2b3ab3a&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;suppress&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;token&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user_id&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;123213&quot;</span>),

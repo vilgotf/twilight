@@ -67,14 +67,14 @@
 <span id="64">64</span>
 <span id="65">65</span>
 <span id="66">66</span>
-<span id="67">67</span>
-<span id="68">68</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EmbedFooter</span> {
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">icon_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">proxy_icon_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">text</span>: <span class="ident">String</span>,
 }
@@ -125,12 +125,8 @@
             <span class="kw-2">&amp;</span>[
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;EmbedFooter&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">3</span>,
+                    <span class="ident">len</span>: <span class="number">1</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;icon_url&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;proxy_icon_url&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;text&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;a footer&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
