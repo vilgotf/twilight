@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["GetCurrentUserGuildsError","The error created when the current guilds can not be retrieved as configured."]],"struct":[["CurrentUserGuild","Information about a guild the current user is in."],["GetCurrentUserGuilds","Returns a list of guilds for the current user."]]});
+initSidebarItems({"enum":[["GetCurrentUserGuildsError","The error created when the current guilds can not be retrieved as configured."]],"struct":[["GetCurrentUserGuilds","Returns a list of guilds for the current user."]]});

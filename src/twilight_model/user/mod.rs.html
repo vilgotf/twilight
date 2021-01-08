@@ -237,13 +237,6 @@
 <span id="234">234</span>
 <span id="235">235</span>
 <span id="236">236</span>
-<span id="237">237</span>
-<span id="238">238</span>
-<span id="239">239</span>
-<span id="240">240</span>
-<span id="241">241</span>
-<span id="242">242</span>
-<span id="243">243</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">connection</span>;
 <span class="kw">mod</span> <span class="ident">connection_visibility</span>;
@@ -261,9 +254,8 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::<span class="ident">UserId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-<span class="kw">use</span> <span class="ident">serde_mappable_seq</span>::<span class="ident">Key</span>;
 
-<span class="kw">mod</span> <span class="ident">discriminator</span> {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod</span> <span class="ident">discriminator</span> {
     <span class="kw">use</span> <span class="ident">serde</span>::{
         <span class="ident">de</span>::{<span class="ident">Deserializer</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">DeError</span>, <span class="ident">Visitor</span>},
         <span class="ident">ser</span>::<span class="ident">Serializer</span>,
@@ -330,12 +322,6 @@
     <span class="kw">pub</span> <span class="ident">system</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">verified</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
-}
-
-<span class="kw">impl</span> <span class="ident">Key</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">UserId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">User</span> {
-    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UserId</span> {
-        <span class="self">self</span>.<span class="ident">id</span>
-    }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>

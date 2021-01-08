@@ -115,7 +115,7 @@
 };
 <span class="kw">use</span> <span class="ident">futures_util</span>::{<span class="ident">sink</span>::<span class="ident">SinkExt</span>, <span class="ident">stream</span>::<span class="ident">StreamExt</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fmt</span>::<span class="ident">Debug</span>, <span class="ident">future</span>::<span class="ident">Future</span>, <span class="ident">pin</span>::<span class="ident">Pin</span>, <span class="ident">time</span>::<span class="ident">Duration</span>};
-<span class="kw">use</span> <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">delay_for</span>;
+<span class="kw">use</span> <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">sleep</span>;
 
 <span class="doccomment">/// Queue built for single-process clusters that require identifying via</span>
 <span class="doccomment">/// [Sharding for Very Large Bots].</span>
@@ -179,7 +179,7 @@
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">req</span>.<span class="ident">send</span>(()) {
             <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed with: {:?}&quot;</span>, <span class="ident">err</span>);
         }
-        <span class="ident">delay_for</span>(<span class="ident">DUR</span>).<span class="kw">await</span>;
+        <span class="ident">sleep</span>(<span class="ident">DUR</span>).<span class="kw">await</span>;
     }
 }
 

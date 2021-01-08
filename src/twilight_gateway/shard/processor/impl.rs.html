@@ -1645,7 +1645,7 @@
                 <span class="ident">wait_in_seconds</span> <span class="op">=</span> <span class="ident">wait</span>.<span class="ident">as_secs</span>(),
                 <span class="string">&quot;waiting before attempting a reconnect&quot;</span>,
             );
-            <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">delay_for</span>(<span class="ident">wait</span>).<span class="kw">await</span>;
+            <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">sleep</span>(<span class="ident">wait</span>).<span class="kw">await</span>;
 
             <span class="comment">// Await allowance when doing a full reconnect.</span>
             <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">queue</span>.<span class="ident">request</span>(<span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()).<span class="kw">await</span>;
@@ -1736,7 +1736,7 @@
         <span class="self">self</span>.<span class="ident">rx</span> <span class="op">=</span> <span class="ident">rx</span>;
         <span class="self">self</span>.<span class="ident">session</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Session</span>::<span class="ident">new</span>(<span class="ident">tx</span>));
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">wtx</span>.<span class="ident">broadcast</span>(<span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">session</span>)) {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">wtx</span>.<span class="ident">send</span>(<span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">session</span>)) {
             <span class="ident">tracing</span>::<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;failed to broadcast new session: {:?}&quot;</span>, <span class="ident">why</span>);
         }
 

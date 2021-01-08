@@ -50,7 +50,7 @@
 <span id="47">47</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
-    <span class="ident">config</span>::{<span class="ident">Config</span>, <span class="ident">EventType</span>},
+    <span class="ident">config</span>::{<span class="ident">Config</span>, <span class="ident">ResourceType</span>},
     <span class="ident">InMemoryCache</span>,
 };
 
@@ -69,11 +69,11 @@
         <span class="ident">InMemoryCache</span>::<span class="ident">new_with_config</span>(<span class="self">self</span>.<span class="number">0</span>)
     }
 
-    <span class="doccomment">/// Sets the list of event types for the cache to handle.</span>
+    <span class="doccomment">/// Sets the list of resource types for the cache to handle.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Defaults to all types.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">event_types</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">event_types</span>: <span class="ident">EventType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">event_types</span> <span class="op">=</span> <span class="ident">event_types</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">resource_types</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">resource_types</span>: <span class="ident">ResourceType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">resource_types</span> <span class="op">=</span> <span class="ident">resource_types</span>;
 
         <span class="self">self</span>
     }

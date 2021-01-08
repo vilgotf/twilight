@@ -562,23 +562,23 @@
 <span class="kw">mod</span> <span class="ident">application</span>;
 <span class="kw">mod</span> <span class="ident">flags</span>;
 <span class="kw">mod</span> <span class="ident">kind</span>;
+<span class="kw">mod</span> <span class="ident">mention</span>;
 <span class="kw">mod</span> <span class="ident">reaction</span>;
 <span class="kw">mod</span> <span class="ident">reference</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
     <span class="ident">activity</span>::<span class="ident">MessageActivity</span>, <span class="ident">activity_type</span>::<span class="ident">MessageActivityType</span>, <span class="ident">application</span>::<span class="ident">MessageApplication</span>,
-    <span class="ident">flags</span>::<span class="ident">MessageFlags</span>, <span class="ident">kind</span>::<span class="ident">MessageType</span>, <span class="ident">reaction</span>::<span class="ident">MessageReaction</span>, <span class="ident">reference</span>::<span class="ident">MessageReference</span>,
-    <span class="ident">sticker</span>::<span class="ident">Sticker</span>,
+    <span class="ident">flags</span>::<span class="ident">MessageFlags</span>, <span class="ident">kind</span>::<span class="ident">MessageType</span>, <span class="ident">mention</span>::<span class="ident">Mention</span>, <span class="ident">reaction</span>::<span class="ident">MessageReaction</span>,
+    <span class="ident">reference</span>::<span class="ident">MessageReference</span>, <span class="ident">sticker</span>::<span class="ident">Sticker</span>,
 };
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">channel</span>::{<span class="ident">embed</span>::<span class="ident">Embed</span>, <span class="ident">Attachment</span>, <span class="ident">ChannelMention</span>},
     <span class="ident">guild</span>::<span class="ident">PartialMember</span>,
-    <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">MessageId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>, <span class="ident">WebhookId</span>},
+    <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">MessageId</span>, <span class="ident">RoleId</span>, <span class="ident">WebhookId</span>},
     <span class="ident">user</span>::<span class="ident">User</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Message</span> {
@@ -605,8 +605,7 @@
     <span class="kw">pub</span> <span class="ident">mention_channels</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ChannelMention</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">mention_everyone</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">mention_roles</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;</span>,
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_mappable_seq&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">mentions</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">User</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">mentions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Mention</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">pinned</span>: <span class="ident">bool</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">reactions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MessageReaction</span><span class="op">&gt;</span>,
@@ -641,7 +640,6 @@
         <span class="ident">user</span>::<span class="ident">User</span>,
     };
     <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
 
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -678,12 +676,13 @@
                 <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2020-01-01T00:00:00.000000+00:00&quot;</span>.<span class="ident">to_owned</span>()),
                 <span class="ident">mute</span>: <span class="bool-val">false</span>,
                 <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;member nick&quot;</span>.<span class="ident">to_owned</span>()),
+                <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                 <span class="ident">roles</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             }),
             <span class="ident">mention_channels</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             <span class="ident">mention_everyone</span>: <span class="bool-val">false</span>,
             <span class="ident">mention_roles</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">mentions</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
+            <span class="ident">mentions</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             <span class="ident">pinned</span>: <span class="bool-val">false</span>,
             <span class="ident">reactions</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             <span class="ident">reference</span>: <span class="prelude-val">None</span>,
@@ -865,6 +864,7 @@
                 <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2020-01-01T00:00:00.000000+00:00&quot;</span>.<span class="ident">to_owned</span>()),
                 <span class="ident">mute</span>: <span class="bool-val">false</span>,
                 <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;member nick&quot;</span>.<span class="ident">to_owned</span>()),
+                <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                 <span class="ident">roles</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             }),
             <span class="ident">mention_channels</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">ChannelMention</span> {
@@ -875,7 +875,7 @@
             }],
             <span class="ident">mention_everyone</span>: <span class="bool-val">false</span>,
             <span class="ident">mention_roles</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">mentions</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
+            <span class="ident">mentions</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             <span class="ident">pinned</span>: <span class="bool-val">false</span>,
             <span class="ident">reactions</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">MessageReaction</span> {
                 <span class="ident">count</span>: <span class="number">7</span>,

@@ -234,11 +234,6 @@
 <span id="231">231</span>
 <span id="232">232</span>
 <span id="233">233</span>
-<span id="234">234</span>
-<span id="235">235</span>
-<span id="236">236</span>
-<span id="237">237</span>
-<span id="238">238</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight</span>
 <span class="doccomment">//!</span>
@@ -264,10 +259,10 @@
 <span class="doccomment">//! `Cargo.toml`&#39;s `[dependencies]` section:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```toml</span>
-<span class="doccomment">//! twilight-cache-inmemory = &quot;0.2&quot;</span>
-<span class="doccomment">//! twilight-gateway = &quot;0.2&quot;</span>
-<span class="doccomment">//! twilight-http = &quot;0.2&quot;</span>
-<span class="doccomment">//! twilight-model = &quot;0.2&quot;</span>
+<span class="doccomment">//! twilight-cache-inmemory = &quot;0.3&quot;</span>
+<span class="doccomment">//! twilight-gateway = &quot;0.3&quot;</span>
+<span class="doccomment">//! twilight-http = &quot;0.3&quot;</span>
+<span class="doccomment">//! twilight-model = &quot;0.3&quot;</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! If you need any other functionality that Twilight provides, you can just add</span>
@@ -363,8 +358,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```rust,no_run</span>
 <span class="doccomment">//! use std::{env, error::Error};</span>
-<span class="doccomment">//! use tokio::stream::StreamExt;</span>
-<span class="doccomment">//! use twilight_cache_inmemory::{EventType, InMemoryCache};</span>
+<span class="doccomment">//! use futures::stream::StreamExt;</span>
+<span class="doccomment">//! use twilight_cache_inmemory::{InMemoryCache, ResourceType};</span>
 <span class="doccomment">//! use twilight_gateway::{cluster::{Cluster, ShardScheme}, Event};</span>
 <span class="doccomment">//! use twilight_http::Client as HttpClient;</span>
 <span class="doccomment">//! use twilight_model::gateway::Intents;</span>
@@ -397,12 +392,7 @@
 <span class="doccomment">//!     // Since we only care about new messages, make the cache only</span>
 <span class="doccomment">//!     // cache new messages.</span>
 <span class="doccomment">//!     let cache = InMemoryCache::builder()</span>
-<span class="doccomment">//!         .event_types(</span>
-<span class="doccomment">//!             EventType::MESSAGE_CREATE</span>
-<span class="doccomment">//!                 | EventType::MESSAGE_DELETE</span>
-<span class="doccomment">//!                 | EventType::MESSAGE_DELETE_BULK</span>
-<span class="doccomment">//!                 | EventType::MESSAGE_UPDATE,</span>
-<span class="doccomment">//!         )</span>
+<span class="doccomment">//!         .resource_types(ResourceType::MESSAGE)</span>
 <span class="doccomment">//!         .build();</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     let mut events = cluster.events();</span>

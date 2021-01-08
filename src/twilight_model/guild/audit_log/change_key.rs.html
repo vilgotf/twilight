@@ -51,10 +51,17 @@
 <span id="48">48</span>
 <span id="49">49</span>
 <span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">Ord</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AuditLogChangeKey</span> {
     <span class="ident">AfkChannelId</span>,
@@ -69,6 +76,9 @@
     <span class="ident">Deaf</span>,
     <span class="ident">DefaultMessageNotifications</span>,
     <span class="ident">Deny</span>,
+    <span class="ident">EnableEmoticons</span>,
+    <span class="ident">ExpireBehavior</span>,
+    <span class="ident">ExpireGracePeriod</span>,
     <span class="ident">ExplicitContentFilter</span>,
     <span class="ident">Hoist</span>,
     <span class="ident">IconHash</span>,
@@ -87,12 +97,14 @@
     <span class="ident">Permissions</span>,
     <span class="ident">Position</span>,
     <span class="ident">PruneDeleteDays</span>,
+    <span class="ident">RateLimitPerUser</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;$add&quot;</span>)]</span>
     <span class="ident">RoleAdded</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;$remove&quot;</span>)]</span>
     <span class="ident">RoleRemoved</span>,
     <span class="ident">Region</span>,
     <span class="ident">SplashHash</span>,
+    <span class="ident">SystemChannelId</span>,
     <span class="ident">Temporary</span>,
     <span class="ident">Topic</span>,
     <span class="ident">Type</span>,

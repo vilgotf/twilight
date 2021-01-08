@@ -258,21 +258,9 @@
 <span id="255">255</span>
 <span id="256">256</span>
 <span id="257">257</span>
-<span id="258">258</span>
-<span id="259">259</span>
-<span id="260">260</span>
-<span id="261">261</span>
-<span id="262">262</span>
-<span id="263">263</span>
-<span id="264">264</span>
-<span id="265">265</span>
-<span id="266">266</span>
-<span id="267">267</span>
-<span id="268">268</span>
-<span id="269">269</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>},
+    <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>},
     <span class="ident">user</span>::<span class="ident">User</span>,
 };
 
@@ -283,11 +271,7 @@
     },
     <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>,
 };
-<span class="kw">use</span> <span class="ident">serde_mappable_seq</span>::<span class="ident">Key</span>;
-<span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">collections</span>::<span class="ident">HashMap</span>,
-    <span class="ident">fmt</span>::{<span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
-};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Member</span> {
@@ -301,12 +285,6 @@
     <span class="kw">pub</span> <span class="ident">premium_since</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">roles</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoleId</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">user</span>: <span class="ident">User</span>,
-}
-
-<span class="kw">impl</span> <span class="ident">Key</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">UserId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Member</span> {
-    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UserId</span> {
-        <span class="self">self</span>.<span class="ident">user</span>.<span class="ident">id</span>
-    }
 }
 
 <span class="comment">// Used in the guild deserializer.</span>
@@ -411,9 +389,9 @@
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemberMapDeserializer</span>(<span class="ident">GuildId</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemberListDeserializer</span>(<span class="ident">GuildId</span>);
 
-<span class="kw">impl</span> <span class="ident">MemberMapDeserializer</span> {
+<span class="kw">impl</span> <span class="ident">MemberListDeserializer</span> {
     <span class="doccomment">/// Create a new deserializer for a map of members when you know the</span>
     <span class="doccomment">/// Guild ID but the payload probably doesn&#39;t contain it.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -421,33 +399,31 @@
     }
 }
 
-<span class="kw">struct</span> <span class="ident">MemberMapVisitor</span>(<span class="ident">GuildId</span>);
+<span class="kw">struct</span> <span class="ident">MemberListVisitor</span>(<span class="ident">GuildId</span>);
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MemberMapVisitor</span> {
-    <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">Member</span><span class="op">&gt;</span>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MemberListVisitor</span> {
+    <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Member</span><span class="op">&gt;</span>;
 
     <span class="kw">fn</span> <span class="ident">expecting</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;a sequence of members&quot;</span>)
     }
 
     <span class="kw">fn</span> <span class="ident">visit_seq</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">SeqAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">seq</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">map</span> <span class="op">=</span> <span class="ident">seq</span>
-            .<span class="ident">size_hint</span>()
-            .<span class="ident">map_or_else</span>(<span class="ident">HashMap</span>::<span class="ident">new</span>, <span class="ident">HashMap</span>::<span class="ident">with_capacity</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">list</span> <span class="op">=</span> <span class="ident">seq</span>.<span class="ident">size_hint</span>().<span class="ident">map_or_else</span>(<span class="ident">Vec</span>::<span class="ident">new</span>, <span class="ident">Vec</span>::<span class="ident">with_capacity</span>);
 
         <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">member</span>) <span class="op">=</span> <span class="ident">seq</span>.<span class="ident">next_element_seed</span>(<span class="ident">MemberDeserializer</span>(<span class="self">self</span>.<span class="number">0</span>))<span class="question-mark">?</span> {
-            <span class="ident">map</span>.<span class="ident">insert</span>(<span class="ident">member</span>.<span class="ident">user</span>.<span class="ident">id</span>, <span class="ident">member</span>);
+            <span class="ident">list</span>.<span class="ident">push</span>(<span class="ident">member</span>);
         }
 
-        <span class="prelude-val">Ok</span>(<span class="ident">map</span>)
+        <span class="prelude-val">Ok</span>(<span class="ident">list</span>)
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">DeserializeSeed</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MemberMapDeserializer</span> {
-    <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">Member</span><span class="op">&gt;</span>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">DeserializeSeed</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MemberListDeserializer</span> {
+    <span class="kw">type</span> <span class="ident">Value</span> <span class="op">=</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Member</span><span class="op">&gt;</span>;
 
     <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="ident">deserializer</span>.<span class="ident">deserialize_any</span>(<span class="ident">MemberMapVisitor</span>(<span class="self">self</span>.<span class="number">0</span>))
+        <span class="ident">deserializer</span>.<span class="ident">deserialize_any</span>(<span class="ident">MemberListVisitor</span>(<span class="self">self</span>.<span class="number">0</span>))
     }
 }
 

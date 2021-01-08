@@ -60,7 +60,7 @@ current connection stage:</p>
 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">intents</span>);
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
-<span class="ident">tokio_time</span>::<span class="ident">delay_for</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">1</span>)).<span class="kw">await</span>;
+<span class="ident">tokio_time</span>::<span class="ident">sleep</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">1</span>)).<span class="kw">await</span>;
 
 <span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="ident">shard</span>.<span class="ident">info</span>()<span class="question-mark">?</span>;
 <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Shard stage: {}&quot;</span>, <span class="ident">info</span>.<span class="ident">stage</span>());</pre></div>

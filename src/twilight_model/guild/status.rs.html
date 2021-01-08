@@ -42,25 +42,9 @@
 <span id="39">39</span>
 <span id="40">40</span>
 <span id="41">41</span>
-<span id="42">42</span>
-<span id="43">43</span>
-<span id="44">44</span>
-<span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
-<span id="49">49</span>
-<span id="50">50</span>
-<span id="51">51</span>
-<span id="52">52</span>
-<span id="53">53</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">guild</span>::{<span class="ident">Guild</span>, <span class="ident">UnavailableGuild</span>},
-    <span class="ident">id</span>::<span class="ident">GuildId</span>,
-};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">guild</span>::{<span class="ident">Guild</span>, <span class="ident">UnavailableGuild</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-<span class="kw">use</span> <span class="ident">serde_mappable_seq</span>::<span class="ident">Key</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">untagged</span>)]</span>
@@ -69,18 +53,10 @@
     <span class="ident">Offline</span>(<span class="ident">UnavailableGuild</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">Key</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">GuildId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">GuildStatus</span> {
-    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GuildId</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Online</span>(<span class="ident">g</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">g</span>.<span class="ident">id</span>,
-            <span class="self">Self</span>::<span class="ident">Offline</span>(<span class="ident">u</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">u</span>.<span class="ident">id</span>,
-        }
-    }
-}
-
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">GuildId</span>, <span class="ident">GuildStatus</span>, <span class="ident">UnavailableGuild</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">GuildStatus</span>, <span class="ident">UnavailableGuild</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::<span class="ident">GuildId</span>;
     <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
 
     <span class="comment">// Notably, the important thing to test is that it&#39;s untagged.</span>

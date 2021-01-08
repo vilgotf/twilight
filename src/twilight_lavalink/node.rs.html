@@ -1141,7 +1141,7 @@
                     <span class="ident">seconds</span>,
                     <span class="ident">config</span>.<span class="ident">address</span>,
                 );
-                <span class="ident">tokio_time</span>::<span class="ident">delay_for</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="ident">seconds</span>)).<span class="kw">await</span>;
+                <span class="ident">tokio_time</span>::<span class="ident">sleep</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="ident">seconds</span>)).<span class="kw">await</span>;
 
                 <span class="ident">seconds</span> <span class="kw-2">*</span><span class="op">=</span> <span class="number">2</span>;
 

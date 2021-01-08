@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["twilight_cache_inmemory"] = [{"text":"impl BitAndAssign&lt;EventType&gt; for EventType","synthetic":false,"types":[]}];
+implementors["twilight_cache_inmemory"] = [{"text":"impl BitAndAssign&lt;ResourceType&gt; for ResourceType","synthetic":false,"types":[]}];
 implementors["twilight_gateway"] = [{"text":"impl BitAndAssign&lt;EventTypeFlags&gt; for EventTypeFlags","synthetic":false,"types":[]}];
 implementors["twilight_model"] = [{"text":"impl BitAndAssign&lt;MessageFlags&gt; for MessageFlags","synthetic":false,"types":[]},{"text":"impl BitAndAssign&lt;ActivityFlags&gt; for ActivityFlags","synthetic":false,"types":[]},{"text":"impl BitAndAssign&lt;Intents&gt; for Intents","synthetic":false,"types":[]},{"text":"impl BitAndAssign&lt;Permissions&gt; for Permissions","synthetic":false,"types":[]},{"text":"impl BitAndAssign&lt;SystemChannelFlags&gt; for SystemChannelFlags","synthetic":false,"types":[]},{"text":"impl BitAndAssign&lt;UserFlags&gt; for UserFlags","synthetic":false,"types":[]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
