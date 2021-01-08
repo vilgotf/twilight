@@ -1559,6 +1559,13 @@
 <span id="1556">1556</span>
 <span id="1557">1557</span>
 <span id="1558">1558</span>
+<span id="1559">1559</span>
+<span id="1560">1560</span>
+<span id="1561">1561</span>
+<span id="1562">1562</span>
+<span id="1563">1563</span>
+<span id="1564">1564</span>
+<span id="1565">1565</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">hyper</span>::<span class="ident">Method</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1806,6 +1813,8 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Route</span> {
+    <span class="doccomment">/// Route information to add a user to a guild.</span>
+    <span class="ident">AddGuildMember</span> { <span class="ident">guild_id</span>: <span class="ident">u64</span>, <span class="ident">user_id</span>: <span class="ident">u64</span> },
     <span class="doccomment">/// Route information to add a role to guild member.</span>
     <span class="ident">AddMemberRole</span> {
         <span class="doccomment">/// The ID of the guild.</span>
@@ -2384,6 +2393,11 @@
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cognitive_complexity</span>, <span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_parts</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Method</span>, <span class="ident">Path</span>, <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>) {
         <span class="kw">match</span> <span class="self">self</span> {
+            <span class="self">Self</span>::<span class="ident">AddGuildMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method</span>::<span class="ident">PUT</span>,
+                <span class="ident">Path</span>::<span class="ident">GuildsIdMembersId</span>(<span class="ident">guild_id</span>),
+                <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;guilds/{}/members/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>).<span class="ident">into</span>(),
+            ),
             <span class="self">Self</span>::<span class="ident">AddMemberRole</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">role_id</span>,

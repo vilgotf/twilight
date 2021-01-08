@@ -1644,6 +1644,29 @@
 <span id="1641">1641</span>
 <span id="1642">1642</span>
 <span id="1643">1643</span>
+<span id="1644">1644</span>
+<span id="1645">1645</span>
+<span id="1646">1646</span>
+<span id="1647">1647</span>
+<span id="1648">1648</span>
+<span id="1649">1649</span>
+<span id="1650">1650</span>
+<span id="1651">1651</span>
+<span id="1652">1652</span>
+<span id="1653">1653</span>
+<span id="1654">1654</span>
+<span id="1655">1655</span>
+<span id="1656">1656</span>
+<span id="1657">1657</span>
+<span id="1658">1658</span>
+<span id="1659">1659</span>
+<span id="1660">1660</span>
+<span id="1661">1661</span>
+<span id="1662">1662</span>
+<span id="1663">1663</span>
+<span id="1664">1664</span>
+<span id="1665">1665</span>
+<span id="1666">1666</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -2467,6 +2490,29 @@
     <span class="doccomment">/// Get a member of a guild, by their id.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_member</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetMember</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetMember</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>)
+    }
+
+    <span class="doccomment">/// Add a user to a guild.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// An access token for the user with `guilds.join` scope is required. All</span>
+    <span class="doccomment">/// other fields are optional. Refer to [the discord docs] for more</span>
+    <span class="doccomment">/// information.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Errors</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns [`AddGuildMemberError::NicknameInvalid`] if the nickname is too</span>
+    <span class="doccomment">/// short or too long.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`AddGuildMemberError::NickNameInvalid`]: crate::request::guild::member::add_guild_member::AddGuildMemberError::NicknameInvalid</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/resources/guild#add-guild-member</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_guild_member</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
+        <span class="ident">user_id</span>: <span class="ident">UserId</span>,
+        <span class="ident">access_token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AddGuildMember</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="ident">AddGuildMember</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>, <span class="ident">access_token</span>)
     }
 
     <span class="doccomment">/// Kick a member from a guild.</span>
