@@ -153,6 +153,15 @@
 <span id="150">150</span>
 <span id="151">151</span>
 <span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Client</span>, <span class="ident">HttpsConnector</span>, <span class="ident">State</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">ratelimiting</span>::<span class="ident">Ratelimiter</span>, <span class="ident">request</span>::<span class="ident">channel</span>::<span class="ident">allowed_mentions</span>::<span class="ident">AllowedMentions</span>};
@@ -186,7 +195,16 @@
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-rustls&quot;</span>)]</span>
             <span class="kw">let</span> <span class="ident">connector</span> <span class="op">=</span> <span class="ident">hyper_rustls</span>::<span class="ident">HttpsConnector</span>::<span class="ident">with_native_roots</span>();
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-tls&quot;</span>, <span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-rustls&quot;</span>)))]</span>
-            <span class="kw">let</span> <span class="ident">connector</span> <span class="op">=</span> <span class="ident">hyper_tls</span>::<span class="ident">HttpsConnector</span>::<span class="ident">new</span>();
+            <span class="kw">let</span> <span class="ident">connector</span> <span class="op">=</span> {
+                <span class="comment">// Workaround for https://github.com/hyperium/hyper-tls/pull/85</span>
+                <span class="kw">let</span> <span class="ident">tls</span> <span class="op">=</span> <span class="ident">native_tls</span>::<span class="ident">TlsConnector</span>::<span class="ident">builder</span>()
+                    .<span class="ident">request_alpns</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;h2&quot;</span>, <span class="string">&quot;http/1.1&quot;</span>])
+                    .<span class="ident">build</span>()
+                    .<span class="ident">expect</span>(<span class="string">&quot;TlsConnector::new() failure&quot;</span>);
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">http_conn</span> <span class="op">=</span> <span class="ident">HttpConnector</span>::<span class="ident">new</span>();
+                <span class="ident">http_conn</span>.<span class="ident">enforce_http</span>(<span class="bool-val">false</span>);
+                <span class="ident">hyper_tls</span>::<span class="ident">HttpsConnector</span>::<span class="ident">from</span>((<span class="ident">http_conn</span>, <span class="ident">tls</span>.<span class="ident">into</span>()))
+            };
 
             <span class="ident">hyper</span>::<span class="ident">client</span>::<span class="ident">Builder</span>::<span class="ident">default</span>().<span class="ident">build</span>(<span class="ident">connector</span>)
         });
