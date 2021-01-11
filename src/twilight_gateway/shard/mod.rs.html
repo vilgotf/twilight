@@ -48,6 +48,7 @@
 <span id="45">45</span>
 <span id="46">46</span>
 <span id="47">47</span>
+<span id="48">48</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Types for working with and running connections to the gateway.</span>
 <span class="doccomment">//!</span>
@@ -87,7 +88,8 @@
     <span class="ident">event</span>::<span class="ident">Events</span>,
     <span class="ident">processor</span>::<span class="ident">heartbeat</span>::<span class="ident">Latency</span>,
     <span class="ident">r#impl</span>::{
-        <span class="ident">CommandError</span>, <span class="ident">Information</span>, <span class="ident">ResumeSession</span>, <span class="ident">SessionInactiveError</span>, <span class="ident">Shard</span>, <span class="ident">ShardStartError</span>,
+        <span class="ident">CommandError</span>, <span class="ident">Information</span>, <span class="ident">ResumeSession</span>, <span class="ident">SendError</span>, <span class="ident">SessionInactiveError</span>, <span class="ident">Shard</span>,
+        <span class="ident">ShardStartError</span>,
     },
     <span class="ident">sink</span>::<span class="ident">ShardSink</span>,
     <span class="ident">stage</span>::<span class="ident">Stage</span>,
