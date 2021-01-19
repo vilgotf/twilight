@@ -335,6 +335,9 @@
 <span id="332">332</span>
 <span id="333">333</span>
 <span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">channel</span>::<span class="ident">ReactionType</span>,
@@ -522,6 +525,7 @@
                 <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2020-01-01T00:00:00.000000+00:00&quot;</span>.<span class="ident">to_owned</span>()),
                 <span class="ident">mute</span>: <span class="bool-val">false</span>,
                 <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;typing&quot;</span>.<span class="ident">to_owned</span>()),
+                <span class="ident">pending</span>: <span class="bool-val">false</span>,
                 <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                 <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">RoleId</span>(<span class="number">5</span>)],
                 <span class="ident">user</span>: <span class="ident">User</span> {
@@ -570,7 +574,7 @@
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Member&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">8</span>,
+                    <span class="ident">len</span>: <span class="number">9</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;deaf&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
@@ -589,6 +593,8 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;nick&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;typing&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;pending&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;roles&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;RoleId&quot;</span> },

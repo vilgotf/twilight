@@ -1539,6 +1539,9 @@
 <span id="1536">1536</span>
 <span id="1537">1537</span>
 <span id="1538">1538</span>
+<span id="1539">1539</span>
+<span id="1540">1540</span>
+<span id="1541">1541</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-cache-inmemory</span>
 <span class="doccomment">//!</span>
@@ -2226,6 +2229,7 @@
             <span class="ident">joined_at</span>: <span class="ident">member</span>.<span class="ident">joined_at</span>,
             <span class="ident">mute</span>: <span class="ident">member</span>.<span class="ident">mute</span>,
             <span class="ident">nick</span>: <span class="ident">member</span>.<span class="ident">nick</span>,
+            <span class="ident">pending</span>: <span class="ident">member</span>.<span class="ident">pending</span>,
             <span class="ident">premium_since</span>: <span class="ident">member</span>.<span class="ident">premium_since</span>,
             <span class="ident">roles</span>: <span class="ident">member</span>.<span class="ident">roles</span>,
             <span class="ident">user</span>,
@@ -2263,6 +2267,7 @@
             <span class="ident">joined_at</span>: <span class="ident">member</span>.<span class="ident">joined_at</span>.<span class="ident">to_owned</span>(),
             <span class="ident">mute</span>: <span class="ident">member</span>.<span class="ident">mute</span>,
             <span class="ident">nick</span>: <span class="ident">member</span>.<span class="ident">nick</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">pending</span>: <span class="bool-val">false</span>,
             <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
             <span class="ident">roles</span>: <span class="ident">member</span>.<span class="ident">roles</span>.<span class="ident">to_owned</span>(),
             <span class="ident">user</span>,
@@ -2536,6 +2541,7 @@
             <span class="ident">joined_at</span>: <span class="prelude-val">None</span>,
             <span class="ident">mute</span>: <span class="bool-val">false</span>,
             <span class="ident">nick</span>: <span class="prelude-val">None</span>,
+            <span class="ident">pending</span>: <span class="bool-val">false</span>,
             <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
             <span class="ident">roles</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             <span class="ident">user</span>: <span class="ident">user</span>(<span class="ident">id</span>),

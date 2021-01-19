@@ -271,6 +271,12 @@
 <span id="268">268</span>
 <span id="269">269</span>
 <span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">voice</span>::<span class="ident">VoiceState</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -302,6 +308,7 @@
                 <span class="ident">joined_at</span>: <span class="prelude-val">None</span>,
                 <span class="ident">mute</span>: <span class="bool-val">false</span>,
                 <span class="ident">nick</span>: <span class="prelude-val">None</span>,
+                <span class="ident">pending</span>: <span class="bool-val">false</span>,
                 <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                 <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">RoleId</span>(<span class="number">4</span>)],
                 <span class="ident">user</span>: <span class="ident">User</span> {
@@ -352,7 +359,7 @@
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Member&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">8</span>,
+                    <span class="ident">len</span>: <span class="number">9</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;deaf&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
@@ -369,6 +376,8 @@
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;nick&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">None</span>,
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;pending&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;roles&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;RoleId&quot;</span> },
@@ -426,6 +435,7 @@
                 <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2016-12-08T18:41:21.954000+00:00&quot;</span>.<span class="ident">to_string</span>()),
                 <span class="ident">mute</span>: <span class="bool-val">false</span>,
                 <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;Twilight&quot;</span>.<span class="ident">to_string</span>()),
+                <span class="ident">pending</span>: <span class="bool-val">false</span>,
                 <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                 <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">RoleId</span>(<span class="number">123</span>), <span class="ident">RoleId</span>(<span class="number">124</span>)],
                 <span class="ident">user</span>: <span class="ident">User</span> {
@@ -480,7 +490,7 @@
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Member&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">8</span>,
+                    <span class="ident">len</span>: <span class="number">9</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;deaf&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
@@ -496,6 +506,8 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;nick&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;Twilight&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;pending&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;roles&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">2</span>) },
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;RoleId&quot;</span> },

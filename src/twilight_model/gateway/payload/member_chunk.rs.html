@@ -468,6 +468,11 @@
 <span id="465">465</span>
 <span id="466">466</span>
 <span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">gateway</span>::<span class="ident">presence</span>::{<span class="ident">Presence</span>, <span class="ident">PresenceListDeserializer</span>},
@@ -683,6 +688,7 @@
                 <span class="string">&quot;joined_at&quot;</span>: <span class="string">&quot;2020-04-04T04:04:04.000000+00:00&quot;</span>,
                 <span class="string">&quot;mute&quot;</span>: <span class="bool-val">false</span>,
                 <span class="string">&quot;nick&quot;</span>: <span class="string">&quot;chunk&quot;</span>,
+                <span class="string">&quot;pending&quot;</span>: <span class="bool-val">true</span>,
                 <span class="string">&quot;roles&quot;</span>: [<span class="string">&quot;6&quot;</span>],
                 <span class="string">&quot;user&quot;</span>: {
                     <span class="string">&quot;avatar&quot;</span>: <span class="string">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span>,
@@ -782,6 +788,7 @@
                     <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2020-04-04T04:04:04.000000+00:00&quot;</span>.<span class="ident">to_owned</span>()),
                     <span class="ident">mute</span>: <span class="bool-val">false</span>,
                     <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;chunk&quot;</span>.<span class="ident">to_owned</span>()),
+                    <span class="ident">pending</span>: <span class="bool-val">false</span>,
                     <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                     <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">RoleId</span>(<span class="number">6</span>), <span class="ident">RoleId</span>(<span class="number">7</span>)],
                     <span class="ident">user</span>: <span class="ident">User</span> {
@@ -807,6 +814,7 @@
                     <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2020-04-04T04:04:04.000000+00:00&quot;</span>.<span class="ident">to_owned</span>()),
                     <span class="ident">mute</span>: <span class="bool-val">false</span>,
                     <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;chunk&quot;</span>.<span class="ident">to_owned</span>()),
+                    <span class="ident">pending</span>: <span class="bool-val">false</span>,
                     <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                     <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">RoleId</span>(<span class="number">6</span>)],
                     <span class="ident">user</span>: <span class="ident">User</span> {
@@ -832,6 +840,7 @@
                     <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2020-04-04T04:04:04.000000+00:00&quot;</span>.<span class="ident">to_owned</span>()),
                     <span class="ident">mute</span>: <span class="bool-val">false</span>,
                     <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;chunk&quot;</span>.<span class="ident">to_owned</span>()),
+                    <span class="ident">pending</span>: <span class="bool-val">true</span>,
                     <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                     <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">RoleId</span>(<span class="number">6</span>)],
                     <span class="ident">user</span>: <span class="ident">User</span> {
@@ -857,6 +866,7 @@
                     <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2020-04-04T04:04:04.000000+00:00&quot;</span>.<span class="ident">to_owned</span>()),
                     <span class="ident">mute</span>: <span class="bool-val">false</span>,
                     <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;chunk&quot;</span>.<span class="ident">to_owned</span>()),
+                    <span class="ident">pending</span>: <span class="bool-val">false</span>,
                     <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                     <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">RoleId</span>(<span class="number">6</span>)],
                     <span class="ident">user</span>: <span class="ident">User</span> {

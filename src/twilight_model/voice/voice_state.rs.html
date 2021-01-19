@@ -442,6 +442,9 @@
 <span id="439">439</span>
 <span id="440">440</span>
 <span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">guild</span>::<span class="ident">member</span>::{<span class="ident">Member</span>, <span class="ident">OptionalMemberDeserializer</span>},
@@ -769,6 +772,7 @@
                 <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;timestamp&quot;</span>.<span class="ident">to_owned</span>()),
                 <span class="ident">mute</span>: <span class="bool-val">true</span>,
                 <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;twilight&quot;</span>.<span class="ident">to_owned</span>()),
+                <span class="ident">pending</span>: <span class="bool-val">false</span>,
                 <span class="ident">premium_since</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;timestamp&quot;</span>.<span class="ident">to_owned</span>()),
                 <span class="ident">roles</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
                 <span class="ident">user</span>: <span class="ident">User</span> {
@@ -818,7 +822,7 @@
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Member&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">9</span>,
+                    <span class="ident">len</span>: <span class="number">10</span>,
                 },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;deaf&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
@@ -837,6 +841,8 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;nick&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;twilight&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;pending&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;premium_since&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;timestamp&quot;</span>),
