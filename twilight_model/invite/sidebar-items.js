@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["TargetUserType",""]],"struct":[["Invite",""],["InviteChannel",""],["InviteGuild",""],["InviteMetadata",""]]});
+initSidebarItems({"enum":[["TargetUserType",""]],"struct":[["Invite",""],["InviteChannel",""],["InviteGuild",""],["InviteMetadata",""],["WelcomeScreen",""],["WelcomeScreenChannel",""]]});
