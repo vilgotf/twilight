@@ -1655,6 +1655,17 @@
 <span id="1652">1652</span>
 <span id="1653">1653</span>
 <span id="1654">1654</span>
+<span id="1655">1655</span>
+<span id="1656">1656</span>
+<span id="1657">1657</span>
+<span id="1658">1658</span>
+<span id="1659">1659</span>
+<span id="1660">1660</span>
+<span id="1661">1661</span>
+<span id="1662">1662</span>
+<span id="1663">1663</span>
+<span id="1664">1664</span>
+<span id="1665">1665</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -1676,7 +1687,7 @@
 <span class="kw">use</span> <span class="ident">hyper</span>::{
     <span class="ident">body</span>::{<span class="self">self</span>, <span class="ident">Buf</span>},
     <span class="ident">client</span>::{<span class="ident">Client</span> <span class="kw">as</span> <span class="ident">HyperClient</span>, <span class="ident">HttpConnector</span>},
-    <span class="ident">header</span>::{<span class="ident">HeaderValue</span>, <span class="ident">AUTHORIZATION</span>, <span class="ident">CONTENT_LENGTH</span>, <span class="ident">CONTENT_TYPE</span>, <span class="ident">USER_AGENT</span>},
+    <span class="ident">header</span>::{<span class="ident">HeaderMap</span>, <span class="ident">HeaderValue</span>, <span class="ident">AUTHORIZATION</span>, <span class="ident">CONTENT_LENGTH</span>, <span class="ident">CONTENT_TYPE</span>, <span class="ident">USER_AGENT</span>},
     <span class="ident">Body</span>, <span class="ident">Method</span>, <span class="ident">Response</span>, <span class="ident">StatusCode</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">de</span>::<span class="ident">DeserializeOwned</span>;
@@ -1703,6 +1714,7 @@
 
 <span class="kw">struct</span> <span class="ident">State</span> {
     <span class="ident">http</span>: <span class="ident">HyperClient</span><span class="op">&lt;</span><span class="ident">HttpsConnector</span><span class="op">&lt;</span><span class="ident">HttpConnector</span><span class="op">&gt;</span>, <span class="ident">Body</span><span class="op">&gt;</span>,
+    <span class="ident">default_headers</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HeaderMap</span><span class="op">&gt;</span>,
     <span class="ident">proxy</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">ratelimiter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Ratelimiter</span><span class="op">&gt;</span>,
     <span class="ident">timeout</span>: <span class="ident">Duration</span>,
@@ -1716,6 +1728,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="string">&quot;State&quot;</span>)
             .<span class="ident">field</span>(<span class="string">&quot;http&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">http</span>)
+            .<span class="ident">field</span>(<span class="string">&quot;default_headers&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">default_headers</span>)
             .<span class="ident">field</span>(<span class="string">&quot;proxy&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">proxy</span>)
             .<span class="ident">field</span>(<span class="string">&quot;ratelimiter&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">ratelimiter</span>)
             .<span class="ident">field</span>(<span class="string">&quot;token&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">token</span>)
@@ -3119,6 +3132,14 @@
             }
         }
 
+        <span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Some</span>(<span class="ident">default_headers</span>), <span class="prelude-val">Some</span>(<span class="ident">headers</span>)) <span class="op">=</span>
+            (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">default_headers</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">builder</span>.<span class="ident">headers_mut</span>())
+        {
+            <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">default_headers</span> {
+                <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">name</span>, <span class="ident">HeaderValue</span>::<span class="ident">from</span>(<span class="ident">value</span>));
+            }
+        }
+
         <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">form</span>) <span class="op">=</span> <span class="ident">form</span> {
             <span class="kw">let</span> <span class="ident">content_type</span> <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">try_from</span>(<span class="ident">form</span>.<span class="ident">content_type</span>());
             <span class="kw">let</span> <span class="ident">form_bytes</span> <span class="op">=</span> <span class="ident">form</span>.<span class="ident">build</span>();
@@ -3299,6 +3320,7 @@
         <span class="self">Self</span> {
             <span class="ident">state</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">State</span> {
                 <span class="ident">http</span>: <span class="ident">hyper_client</span>,
+                <span class="ident">default_headers</span>: <span class="prelude-val">None</span>,
                 <span class="ident">proxy</span>: <span class="prelude-val">None</span>,
                 <span class="ident">ratelimiter</span>: <span class="prelude-val">Some</span>(<span class="ident">Ratelimiter</span>::<span class="ident">new</span>()),
                 <span class="ident">timeout</span>: <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">10</span>),
