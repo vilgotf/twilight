@@ -868,10 +868,6 @@
 <span id="865">865</span>
 <span id="866">866</span>
 <span id="867">867</span>
-<span id="868">868</span>
-<span id="869">869</span>
-<span id="870">870</span>
-<span id="871">871</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="kw">super</span>::{
@@ -1117,9 +1113,6 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ShardProcessor</span> {
-    <span class="doccomment">/// Gateway version to use in the URL to connect to the gateway.</span>
-    <span class="kw">const</span> <span class="ident">GATEWAY_VERSION</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">6</span>;
-
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
         <span class="kw-2">mut</span> <span class="ident">url</span>: <span class="ident">String</span>,
@@ -1622,7 +1615,6 @@
             <span class="ident">shard</span>: <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()),
             <span class="ident">presence</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">presence</span>().<span class="ident">cloned</span>(),
             <span class="ident">token</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">token</span>().<span class="ident">to_owned</span>(),
-            <span class="ident">v</span>: <span class="self">Self</span>::<span class="ident">GATEWAY_VERSION</span>,
         });
         <span class="self">self</span>.<span class="ident">emitter</span>.<span class="ident">event</span>(<span class="ident">Event</span>::<span class="ident">ShardIdentifying</span>(<span class="ident">Identifying</span> {
             <span class="ident">shard_id</span>: <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
