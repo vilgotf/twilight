@@ -62,6 +62,7 @@
 <span id="59">59</span>
 <span id="60">60</span>
 <span id="61">61</span>
+<span id="62">62</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">update_status</span>::<span class="ident">UpdateStatusInfo</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">gateway</span>::{<span class="ident">intents</span>::<span class="ident">Intents</span>, <span class="ident">opcode</span>::<span class="ident">OpCode</span>};
@@ -91,6 +92,7 @@
     <span class="kw">pub</span> <span class="ident">properties</span>: <span class="ident">IdentifyProperties</span>,
     <span class="kw">pub</span> <span class="ident">shard</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>[<span class="ident">u64</span>; <span class="number">2</span>]<span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">token</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">v</span>: <span class="ident">u64</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
