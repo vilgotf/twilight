@@ -872,7 +872,87 @@
 <span id="869">869</span>
 <span id="870">870</span>
 <span id="871">871</span>
+<span id="872">872</span>
+<span id="873">873</span>
+<span id="874">874</span>
+<span id="875">875</span>
+<span id="876">876</span>
+<span id="877">877</span>
+<span id="878">878</span>
+<span id="879">879</span>
+<span id="880">880</span>
+<span id="881">881</span>
+<span id="882">882</span>
+<span id="883">883</span>
+<span id="884">884</span>
+<span id="885">885</span>
+<span id="886">886</span>
+<span id="887">887</span>
+<span id="888">888</span>
+<span id="889">889</span>
+<span id="890">890</span>
+<span id="891">891</span>
+<span id="892">892</span>
+<span id="893">893</span>
+<span id="894">894</span>
+<span id="895">895</span>
+<span id="896">896</span>
+<span id="897">897</span>
+<span id="898">898</span>
+<span id="899">899</span>
+<span id="900">900</span>
+<span id="901">901</span>
+<span id="902">902</span>
+<span id="903">903</span>
+<span id="904">904</span>
+<span id="905">905</span>
+<span id="906">906</span>
+<span id="907">907</span>
+<span id="908">908</span>
+<span id="909">909</span>
+<span id="910">910</span>
+<span id="911">911</span>
+<span id="912">912</span>
+<span id="913">913</span>
+<span id="914">914</span>
+<span id="915">915</span>
+<span id="916">916</span>
+<span id="917">917</span>
+<span id="918">918</span>
+<span id="919">919</span>
+<span id="920">920</span>
+<span id="921">921</span>
+<span id="922">922</span>
+<span id="923">923</span>
+<span id="924">924</span>
+<span id="925">925</span>
+<span id="926">926</span>
+<span id="927">927</span>
+<span id="928">928</span>
+<span id="929">929</span>
+<span id="930">930</span>
+<span id="931">931</span>
+<span id="932">932</span>
+<span id="933">933</span>
+<span id="934">934</span>
+<span id="935">935</span>
+<span id="936">936</span>
+<span id="937">937</span>
+<span id="938">938</span>
+<span id="939">939</span>
+<span id="940">940</span>
+<span id="941">941</span>
+<span id="942">942</span>
+<span id="943">943</span>
+<span id="944">944</span>
+<span id="945">945</span>
+<span id="946">946</span>
+<span id="947">947</span>
+<span id="948">948</span>
+<span id="949">949</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
+<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">inflater</span>::<span class="ident">Inflater</span>;
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="kw">super</span>::{
         <span class="ident">config</span>::<span class="ident">Config</span>,
@@ -881,7 +961,6 @@
         <span class="ident">ShardStream</span>,
     },
     <span class="ident">emitter</span>::{<span class="ident">EmitJsonError</span>, <span class="ident">Emitter</span>},
-    <span class="ident">inflater</span>::<span class="ident">Inflater</span>,
     <span class="ident">session</span>::{<span class="ident">Session</span>, <span class="ident">SessionSendError</span>},
     <span class="ident">socket_forwarder</span>::<span class="ident">SocketForwarder</span>,
 };
@@ -890,6 +969,7 @@
     <span class="ident">protocol</span>::{<span class="ident">frame</span>::<span class="ident">coding</span>::<span class="ident">CloseCode</span>, <span class="ident">CloseFrame</span>},
     <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">TungsteniteError</span>, <span class="ident">Message</span>,
 };
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">flate2</span>::<span class="ident">DecompressError</span>;
 <span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">mpsc</span>::{<span class="ident">TrySendError</span>, <span class="ident">UnboundedReceiver</span>};
 <span class="kw">use</span> <span class="ident">futures_util</span>::<span class="ident">stream</span>::<span class="ident">StreamExt</span>;
@@ -1026,6 +1106,7 @@
 <span class="kw">enum</span> <span class="ident">ReceivingEventError</span> {
     <span class="doccomment">/// Provided authorization token is invalid.</span>
     <span class="ident">AuthorizationInvalid</span> { <span class="ident">shard_id</span>: <span class="ident">u64</span>, <span class="ident">token</span>: <span class="ident">String</span> },
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
     <span class="doccomment">/// Decompressing a frame from Discord failed.</span>
     <span class="ident">Decompressing</span> {
         <span class="doccomment">/// Reason for the error.</span>
@@ -1065,7 +1146,14 @@
     }
 
     <span class="kw">fn</span> <span class="ident">reconnectable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="macro">matches</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">ReceivingEventError</span>::<span class="ident">Decompressing</span> { .. })
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
+        {
+            <span class="macro">matches</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">ReceivingEventError</span>::<span class="ident">Decompressing</span> { .. })
+        }
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+        {
+            <span class="bool-val">false</span>
+        }
     }
 
     <span class="kw">fn</span> <span class="ident">resumable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
@@ -1080,6 +1168,7 @@
                 <span class="string">&quot;the authorization token for shard {} is invalid&quot;</span>,
                 <span class="ident">shard_id</span>
             )),
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
             <span class="self">Self</span>::<span class="ident">Decompressing</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;a frame could not be decompressed&quot;</span>),
             <span class="self">Self</span>::<span class="ident">IntentsDisallowed</span> { <span class="ident">intents</span>, <span class="ident">shard_id</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
                 <span class="string">&quot;at least one of the intents ({:?}) for shard {} are disallowed&quot;</span>,
@@ -1110,7 +1199,10 @@
     <span class="kw">pub</span> <span class="ident">properties</span>: <span class="ident">IdentifyProperties</span>,
     <span class="kw">pub</span> <span class="ident">rx</span>: <span class="ident">UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">session</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Session</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
     <span class="ident">inflater</span>: <span class="ident">Inflater</span>,
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+    <span class="ident">buffer</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
     <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
     <span class="ident">resume</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">u64</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
     <span class="ident">wtx</span>: <span class="ident">WatchSender</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Session</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -1137,7 +1229,10 @@
 
         <span class="kw">let</span> <span class="ident">properties</span> <span class="op">=</span> <span class="ident">IdentifyProperties</span>::<span class="ident">new</span>(<span class="string">&quot;twilight.rs&quot;</span>, <span class="string">&quot;twilight.rs&quot;</span>, <span class="ident">OS</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>);
 
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
         <span class="ident">url</span>.<span class="ident">push_str</span>(<span class="string">&quot;?v=8&amp;compress=zlib-stream&quot;</span>);
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+        <span class="ident">url</span>.<span class="ident">push_str</span>(<span class="string">&quot;?v=8&quot;</span>);
 
         <span class="kw">let</span> <span class="ident">emitter</span> <span class="op">=</span> <span class="ident">Emitter</span>::<span class="ident">new</span>(<span class="ident">listeners</span>);
         <span class="ident">emitter</span>.<span class="ident">event</span>(<span class="ident">Event</span>::<span class="ident">ShardConnecting</span>(<span class="ident">Connecting</span> {
@@ -1166,7 +1261,10 @@
             <span class="ident">properties</span>,
             <span class="ident">rx</span>,
             <span class="ident">session</span>,
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
             <span class="ident">inflater</span>: <span class="ident">Inflater</span>::<span class="ident">new</span>(<span class="ident">shard_id</span>),
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+            <span class="ident">buffer</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             <span class="ident">url</span>: <span class="ident">url</span>.<span class="ident">into_boxed_str</span>(),
             <span class="ident">resume</span>: <span class="prelude-val">None</span>,
             <span class="ident">wtx</span>,
@@ -1224,7 +1322,12 @@
 
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ProcessError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">op</span>, <span class="ident">seq</span>, <span class="ident">event_type</span>) <span class="op">=</span> {
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
             <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">str</span>::<span class="ident">from_utf8_mut</span>(<span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">buffer_mut</span>())
+                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ProcessError</span>::<span class="ident">PayloadNotUtf8</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
+
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+            <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">str</span>::<span class="ident">from_utf8_mut</span>(<span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">as_mut_slice</span>())
                 .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ProcessError</span>::<span class="ident">PayloadNotUtf8</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
 
             <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">json</span>, <span class="string">&quot;Received JSON&quot;</span>);
@@ -1241,8 +1344,18 @@
                     <span class="comment">// should be a good trade-off either way.</span>
                     (<span class="ident">op</span>, <span class="ident">seq</span>, <span class="ident">event_type</span>.<span class="ident">map</span>(<span class="ident">ToOwned</span>::<span class="ident">to_owned</span>))
                 } <span class="kw">else</span> {
+                    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
                     <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(
                         <span class="ident">json</span> <span class="op">=</span> <span class="question-mark">?</span><span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">buffer_ref</span>(),
+                        <span class="ident">shard_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
+                        <span class="ident">shard_total</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">1</span>],
+                        <span class="ident">seq</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">seq</span>(),
+                        <span class="ident">stage</span> <span class="op">=</span> <span class="question-mark">?</span><span class="self">self</span>.<span class="ident">session</span>.<span class="ident">stage</span>(),
+                        <span class="string">&quot;received payload without opcode&quot;</span>,
+                    );
+                    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+                    <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(
+                        <span class="ident">json</span> <span class="op">=</span> <span class="question-mark">?</span><span class="self">self</span>.<span class="ident">buffer</span>,
                         <span class="ident">shard_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
                         <span class="ident">shard_total</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">1</span>],
                         <span class="ident">seq</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">seq</span>(),
@@ -1301,11 +1414,17 @@
 
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
             } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">event_type</span>.<span class="ident">as_deref</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="string">&quot;READY&quot;</span>) {
-                <span class="kw">let</span> <span class="ident">ready</span> <span class="op">=</span> <span class="ident">json</span>::<span class="ident">from_slice</span>::<span class="op">&lt;</span><span class="ident">ReadyMinimal</span><span class="op">&gt;</span>(<span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">buffer_mut</span>()).<span class="ident">map_err</span>(
-                    <span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ProcessError</span>::<span class="ident">ParsingPayload</span> {
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
+                <span class="kw">let</span> <span class="ident">buf_ref</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">buffer_mut</span>();
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+                <span class="kw">let</span> <span class="ident">buf_ref</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">as_mut_slice</span>();
+
+                <span class="kw">let</span> <span class="ident">ready</span> <span class="op">=</span> <span class="ident">json</span>::<span class="ident">from_slice</span>::<span class="op">&lt;</span><span class="ident">ReadyMinimal</span><span class="op">&gt;</span>(<span class="ident">buf_ref</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> {
+                    <span class="ident">ProcessError</span>::<span class="ident">ParsingPayload</span> {
                         <span class="ident">source</span>: <span class="ident">GatewayEventParsingError</span>::<span class="ident">Deserializing</span> { <span class="ident">source</span> },
-                    },
-                )<span class="question-mark">?</span>;
+                    }
+                })<span class="question-mark">?</span>;
+
                 <span class="self">self</span>.<span class="ident">process_ready</span>(<span class="kw-2">&amp;</span><span class="ident">ready</span>.<span class="ident">d</span>);
                 <span class="ident">emitter</span>.<span class="ident">event</span>(<span class="ident">Event</span>::<span class="ident">Ready</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ready</span>.<span class="ident">d</span>)));
 
@@ -1319,7 +1438,10 @@
 
         <span class="comment">// We already know from earlier that the payload is valid UTF-8, so we</span>
         <span class="comment">// can skip having to re-validate here since it hasn&#39;t been mutated.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">str</span>::<span class="ident">from_utf8_unchecked_mut</span>(<span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">buffer_mut</span>()) };
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+        <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">str</span>::<span class="ident">from_utf8_unchecked_mut</span>(<span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">as_mut_slice</span>()) };
 
         <span class="self">self</span>.<span class="ident">emitter</span>
             .<span class="ident">json</span>(<span class="ident">op</span>, <span class="prelude-val">Some</span>(<span class="ident">seq</span>), <span class="ident">event_type</span>.<span class="ident">as_deref</span>(), <span class="ident">json</span>)
@@ -1492,7 +1614,10 @@
     <span class="doccomment">/// Returns [`ReceivingEventError::AuthorizationInvalid`] if the provided authorization</span>
     <span class="doccomment">/// is invalid.</span>
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">next_payload</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ReceivingEventError</span><span class="op">&gt;</span> {
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
         <span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">clear</span>();
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+        <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">clear</span>();
 
         <span class="kw">loop</span> {
             <span class="comment">// Returns None when the socket forwarder has ended, meaning the</span>
@@ -1528,27 +1653,55 @@
         <span class="ident">msg</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Message</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, <span class="ident">ReceivingEventError</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">msg</span> {
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_variables</span>)]</span>
             <span class="ident">Message</span>::<span class="ident">Binary</span>(<span class="ident">bin</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">extend</span>(<span class="kw-2">&amp;</span><span class="ident">bin</span>[..]);
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
+                {
+                    <span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">extend</span>(<span class="kw-2">&amp;</span><span class="ident">bin</span>[..]);
 
-                <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">msg</span>() {
-                    <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">bytes</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">bytes</span>,
-                    <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>),
-                    <span class="prelude-val">Err</span>(<span class="ident">source</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ReceivingEventError</span>::<span class="ident">Decompressing</span> { <span class="ident">source</span> }),
-                };
+                    <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">msg</span>() {
+                        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">bytes</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">bytes</span>,
+                        <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>),
+                        <span class="prelude-val">Err</span>(<span class="ident">source</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ReceivingEventError</span>::<span class="ident">Decompressing</span> { <span class="ident">source</span> }),
+                    };
 
-                <span class="self">self</span>.<span class="ident">emitter</span>.<span class="ident">bytes</span>(<span class="ident">bytes</span>);
+                    <span class="self">self</span>.<span class="ident">emitter</span>.<span class="ident">bytes</span>(<span class="ident">bytes</span>);
 
-                <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
+                    <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
+                }
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+                {
+                    <span class="comment">/* Intentionally left empty as Discord should
+                     * not send binary payloads when not using compression
+                     */</span>
+                    <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>)
+                }
             }
             <span class="ident">Message</span>::<span class="ident">Close</span>(<span class="ident">close_frame</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">handle_close</span>(<span class="ident">close_frame</span>.<span class="ident">as_ref</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
 
                 <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>)
             }
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_variables</span>)]</span>
+            <span class="ident">Message</span>::<span class="ident">Text</span>(<span class="ident">json</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
+                {
+                    <span class="comment">/* Empty intentionally as discord does not
+                     * send text when comppresion is enabled
+                     */</span>
+                    <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>)
+                }
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+                {
+                    <span class="self">self</span>.<span class="ident">emitter</span>.<span class="ident">bytes</span>(<span class="ident">json</span>.<span class="ident">as_bytes</span>());
+                    <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">extend_from_slice</span>(<span class="ident">json</span>.<span class="ident">as_bytes</span>());
+
+                    <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
+                }
+            }
             <span class="comment">// Discord doesn&#39;t appear to send Text messages, so we can ignore</span>
             <span class="comment">// these.</span>
-            <span class="ident">Message</span>::<span class="ident">Ping</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">Message</span>::<span class="ident">Pong</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">Message</span>::<span class="ident">Text</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>),
+            <span class="ident">Message</span>::<span class="ident">Ping</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">Message</span>::<span class="ident">Pong</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>),
         }
     }
 
@@ -1741,7 +1894,10 @@
         }
 
         <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">set_stage</span>(<span class="ident">stage</span>);
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
         <span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">reset</span>();
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
+        <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">clear</span>();
     }
 }
 </pre></div>
