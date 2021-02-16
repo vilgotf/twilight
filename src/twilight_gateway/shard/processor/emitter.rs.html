@@ -411,7 +411,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_event_removes_closed_channels</span>() {
         <span class="kw">let</span> <span class="ident">listeners</span> <span class="op">=</span> <span class="ident">Listeners</span>::<span class="ident">default</span>();
-        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">listeners</span>.<span class="ident">add</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">default</span>());
+        <span class="ident">listeners</span>.<span class="ident">add</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">default</span>());
         <span class="kw">let</span> <span class="ident">emitter</span> <span class="op">=</span> <span class="ident">Emitter</span>::<span class="ident">new</span>(<span class="ident">listeners</span>);
         <span class="ident">emitter</span>.<span class="ident">event</span>(<span class="ident">Event</span>::<span class="ident">GatewayReconnect</span>);
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">emitter</span>.<span class="ident">listeners</span>.<span class="ident">all</span>().<span class="ident">is_empty</span>());

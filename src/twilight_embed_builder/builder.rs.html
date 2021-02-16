@@ -749,8 +749,6 @@
 <span id="746">746</span>
 <span id="747">747</span>
 <span id="748">748</span>
-<span id="749">749</span>
-<span id="750">750</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Create embeds.</span>
 
@@ -1412,7 +1410,7 @@
     <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Embed</span>: <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">EmbedBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_color_error</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">test_color_error</span>() {
         <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
             <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">color</span>(<span class="number">0</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">EmbedColorError</span>::<span class="ident">Zero</span>
@@ -1422,8 +1420,6 @@
             <span class="ident">EmbedColorError</span>::<span class="ident">NotRgb</span> { <span class="ident">color</span> }
             <span class="kw">if</span> <span class="ident">color</span> <span class="op">=</span><span class="op">=</span> <span class="ident">u32</span>::<span class="ident">MAX</span>
         ));
-
-        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

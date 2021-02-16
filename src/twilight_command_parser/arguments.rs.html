@@ -223,7 +223,6 @@
 <span id="220">220</span>
 <span id="221">221</span>
 <span id="222">222</span>
-<span id="223">223</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
@@ -336,12 +335,11 @@
                     <span class="self">self</span>.<span class="ident">idx</span> <span class="op">=</span> <span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>;
 
                     <span class="kw">return</span> <span class="ident">v</span>.<span class="ident">map</span>(<span class="ident">str</span>::<span class="ident">trim</span>);
-                } <span class="kw">else</span> {
-                    <span class="self">self</span>.<span class="ident">idx</span> <span class="op">=</span> <span class="ident">i</span>;
-                    <span class="ident">start_idx</span> <span class="op">=</span> <span class="ident">i</span>;
-                    <span class="ident">started</span> <span class="op">=</span> <span class="bool-val">true</span>;
-                    <span class="kw">continue</span>;
                 }
+                <span class="self">self</span>.<span class="ident">idx</span> <span class="op">=</span> <span class="ident">i</span>;
+                <span class="ident">start_idx</span> <span class="op">=</span> <span class="ident">i</span>;
+                <span class="ident">started</span> <span class="op">=</span> <span class="bool-val">true</span>;
+                <span class="kw">continue</span>;
             } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ch</span> <span class="op">=</span><span class="op">=</span> <span class="string">&#39;&quot;&#39;</span> {
                 <span class="ident">start_idx</span> <span class="op">=</span> <span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>;
                 <span class="ident">quoted</span> <span class="op">=</span> <span class="bool-val">true</span>;
