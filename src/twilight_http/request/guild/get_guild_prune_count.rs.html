@@ -131,7 +131,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">GetGuildPruneCountError</span> {
-    <span class="doccomment">/// The number of days is 0.</span>
+    <span class="doccomment">/// The number of days is 0 or greater than 30.</span>
     <span class="ident">DaysInvalid</span>,
 }
 
@@ -172,7 +172,7 @@
     <span class="doccomment">/// Set the number of days that a user must be inactive before being</span>
     <span class="doccomment">/// able to be pruned.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The number of days must be greater than 0.</span>
+    <span class="doccomment">/// The number of days must be greater than 0, and less than or equal to 30.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
@@ -229,7 +229,7 @@
 
         <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">days_valid</span>(<span class="number">0</span>));
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">days_valid</span>(<span class="number">1</span>));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">days_valid</span>(<span class="ident">u64</span>::<span class="ident">max_value</span>()));
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">days_valid</span>(<span class="ident">u64</span>::<span class="ident">max_value</span>()));
     }
 }
 </pre></div>
