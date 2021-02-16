@@ -649,6 +649,11 @@
 <span id="646">646</span>
 <span id="647">647</span>
 <span id="648">648</span>
+<span id="649">649</span>
+<span id="650">650</span>
+<span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">DeError</span>, <span class="ident">Visitor</span>},
@@ -785,6 +790,8 @@
     <span class="ident">CannotExecuteActionOnChannelType</span>,
     <span class="doccomment">/// Invalid OAuth2 access token provided</span>
     <span class="ident">InvalidOAuthAccessToken</span>,
+    <span class="doccomment">/// Invalid webhook token provided</span>
+    <span class="ident">InvalidWebhookToken</span>,
     <span class="doccomment">/// Invalid recipient(s)</span>
     <span class="ident">InvalidRecipient</span>,
     <span class="doccomment">/// A message provided was too old to bulk delete</span>
@@ -873,6 +880,7 @@
             <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50021</span>,
             <span class="self">Self</span>::<span class="ident">CannotExecuteActionOnChannelType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50024</span>,
             <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50025</span>,
+            <span class="self">Self</span>::<span class="ident">InvalidWebhookToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50027</span>,
             <span class="self">Self</span>::<span class="ident">InvalidRecipient</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50033</span>,
             <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50034</span>,
             <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50035</span>,
@@ -952,6 +960,7 @@
             <span class="number">50021</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span>,
             <span class="number">50024</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">CannotExecuteActionOnChannelType</span>,
             <span class="number">50025</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span>,
+            <span class="number">50027</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidWebhookToken</span>,
             <span class="number">50033</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidRecipient</span>,
             <span class="number">50034</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span>,
             <span class="number">50035</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span>,
@@ -1031,6 +1040,7 @@
             <span class="self">Self</span>::<span class="ident">InvalidActionOnSystemMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot execute action on a system message&quot;</span>),
             <span class="self">Self</span>::<span class="ident">CannotExecuteActionOnChannelType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Cannot execute action on channel type&quot;</span>),
             <span class="self">Self</span>::<span class="ident">InvalidOAuthAccessToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid OAuth2 access token provided&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">InvalidWebhookToken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid webhook token provided.&quot;</span>),
             <span class="self">Self</span>::<span class="ident">InvalidRecipient</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid recipient(s)&quot;</span>),
             <span class="self">Self</span>::<span class="ident">MessageTooOldToBulkDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;A message provided was too old to bulk delete&quot;</span>),
             <span class="self">Self</span>::<span class="ident">InvalidFormBodyOrContentType</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid form body (returned for both application/json and multipart/form-data bodies), or invalid Content-Type provided&quot;</span>),
