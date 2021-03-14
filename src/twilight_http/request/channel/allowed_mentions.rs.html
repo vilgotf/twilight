@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `http/src/request/channel/allowed_mentions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>allowed_mentions.rs - source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `http/src/request/channel/allowed_mentions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>allowed_mentions.rs - source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../../storage.js"></script><script src="../../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../../twilight_http/index.html'><div class='logo-container rust-logo'><img src='../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../../twilight_http/index.html'><div class='logo-container rust-logo'><img src='../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -293,8 +293,48 @@
 <span id="290">290</span>
 <span id="291">291</span>
 <span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">message</span>::<span class="ident">CreateMessage</span>;
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">message</span>::<span class="ident">CreateMessage</span>, <span class="ident">webhook</span>::<span class="ident">ExecuteWebhook</span>};
 <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">RoleId</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// Whether or not the section will be parsed.</span>
@@ -395,6 +435,7 @@
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">R</span><span class="op">&gt;</span> {
     <span class="ident">create_message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">execute_webhook</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ExecuteWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">e</span>: <span class="ident">E</span>,
     <span class="ident">u</span>: <span class="ident">U</span>,
     <span class="ident">r</span>: <span class="ident">R</span>,
@@ -405,6 +446,18 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">for_builder</span>(<span class="ident">create_message</span>: <span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">create_message</span>: <span class="prelude-val">Some</span>(<span class="ident">create_message</span>),
+            <span class="ident">execute_webhook</span>: <span class="prelude-val">None</span>,
+            <span class="ident">e</span>: <span class="ident">Unspecified</span>,
+            <span class="ident">u</span>: <span class="ident">Unspecified</span>,
+            <span class="ident">r</span>: <span class="ident">Unspecified</span>,
+            <span class="ident">reply</span>: <span class="bool-val">false</span>,
+        }
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">for_webhook</span>(<span class="ident">execute_webhook</span>: <span class="ident">ExecuteWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">create_message</span>: <span class="prelude-val">None</span>,
+            <span class="ident">execute_webhook</span>: <span class="prelude-val">Some</span>(<span class="ident">execute_webhook</span>),
             <span class="ident">e</span>: <span class="ident">Unspecified</span>,
             <span class="ident">u</span>: <span class="ident">Unspecified</span>,
             <span class="ident">r</span>: <span class="ident">Unspecified</span>,
@@ -416,6 +469,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">create_message</span>: <span class="prelude-val">None</span>,
+            <span class="ident">execute_webhook</span>: <span class="prelude-val">None</span>,
             <span class="ident">e</span>: <span class="ident">Unspecified</span>,
             <span class="ident">u</span>: <span class="ident">Unspecified</span>,
             <span class="ident">r</span>: <span class="ident">Unspecified</span>,
@@ -437,6 +491,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">replied_user</span>(<span class="self">self</span>, <span class="ident">reply</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">R</span><span class="op">&gt;</span> {
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
+            <span class="ident">execute_webhook</span>: <span class="self">self</span>.<span class="ident">execute_webhook</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
             <span class="ident">u</span>: <span class="self">self</span>.<span class="ident">u</span>,
             <span class="ident">r</span>: <span class="self">self</span>.<span class="ident">r</span>,
@@ -450,6 +505,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_everyone</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Parsed</span>, <span class="ident">U</span>, <span class="ident">R</span><span class="op">&gt;</span> {
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
+            <span class="ident">execute_webhook</span>: <span class="self">self</span>.<span class="ident">execute_webhook</span>,
             <span class="ident">e</span>: <span class="ident">Parsed</span>,
             <span class="ident">u</span>: <span class="self">self</span>.<span class="ident">u</span>,
             <span class="ident">r</span>: <span class="self">self</span>.<span class="ident">r</span>,
@@ -463,6 +519,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_users</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">Parsed</span>, <span class="ident">R</span><span class="op">&gt;</span> {
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
+            <span class="ident">execute_webhook</span>: <span class="self">self</span>.<span class="ident">execute_webhook</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
             <span class="ident">u</span>: <span class="ident">Parsed</span>,
             <span class="ident">r</span>: <span class="self">self</span>.<span class="ident">r</span>,
@@ -478,6 +535,7 @@
         <span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">u</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
+            <span class="ident">execute_webhook</span>: <span class="self">self</span>.<span class="ident">execute_webhook</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
             <span class="ident">u</span>: <span class="ident">ExplicitUser</span>(<span class="ident">vec</span>),
             <span class="ident">r</span>: <span class="self">self</span>.<span class="ident">r</span>,
@@ -491,6 +549,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_roles</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">Parsed</span><span class="op">&gt;</span> {
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
+            <span class="ident">execute_webhook</span>: <span class="self">self</span>.<span class="ident">execute_webhook</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
             <span class="ident">u</span>: <span class="self">self</span>.<span class="ident">u</span>,
             <span class="ident">r</span>: <span class="ident">Parsed</span>,
@@ -506,6 +565,7 @@
         <span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
+            <span class="ident">execute_webhook</span>: <span class="self">self</span>.<span class="ident">execute_webhook</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
             <span class="ident">u</span>: <span class="self">self</span>.<span class="ident">u</span>,
             <span class="ident">r</span>: <span class="ident">ExplicitRole</span>(<span class="ident">vec</span>),
@@ -523,6 +583,7 @@
         <span class="self">self</span>.<span class="ident">r</span>.<span class="number">0</span>.<span class="ident">extend</span>(<span class="ident">r</span>);
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
+            <span class="ident">execute_webhook</span>: <span class="self">self</span>.<span class="ident">execute_webhook</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
             <span class="ident">u</span>: <span class="self">self</span>.<span class="ident">u</span>,
             <span class="ident">r</span>: <span class="self">self</span>.<span class="ident">r</span>,
@@ -540,6 +601,7 @@
         <span class="self">self</span>.<span class="ident">u</span>.<span class="number">0</span>.<span class="ident">extend</span>(<span class="ident">u</span>);
         <span class="ident">AllowedMentionsBuilder</span> {
             <span class="ident">create_message</span>: <span class="self">self</span>.<span class="ident">create_message</span>,
+            <span class="ident">execute_webhook</span>: <span class="self">self</span>.<span class="ident">execute_webhook</span>,
             <span class="ident">e</span>: <span class="self">self</span>.<span class="ident">e</span>,
             <span class="ident">u</span>: <span class="self">self</span>.<span class="ident">u</span>,
             <span class="ident">r</span>: <span class="self">self</span>.<span class="ident">r</span>,
@@ -573,6 +635,24 @@
         }
     }
 
+    <span class="doccomment">/// Return a [`ExecuteWebhook`] struct with the specified `allowed_mentions`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_webhook</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecuteWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">execute_webhook</span> {
+            <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">builder</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">AllowedMentions</span>::<span class="ident">default</span>();
+                <span class="self">self</span>.<span class="ident">e</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
+                <span class="self">self</span>.<span class="ident">u</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
+                <span class="self">self</span>.<span class="ident">r</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
+                <span class="ident">m</span>.<span class="ident">replied_user</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">reply</span>;
+                <span class="ident">builder</span>.<span class="ident">fields</span>.<span class="ident">allowed_mentions</span>.<span class="ident">replace</span>(<span class="ident">m</span>);
+                <span class="ident">builder</span>
+            }
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(
+                <span class="string">&quot;Tried to build to a messagebuilder but none was provided during construction&quot;</span>
+            ),
+        }
+    }
+
     <span class="doccomment">/// Build a raw [`AllowedMentions`] for use in [`ClientBuilder::default_allowed_mentions`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClientBuilder::default_allowed_mentions`]: crate::client::ClientBuilder::default_allowed_mentions</span>
@@ -587,5 +667,5 @@
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="twilight_http"></div>
-    <script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script><script defer src="../../../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="twilight_http" data-search-js="../../../../search-index.js"></div>
+    <script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script></body></html>

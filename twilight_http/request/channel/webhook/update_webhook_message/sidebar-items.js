@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["UpdateWebhookMessageError","A webhook's message can not be updated as configured."]],"struct":[["UpdateWebhookMessage","Update a message created by a webhook."]]});
+initSidebarItems({"enum":[["UpdateWebhookMessageError","A webhook’s message can not be updated as configured."]],"struct":[["UpdateWebhookMessage","Update a message created by a webhook."]]});

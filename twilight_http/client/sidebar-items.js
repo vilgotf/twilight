@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Client","Twilight's http client."],["ClientBuilder","A builder for [`Client`]."]]});
+initSidebarItems({"struct":[["Client","Twilight’s http client."],["ClientBuilder","A builder for [`Client`]."]]});
