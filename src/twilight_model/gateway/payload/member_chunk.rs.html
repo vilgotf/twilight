@@ -467,12 +467,6 @@
 <span id="464">464</span>
 <span id="465">465</span>
 <span id="466">466</span>
-<span id="467">467</span>
-<span id="468">468</span>
-<span id="469">469</span>
-<span id="470">470</span>
-<span id="471">471</span>
-<span id="472">472</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">gateway</span>::<span class="ident">presence</span>::{<span class="ident">Presence</span>, <span class="ident">PresenceListDeserializer</span>},
@@ -779,9 +773,8 @@
             <span class="ident">chunk_count</span>: <span class="number">1</span>,
             <span class="ident">chunk_index</span>: <span class="number">0</span>,
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
-            <span class="ident">members</span>: {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">members</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-                <span class="ident">members</span>.<span class="ident">push</span>(<span class="ident">Member</span> {
+            <span class="ident">members</span>: <span class="ident">Vec</span>::<span class="ident">from</span>([
+                <span class="ident">Member</span> {
                     <span class="ident">deaf</span>: <span class="bool-val">false</span>,
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                     <span class="ident">hoisted_role</span>: <span class="prelude-val">Some</span>(<span class="ident">RoleId</span>(<span class="number">6</span>)),
@@ -806,8 +799,8 @@
                         <span class="ident">system</span>: <span class="prelude-val">None</span>,
                         <span class="ident">public_flags</span>: <span class="prelude-val">None</span>,
                     },
-                });
-                <span class="ident">members</span>.<span class="ident">push</span>(<span class="ident">Member</span> {
+                },
+                <span class="ident">Member</span> {
                     <span class="ident">deaf</span>: <span class="bool-val">false</span>,
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                     <span class="ident">hoisted_role</span>: <span class="prelude-val">Some</span>(<span class="ident">RoleId</span>(<span class="number">6</span>)),
@@ -832,8 +825,8 @@
                         <span class="ident">system</span>: <span class="prelude-val">None</span>,
                         <span class="ident">public_flags</span>: <span class="prelude-val">None</span>,
                     },
-                });
-                <span class="ident">members</span>.<span class="ident">push</span>(<span class="ident">Member</span> {
+                },
+                <span class="ident">Member</span> {
                     <span class="ident">deaf</span>: <span class="bool-val">false</span>,
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                     <span class="ident">hoisted_role</span>: <span class="prelude-val">Some</span>(<span class="ident">RoleId</span>(<span class="number">6</span>)),
@@ -858,8 +851,8 @@
                         <span class="ident">system</span>: <span class="prelude-val">None</span>,
                         <span class="ident">public_flags</span>: <span class="prelude-val">Some</span>(<span class="ident">UserFlags</span>::<span class="ident">VERIFIED_BOT_DEVELOPER</span>),
                     },
-                });
-                <span class="ident">members</span>.<span class="ident">push</span>(<span class="ident">Member</span> {
+                },
+                <span class="ident">Member</span> {
                     <span class="ident">deaf</span>: <span class="bool-val">false</span>,
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                     <span class="ident">hoisted_role</span>: <span class="prelude-val">Some</span>(<span class="ident">RoleId</span>(<span class="number">6</span>)),
@@ -884,15 +877,12 @@
                         <span class="ident">system</span>: <span class="prelude-val">None</span>,
                         <span class="ident">public_flags</span>: <span class="prelude-val">None</span>,
                     },
-                });
-
-                <span class="ident">members</span>
-            },
+                },
+            ]),
             <span class="ident">nonce</span>: <span class="prelude-val">None</span>,
             <span class="ident">not_found</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">presences</span>: {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">presences</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-                <span class="ident">presences</span>.<span class="ident">push</span>(<span class="ident">Presence</span> {
+            <span class="ident">presences</span>: <span class="ident">Vec</span>::<span class="ident">from</span>([
+                <span class="ident">Presence</span> {
                     <span class="ident">activities</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
                     <span class="ident">client_status</span>: <span class="ident">ClientStatus</span> {
                         <span class="ident">desktop</span>: <span class="prelude-val">None</span>,
@@ -902,8 +892,8 @@
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                     <span class="ident">status</span>: <span class="ident">Status</span>::<span class="ident">Online</span>,
                     <span class="ident">user</span>: <span class="ident">UserOrId</span>::<span class="ident">UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">2</span>) },
-                });
-                <span class="ident">presences</span>.<span class="ident">push</span>(<span class="ident">Presence</span> {
+                },
+                <span class="ident">Presence</span> {
                     <span class="ident">activities</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
                     <span class="ident">client_status</span>: <span class="ident">ClientStatus</span> {
                         <span class="ident">desktop</span>: <span class="prelude-val">None</span>,
@@ -913,8 +903,8 @@
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                     <span class="ident">status</span>: <span class="ident">Status</span>::<span class="ident">Online</span>,
                     <span class="ident">user</span>: <span class="ident">UserOrId</span>::<span class="ident">UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">3</span>) },
-                });
-                <span class="ident">presences</span>.<span class="ident">push</span>(<span class="ident">Presence</span> {
+                },
+                <span class="ident">Presence</span> {
                     <span class="ident">activities</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
                     <span class="ident">client_status</span>: <span class="ident">ClientStatus</span> {
                         <span class="ident">desktop</span>: <span class="prelude-val">Some</span>(<span class="ident">Status</span>::<span class="ident">DoNotDisturb</span>),
@@ -924,10 +914,8 @@
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                     <span class="ident">status</span>: <span class="ident">Status</span>::<span class="ident">DoNotDisturb</span>,
                     <span class="ident">user</span>: <span class="ident">UserOrId</span>::<span class="ident">UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">5</span>) },
-                });
-
-                <span class="ident">presences</span>
-            },
+                },
+            ]),
         };
 
         <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="ident">from_value</span>::<span class="op">&lt;</span><span class="ident">MemberChunk</span><span class="op">&gt;</span>(<span class="ident">input</span>).<span class="ident">unwrap</span>();

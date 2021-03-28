@@ -1615,7 +1615,6 @@
 <span id="1612">1612</span>
 <span id="1613">1613</span>
 <span id="1614">1614</span>
-<span id="1615">1615</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-cache-inmemory</span>
 <span class="doccomment">//!</span>
@@ -2706,8 +2705,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_create_channels_have_guild_ids</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-        <span class="ident">channels</span>.<span class="ident">push</span>(<span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
+        <span class="kw">let</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">from</span>([<span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
             <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">111</span>),
             <span class="ident">guild_id</span>: <span class="prelude-val">None</span>,
             <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildText</span>,
@@ -2720,7 +2718,7 @@
             <span class="ident">position</span>: <span class="number">1</span>,
             <span class="ident">rate_limit_per_user</span>: <span class="prelude-val">None</span>,
             <span class="ident">topic</span>: <span class="prelude-val">None</span>,
-        }));
+        })]);
 
         <span class="kw">let</span> <span class="ident">guild</span> <span class="op">=</span> <span class="ident">Guild</span> {
             <span class="ident">id</span>: <span class="ident">GuildId</span>(<span class="number">123</span>),

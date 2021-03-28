@@ -333,6 +333,14 @@
 <span id="330">330</span>
 <span id="331">331</span>
 <span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">message</span>::<span class="ident">CreateMessage</span>, <span class="ident">webhook</span>::<span class="ident">ExecuteWebhook</span>};
 <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">RoleId</span>, <span class="ident">UserId</span>};
@@ -618,6 +626,10 @@
     <span class="op">&gt;</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>, <span class="ident">U</span>, <span class="ident">R</span><span class="op">&gt;</span>
 {
     <span class="doccomment">/// Return a [`CreateMessage`] struct with the specified `allowed_mentions`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Panics when no message builder was provided.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">create_message</span> {
             <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">builder</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -636,6 +648,10 @@
     }
 
     <span class="doccomment">/// Return a [`ExecuteWebhook`] struct with the specified `allowed_mentions`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Panics when no message builder was provided.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_webhook</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecuteWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">execute_webhook</span> {
             <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">builder</span>) <span class="op">=</span><span class="op">&gt;</span> {

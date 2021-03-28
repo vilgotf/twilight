@@ -654,6 +654,8 @@
 <span id="651">651</span>
 <span id="652">652</span>
 <span id="653">653</span>
+<span id="654">654</span>
+<span id="655">655</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">DeError</span>, <span class="ident">Visitor</span>},
@@ -699,6 +701,7 @@
     <span class="doccomment">/// Unknown ban</span>
     <span class="ident">UnknownBan</span>,
     <span class="doccomment">/// Unknown SKU</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">upper_case_acronyms</span>)]</span>
     <span class="ident">UnknownSKU</span>,
     <span class="doccomment">/// Unknown Store Listing</span>
     <span class="ident">UnknownStoreListing</span>,
@@ -753,6 +756,7 @@
     <span class="doccomment">/// Invalid account type</span>
     <span class="ident">InvalidAccountType</span>,
     <span class="doccomment">/// Cannot execute action on a DM channel</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">upper_case_acronyms</span>)]</span>
     <span class="ident">InvalidDMChannelAction</span>,
     <span class="doccomment">/// Guild widget disabled</span>
     <span class="ident">GuildWidgetDisabled</span>,
