@@ -1681,8 +1681,6 @@
 <span id="1678">1678</span>
 <span id="1679">1679</span>
 <span id="1680">1680</span>
-<span id="1681">1681</span>
-<span id="1682">1682</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -3155,6 +3153,18 @@
         ));
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">headers</span>) <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">headers_mut</span>() {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">form</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">form</span> {
+                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content_type</span>) <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">try_from</span>(<span class="ident">form</span>.<span class="ident">content_type</span>()) {
+                    <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">CONTENT_TYPE</span>, <span class="ident">content_type</span>);
+                }
+            } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">bytes</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">body</span> {
+                <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">bytes</span>.<span class="ident">len</span>();
+                <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">CONTENT_LENGTH</span>, <span class="ident">len</span>.<span class="ident">into</span>());
+
+                <span class="kw">let</span> <span class="ident">content_type</span> <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">from_static</span>(<span class="string">&quot;application/json&quot;</span>);
+                <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">CONTENT_TYPE</span>, <span class="ident">content_type</span>);
+            }
+
             <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">USER_AGENT</span>, <span class="ident">user_agent</span>);
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">req_headers</span>) <span class="op">=</span> <span class="ident">req_headers</span> {
@@ -3164,37 +3174,23 @@
                     }
                 }
             }
-        }
 
-        <span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Some</span>(<span class="ident">default_headers</span>), <span class="prelude-val">Some</span>(<span class="ident">headers</span>)) <span class="op">=</span>
-            (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">default_headers</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">builder</span>.<span class="ident">headers_mut</span>())
-        {
-            <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">default_headers</span> {
-                <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">name</span>, <span class="ident">HeaderValue</span>::<span class="ident">from</span>(<span class="ident">value</span>));
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">default_headers</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">default_headers</span> {
+                <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">default_headers</span> {
+                    <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">name</span>, <span class="ident">HeaderValue</span>::<span class="ident">from</span>(<span class="ident">value</span>));
+                }
             }
         }
 
         <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">form</span>) <span class="op">=</span> <span class="ident">form</span> {
-            <span class="kw">let</span> <span class="ident">content_type</span> <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">try_from</span>(<span class="ident">form</span>.<span class="ident">content_type</span>());
             <span class="kw">let</span> <span class="ident">form_bytes</span> <span class="op">=</span> <span class="ident">form</span>.<span class="ident">build</span>();
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">headers</span>) <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">headers_mut</span>() {
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content_type</span>) <span class="op">=</span> <span class="ident">content_type</span> {
-                    <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">CONTENT_TYPE</span>, <span class="ident">content_type</span>);
-                }
                 <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">CONTENT_LENGTH</span>, <span class="ident">form_bytes</span>.<span class="ident">len</span>().<span class="ident">into</span>());
             };
             <span class="ident">builder</span>
                 .<span class="ident">body</span>(<span class="ident">Body</span>::<span class="ident">from</span>(<span class="ident">form_bytes</span>))
                 .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">BuildingRequest</span> { <span class="ident">source</span> })<span class="question-mark">?</span>
         } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">bytes</span>) <span class="op">=</span> <span class="ident">body</span> {
-            <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">bytes</span>.<span class="ident">len</span>();
-
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">headers</span>) <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">headers_mut</span>() {
-                <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">CONTENT_LENGTH</span>, <span class="ident">len</span>.<span class="ident">into</span>());
-                <span class="kw">let</span> <span class="ident">content_type</span> <span class="op">=</span> <span class="ident">HeaderValue</span>::<span class="ident">from_static</span>(<span class="string">&quot;application/json&quot;</span>);
-                <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="ident">CONTENT_TYPE</span>, <span class="ident">content_type</span>);
-            }
-
             <span class="ident">builder</span>
                 .<span class="ident">body</span>(<span class="ident">Body</span>::<span class="ident">from</span>(<span class="ident">bytes</span>))
                 .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">BuildingRequest</span> { <span class="ident">source</span> })<span class="question-mark">?</span>
