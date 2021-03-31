@@ -225,7 +225,7 @@
                 <span class="ident">after</span>: <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">after</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="number">0</span>),
                 <span class="ident">before</span>: <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">before</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="number">0</span>),
                 <span class="ident">channel_id</span>: <span class="self">self</span>.<span class="ident">channel_id</span>.<span class="number">0</span>,
-                <span class="ident">emoji</span>: <span class="self">self</span>.<span class="ident">emoji</span>.<span class="ident">to_owned</span>(),
+                <span class="ident">emoji</span>: <span class="self">self</span>.<span class="ident">emoji</span>.<span class="ident">clone</span>(),
                 <span class="ident">limit</span>: <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">limit</span>,
                 <span class="ident">message_id</span>: <span class="self">self</span>.<span class="ident">message_id</span>.<span class="number">0</span>,
             },

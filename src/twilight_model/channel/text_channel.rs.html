@@ -174,9 +174,9 @@
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">nsfw</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">parent_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">position</span>: <span class="ident">i64</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">rate_limit_per_user</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
@@ -286,13 +286,13 @@
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;foo&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;nsfw&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;permission_overwrites&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">0</span>) },
-                <span class="ident">Token</span>::<span class="ident">SeqEnd</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;parent_id&quot;</span>),
                 <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
                 <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;ChannelId&quot;</span> },
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;4&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;permission_overwrites&quot;</span>),
+                <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">0</span>) },
+                <span class="ident">Token</span>::<span class="ident">SeqEnd</span>,
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;position&quot;</span>),
                 <span class="ident">Token</span>::<span class="ident">I64</span>(<span class="number">3</span>),
                 <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;rate_limit_per_user&quot;</span>),

@@ -320,7 +320,7 @@
 
     <span class="doccomment">/// Reset the state of the inflater back to its default state.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reset</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">replace</span>(<span class="self">self</span>, <span class="self">Self</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">shard</span>));
+        <span class="kw">let</span> <span class="ident">_old_inflater</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">replace</span>(<span class="self">self</span>, <span class="self">Self</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">shard</span>));
     }
 
     <span class="doccomment">/// Log metrics about the inflater.</span>

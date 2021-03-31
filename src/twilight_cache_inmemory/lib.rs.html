@@ -1614,7 +1614,6 @@
 <span id="1611">1611</span>
 <span id="1612">1612</span>
 <span id="1613">1613</span>
-<span id="1614">1614</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-cache-inmemory</span>
 <span class="doccomment">//!</span>
@@ -2169,10 +2168,9 @@
             <span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {}
         }
 
-        <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">emoji</span>.<span class="ident">user</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">u</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">cache_user</span>(<span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">u</span>), <span class="prelude-val">Some</span>(<span class="ident">guild_id</span>))),
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
-        };
+        <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="ident">emoji</span>
+            .<span class="ident">user</span>
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">u</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">cache_user</span>(<span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">u</span>), <span class="prelude-val">Some</span>(<span class="ident">guild_id</span>)));
 
         <span class="kw">let</span> <span class="ident">cached</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">CachedEmoji</span> {
             <span class="ident">id</span>: <span class="ident">emoji</span>.<span class="ident">id</span>,

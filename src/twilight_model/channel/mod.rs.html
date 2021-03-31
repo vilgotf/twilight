@@ -1010,8 +1010,8 @@
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;handling category channel&quot;</span>);
 
                 <span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">CategoryChannel</span> {
-                    <span class="ident">id</span>,
                     <span class="ident">guild_id</span>,
+                    <span class="ident">id</span>,
                     <span class="ident">kind</span>,
                     <span class="ident">name</span>,
                     <span class="ident">permission_overwrites</span>,
@@ -1025,13 +1025,13 @@
                 <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">bitrate</span>, <span class="question-mark">?</span><span class="ident">user_limit</span>, <span class="string">&quot;handling voice channel&quot;</span>);
 
                 <span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">VoiceChannel</span> {
-                    <span class="ident">id</span>,
                     <span class="ident">bitrate</span>,
                     <span class="ident">guild_id</span>,
+                    <span class="ident">id</span>,
                     <span class="ident">kind</span>,
                     <span class="ident">name</span>,
-                    <span class="ident">permission_overwrites</span>,
                     <span class="ident">parent_id</span>,
+                    <span class="ident">permission_overwrites</span>,
                     <span class="ident">position</span>,
                     <span class="ident">user_limit</span>,
                 })
@@ -1049,15 +1049,15 @@
                 );
 
                 <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">TextChannel</span> {
-                    <span class="ident">id</span>,
                     <span class="ident">guild_id</span>,
+                    <span class="ident">id</span>,
                     <span class="ident">kind</span>,
                     <span class="ident">last_message_id</span>,
                     <span class="ident">last_pin_timestamp</span>,
                     <span class="ident">name</span>,
                     <span class="ident">nsfw</span>,
-                    <span class="ident">permission_overwrites</span>,
                     <span class="ident">parent_id</span>,
+                    <span class="ident">permission_overwrites</span>,
                     <span class="ident">position</span>,
                     <span class="ident">rate_limit_per_user</span>,
                     <span class="ident">topic</span>,

@@ -3240,12 +3240,12 @@
 
         <span class="kw">match</span> <span class="ident">RatelimitHeaders</span>::<span class="ident">try_from</span>(<span class="ident">resp</span>.<span class="ident">headers</span>()) {
             <span class="prelude-val">Ok</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send</span>(<span class="prelude-val">Some</span>(<span class="ident">v</span>));
+                <span class="kw">let</span> <span class="ident">_res</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send</span>(<span class="prelude-val">Some</span>(<span class="ident">v</span>));
             }
             <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;header parsing failed: {:?}; {:?}&quot;</span>, <span class="ident">why</span>, <span class="ident">resp</span>);
 
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send</span>(<span class="prelude-val">None</span>);
+                <span class="kw">let</span> <span class="ident">_res</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send</span>(<span class="prelude-val">None</span>);
             }
         }
 
@@ -3271,7 +3271,7 @@
         <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">json_from_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>);
 
         <span class="ident">result</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">Parsing</span> {
-            <span class="ident">body</span>: <span class="ident">bytes</span>.<span class="ident">to_vec</span>(),
+            <span class="ident">body</span>: <span class="ident">bytes</span>,
             <span class="ident">source</span>,
         })
     }
