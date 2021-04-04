@@ -58,6 +58,10 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde_repr</span>::{<span class="ident">Deserialize_repr</span>, <span class="ident">Serialize_repr</span>};
 
@@ -73,6 +77,7 @@
     <span class="ident">GuildCategory</span> <span class="op">=</span> <span class="number">4</span>,
     <span class="ident">GuildNews</span> <span class="op">=</span> <span class="number">5</span>,
     <span class="ident">GuildStore</span> <span class="op">=</span> <span class="number">6</span>,
+    <span class="ident">GuildStageVoice</span> <span class="op">=</span> <span class="number">13</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ChannelType</span> {
@@ -81,6 +86,7 @@
             <span class="self">Self</span>::<span class="ident">Group</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Group&quot;</span>,
             <span class="self">Self</span>::<span class="ident">GuildCategory</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GuildCategory&quot;</span>,
             <span class="self">Self</span>::<span class="ident">GuildNews</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GuildNews&quot;</span>,
+            <span class="self">Self</span>::<span class="ident">GuildStageVoice</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GuildStageVoice&quot;</span>,
             <span class="self">Self</span>::<span class="ident">GuildStore</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GuildStore&quot;</span>,
             <span class="self">Self</span>::<span class="ident">GuildText</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GuildText&quot;</span>,
             <span class="self">Self</span>::<span class="ident">GuildVoice</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GuildVoice&quot;</span>,
@@ -103,6 +109,7 @@
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ChannelType</span>::<span class="ident">GuildCategory</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">4</span>)]);
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ChannelType</span>::<span class="ident">GuildNews</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">5</span>)]);
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ChannelType</span>::<span class="ident">GuildStore</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">6</span>)]);
+        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ChannelType</span>::<span class="ident">GuildStageVoice</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">13</span>)]);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -110,6 +117,7 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;Group&quot;</span>, <span class="ident">ChannelType</span>::<span class="ident">Group</span>.<span class="ident">name</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;GuildCategory&quot;</span>, <span class="ident">ChannelType</span>::<span class="ident">GuildCategory</span>.<span class="ident">name</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;GuildNews&quot;</span>, <span class="ident">ChannelType</span>::<span class="ident">GuildNews</span>.<span class="ident">name</span>());
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;GuildStageVoice&quot;</span>, <span class="ident">ChannelType</span>::<span class="ident">GuildStageVoice</span>.<span class="ident">name</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;GuildStore&quot;</span>, <span class="ident">ChannelType</span>::<span class="ident">GuildStore</span>.<span class="ident">name</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;GuildText&quot;</span>, <span class="ident">ChannelType</span>::<span class="ident">GuildText</span>.<span class="ident">name</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;GuildVoice&quot;</span>, <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span>.<span class="ident">name</span>());
