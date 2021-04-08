@@ -877,7 +877,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span>::<span class="ident">Establishing</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">source</span>, <span class="ident">f</span>),
-            <span class="self">Self</span>::<span class="ident">ParsingGatewayUrl</span> { <span class="ident">source</span>, <span class="ident">url</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">ParsingGatewayUrl</span> { <span class="ident">source</span>, <span class="ident">url</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;the gateway url `{}` is invalid: {}&quot;</span>,
                 <span class="ident">url</span>, <span class="ident">source</span>,
             )),
@@ -1162,7 +1162,7 @@
         <span class="ident">tokio</span>::<span class="ident">spawn</span>(<span class="kw">async</span> <span class="kw">move</span> {
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">fut</span>.<span class="kw">await</span>;
 
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;shard processor future ended&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;shard processor future ended&quot;</span>);
         });
 
         <span class="comment">// We know that these haven&#39;t been set, so we can ignore the result.</span>
@@ -1466,13 +1466,13 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>};
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
 
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">CommandError</span>::<span class="ident">Sending</span>: <span class="ident">source</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">CommandError</span>::<span class="ident">Serializing</span>: <span class="ident">source</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">CommandError</span>::<span class="ident">SessionInactive</span>: <span class="ident">source</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">CommandError</span>: <span class="ident">Debug</span>, <span class="ident">Error</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Information</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">ResumeSession</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">CommandError</span>::<span class="ident">Sending</span>: <span class="ident">source</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">CommandError</span>::<span class="ident">Serializing</span>: <span class="ident">source</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">CommandError</span>::<span class="ident">SessionInactive</span>: <span class="ident">source</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">CommandError</span>: <span class="ident">Debug</span>, <span class="ident">Error</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">Information</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">ResumeSession</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">SessionInactiveError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
@@ -1481,20 +1481,20 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">SendError</span>::<span class="ident">Sending</span>: <span class="ident">source</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">SendError</span>::<span class="ident">SessionInactive</span>: <span class="ident">source</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">SendError</span>: <span class="ident">Debug</span>, <span class="ident">Error</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ShardStartError</span>::<span class="ident">Establishing</span>: <span class="ident">source</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ShardStartError</span>::<span class="ident">ParsingGatewayUrl</span>: <span class="ident">source</span>, <span class="ident">url</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ShardStartError</span>::<span class="ident">RetrievingGatewayUrl</span>: <span class="ident">source</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">SendError</span>::<span class="ident">Sending</span>: <span class="ident">source</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">SendError</span>::<span class="ident">SessionInactive</span>: <span class="ident">source</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">SendError</span>: <span class="ident">Debug</span>, <span class="ident">Error</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">ShardStartError</span>::<span class="ident">Establishing</span>: <span class="ident">source</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">ShardStartError</span>::<span class="ident">ParsingGatewayUrl</span>: <span class="ident">source</span>, <span class="ident">url</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">ShardStartError</span>::<span class="ident">RetrievingGatewayUrl</span>: <span class="ident">source</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">ShardStartError</span>: <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
         <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ConnectingError</span><span class="op">&gt;</span>,
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Shard</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">Shard</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="twilight_gateway" data-search-js="../../../search-index.js"></div>

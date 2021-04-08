@@ -388,16 +388,16 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">message_id</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
-        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;deserializing reaction&quot;</span>);
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(<span class="string">&quot;deserializing reaction&quot;</span>);
         <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
 
         <span class="kw">loop</span> {
-            <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;iterating over element&quot;</span>);
+            <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(<span class="string">&quot;iterating over element&quot;</span>);
             <span class="kw">let</span> <span class="ident">_span_child_enter</span> <span class="op">=</span> <span class="ident">span_child</span>.<span class="ident">enter</span>();
 
             <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">next_key</span>() {
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
+                    <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
 
                     <span class="ident">key</span>
                 }
@@ -406,7 +406,7 @@
                     <span class="comment">// Encountered when we run into an unknown key.</span>
                     <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
-                    <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
+                    <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
 
                     <span class="kw">continue</span>;
                 }
@@ -465,10 +465,10 @@
         <span class="kw">let</span> <span class="ident">message_id</span> <span class="op">=</span> <span class="ident">message_id</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;message_id&quot;</span>))<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="ident">user_id</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;user_id&quot;</span>))<span class="question-mark">?</span>;
 
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">channel_id</span>, <span class="question-mark">?</span><span class="ident">emoji</span>, <span class="question-mark">?</span><span class="ident">message_id</span>, <span class="question-mark">?</span><span class="ident">user_id</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="question-mark">?</span><span class="ident">channel_id</span>, <span class="question-mark">?</span><span class="ident">emoji</span>, <span class="question-mark">?</span><span class="ident">message_id</span>, <span class="question-mark">?</span><span class="ident">user_id</span>);
 
         <span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Some</span>(<span class="ident">guild_id</span>), <span class="prelude-val">Some</span>(<span class="ident">member</span>)) <span class="op">=</span> (<span class="ident">guild_id</span>, <span class="ident">member</span>.<span class="ident">as_mut</span>()) {
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="question-mark">?</span><span class="ident">member</span>, <span class="string">&quot;setting member guild id&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="question-mark">?</span><span class="ident">member</span>, <span class="string">&quot;setting member guild id&quot;</span>);
 
             <span class="ident">member</span>.<span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">guild_id</span>;
         }
@@ -527,7 +527,7 @@
                 <span class="ident">nick</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;typing&quot;</span>.<span class="ident">to_owned</span>()),
                 <span class="ident">pending</span>: <span class="bool-val">false</span>,
                 <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
-                <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">RoleId</span>(<span class="number">5</span>)],
+                <span class="ident">roles</span>: <span class="macro">vec!</span>[<span class="ident">RoleId</span>(<span class="number">5</span>)],
                 <span class="ident">user</span>: <span class="ident">User</span> {
                     <span class="ident">avatar</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span>.<span class="ident">to_owned</span>()),
                     <span class="ident">bot</span>: <span class="bool-val">false</span>,

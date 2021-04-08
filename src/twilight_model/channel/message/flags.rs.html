@@ -53,7 +53,7 @@
     <span class="ident">ser</span>::{<span class="ident">Serialize</span>, <span class="ident">Serializer</span>},
 };
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageFlags</span>: <span class="ident">u64</span> {
         <span class="kw">const</span> <span class="ident">CROSSPOSTED</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="kw">const</span> <span class="ident">IS_CROSSPOST</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">1</span>;

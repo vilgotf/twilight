@@ -171,7 +171,7 @@
     }
 }
 
-<span class="macro">poll_req</span><span class="macro">!</span>(<span class="ident">CreateReaction</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, ());
+<span class="macro">poll_req!</span>(<span class="ident">CreateReaction</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, ());
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
@@ -201,7 +201,7 @@
             <span class="ident">message_id</span>: <span class="number">456</span>,
         });
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">actual</span>.<span class="ident">path_str</span>, <span class="ident">expected</span>.<span class="ident">path_str</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">actual</span>.<span class="ident">path_str</span>, <span class="ident">expected</span>.<span class="ident">path_str</span>);
     }
 }
 </pre></div>

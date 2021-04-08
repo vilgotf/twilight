@@ -728,7 +728,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">ConversionError</span>::<span class="ident">MessageType</span>(<span class="ident">num</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Could not convert {} into a valid MessageType!&quot;</span>, <span class="ident">num</span>)
+                <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Could not convert {} into a valid MessageType!&quot;</span>, <span class="ident">num</span>)
             }
         }
     }
@@ -856,16 +856,16 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">topic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user_limit</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
-        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;deserializing guild channel&quot;</span>);
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(<span class="string">&quot;deserializing guild channel&quot;</span>);
         <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
 
         <span class="kw">loop</span> {
-            <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;iterating over element&quot;</span>);
+            <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(<span class="string">&quot;iterating over element&quot;</span>);
             <span class="kw">let</span> <span class="ident">_span_child_enter</span> <span class="op">=</span> <span class="ident">span_child</span>.<span class="ident">enter</span>();
 
             <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">next_key</span>() {
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
+                    <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
 
                     <span class="ident">key</span>
                 }
@@ -874,7 +874,7 @@
                     <span class="comment">// Encountered when we run into an unknown key.</span>
                     <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
-                    <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
+                    <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
 
                     <span class="kw">continue</span>;
                 }
@@ -994,7 +994,7 @@
         <span class="kw">let</span> <span class="ident">nsfw</span> <span class="op">=</span> <span class="ident">nsfw</span>.<span class="ident">unwrap_or_default</span>();
         <span class="kw">let</span> <span class="ident">parent_id</span> <span class="op">=</span> <span class="ident">parent_id</span>.<span class="ident">unwrap_or_default</span>();
 
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(
             <span class="op">%</span><span class="ident">id</span>,
             <span class="question-mark">?</span><span class="ident">kind</span>,
             <span class="op">%</span><span class="ident">name</span>,
@@ -1007,7 +1007,7 @@
 
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">kind</span> {
             <span class="ident">ChannelType</span>::<span class="ident">GuildCategory</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;handling category channel&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;handling category channel&quot;</span>);
 
                 <span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">CategoryChannel</span> {
                     <span class="ident">guild_id</span>,
@@ -1022,7 +1022,7 @@
                 <span class="kw">let</span> <span class="ident">bitrate</span> <span class="op">=</span> <span class="ident">bitrate</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;bitrate&quot;</span>))<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">user_limit</span> <span class="op">=</span> <span class="ident">user_limit</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;user_limit&quot;</span>))<span class="question-mark">?</span>;
 
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">bitrate</span>, <span class="question-mark">?</span><span class="ident">user_limit</span>, <span class="string">&quot;handling voice channel&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">bitrate</span>, <span class="question-mark">?</span><span class="ident">user_limit</span>, <span class="string">&quot;handling voice channel&quot;</span>);
 
                 <span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">VoiceChannel</span> {
                     <span class="ident">bitrate</span>,
@@ -1041,7 +1041,7 @@
                 <span class="kw">let</span> <span class="ident">last_pin_timestamp</span> <span class="op">=</span> <span class="ident">last_pin_timestamp</span>.<span class="ident">unwrap_or_default</span>();
                 <span class="kw">let</span> <span class="ident">topic</span> <span class="op">=</span> <span class="ident">topic</span>.<span class="ident">unwrap_or_default</span>();
 
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(
                     <span class="question-mark">?</span><span class="ident">last_message_id</span>,
                     <span class="question-mark">?</span><span class="ident">last_pin_timestamp</span>,
                     <span class="question-mark">?</span><span class="ident">topic</span>,
@@ -1153,54 +1153,54 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_channel_helpers</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Channel</span>::<span class="ident">Group</span>(<span class="ident">group</span>()).<span class="ident">id</span>(), <span class="ident">ChannelId</span>(<span class="number">123</span>));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="ident">Channel</span>::<span class="ident">Group</span>(<span class="ident">group</span>()).<span class="ident">id</span>(), <span class="ident">ChannelId</span>(<span class="number">123</span>));
+        <span class="macro">assert_eq!</span>(
             <span class="ident">Channel</span>::<span class="ident">Guild</span>(<span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">guild_category</span>())).<span class="ident">id</span>(),
             <span class="ident">ChannelId</span>(<span class="number">123</span>)
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">Channel</span>::<span class="ident">Guild</span>(<span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">guild_text</span>())).<span class="ident">id</span>(),
             <span class="ident">ChannelId</span>(<span class="number">456</span>)
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">Channel</span>::<span class="ident">Guild</span>(<span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">guild_voice</span>())).<span class="ident">id</span>(),
             <span class="ident">ChannelId</span>(<span class="number">789</span>)
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Channel</span>::<span class="ident">Private</span>(<span class="ident">private</span>()).<span class="ident">id</span>(), <span class="ident">ChannelId</span>(<span class="number">234</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">Channel</span>::<span class="ident">Private</span>(<span class="ident">private</span>()).<span class="ident">id</span>(), <span class="ident">ChannelId</span>(<span class="number">234</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_channel_name</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Channel</span>::<span class="ident">Group</span>(<span class="ident">group</span>()).<span class="ident">name</span>(), <span class="prelude-val">Some</span>(<span class="string">&quot;a group&quot;</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">Channel</span>::<span class="ident">Group</span>(<span class="ident">group</span>()).<span class="ident">name</span>(), <span class="prelude-val">Some</span>(<span class="string">&quot;a group&quot;</span>));
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">group_no_name</span> <span class="op">=</span> <span class="ident">group</span>();
         <span class="ident">group_no_name</span>.<span class="ident">name</span> <span class="op">=</span> <span class="prelude-val">None</span>;
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">Channel</span>::<span class="ident">Group</span>(<span class="ident">group_no_name</span>).<span class="ident">name</span>().<span class="ident">is_none</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="ident">Channel</span>::<span class="ident">Group</span>(<span class="ident">group_no_name</span>).<span class="ident">name</span>().<span class="ident">is_none</span>());
+        <span class="macro">assert_eq!</span>(
             <span class="ident">Channel</span>::<span class="ident">Guild</span>(<span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">guild_category</span>())).<span class="ident">name</span>(),
             <span class="prelude-val">Some</span>(<span class="string">&quot;category&quot;</span>)
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">Channel</span>::<span class="ident">Guild</span>(<span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">guild_text</span>())).<span class="ident">name</span>(),
             <span class="prelude-val">Some</span>(<span class="string">&quot;text&quot;</span>)
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">Channel</span>::<span class="ident">Guild</span>(<span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">guild_voice</span>())).<span class="ident">name</span>(),
             <span class="prelude-val">Some</span>(<span class="string">&quot;voice&quot;</span>)
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">Channel</span>::<span class="ident">Private</span>(<span class="ident">private</span>()).<span class="ident">name</span>().<span class="ident">is_none</span>());
+        <span class="macro">assert!</span>(<span class="ident">Channel</span>::<span class="ident">Private</span>(<span class="ident">private</span>()).<span class="ident">name</span>().<span class="ident">is_none</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_channel_guild_id</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">guild_category</span>()).<span class="ident">guild_id</span>(),
             <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">321</span>))
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">guild_text</span>()).<span class="ident">guild_id</span>(),
             <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">321</span>))
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">guild_voice</span>()).<span class="ident">guild_id</span>(),
             <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">321</span>))
         );
@@ -1208,26 +1208,26 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_channel_id</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">guild_category</span>()).<span class="ident">id</span>(),
             <span class="ident">ChannelId</span>(<span class="number">123</span>)
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">guild_text</span>()).<span class="ident">id</span>(), <span class="ident">ChannelId</span>(<span class="number">456</span>));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">guild_voice</span>()).<span class="ident">id</span>(), <span class="ident">ChannelId</span>(<span class="number">789</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">guild_text</span>()).<span class="ident">id</span>(), <span class="ident">ChannelId</span>(<span class="number">456</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">guild_voice</span>()).<span class="ident">id</span>(), <span class="ident">ChannelId</span>(<span class="number">789</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_channel_name</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">guild_category</span>()).<span class="ident">name</span>(), <span class="string">&quot;category&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">guild_text</span>()).<span class="ident">name</span>(), <span class="string">&quot;text&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">guild_voice</span>()).<span class="ident">name</span>(), <span class="string">&quot;voice&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Category</span>(<span class="ident">guild_category</span>()).<span class="ident">name</span>(), <span class="string">&quot;category&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="ident">guild_text</span>()).<span class="ident">name</span>(), <span class="string">&quot;text&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">GuildChannel</span>::<span class="ident">Voice</span>(<span class="ident">guild_voice</span>()).<span class="ident">name</span>(), <span class="string">&quot;voice&quot;</span>);
     }
 
     <span class="comment">// The deserializer for GuildChannel should skip over fields names that</span>
     <span class="comment">// it couldn&#39;t deserialize.</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_channel_unknown_field_deserialization</span>() {
-        <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>({
+        <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="macro">json!</span>({
             <span class="string">&quot;type&quot;</span>: <span class="number">0</span>,
             <span class="string">&quot;topic&quot;</span>: <span class="string">&quot;a&quot;</span>,
             <span class="string">&quot;rate_limit_per_user&quot;</span>: <span class="number">0</span>,
@@ -1269,7 +1269,7 @@
             <span class="ident">topic</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">to_owned</span>()),
         });
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">value</span>, <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">input</span>).<span class="ident">unwrap</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">value</span>, <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">input</span>).<span class="ident">unwrap</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1284,9 +1284,9 @@
         });
         <span class="kw">let</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">value</span>,
-            <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>({
+            <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json!</span>({
                 <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,
                 <span class="string">&quot;guild_id&quot;</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2&quot;</span>),
                 <span class="string">&quot;name&quot;</span>: <span class="string">&quot;foo&quot;</span>,
@@ -1318,9 +1318,9 @@
         });
         <span class="kw">let</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">value</span>,
-            <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>({
+            <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json!</span>({
                 <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,
                 <span class="string">&quot;guild_id&quot;</span>: <span class="string">&quot;2&quot;</span>,
                 <span class="string">&quot;name&quot;</span>: <span class="string">&quot;news&quot;</span>,
@@ -1354,9 +1354,9 @@
         });
         <span class="kw">let</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">value</span>,
-            <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>({
+            <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="ident">serde_json</span>::<span class="macro">json!</span>({
                 <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,
                 <span class="string">&quot;guild_id&quot;</span>: <span class="string">&quot;2&quot;</span>,
                 <span class="string">&quot;name&quot;</span>: <span class="string">&quot;store&quot;</span>,

@@ -127,22 +127,22 @@
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span>::<span class="ident">NoHeaders</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;No headers are present&quot;</span>),
             <span class="self">Self</span>::<span class="ident">HeaderMissing</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;At least one header, {:?}, is missing&quot;</span>, <span class="ident">name</span>)
+                <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;At least one header, {:?}, is missing&quot;</span>, <span class="ident">name</span>)
             }
             <span class="self">Self</span>::<span class="ident">HeaderNotUtf8</span> { <span class="ident">name</span>, <span class="ident">value</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;The header {:?} has invalid UTF-16: {:?}&quot;</span>, <span class="ident">name</span>, <span class="ident">value</span>)
+                <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;The header {:?} has invalid UTF-16: {:?}&quot;</span>, <span class="ident">name</span>, <span class="ident">value</span>)
             }
-            <span class="self">Self</span>::<span class="ident">ParsingBoolText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">ParsingBoolText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;The header {:?} should be a bool but isn&#39;t: {:?}&quot;</span>,
                 <span class="ident">name</span>, <span class="ident">text</span>
             ),
-            <span class="self">Self</span>::<span class="ident">ParsingFloatText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">ParsingFloatText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;The header {:?} should be a float but isn&#39;t: {:?}&quot;</span>,
                 <span class="ident">name</span>, <span class="ident">text</span>
             ),
-            <span class="self">Self</span>::<span class="ident">ParsingIntText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">ParsingIntText</span> { <span class="ident">name</span>, <span class="ident">text</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;The header {:?} should be an integer but isn&#39;t: {:?}&quot;</span>,
                 <span class="ident">name</span>, <span class="ident">text</span>

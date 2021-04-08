@@ -555,7 +555,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_payload</span>() {
-        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Payload</span> { <span class="ident">bytes</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="number">1</span>, <span class="number">2</span>] };
+        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Payload</span> { <span class="ident">bytes</span>: <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>] };
 
         <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
@@ -621,7 +621,7 @@
             <span class="ident">heartbeat_interval</span>: <span class="number">41_250</span>,
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         });
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">connected</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
             <span class="ident">ShardEvent</span>::<span class="ident">Connected</span>(<span class="kw">_</span>)
         ));
@@ -630,7 +630,7 @@
             <span class="ident">gateway</span>: <span class="string">&quot;https://example.com&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         });
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">connecting</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
             <span class="ident">ShardEvent</span>::<span class="ident">Connecting</span>(<span class="kw">_</span>)
         ));
@@ -640,7 +640,7 @@
             <span class="ident">reason</span>: <span class="prelude-val">None</span>,
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         });
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">disconnected</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
             <span class="ident">ShardEvent</span>::<span class="ident">Disconnected</span>(<span class="kw">_</span>)
         ));
@@ -649,19 +649,19 @@
             <span class="ident">shard_id</span>: <span class="number">4</span>,
             <span class="ident">shard_total</span>: <span class="number">7</span>,
         });
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">identifying</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
             <span class="ident">ShardEvent</span>::<span class="ident">Identifying</span>(<span class="kw">_</span>)
         ));
 
-        <span class="kw">let</span> <span class="ident">payload</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardPayload</span>(<span class="ident">Payload</span> { <span class="ident">bytes</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="number">1</span>, <span class="number">2</span>] });
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="kw">let</span> <span class="ident">payload</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardPayload</span>(<span class="ident">Payload</span> { <span class="ident">bytes</span>: <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>] });
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">payload</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
             <span class="ident">ShardEvent</span>::<span class="ident">Payload</span>(<span class="kw">_</span>)
         ));
 
         <span class="kw">let</span> <span class="ident">reconnecting</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardReconnecting</span>(<span class="ident">Reconnecting</span> { <span class="ident">shard_id</span>: <span class="number">4</span> });
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">reconnecting</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
             <span class="ident">ShardEvent</span>::<span class="ident">Reconnecting</span>(<span class="kw">_</span>)
         ));
@@ -670,7 +670,7 @@
             <span class="ident">seq</span>: <span class="number">100</span>,
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         });
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">resuming</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
             <span class="ident">ShardEvent</span>::<span class="ident">Resuming</span>(<span class="kw">_</span>)
         ));

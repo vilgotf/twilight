@@ -266,7 +266,7 @@
     <span class="kw">const</span> <span class="ident">DUR</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">6</span>);
     <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">req</span>) <span class="op">=</span> <span class="ident">rx</span>.<span class="ident">next</span>().<span class="kw">await</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">req</span>.<span class="ident">send</span>(()) {
-            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed: {:?}&quot;</span>, <span class="ident">err</span>);
+            <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;skipping, send failed: {:?}&quot;</span>, <span class="ident">err</span>);
         }
         <span class="ident">sleep</span>(<span class="ident">DUR</span>).<span class="kw">await</span>;
     }
@@ -281,11 +281,11 @@
             <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">clone</span>().<span class="ident">send</span>(<span class="ident">tx</span>).<span class="kw">await</span> {
-                <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed: {:?}&quot;</span>, <span class="ident">err</span>);
+                <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;skipping, send failed: {:?}&quot;</span>, <span class="ident">err</span>);
                 <span class="kw">return</span>;
             }
 
-            <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;shard {}/{} waiting for allowance&quot;</span>, <span class="ident">id</span>, <span class="ident">total</span>);
+            <span class="ident">tracing</span>::<span class="macro">info!</span>(<span class="string">&quot;shard {}/{} waiting for allowance&quot;</span>, <span class="ident">id</span>, <span class="ident">total</span>);
 
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">rx</span>.<span class="kw">await</span>;
         })
@@ -298,9 +298,9 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_impl_all</span>, <span class="ident">assert_obj_safe</span>};
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">LocalQueue</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Queue</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="kw">dyn</span> <span class="ident">Queue</span>: <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_obj_safe</span><span class="macro">!</span>(<span class="ident">Queue</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">LocalQueue</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Queue</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="kw">dyn</span> <span class="ident">Queue</span>: <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_obj_safe!</span>(<span class="ident">Queue</span>);
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="twilight_gateway_queue" data-search-js="../../search-index.js"></div>

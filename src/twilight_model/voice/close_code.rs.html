@@ -207,7 +207,7 @@
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">CloseCodeConversionError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
-        <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(<span class="string">&quot;{} isn&#39;t a valid close code&quot;</span>, <span class="self">self</span>.<span class="ident">code</span>))
+        <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;{} isn&#39;t a valid close code&quot;</span>, <span class="self">self</span>.<span class="ident">code</span>))
     }
 }
 
@@ -260,42 +260,42 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_conversion</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4001</span>).<span class="ident">unwrap</span>(), <span class="ident">CloseCode</span>::<span class="ident">UnknownOpcode</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4002</span>).<span class="ident">unwrap</span>(), <span class="ident">CloseCode</span>::<span class="ident">DecodeError</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4001</span>).<span class="ident">unwrap</span>(), <span class="ident">CloseCode</span>::<span class="ident">UnknownOpcode</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4002</span>).<span class="ident">unwrap</span>(), <span class="ident">CloseCode</span>::<span class="ident">DecodeError</span>);
+        <span class="macro">assert_eq!</span>(
             <span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4003</span>).<span class="ident">unwrap</span>(),
             <span class="ident">CloseCode</span>::<span class="ident">NotAuthenticated</span>
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4004</span>).<span class="ident">unwrap</span>(),
             <span class="ident">CloseCode</span>::<span class="ident">AuthenticationFailed</span>
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4005</span>).<span class="ident">unwrap</span>(),
             <span class="ident">CloseCode</span>::<span class="ident">AlreadyAuthenticated</span>
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4009</span>).<span class="ident">unwrap</span>(),
             <span class="ident">CloseCode</span>::<span class="ident">SessionTimedOut</span>
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4011</span>).<span class="ident">unwrap</span>(),
             <span class="ident">CloseCode</span>::<span class="ident">ServerNotFound</span>
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4012</span>).<span class="ident">unwrap</span>(),
             <span class="ident">CloseCode</span>::<span class="ident">UnknownProtocol</span>
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4014</span>).<span class="ident">unwrap</span>(), <span class="ident">CloseCode</span>::<span class="ident">Disconnected</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4014</span>).<span class="ident">unwrap</span>(), <span class="ident">CloseCode</span>::<span class="ident">Disconnected</span>);
+        <span class="macro">assert_eq!</span>(
             <span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4015</span>).<span class="ident">unwrap</span>(),
             <span class="ident">CloseCode</span>::<span class="ident">VoiceServerCrashed</span>
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">4016</span>).<span class="ident">unwrap</span>(),
             <span class="ident">CloseCode</span>::<span class="ident">UnknownEncryptionMode</span>
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">5000</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">CloseCode</span>::<span class="ident">try_from</span>(<span class="number">5000</span>).<span class="ident">is_err</span>());
     }
 }
 </pre></div>

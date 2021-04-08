@@ -646,7 +646,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_role</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">role</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">RoleFields</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">roles</span>.<span class="ident">is_none</span>() {
             <span class="kw">let</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">RoleFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;@everyone&quot;</span>);
-            <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">roles</span>.<span class="ident">replace</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">builder</span>.<span class="ident">build</span>()]);
+            <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">roles</span>.<span class="ident">replace</span>(<span class="macro">vec!</span>[<span class="ident">builder</span>.<span class="ident">build</span>()]);
         }
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">roles</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">roles</span>.<span class="ident">as_mut</span>() {
@@ -758,7 +758,7 @@
             <span class="ident">roles</span>.<span class="ident">remove</span>(<span class="number">0</span>);
             <span class="ident">roles</span>.<span class="ident">insert</span>(<span class="number">0</span>, <span class="ident">everyone</span>.<span class="ident">into</span>());
         } <span class="kw">else</span> {
-            <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">roles</span>.<span class="ident">replace</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">everyone</span>.<span class="ident">into</span>()]);
+            <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">roles</span>.<span class="ident">replace</span>(<span class="macro">vec!</span>[<span class="ident">everyone</span>.<span class="ident">into</span>()]);
         }
 
         <span class="self">self</span>
@@ -821,7 +821,7 @@
     }
 }
 
-<span class="macro">poll_req</span><span class="macro">!</span>(<span class="ident">CreateGuild</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">PartialGuild</span>);
+<span class="macro">poll_req!</span>(<span class="ident">CreateGuild</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">PartialGuild</span>);
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="twilight_http" data-search-js="../../../../../search-index.js"></div>
     <script src="../../../../../main.js"></script><script src="../../../../../source-script.js"></script><script src="../../../../../source-files.js"></script></body></html>

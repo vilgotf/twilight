@@ -2696,9 +2696,9 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_current_user_retrieval</span>() {
         <span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">InMemoryCache</span>::<span class="ident">new</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">current_user</span>().<span class="ident">is_none</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">current_user</span>().<span class="ident">is_none</span>());
         <span class="ident">cache</span>.<span class="ident">cache_current_user</span>(<span class="ident">current_user</span>(<span class="number">1</span>));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">current_user</span>().<span class="ident">is_some</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">current_user</span>().<span class="ident">is_some</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -2730,7 +2730,7 @@
             <span class="ident">discovery_splash</span>: <span class="prelude-val">None</span>,
             <span class="ident">emojis</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
             <span class="ident">explicit_content_filter</span>: <span class="ident">ExplicitContentFilter</span>::<span class="ident">AllMembers</span>,
-            <span class="ident">features</span>: <span class="macro">vec</span><span class="macro">!</span>[],
+            <span class="ident">features</span>: <span class="macro">vec!</span>[],
             <span class="ident">icon</span>: <span class="prelude-val">None</span>,
             <span class="ident">joined_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">large</span>: <span class="bool-val">false</span>,
@@ -2776,9 +2776,9 @@
         <span class="comment">// correct value.</span>
         <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">channel</span> {
             <span class="ident">GuildChannel</span>::<span class="ident">Text</span>(<span class="kw-2">ref</span> <span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">123</span>)), <span class="ident">c</span>.<span class="ident">guild_id</span>);
+                <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">123</span>)), <span class="ident">c</span>.<span class="ident">guild_id</span>);
             }
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">channel</span>),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">channel</span>),
         }
     }
 
@@ -2800,8 +2800,8 @@
         <span class="comment">// Test the guild&#39;s ID is the only one in the user&#39;s set of guilds.</span>
         {
             <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>).<span class="ident">unwrap</span>();
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">user</span>.<span class="number">1</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">GuildId</span>(<span class="number">1</span>)));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">user</span>.<span class="number">1</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">user</span>.<span class="number">1</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">GuildId</span>(<span class="number">1</span>)));
+            <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">user</span>.<span class="number">1</span>.<span class="ident">len</span>());
         }
 
         <span class="comment">// Test that a second guild will cause 2 in the set.</span>
@@ -2809,8 +2809,8 @@
 
         {
             <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>).<span class="ident">unwrap</span>();
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">user</span>.<span class="number">1</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">GuildId</span>(<span class="number">3</span>)));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">user</span>.<span class="number">1</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">user</span>.<span class="number">1</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">GuildId</span>(<span class="number">3</span>)));
+            <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">user</span>.<span class="number">1</span>.<span class="ident">len</span>());
         }
 
         <span class="comment">// Test that removing a user from a guild will cause the ID to be</span>
@@ -2822,8 +2822,8 @@
 
         {
             <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>).<span class="ident">unwrap</span>();
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">user</span>.<span class="number">1</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">GuildId</span>(<span class="number">3</span>)));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">user</span>.<span class="number">1</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">user</span>.<span class="number">1</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">GuildId</span>(<span class="number">3</span>)));
+            <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">user</span>.<span class="number">1</span>.<span class="ident">len</span>());
         }
 
         <span class="comment">// Test that removing the user from its last guild removes the user&#39;s</span>
@@ -2832,7 +2832,7 @@
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
             <span class="ident">user</span>: <span class="ident">user</span>(<span class="ident">user_id</span>),
         });
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">users</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">user_id</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -2850,17 +2850,17 @@
             <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="ident">guild_id</span>, <span class="prelude-val">Some</span>(<span class="ident">channel_id</span>), <span class="ident">user_id</span>));
 
             <span class="comment">// The new user should show up in the global voice states</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
             <span class="comment">// There should only be the one new voice state in there</span>
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
+            <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
 
             <span class="comment">// The new channel should show up in the voice states by channel lookup</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
+            <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
 
             <span class="comment">// The new guild should also show up in the voice states by guild lookup</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
+            <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
         }
 
         <span class="comment">// User 2 joins guild 2&#39;s channel 21 (2 channels, 2 guilds)</span>
@@ -2870,17 +2870,17 @@
             <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="ident">guild_id</span>, <span class="prelude-val">Some</span>(<span class="ident">channel_id</span>), <span class="ident">user_id</span>));
 
             <span class="comment">// The new voice state should show up in the global voice states</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
             <span class="comment">// There should be two voice states now that we have inserted another</span>
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
+            <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
 
             <span class="comment">// The new channel should also show up in the voice states by channel lookup</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
+            <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
 
             <span class="comment">// The new guild should also show up in the voice states by guild lookup</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
+            <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
         }
 
         <span class="comment">// User 3 joins guild 1&#39;s channel 12  (3 channels, 2 guilds)</span>
@@ -2890,18 +2890,18 @@
             <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="ident">guild_id</span>, <span class="prelude-val">Some</span>(<span class="ident">channel_id</span>), <span class="ident">user_id</span>));
 
             <span class="comment">// The new voice state should show up in the global voice states</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">3</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
+            <span class="macro">assert_eq!</span>(<span class="number">3</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
 
             <span class="comment">// The new channel should also show up in the voice states by channel lookup</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">3</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
+            <span class="macro">assert_eq!</span>(<span class="number">3</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
 
             <span class="comment">// The guild should still show up in the voice states by guild lookup</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
             <span class="comment">// Since we have used a guild that has been inserted into the cache already, there</span>
             <span class="comment">// should not be a new guild in the map</span>
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
+            <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
         }
 
         <span class="comment">// User 3 moves to guild 1&#39;s channel 11 (2 channels, 2 guilds)</span>
@@ -2911,18 +2911,18 @@
             <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="ident">guild_id</span>, <span class="prelude-val">Some</span>(<span class="ident">channel_id</span>), <span class="ident">user_id</span>));
 
             <span class="comment">// The new voice state should show up in the global voice states</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
             <span class="comment">// The amount of global voice states should not change since it was a move, not a join</span>
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">3</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
+            <span class="macro">assert_eq!</span>(<span class="number">3</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
 
             <span class="comment">// The new channel should show up in the voice states by channel lookup</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
             <span class="comment">// The old channel should be removed from the lookup table</span>
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
+            <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
 
             <span class="comment">// The guild should still show up in the voice states by guild lookup</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
+            <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
         }
 
         <span class="comment">// User 3 dcs (2 channels, 2 guilds)</span>
@@ -2931,14 +2931,14 @@
             <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="ident">guild_id</span>, <span class="prelude-val">None</span>, <span class="ident">user_id</span>));
 
             <span class="comment">// Now that the user left, they should not show up in the voice states</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
+            <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
 
             <span class="comment">// Since they were not alone in their channel, the channel and guild mappings should not disappear</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
             <span class="comment">// assert_eq!(2, cache.0.voice_state_channels.len());</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
+            <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
         }
 
         <span class="comment">// User 2 dcs (1 channel, 1 guild)</span>
@@ -2947,16 +2947,16 @@
             <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="ident">guild_id</span>, <span class="prelude-val">None</span>, <span class="ident">user_id</span>));
 
             <span class="comment">// Now that the user left, they should not show up in the voice states</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)));
+            <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">len</span>());
 
             <span class="comment">// Since they were the last in their channel, the mapping should disappear</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>));
+            <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">len</span>());
 
             <span class="comment">// Since they were the last in their guild, the mapping should disappear</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>));
+            <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">len</span>());
         }
 
         <span class="comment">// User 1 dcs (0 channels, 0 guilds)</span>
@@ -2965,9 +2965,9 @@
             <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="ident">guild_id</span>, <span class="prelude-val">None</span>, <span class="ident">user_id</span>));
 
             <span class="comment">// Since the last person has disconnected, the global voice states, guilds, and channels should all be gone</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">is_empty</span>());
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">is_empty</span>());
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">is_empty</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_states</span>.<span class="ident">is_empty</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_channels</span>.<span class="ident">is_empty</span>());
+            <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">voice_state_guilds</span>.<span class="ident">is_empty</span>());
         }
     }
 
@@ -2978,10 +2978,10 @@
         <span class="ident">cache</span>.<span class="ident">cache_voice_state</span>(<span class="ident">voice_state</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="prelude-val">Some</span>(<span class="ident">ChannelId</span>(<span class="number">2</span>)), <span class="ident">UserId</span>(<span class="number">4</span>)));
 
         <span class="comment">// Returns both voice states for the channel that exists.</span>
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="ident">voice_channel_states</span>(<span class="ident">ChannelId</span>(<span class="number">2</span>)).<span class="ident">unwrap</span>().<span class="ident">len</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">cache</span>.<span class="ident">voice_channel_states</span>(<span class="ident">ChannelId</span>(<span class="number">2</span>)).<span class="ident">unwrap</span>().<span class="ident">len</span>());
 
         <span class="comment">// Returns None if the channel does not exist.</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">voice_channel_states</span>(<span class="ident">ChannelId</span>(<span class="number">0</span>)).<span class="ident">is_none</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">voice_channel_states</span>(<span class="ident">ChannelId</span>(<span class="number">0</span>)).<span class="ident">is_none</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -3005,11 +3005,11 @@
 
             <span class="comment">// Check for the cached guild role ids</span>
             <span class="kw">let</span> <span class="ident">cached_roles</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">guild_roles</span>(<span class="ident">GuildId</span>(<span class="number">1</span>)).<span class="ident">unwrap</span>();
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cached_roles</span>.<span class="ident">len</span>(), <span class="ident">guild_1_role_ids</span>.<span class="ident">len</span>());
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_1_role_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cached_roles</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
+            <span class="macro">assert_eq!</span>(<span class="ident">cached_roles</span>.<span class="ident">len</span>(), <span class="ident">guild_1_role_ids</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">guild_1_role_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cached_roles</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
 
             <span class="comment">// Check for the cached role</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_1_roles</span>
+            <span class="macro">assert!</span>(<span class="ident">guild_1_roles</span>
                 .<span class="ident">into_iter</span>()
                 .<span class="ident">all</span>(<span class="op">|</span><span class="ident">role</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">cache</span>.<span class="ident">role</span>(<span class="ident">role</span>.<span class="ident">id</span>).<span class="ident">expect</span>(<span class="string">&quot;Role missing from cache&quot;</span>) <span class="op">=</span><span class="op">=</span> <span class="ident">role</span>))
         }
@@ -3029,11 +3029,11 @@
 
             <span class="comment">// Check for the cached guild role ids</span>
             <span class="kw">let</span> <span class="ident">cached_roles</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">guild_roles</span>(<span class="ident">GuildId</span>(<span class="number">2</span>)).<span class="ident">unwrap</span>();
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cached_roles</span>.<span class="ident">len</span>(), <span class="ident">guild_2_role_ids</span>.<span class="ident">len</span>());
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_2_role_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cached_roles</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
+            <span class="macro">assert_eq!</span>(<span class="ident">cached_roles</span>.<span class="ident">len</span>(), <span class="ident">guild_2_role_ids</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">guild_2_role_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cached_roles</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
 
             <span class="comment">// Check for the cached role</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_2_roles</span>
+            <span class="macro">assert!</span>(<span class="ident">guild_2_roles</span>
                 .<span class="ident">into_iter</span>()
                 .<span class="ident">all</span>(<span class="op">|</span><span class="ident">role</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">cache</span>.<span class="ident">role</span>(<span class="ident">role</span>.<span class="ident">id</span>).<span class="ident">expect</span>(<span class="string">&quot;Role missing from cache&quot;</span>) <span class="op">=</span><span class="op">=</span> <span class="ident">role</span>))
         }
@@ -3058,16 +3058,16 @@
 
             <span class="comment">// Check for the cached guild members ids</span>
             <span class="kw">let</span> <span class="ident">cached_roles</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">guild_members</span>(<span class="ident">GuildId</span>(<span class="number">1</span>)).<span class="ident">unwrap</span>();
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cached_roles</span>.<span class="ident">len</span>(), <span class="ident">guild_1_user_ids</span>.<span class="ident">len</span>());
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_1_user_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cached_roles</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
+            <span class="macro">assert_eq!</span>(<span class="ident">cached_roles</span>.<span class="ident">len</span>(), <span class="ident">guild_1_user_ids</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">guild_1_user_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cached_roles</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
 
             <span class="comment">// Check for the cached members</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_1_user_ids</span>
+            <span class="macro">assert!</span>(<span class="ident">guild_1_user_ids</span>
                 .<span class="ident">iter</span>()
                 .<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cache</span>.<span class="ident">member</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="kw-2">*</span><span class="ident">id</span>).<span class="ident">is_some</span>()));
 
             <span class="comment">// Check for the cached users</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_1_user_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cache</span>.<span class="ident">user</span>(<span class="kw-2">*</span><span class="ident">id</span>).<span class="ident">is_some</span>()));
+            <span class="macro">assert!</span>(<span class="ident">guild_1_user_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cache</span>.<span class="ident">user</span>(<span class="kw-2">*</span><span class="ident">id</span>).<span class="ident">is_some</span>()));
         }
 
         <span class="comment">// Bulk inserts</span>
@@ -3082,17 +3082,17 @@
 
             <span class="comment">// Check for the cached guild members ids</span>
             <span class="kw">let</span> <span class="ident">cached_roles</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">guild_members</span>(<span class="ident">GuildId</span>(<span class="number">1</span>)).<span class="ident">unwrap</span>();
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cached_roles</span>.<span class="ident">len</span>(), <span class="ident">guild_2_user_ids</span>.<span class="ident">len</span>());
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_2_user_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cached_roles</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
+            <span class="macro">assert_eq!</span>(<span class="ident">cached_roles</span>.<span class="ident">len</span>(), <span class="ident">guild_2_user_ids</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">guild_2_user_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cached_roles</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
 
             <span class="comment">// Check for the cached members</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_2_user_ids</span>
+            <span class="macro">assert!</span>(<span class="ident">guild_2_user_ids</span>
                 .<span class="ident">iter</span>()
                 .<span class="ident">copied</span>()
                 .<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cache</span>.<span class="ident">member</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="ident">id</span>).<span class="ident">is_some</span>()));
 
             <span class="comment">// Check for the cached users</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_2_user_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cache</span>.<span class="ident">user</span>(<span class="kw-2">*</span><span class="ident">id</span>).<span class="ident">is_some</span>()));
+            <span class="macro">assert!</span>(<span class="ident">guild_2_user_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">cache</span>.<span class="ident">user</span>(<span class="kw-2">*</span><span class="ident">id</span>).<span class="ident">is_some</span>()));
         }
     }
 
@@ -3125,17 +3125,17 @@
 
             <span class="kw">for</span> <span class="ident">id</span> <span class="kw">in</span> <span class="ident">guild_1_emoji_ids</span>.<span class="ident">iter</span>().<span class="ident">cloned</span>() {
                 <span class="kw">let</span> <span class="ident">global_emoji</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">id</span>);
-                <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">global_emoji</span>.<span class="ident">is_some</span>());
+                <span class="macro">assert!</span>(<span class="ident">global_emoji</span>.<span class="ident">is_some</span>());
             }
 
             <span class="comment">// Ensure the emoji has been added to the per-guild lookup map to prevent</span>
             <span class="comment">// issues like #551 from returning</span>
             <span class="kw">let</span> <span class="ident">guild_emojis</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">guild_emojis</span>(<span class="ident">GuildId</span>(<span class="number">1</span>));
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_emojis</span>.<span class="ident">is_some</span>());
+            <span class="macro">assert!</span>(<span class="ident">guild_emojis</span>.<span class="ident">is_some</span>());
             <span class="kw">let</span> <span class="ident">guild_emojis</span> <span class="op">=</span> <span class="ident">guild_emojis</span>.<span class="ident">unwrap</span>();
 
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">guild_1_emoji_ids</span>.<span class="ident">len</span>(), <span class="ident">guild_emojis</span>.<span class="ident">len</span>());
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_1_emoji_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">guild_emojis</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
+            <span class="macro">assert_eq!</span>(<span class="ident">guild_1_emoji_ids</span>.<span class="ident">len</span>(), <span class="ident">guild_emojis</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">guild_1_emoji_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">guild_emojis</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
         }
 
         <span class="comment">// Bulk inserts</span>
@@ -3150,15 +3150,15 @@
 
             <span class="kw">for</span> <span class="ident">id</span> <span class="kw">in</span> <span class="ident">guild_2_emoji_ids</span>.<span class="ident">iter</span>().<span class="ident">cloned</span>() {
                 <span class="kw">let</span> <span class="ident">global_emoji</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">id</span>);
-                <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">global_emoji</span>.<span class="ident">is_some</span>());
+                <span class="macro">assert!</span>(<span class="ident">global_emoji</span>.<span class="ident">is_some</span>());
             }
 
             <span class="kw">let</span> <span class="ident">guild_emojis</span> <span class="op">=</span> <span class="ident">cache</span>.<span class="ident">guild_emojis</span>(<span class="ident">GuildId</span>(<span class="number">2</span>));
 
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_emojis</span>.<span class="ident">is_some</span>());
+            <span class="macro">assert!</span>(<span class="ident">guild_emojis</span>.<span class="ident">is_some</span>());
             <span class="kw">let</span> <span class="ident">guild_emojis</span> <span class="op">=</span> <span class="ident">guild_emojis</span>.<span class="ident">unwrap</span>();
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">guild_2_emoji_ids</span>.<span class="ident">len</span>(), <span class="ident">guild_emojis</span>.<span class="ident">len</span>());
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">guild_2_emoji_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">guild_emojis</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
+            <span class="macro">assert_eq!</span>(<span class="ident">guild_2_emoji_ids</span>.<span class="ident">len</span>(), <span class="ident">guild_emojis</span>.<span class="ident">len</span>());
+            <span class="macro">assert!</span>(<span class="ident">guild_2_emoji_ids</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">guild_emojis</span>.<span class="ident">contains</span>(<span class="ident">id</span>)));
         }
     }
 
@@ -3168,8 +3168,8 @@
         <span class="ident">cache</span>.<span class="ident">cache_emoji</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="ident">emoji</span>(<span class="ident">EmojiId</span>(<span class="number">3</span>), <span class="prelude-val">None</span>));
         <span class="ident">cache</span>.<span class="ident">cache_member</span>(<span class="ident">GuildId</span>(<span class="number">2</span>), <span class="ident">member</span>(<span class="ident">UserId</span>(<span class="number">4</span>), <span class="ident">GuildId</span>(<span class="number">2</span>)));
         <span class="ident">cache</span>.<span class="ident">clear</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">is_empty</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">members</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">members</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -3187,45 +3187,45 @@
         <span class="ident">cache</span>.<span class="ident">cache_emoji</span>(<span class="ident">guild_id</span>, <span class="ident">emote_3</span>.<span class="ident">clone</span>());
 
         <span class="ident">cache</span>.<span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="ident">GuildEmojisUpdate</span> {
-            <span class="ident">emojis</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">emote</span>.<span class="ident">clone</span>(), <span class="ident">emote_3</span>.<span class="ident">clone</span>()],
+            <span class="ident">emojis</span>: <span class="macro">vec!</span>[<span class="ident">emote</span>.<span class="ident">clone</span>(), <span class="ident">emote_3</span>.<span class="ident">clone</span>()],
             <span class="ident">guild_id</span>,
         });
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">len</span>(), <span class="number">2</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">guild_emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">unwrap</span>().<span class="ident">len</span>(), <span class="number">2</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote</span>.<span class="ident">id</span>).<span class="ident">is_some</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote_2</span>.<span class="ident">id</span>).<span class="ident">is_none</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote_3</span>.<span class="ident">id</span>).<span class="ident">is_some</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">len</span>(), <span class="number">2</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">guild_emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">unwrap</span>().<span class="ident">len</span>(), <span class="number">2</span>);
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote</span>.<span class="ident">id</span>).<span class="ident">is_some</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote_2</span>.<span class="ident">id</span>).<span class="ident">is_none</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote_3</span>.<span class="ident">id</span>).<span class="ident">is_some</span>());
 
         <span class="ident">cache</span>.<span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="ident">GuildEmojisUpdate</span> {
-            <span class="ident">emojis</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">emote</span>.<span class="ident">clone</span>()],
+            <span class="ident">emojis</span>: <span class="macro">vec!</span>[<span class="ident">emote</span>.<span class="ident">clone</span>()],
             <span class="ident">guild_id</span>,
         });
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">len</span>(), <span class="number">1</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">guild_emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">unwrap</span>().<span class="ident">len</span>(), <span class="number">1</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote</span>.<span class="ident">id</span>).<span class="ident">is_some</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote_2</span>.<span class="ident">id</span>).<span class="ident">is_none</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">guild_emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">unwrap</span>().<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote</span>.<span class="ident">id</span>).<span class="ident">is_some</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote_2</span>.<span class="ident">id</span>).<span class="ident">is_none</span>());
 
         <span class="kw">let</span> <span class="ident">emote_4</span> <span class="op">=</span> <span class="ident">emoji</span>(<span class="ident">EmojiId</span>(<span class="number">4</span>), <span class="prelude-val">None</span>);
 
         <span class="ident">cache</span>.<span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="ident">GuildEmojisUpdate</span> {
-            <span class="ident">emojis</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">emote_4</span>.<span class="ident">clone</span>()],
+            <span class="ident">emojis</span>: <span class="macro">vec!</span>[<span class="ident">emote_4</span>.<span class="ident">clone</span>()],
             <span class="ident">guild_id</span>,
         });
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">len</span>(), <span class="number">1</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">guild_emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">unwrap</span>().<span class="ident">len</span>(), <span class="number">1</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote_4</span>.<span class="ident">id</span>).<span class="ident">is_some</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote</span>.<span class="ident">id</span>).<span class="ident">is_none</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">guild_emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">unwrap</span>().<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote_4</span>.<span class="ident">id</span>).<span class="ident">is_some</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="ident">emoji</span>(<span class="ident">emote</span>.<span class="ident">id</span>).<span class="ident">is_none</span>());
 
         <span class="ident">cache</span>.<span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="ident">GuildEmojisUpdate</span> {
-            <span class="ident">emojis</span>: <span class="macro">vec</span><span class="macro">!</span>[],
+            <span class="ident">emojis</span>: <span class="macro">vec!</span>[],
             <span class="ident">guild_id</span>,
         });
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">is_empty</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">guild_emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">unwrap</span>().<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">emojis</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">cache</span>.<span class="number">0</span>.<span class="ident">guild_emojis</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>).<span class="ident">unwrap</span>().<span class="ident">is_empty</span>());
     }
 }
 </pre></div>

@@ -195,7 +195,7 @@
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">InviteGuild</span> {
             <span class="ident">banner</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;banner hash&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">description</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a description&quot;</span>.<span class="ident">to_owned</span>()),
-            <span class="ident">features</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="string">&quot;a feature&quot;</span>.<span class="ident">to_owned</span>()],
+            <span class="ident">features</span>: <span class="macro">vec!</span>[<span class="string">&quot;a feature&quot;</span>.<span class="ident">to_owned</span>()],
             <span class="ident">icon</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;icon hash&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
             <span class="ident">name</span>: <span class="string">&quot;guild name&quot;</span>.<span class="ident">to_owned</span>(),
@@ -204,7 +204,7 @@
             <span class="ident">verification_level</span>: <span class="ident">VerificationLevel</span>::<span class="ident">Medium</span>,
             <span class="ident">welcome_screen</span>: <span class="prelude-val">Some</span>(<span class="ident">WelcomeScreen</span> {
                 <span class="ident">description</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;welcome description&quot;</span>.<span class="ident">to_owned</span>()),
-                <span class="ident">welcome_channels</span>: <span class="macro">vec</span><span class="macro">!</span>[
+                <span class="ident">welcome_channels</span>: <span class="macro">vec!</span>[
                     <span class="ident">WelcomeScreenChannel</span> {
                         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>(<span class="number">123</span>),
                         <span class="ident">description</span>: <span class="string">&quot;channel description&quot;</span>.<span class="ident">to_owned</span>(),

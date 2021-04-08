@@ -103,7 +103,7 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">bitflags</span>::<span class="ident">bitflags</span>;
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// A set of bitflags which can be used to specify what resource to process</span>
     <span class="doccomment">/// into the cache.</span>
     <span class="doccomment">///</span>
@@ -171,17 +171,17 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cognitive_complexity</span>)]</span>
     <span class="kw">fn</span> <span class="ident">test_resource_type_const_values</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">ResourceType</span>::<span class="ident">CHANNEL</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">1</span>, <span class="ident">ResourceType</span>::<span class="ident">EMOJI</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">2</span>, <span class="ident">ResourceType</span>::<span class="ident">GUILD</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">3</span>, <span class="ident">ResourceType</span>::<span class="ident">MEMBER</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">4</span>, <span class="ident">ResourceType</span>::<span class="ident">MESSAGE</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">5</span>, <span class="ident">ResourceType</span>::<span class="ident">PRESENCE</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">6</span>, <span class="ident">ResourceType</span>::<span class="ident">REACTION</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">7</span>, <span class="ident">ResourceType</span>::<span class="ident">ROLE</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">8</span>, <span class="ident">ResourceType</span>::<span class="ident">USER_CURRENT</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">9</span>, <span class="ident">ResourceType</span>::<span class="ident">USER</span>.<span class="ident">bits</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">10</span>, <span class="ident">ResourceType</span>::<span class="ident">VOICE_STATE</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">ResourceType</span>::<span class="ident">CHANNEL</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">1</span>, <span class="ident">ResourceType</span>::<span class="ident">EMOJI</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">2</span>, <span class="ident">ResourceType</span>::<span class="ident">GUILD</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">3</span>, <span class="ident">ResourceType</span>::<span class="ident">MEMBER</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">4</span>, <span class="ident">ResourceType</span>::<span class="ident">MESSAGE</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">5</span>, <span class="ident">ResourceType</span>::<span class="ident">PRESENCE</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">6</span>, <span class="ident">ResourceType</span>::<span class="ident">REACTION</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">7</span>, <span class="ident">ResourceType</span>::<span class="ident">ROLE</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">8</span>, <span class="ident">ResourceType</span>::<span class="ident">USER_CURRENT</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">9</span>, <span class="ident">ResourceType</span>::<span class="ident">USER</span>.<span class="ident">bits</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">10</span>, <span class="ident">ResourceType</span>::<span class="ident">VOICE_STATE</span>.<span class="ident">bits</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -191,13 +191,13 @@
             <span class="ident">message_cache_size</span>: <span class="number">100</span>,
         };
         <span class="kw">let</span> <span class="ident">default</span> <span class="op">=</span> <span class="ident">Config</span>::<span class="ident">default</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">conf</span>.<span class="ident">resource_types</span>, <span class="ident">default</span>.<span class="ident">resource_types</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">conf</span>.<span class="ident">message_cache_size</span>, <span class="ident">default</span>.<span class="ident">message_cache_size</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">conf</span>.<span class="ident">resource_types</span>, <span class="ident">default</span>.<span class="ident">resource_types</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">conf</span>.<span class="ident">message_cache_size</span>, <span class="ident">default</span>.<span class="ident">message_cache_size</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_config_fields</span>() {
-        <span class="ident">static_assertions</span>::<span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">Config</span>: <span class="ident">resource_types</span>, <span class="ident">message_cache_size</span>);
+        <span class="ident">static_assertions</span>::<span class="macro">assert_fields!</span>(<span class="ident">Config</span>: <span class="ident">resource_types</span>, <span class="ident">message_cache_size</span>);
     }
 }
 </pre></div>

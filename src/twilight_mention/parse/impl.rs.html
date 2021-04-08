@@ -503,7 +503,7 @@
             }
         }
 
-        <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;mention type must have been found&quot;</span>);
+        <span class="macro">unreachable!</span>(<span class="string">&quot;mention type must have been found&quot;</span>);
     }
 }
 
@@ -639,25 +639,25 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
     <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">EmojiId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>};
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">ChannelId</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmojiId</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">MentionType</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">RoleId</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">UserId</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">ChannelId</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">EmojiId</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">MentionType</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">RoleId</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">UserId</span>: <span class="ident">ParseMention</span>, <span class="ident">Sealed</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_sigils</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;#&quot;</span>], <span class="ident">ChannelId</span>::<span class="ident">SIGILS</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;:&quot;</span>], <span class="ident">EmojiId</span>::<span class="ident">SIGILS</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;#&quot;</span>, <span class="string">&quot;:&quot;</span>, <span class="string">&quot;@&amp;&quot;</span>, <span class="string">&quot;@!&quot;</span>, <span class="string">&quot;@&quot;</span>], <span class="ident">MentionType</span>::<span class="ident">SIGILS</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;@&amp;&quot;</span>], <span class="ident">RoleId</span>::<span class="ident">SIGILS</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;@!&quot;</span>, <span class="string">&quot;@&quot;</span>], <span class="ident">UserId</span>::<span class="ident">SIGILS</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;#&quot;</span>], <span class="ident">ChannelId</span>::<span class="ident">SIGILS</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;:&quot;</span>], <span class="ident">EmojiId</span>::<span class="ident">SIGILS</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;#&quot;</span>, <span class="string">&quot;:&quot;</span>, <span class="string">&quot;@&amp;&quot;</span>, <span class="string">&quot;@!&quot;</span>, <span class="string">&quot;@&quot;</span>], <span class="ident">MentionType</span>::<span class="ident">SIGILS</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;@&amp;&quot;</span>], <span class="ident">RoleId</span>::<span class="ident">SIGILS</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;@!&quot;</span>, <span class="string">&quot;@&quot;</span>], <span class="ident">UserId</span>::<span class="ident">SIGILS</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_parse_channel_id</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ChannelId</span>(<span class="number">123</span>), <span class="ident">ChannelId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;#123&gt;&quot;</span>).<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="ident">ChannelId</span>(<span class="number">123</span>), <span class="ident">ChannelId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;#123&gt;&quot;</span>).<span class="ident">unwrap</span>());
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;#&quot;</span>],
                 <span class="ident">found</span>: <span class="prelude-val">Some</span>(<span class="string">&#39;@&#39;</span>),
@@ -668,8 +668,8 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_parse_emoji_id</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">EmojiId</span>(<span class="number">123</span>), <span class="ident">EmojiId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;:name:123&gt;&quot;</span>).<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="ident">EmojiId</span>(<span class="number">123</span>), <span class="ident">EmojiId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;:name:123&gt;&quot;</span>).<span class="ident">unwrap</span>());
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;:&quot;</span>],
                 <span class="ident">found</span>: <span class="prelude-val">Some</span>(<span class="string">&#39;@&#39;</span>),
@@ -680,23 +680,23 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_parse_mention_type</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">MentionType</span>::<span class="ident">Channel</span>(<span class="ident">ChannelId</span>(<span class="number">123</span>)),
             <span class="ident">MentionType</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;#123&gt;&quot;</span>).<span class="ident">unwrap</span>()
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">MentionType</span>::<span class="ident">Emoji</span>(<span class="ident">EmojiId</span>(<span class="number">123</span>)),
             <span class="ident">MentionType</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;:name:123&gt;&quot;</span>).<span class="ident">unwrap</span>()
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">MentionType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">123</span>)),
             <span class="ident">MentionType</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;@&amp;123&gt;&quot;</span>).<span class="ident">unwrap</span>()
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">MentionType</span>::<span class="ident">User</span>(<span class="ident">UserId</span>(<span class="number">123</span>)),
             <span class="ident">MentionType</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;@123&gt;&quot;</span>).<span class="ident">unwrap</span>()
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;#&quot;</span>, <span class="string">&quot;:&quot;</span>, <span class="string">&quot;@&amp;&quot;</span>, <span class="string">&quot;@!&quot;</span>, <span class="string">&quot;@&quot;</span>],
                 <span class="ident">found</span>: <span class="prelude-val">Some</span>(<span class="string">&#39;;&#39;</span>),
@@ -707,8 +707,8 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_parse_role_id</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">RoleId</span>(<span class="number">123</span>), <span class="ident">RoleId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;@&amp;123&gt;&quot;</span>).<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="ident">RoleId</span>(<span class="number">123</span>), <span class="ident">RoleId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;@&amp;123&gt;&quot;</span>).<span class="ident">unwrap</span>());
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;@&amp;&quot;</span>],
                 <span class="ident">found</span>: <span class="prelude-val">Some</span>(<span class="string">&#39;@&#39;</span>),
@@ -719,8 +719,8 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_parse_user_id</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UserId</span>(<span class="number">123</span>), <span class="ident">UserId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;@123&gt;&quot;</span>).<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="ident">UserId</span>(<span class="number">123</span>), <span class="ident">UserId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;@123&gt;&quot;</span>).<span class="ident">unwrap</span>());
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ParseMentionError</span>::<span class="ident">IdNotU64</span> {
                 <span class="ident">found</span>: <span class="string">&quot;&amp;123&quot;</span>,
                 <span class="ident">source</span>: <span class="string">&quot;&amp;123&quot;</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>().<span class="ident">unwrap_err</span>(),
@@ -731,21 +731,21 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_parse_id_wrong_sigil</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;@&quot;</span>],
                 <span class="ident">found</span>: <span class="prelude-val">Some</span>(<span class="string">&#39;#&#39;</span>),
             },
             <span class="kw">super</span>::<span class="ident">parse_id</span>(<span class="string">&quot;&lt;#123&gt;&quot;</span>, <span class="kw-2">&amp;</span>[<span class="string">&quot;@&quot;</span>]).<span class="ident">unwrap_err</span>(),
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;#&quot;</span>],
                 <span class="ident">found</span>: <span class="prelude-val">None</span>,
             },
             <span class="kw">super</span>::<span class="ident">parse_id</span>(<span class="string">&quot;&lt;&quot;</span>, <span class="kw-2">&amp;</span>[<span class="string">&quot;#&quot;</span>]).<span class="ident">unwrap_err</span>(),
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;#&quot;</span>],
                 <span class="ident">found</span>: <span class="prelude-val">None</span>,

@@ -1021,7 +1021,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span>::<span class="ident">Establishing</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">source</span>, <span class="ident">f</span>),
-            <span class="self">Self</span>::<span class="ident">ParsingUrl</span> { <span class="ident">source</span>, <span class="ident">url</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">ParsingUrl</span> { <span class="ident">source</span>, <span class="ident">url</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;the gateway url `{}` is invalid: {}&quot;</span>,
                 <span class="ident">url</span>, <span class="ident">source</span>,
             )),
@@ -1076,14 +1076,14 @@
 
 <span class="kw">impl</span> <span class="ident">ProcessError</span> {
     <span class="kw">fn</span> <span class="ident">fatal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="macro">matches</span><span class="macro">!</span>(<span class="self">self</span>, <span class="self">Self</span>::<span class="ident">SendingClose</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">SessionSend</span> { .. })
+        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span>::<span class="ident">SendingClose</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">SessionSend</span> { .. })
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ProcessError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">EventTypeUnknown</span> { <span class="ident">event_type</span>, <span class="ident">op</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">EventTypeUnknown</span> { <span class="ident">event_type</span>, <span class="ident">op</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;provided event type ({:?})/op ({}) pair is unknown&quot;</span>,
                 <span class="ident">event_type</span>, <span class="ident">op</span>,
             )),
@@ -1146,7 +1146,7 @@
 
 <span class="kw">impl</span> <span class="ident">ReceivingEventError</span> {
     <span class="kw">fn</span> <span class="ident">fatal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">matches!</span>(
             <span class="self">self</span>,
             <span class="ident">ReceivingEventError</span>::<span class="ident">AuthorizationInvalid</span> { .. }
                 <span class="op">|</span> <span class="ident">ReceivingEventError</span>::<span class="ident">IntentsDisallowed</span> { .. }
@@ -1157,7 +1157,7 @@
     <span class="kw">fn</span> <span class="ident">reconnectable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
         {
-            <span class="macro">matches</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">ReceivingEventError</span>::<span class="ident">Decompressing</span> { .. })
+            <span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident">ReceivingEventError</span>::<span class="ident">Decompressing</span> { .. })
         }
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
         {
@@ -1166,24 +1166,24 @@
     }
 
     <span class="kw">fn</span> <span class="ident">resumable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="macro">matches</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">ReceivingEventError</span>::<span class="ident">EventStreamEnded</span>)
+        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident">ReceivingEventError</span>::<span class="ident">EventStreamEnded</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ReceivingEventError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">AuthorizationInvalid</span> { <span class="ident">shard_id</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">AuthorizationInvalid</span> { <span class="ident">shard_id</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;the authorization token for shard {} is invalid&quot;</span>,
                 <span class="ident">shard_id</span>
             )),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
             <span class="self">Self</span>::<span class="ident">Decompressing</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;a frame could not be decompressed&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">IntentsDisallowed</span> { <span class="ident">intents</span>, <span class="ident">shard_id</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">IntentsDisallowed</span> { <span class="ident">intents</span>, <span class="ident">shard_id</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;at least one of the intents ({:?}) for shard {} are disallowed&quot;</span>,
                 <span class="ident">intents</span>, <span class="ident">shard_id</span>
             )),
-            <span class="self">Self</span>::<span class="ident">IntentsInvalid</span> { <span class="ident">intents</span>, <span class="ident">shard_id</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">IntentsInvalid</span> { <span class="ident">intents</span>, <span class="ident">shard_id</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;at least one of the intents ({:?}) for shard {} are invalid&quot;</span>,
                 <span class="ident">intents</span>, <span class="ident">shard_id</span>
             )),
@@ -1230,10 +1230,10 @@
         <span class="kw">let</span> <span class="ident">shard_id</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">shard</span>();
         <span class="kw">let</span> <span class="ident">resumable</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">sequence</span>.<span class="ident">is_some</span>() <span class="op">&amp;&amp;</span> <span class="ident">config</span>.<span class="ident">session_id</span>.<span class="ident">is_some</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">resumable</span> {
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;shard {:?} is not resumable&quot;</span>, <span class="ident">shard_id</span>);
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;shard {:?} queued&quot;</span>, <span class="ident">shard_id</span>);
+            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;shard {:?} is not resumable&quot;</span>, <span class="ident">shard_id</span>);
+            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;shard {:?} queued&quot;</span>, <span class="ident">shard_id</span>);
             <span class="ident">config</span>.<span class="ident">queue</span>.<span class="ident">request</span>(<span class="ident">shard_id</span>).<span class="kw">await</span>;
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;shard {:?} finished queue&quot;</span>, <span class="ident">config</span>.<span class="ident">shard</span>());
+            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;shard {:?} finished queue&quot;</span>, <span class="ident">config</span>.<span class="ident">shard</span>());
         }
 
         <span class="kw">let</span> <span class="ident">properties</span> <span class="op">=</span> <span class="ident">IdentifyProperties</span>::<span class="ident">new</span>(<span class="string">&quot;twilight.rs&quot;</span>, <span class="string">&quot;twilight.rs&quot;</span>, <span class="ident">OS</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>);
@@ -1280,7 +1280,7 @@
         };
 
         <span class="kw">if</span> <span class="ident">resumable</span> {
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;resuming shard {:?}&quot;</span>, <span class="ident">shard_id</span>);
+            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;resuming shard {:?}&quot;</span>, <span class="ident">shard_id</span>);
             <span class="ident">processor</span>.<span class="ident">resume</span>().<span class="kw">await</span>;
         }
 
@@ -1292,7 +1292,7 @@
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">next_payload</span>().<span class="kw">await</span> {
                 <span class="prelude-val">Ok</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">v</span>,
                 <span class="prelude-val">Err</span>(<span class="ident">source</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">source</span>);
+                    <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">source</span>);
 
                     <span class="kw">if</span> <span class="ident">source</span>.<span class="ident">fatal</span>() {
                         <span class="kw">break</span>;
@@ -1311,7 +1311,7 @@
             };
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">source</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">process</span>().<span class="kw">await</span> {
-                <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(
+                <span class="ident">tracing</span>::<span class="macro">warn!</span>(
                     <span class="ident">shard_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
                     <span class="ident">shard_total</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">1</span>],
                     <span class="string">&quot;processing incoming event failed: {:?}&quot;</span>,
@@ -1319,7 +1319,7 @@
                 );
 
                 <span class="kw">if</span> <span class="ident">source</span>.<span class="ident">fatal</span>() {
-                    <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;error processing event; reconnecting&quot;</span>);
+                    <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;error processing event; reconnecting&quot;</span>);
 
                     <span class="self">self</span>.<span class="ident">reconnect</span>().<span class="kw">await</span>;
                 }
@@ -1339,7 +1339,7 @@
             <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">str</span>::<span class="ident">from_utf8_mut</span>(<span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">as_mut_slice</span>())
                 .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ProcessError</span>::<span class="ident">PayloadNotUtf8</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
 
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">json</span>, <span class="string">&quot;Received JSON&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">json</span>, <span class="string">&quot;Received JSON&quot;</span>);
             <span class="kw">let</span> <span class="ident">emitter</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">emitter</span>.<span class="ident">clone</span>();
 
             <span class="kw">let</span> (<span class="ident">op</span>, <span class="ident">seq</span>, <span class="ident">event_type</span>) <span class="op">=</span>
@@ -1354,7 +1354,7 @@
                     (<span class="ident">op</span>, <span class="ident">seq</span>, <span class="ident">event_type</span>.<span class="ident">map</span>(<span class="ident">ToOwned</span>::<span class="ident">to_owned</span>))
                 } <span class="kw">else</span> {
                     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
-                    <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(
+                    <span class="ident">tracing</span>::<span class="macro">warn!</span>(
                         <span class="ident">json</span> <span class="op">=</span> <span class="question-mark">?</span><span class="self">self</span>.<span class="ident">inflater</span>.<span class="ident">buffer_ref</span>(),
                         <span class="ident">shard_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
                         <span class="ident">shard_total</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">1</span>],
@@ -1363,7 +1363,7 @@
                         <span class="string">&quot;received payload without opcode&quot;</span>,
                     );
                     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>))]</span>
-                    <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(
+                    <span class="ident">tracing</span>::<span class="macro">warn!</span>(
                         <span class="ident">json</span> <span class="op">=</span> <span class="question-mark">?</span><span class="self">self</span>.<span class="ident">buffer</span>,
                         <span class="ident">shard_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
                         <span class="ident">shard_total</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">1</span>],
@@ -1387,7 +1387,7 @@
             <span class="comment">//</span>
             <span class="comment">// This might not be shaving off entire milliseconds for these few</span>
             <span class="comment">// events each time, but it certainly adds up.</span>
-            <span class="kw">if</span> <span class="macro">matches</span><span class="macro">!</span>(<span class="ident">op</span>, <span class="number">1</span> <span class="op">|</span> <span class="number">7</span> <span class="op">|</span> <span class="number">9</span> <span class="op">|</span> <span class="number">10</span> <span class="op">|</span> <span class="number">11</span>) {
+            <span class="kw">if</span> <span class="macro">matches!</span>(<span class="ident">op</span>, <span class="number">1</span> <span class="op">|</span> <span class="number">7</span> <span class="op">|</span> <span class="number">9</span> <span class="op">|</span> <span class="number">10</span> <span class="op">|</span> <span class="number">11</span>) {
                 <span class="comment">// Have to use an if statement here if we want to use the OpCode</span>
                 <span class="comment">// enum, since matching with repr values isn&#39;t allowed.</span>
                 <span class="kw">let</span> <span class="ident">gateway_event</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">op</span> <span class="op">=</span><span class="op">=</span> <span class="ident">OpCode</span>::<span class="ident">HeartbeatAck</span> <span class="kw">as</span> <span class="ident">u8</span> {
@@ -1464,7 +1464,7 @@
 
     <span class="kw">fn</span> <span class="ident">process_ready</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">ready</span>: <span class="kw-2">&amp;</span><span class="ident">Ready</span>) {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-        <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Dispatch&quot;</span>);
+        <span class="ident">metrics</span>::<span class="macro">counter!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Dispatch&quot;</span>);
 
         <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">set_stage</span>(<span class="ident">Stage</span>::<span class="ident">Connected</span>);
         <span class="self">self</span>.<span class="ident">session</span>
@@ -1478,7 +1478,7 @@
 
     <span class="kw">fn</span> <span class="ident">process_resumed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">seq</span>: <span class="ident">u64</span>) {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-        <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Dispatch&quot;</span>);
+        <span class="ident">metrics</span>::<span class="macro">counter!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Dispatch&quot;</span>);
 
         <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">set_seq</span>(<span class="ident">seq</span>);
         <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">set_stage</span>(<span class="ident">Stage</span>::<span class="ident">Connected</span>);
@@ -1491,7 +1491,7 @@
 
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">process_gateway_event</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">GatewayEvent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ProcessError</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">event</span> {
-            <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;dispatch events separately handled&quot;</span>),
+            <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;dispatch events separately handled&quot;</span>),
             <span class="ident">GatewayEvent</span>::<span class="ident">Heartbeat</span>(<span class="ident">seq</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">process_heartbeat</span>(<span class="kw-2">*</span><span class="ident">seq</span>).<span class="kw">await</span>,
             <span class="ident">GatewayEvent</span>::<span class="ident">Hello</span>(<span class="ident">interval</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">process_hello</span>(<span class="kw-2">*</span><span class="ident">interval</span>).<span class="kw">await</span><span class="question-mark">?</span>,
             <span class="ident">GatewayEvent</span>::<span class="ident">HeartbeatAck</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">process_heartbeat_ack</span>(),
@@ -1506,21 +1506,21 @@
 
     <span class="kw">fn</span> <span class="ident">process_heartbeat_ack</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-        <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HeartbeatAck&quot;</span>);
+        <span class="ident">metrics</span>::<span class="macro">counter!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HeartbeatAck&quot;</span>);
 
         <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">heartbeats</span>.<span class="ident">receive</span>();
     }
 
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">process_heartbeat</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">seq</span>: <span class="ident">u64</span>) {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-        <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Heartbeat&quot;</span>);
+        <span class="ident">metrics</span>::<span class="macro">counter!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Heartbeat&quot;</span>);
 
         <span class="kw">if</span> <span class="ident">seq</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">seq</span>() <span class="op">+</span> <span class="number">1</span> {
             <span class="self">self</span>.<span class="ident">resume</span>().<span class="kw">await</span>;
         }
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">heartbeat</span>() {
-            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;error sending heartbeat; reconnecting: {}&quot;</span>, <span class="ident">err</span>);
+            <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;error sending heartbeat; reconnecting: {}&quot;</span>, <span class="ident">err</span>);
 
             <span class="self">self</span>.<span class="ident">reconnect</span>().<span class="kw">await</span>;
         }
@@ -1528,15 +1528,15 @@
 
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">process_hello</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">interval</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ProcessError</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-        <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Hello&quot;</span>);
+        <span class="ident">metrics</span>::<span class="macro">counter!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Hello&quot;</span>);
 
-        <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;got hello with interval {}&quot;</span>, <span class="ident">interval</span>);
+        <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;got hello with interval {}&quot;</span>, <span class="ident">interval</span>);
 
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">stage</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Stage</span>::<span class="ident">Resuming</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">resume</span>.<span class="ident">is_some</span>() {
             <span class="comment">// Safe to unwrap so here as we have just checked that</span>
             <span class="comment">// it is some.</span>
             <span class="kw">let</span> (<span class="ident">seq</span>, <span class="ident">id</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">resume</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>();
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;resuming with sequence {}, session id {}&quot;</span>, <span class="ident">seq</span>, <span class="ident">id</span>);
+            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;resuming with sequence {}, session id {}&quot;</span>, <span class="ident">seq</span>, <span class="ident">id</span>);
             <span class="kw">let</span> <span class="ident">payload</span> <span class="op">=</span> <span class="ident">Resume</span>::<span class="ident">new</span>(<span class="ident">seq</span>, <span class="ident">id</span>.<span class="ident">clone</span>().<span class="ident">into_string</span>(), <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">token</span>());
 
             <span class="comment">// Set id so it is correct for next resume.</span>
@@ -1569,24 +1569,24 @@
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">process_invalidate_session</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">resumable</span>: <span class="ident">bool</span>) {
         <span class="kw">if</span> <span class="ident">resumable</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-            <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;InvalidateSessionTrue&quot;</span>);
+            <span class="ident">metrics</span>::<span class="macro">counter!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;InvalidateSessionTrue&quot;</span>);
 
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;got request to resume the session&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;got request to resume the session&quot;</span>);
             <span class="self">self</span>.<span class="ident">resume</span>().<span class="kw">await</span>;
         } <span class="kw">else</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-            <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;InvalidateSessionFalse&quot;</span>);
+            <span class="ident">metrics</span>::<span class="macro">counter!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;InvalidateSessionFalse&quot;</span>);
 
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;got request to invalidate the session and reconnect&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;got request to invalidate the session and reconnect&quot;</span>);
             <span class="self">self</span>.<span class="ident">reconnect</span>().<span class="kw">await</span>;
         }
     }
 
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">process_reconnect</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ProcessError</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metrics&quot;</span>)]</span>
-        <span class="ident">metrics</span>::<span class="macro">counter</span><span class="macro">!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Reconnect&quot;</span>);
+        <span class="ident">metrics</span>::<span class="macro">counter!</span>(<span class="string">&quot;GatewayEvent&quot;</span>, <span class="number">1</span>, <span class="string">&quot;GatewayEvent&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Reconnect&quot;</span>);
 
-        <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;got request to reconnect&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;got request to reconnect&quot;</span>);
         <span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="ident">CloseFrame</span> {
             <span class="ident">code</span>: <span class="ident">CloseCode</span>::<span class="ident">Restart</span>,
             <span class="ident">reason</span>: <span class="ident">Cow</span>::<span class="ident">Borrowed</span>(<span class="string">&quot;Reconnecting&quot;</span>),
@@ -1601,9 +1601,9 @@
 
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">payload</span>: <span class="kw">impl</span> <span class="ident">Serialize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">SessionSendError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">source</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">send</span>(<span class="ident">payload</span>) {
-            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;sending message failed: {:?}&quot;</span>, <span class="ident">source</span>);
+            <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;sending message failed: {:?}&quot;</span>, <span class="ident">source</span>);
 
-            <span class="kw">if</span> <span class="macro">matches</span><span class="macro">!</span>(<span class="ident">source</span>, <span class="ident">SessionSendError</span>::<span class="ident">Sending</span> { .. }) {
+            <span class="kw">if</span> <span class="macro">matches!</span>(<span class="ident">source</span>, <span class="ident">SessionSendError</span>::<span class="ident">Sending</span> { .. }) {
                 <span class="self">self</span>.<span class="ident">reconnect</span>().<span class="kw">await</span>;
             }
 
@@ -1718,7 +1718,7 @@
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">close_frame</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">CloseFrame</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ReceivingEventError</span><span class="op">&gt;</span> {
-        <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;got close code: {:?}&quot;</span>, <span class="ident">close_frame</span>);
+        <span class="ident">tracing</span>::<span class="macro">info!</span>(<span class="string">&quot;got close code: {:?}&quot;</span>, <span class="ident">close_frame</span>);
 
         <span class="self">self</span>.<span class="ident">emitter</span>.<span class="ident">event</span>(<span class="ident">Event</span>::<span class="ident">ShardDisconnected</span>(<span class="ident">Disconnected</span> {
             <span class="ident">code</span>: <span class="ident">close_frame</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">frame</span><span class="op">|</span> <span class="ident">frame</span>.<span class="ident">code</span>.<span class="ident">into</span>()),
@@ -1776,7 +1776,7 @@
             .<span class="kw">await</span>
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">ConnectingError</span>::<span class="ident">Establishing</span> { <span class="ident">source</span> })<span class="question-mark">?</span>;
 
-        <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Shook hands with remote&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;Shook hands with remote&quot;</span>);
 
         <span class="prelude-val">Ok</span>(<span class="ident">stream</span>)
     }
@@ -1805,12 +1805,12 @@
 
     <span class="doccomment">/// Perform a full reconnect to the gateway, instantiating a new session.</span>
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">reconnect</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;reconnection started&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">info!</span>(<span class="string">&quot;reconnection started&quot;</span>);
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">1</span>);
 
         <span class="kw">loop</span> {
-            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(
+            <span class="ident">tracing</span>::<span class="macro">debug!</span>(
                 <span class="ident">shard_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
                 <span class="ident">shard_total</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">1</span>],
                 <span class="ident">wait_in_seconds</span> <span class="op">=</span> <span class="ident">wait</span>.<span class="ident">as_secs</span>(),
@@ -1828,7 +1828,7 @@
             <span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">Self</span>::<span class="ident">connect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">url</span>).<span class="kw">await</span> {
                 <span class="prelude-val">Ok</span>(<span class="ident">s</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">s</span>,
                 <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;reconnecting failed: {:?}&quot;</span>, <span class="ident">why</span>);
+                    <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;reconnecting failed: {:?}&quot;</span>, <span class="ident">why</span>);
 
                     <span class="kw">if</span> <span class="ident">wait</span> <span class="op">&lt;</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">128</span>) {
                         <span class="ident">wait</span> <span class="kw-2">*</span><span class="op">=</span> <span class="number">2</span>;
@@ -1852,7 +1852,7 @@
     <span class="doccomment">/// Resume a session if possible, defaulting to instantiating a new</span>
     <span class="doccomment">/// connection.</span>
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">resume</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;resuming shard {:?}&quot;</span>, <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>());
+        <span class="ident">tracing</span>::<span class="macro">info!</span>(<span class="string">&quot;resuming shard {:?}&quot;</span>, <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>());
         <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">set_stage</span>(<span class="ident">Stage</span>::<span class="ident">Resuming</span>);
         <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">stop_heartbeater</span>();
 
@@ -1861,7 +1861,7 @@
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">id</span>() {
             <span class="ident">id</span>
         } <span class="kw">else</span> {
-            <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;session id unavailable, reconnecting&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">info!</span>(<span class="string">&quot;session id unavailable, reconnecting&quot;</span>);
             <span class="self">self</span>.<span class="ident">reconnect</span>().<span class="kw">await</span>;
             <span class="kw">return</span>;
         };
@@ -1869,7 +1869,7 @@
         <span class="self">self</span>.<span class="ident">resume</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<span class="ident">seq</span>, <span class="ident">id</span>));
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">try_resume</span>().<span class="kw">await</span> {
-            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(
+            <span class="ident">tracing</span>::<span class="macro">warn!</span>(
                 <span class="ident">seq</span> <span class="op">=</span> <span class="ident">seq</span>,
                 <span class="ident">session_id</span> <span class="op">=</span> <span class="question-mark">?</span><span class="self">self</span>.<span class="ident">session</span>.<span class="ident">id</span>(),
                 <span class="ident">shard_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">shard</span>()[<span class="number">0</span>],
@@ -1908,7 +1908,7 @@
         <span class="self">self</span>.<span class="ident">session</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Session</span>::<span class="ident">new</span>(<span class="ident">tx</span>));
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">wtx</span>.<span class="ident">send</span>(<span class="ident">Arc</span>::<span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">session</span>)) {
-            <span class="ident">tracing</span>::<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;failed to broadcast new session: {:?}&quot;</span>, <span class="ident">why</span>);
+            <span class="ident">tracing</span>::<span class="macro">error!</span>(<span class="string">&quot;failed to broadcast new session: {:?}&quot;</span>, <span class="ident">why</span>);
         }
 
         <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">set_stage</span>(<span class="ident">stage</span>);

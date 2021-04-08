@@ -389,7 +389,7 @@
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span>::<span class="ident">ContentInvalid</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;message content is invalid&quot;</span>),
             <span class="self">Self</span>::<span class="ident">EmbedTooLarge</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;length of one of the embeds is too large&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">TooManyEmbeds</span> { <span class="ident">embeds</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">TooManyEmbeds</span> { <span class="ident">embeds</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;{} embeds were provided, but only 10 may be provided&quot;</span>,
                 <span class="ident">embeds</span>.<span class="ident">len</span>()
             )),
@@ -619,7 +619,7 @@
     }
 }
 
-<span class="macro">poll_req</span><span class="macro">!</span>(<span class="ident">UpdateWebhookMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, ());
+<span class="macro">poll_req!</span>(<span class="ident">UpdateWebhookMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, ());
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
@@ -654,8 +654,8 @@
         };
         <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">Request</span>::<span class="ident">from</span>((<span class="ident">body</span>, <span class="ident">route</span>));
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>.<span class="ident">body</span>, <span class="ident">actual</span>.<span class="ident">body</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>.<span class="ident">path</span>, <span class="ident">actual</span>.<span class="ident">path</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">body</span>, <span class="ident">actual</span>.<span class="ident">body</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">path</span>, <span class="ident">actual</span>.<span class="ident">path</span>);
     }
 }
 </pre></div>

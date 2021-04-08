@@ -126,7 +126,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;starting driving loop&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;starting driving loop&quot;</span>);
 
         <span class="comment">// This seems to come from the `if let` in the macro and may be a false</span>
         <span class="comment">// positive.</span>
@@ -136,17 +136,17 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stream</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">stream</span>.<span class="ident">next</span>().<span class="ident">fuse</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">timeout</span> <span class="op">=</span> <span class="ident">Delay</span>::<span class="ident">new</span>(<span class="self">Self</span>::<span class="ident">TIMEOUT</span>).<span class="ident">fuse</span>();
 
-            <span class="ident">futures_util</span>::<span class="macro">select</span><span class="macro">!</span> {
+            <span class="ident">futures_util</span>::<span class="macro">select!</span> {
                 <span class="ident">maybe_msg</span> <span class="op">=</span> <span class="ident">rx</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">msg</span>) <span class="op">=</span> <span class="ident">maybe_msg</span> {
-                        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;sending message: {}&quot;</span>, <span class="ident">msg</span>);
+                        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;sending message: {}&quot;</span>, <span class="ident">msg</span>);
 
                         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">stream</span>.<span class="ident">send</span>(<span class="ident">msg</span>).<span class="kw">await</span> {
-                            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;sending failed: {}&quot;</span>, <span class="ident">err</span>);
+                            <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;sending failed: {}&quot;</span>, <span class="ident">err</span>);
                             <span class="kw">break</span>;
                         }
                     } <span class="kw">else</span> {
-                        <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;rx stream ended, closing socket&quot;</span>);
+                        <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;rx stream ended, closing socket&quot;</span>);
                         <span class="kw">let</span> <span class="ident">_res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">stream</span>.<span class="ident">close</span>(<span class="prelude-val">None</span>).<span class="kw">await</span>;
 
                         <span class="kw">break</span>;
@@ -160,26 +160,26 @@
                             }
                         },
                         <span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(<span class="ident">err</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;socket errored, closing tx: {}&quot;</span>, <span class="ident">err</span>);
+                            <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;socket errored, closing tx: {}&quot;</span>, <span class="ident">err</span>);
                             <span class="self">self</span>.<span class="ident">tx</span>.<span class="ident">close_channel</span>();
                             <span class="kw">break</span>;
                         },
                         <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                            <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;socket ended, closing tx&quot;</span>);
+                            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;socket ended, closing tx&quot;</span>);
                             <span class="self">self</span>.<span class="ident">tx</span>.<span class="ident">close_channel</span>();
                             <span class="kw">break</span>;
                         }
                     }
                 },
                 <span class="kw">_</span> <span class="op">=</span> <span class="ident">timeout</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;socket timed out, closing tx&quot;</span>);
+                    <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;socket timed out, closing tx&quot;</span>);
                     <span class="self">self</span>.<span class="ident">tx</span>.<span class="ident">close_channel</span>();
                     <span class="kw">break</span>;
                 }
             };
         }
 
-        <span class="ident">tracing</span>::<span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Leaving loop&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;Leaving loop&quot;</span>);
     }
 }
 </pre></div>

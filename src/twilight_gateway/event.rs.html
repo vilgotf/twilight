@@ -234,7 +234,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::<span class="ident">event</span>::<span class="ident">EventType</span>;
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Bitflags representing all of the possible types of events.</span>
     <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventTypeFlags</span>: <span class="ident">u64</span> {
@@ -445,7 +445,7 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryFrom</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>, <span class="ident">hash</span>::<span class="ident">Hash</span>};
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EventTypeFlags</span>: <span class="ident">Copy</span>,
         <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,

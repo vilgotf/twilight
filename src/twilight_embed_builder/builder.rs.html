@@ -816,7 +816,7 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedColorError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">NotRgb</span> { <span class="ident">color</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(<span class="string">&quot;the color {} is invalid&quot;</span>, <span class="ident">color</span>)),
+            <span class="self">Self</span>::<span class="ident">NotRgb</span> { <span class="ident">color</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the color {} is invalid&quot;</span>, <span class="ident">color</span>)),
             <span class="self">Self</span>::<span class="ident">Zero</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the given color value is 0, which is not acceptable&quot;</span>),
         }
     }
@@ -1350,7 +1350,7 @@
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryFrom</span>, <span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
     <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::{<span class="ident">Embed</span>, <span class="ident">EmbedField</span>, <span class="ident">EmbedFooter</span>};
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedBuildError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
@@ -1359,9 +1359,9 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedBuildError</span>::<span class="ident">ContentTooLarge</span>: <span class="ident">length</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedBuildError</span>::<span class="ident">TooManyFields</span>: <span class="ident">fields</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedBuildError</span>::<span class="ident">ContentTooLarge</span>: <span class="ident">length</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedBuildError</span>::<span class="ident">TooManyFields</span>: <span class="ident">fields</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedColorError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
@@ -1370,8 +1370,8 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedColorError</span>::<span class="ident">NotRgb</span>: <span class="ident">color</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedColorError</span>::<span class="ident">NotRgb</span>: <span class="ident">color</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedDescriptionError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
@@ -1380,9 +1380,9 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedDescriptionError</span>::<span class="ident">Empty</span>: <span class="ident">description</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedDescriptionError</span>::<span class="ident">TooLong</span>: <span class="ident">description</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedDescriptionError</span>::<span class="ident">Empty</span>: <span class="ident">description</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedDescriptionError</span>::<span class="ident">TooLong</span>: <span class="ident">description</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedTitleError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
@@ -1391,9 +1391,9 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedTitleError</span>::<span class="ident">Empty</span>: <span class="ident">title</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedTitleError</span>::<span class="ident">TooLong</span>: <span class="ident">title</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedTitleError</span>::<span class="ident">Empty</span>: <span class="ident">title</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedTitleError</span>::<span class="ident">TooLong</span>: <span class="ident">title</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedBuilder</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Default</span>,
@@ -1402,20 +1402,20 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">COLOR_MAXIMUM</span> <span class="op">=</span><span class="op">=</span> <span class="number">0xff_ff_ff</span>);
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">DESCRIPTION_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">2048</span>);
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">EMBED_FIELD_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">25</span>);
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">EMBED_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">6000</span>);
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">TITLE_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Embed</span>: <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">EmbedBuilder</span><span class="op">&gt;</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">COLOR_MAXIMUM</span> <span class="op">=</span><span class="op">=</span> <span class="number">0xff_ff_ff</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">DESCRIPTION_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">2048</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">EMBED_FIELD_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">25</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">EMBED_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">6000</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">TITLE_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">Embed</span>: <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">EmbedBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_color_error</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">color</span>(<span class="number">0</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">EmbedColorError</span>::<span class="ident">Zero</span>
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">color</span>(<span class="ident">u32</span>::<span class="ident">MAX</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">EmbedColorError</span>::<span class="ident">NotRgb</span> { <span class="ident">color</span> }
             <span class="kw">if</span> <span class="ident">color</span> <span class="op">=</span><span class="op">=</span> <span class="ident">u32</span>::<span class="ident">MAX</span>
@@ -1424,13 +1424,13 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_description_error</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">description</span>(<span class="string">&quot;&quot;</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">EmbedDescriptionError</span>::<span class="ident">Empty</span> { <span class="ident">description</span> }
             <span class="kw">if</span> <span class="ident">description</span>.<span class="ident">is_empty</span>()
         ));
         <span class="kw">let</span> <span class="ident">description_too_long</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">DESCRIPTION_LENGTH_LIMIT</span> <span class="op">+</span> <span class="number">1</span>;
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">description</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="ident">description_too_long</span>)).<span class="ident">unwrap_err</span>(),
             <span class="ident">EmbedDescriptionError</span>::<span class="ident">TooLong</span> { <span class="ident">description</span> }
             <span class="kw">if</span> <span class="ident">description</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">description_too_long</span>
@@ -1439,13 +1439,13 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_title_error</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">title</span>(<span class="string">&quot;&quot;</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">EmbedTitleError</span>::<span class="ident">Empty</span> { <span class="ident">title</span> }
             <span class="kw">if</span> <span class="ident">title</span>.<span class="ident">is_empty</span>()
         ));
         <span class="kw">let</span> <span class="ident">title_too_long</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">TITLE_LENGTH_LIMIT</span> <span class="op">+</span> <span class="number">1</span>;
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">title</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="ident">title_too_long</span>)).<span class="ident">unwrap_err</span>(),
             <span class="ident">EmbedTitleError</span>::<span class="ident">TooLong</span> { <span class="ident">title</span> }
             <span class="kw">if</span> <span class="ident">title</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">title_too_long</span>
@@ -1493,7 +1493,7 @@
             <span class="ident">video</span>: <span class="prelude-val">None</span>,
         };
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">embed</span>, <span class="ident">expected</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">embed</span>, <span class="ident">expected</span>);
 
         <span class="prelude-val">Ok</span>(())
     }

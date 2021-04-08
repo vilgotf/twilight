@@ -424,7 +424,7 @@
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
     <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::<span class="ident">EmbedField</span>;
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedFieldError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
@@ -433,33 +433,33 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameEmpty</span>: <span class="ident">name</span>, <span class="ident">value</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameTooLong</span>: <span class="ident">name</span>, <span class="ident">value</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueEmpty</span>: <span class="ident">name</span>, <span class="ident">value</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueTooLong</span>: <span class="ident">name</span>, <span class="ident">value</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">VALUE_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">1024</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmbedField</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EmbedFieldBuilder</span><span class="op">&gt;</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameEmpty</span>: <span class="ident">name</span>, <span class="ident">value</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameTooLong</span>: <span class="ident">name</span>, <span class="ident">value</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueEmpty</span>: <span class="ident">name</span>, <span class="ident">value</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueTooLong</span>: <span class="ident">name</span>, <span class="ident">value</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">EmbedFieldBuilder</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">VALUE_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">1024</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">EmbedField</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EmbedFieldBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_new_errors</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;&quot;</span>, <span class="string">&quot;a&quot;</span>),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameEmpty</span> { <span class="ident">name</span>, <span class="ident">value</span> })
             <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span>
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">257</span>), <span class="string">&quot;a&quot;</span>),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">NameTooLong</span> { <span class="ident">name</span>, <span class="ident">value</span> })
             <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">257</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span>
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;&quot;</span>),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueEmpty</span> { <span class="ident">name</span>, <span class="ident">value</span> })
             <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">is_empty</span>()
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">1025</span>)),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedFieldError</span>::<span class="ident">ValueTooLong</span> { <span class="ident">name</span>, <span class="ident">value</span> })
             <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1025</span>
@@ -475,7 +475,7 @@
         };
         <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;value&quot;</span>)<span class="question-mark">?</span>.<span class="ident">inline</span>().<span class="ident">build</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -489,7 +489,7 @@
         };
         <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;value&quot;</span>)<span class="question-mark">?</span>.<span class="ident">build</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
 
         <span class="prelude-val">Ok</span>(())
     }

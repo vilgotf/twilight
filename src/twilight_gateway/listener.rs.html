@@ -233,21 +233,21 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Listeners</span><span class="op">&lt;</span>()<span class="op">&gt;</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Listener</span><span class="op">&lt;</span>()<span class="op">&gt;</span>: <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">Listeners</span><span class="op">&lt;</span>()<span class="op">&gt;</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">Listener</span><span class="op">&lt;</span>()<span class="op">&gt;</span>: <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_total_event_types</span>() {
         <span class="kw">let</span> <span class="ident">listeners</span>: <span class="ident">Listeners</span><span class="op">&lt;</span>()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Listeners</span>::<span class="ident">default</span>();
         <span class="ident">listeners</span>.<span class="ident">add</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_CREATE</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_CREATE</span>, <span class="ident">listeners</span>.<span class="ident">event_types</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_CREATE</span>, <span class="ident">listeners</span>.<span class="ident">event_types</span>());
         <span class="ident">listeners</span>.<span class="ident">add</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_DELETE</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_CREATE</span> <span class="op">|</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_DELETE</span>,
             <span class="ident">listeners</span>.<span class="ident">event_types</span>(),
         );
         <span class="ident">listeners</span>.<span class="ident">remove_all</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">listeners</span>.<span class="ident">event_types</span>().<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">listeners</span>.<span class="ident">event_types</span>().<span class="ident">is_empty</span>());
     }
 }
 </pre></div>

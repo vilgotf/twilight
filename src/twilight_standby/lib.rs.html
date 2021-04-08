@@ -1366,7 +1366,7 @@
     <span class="doccomment">/// This function must be called when events are received in order for</span>
     <span class="doccomment">/// futures returned by methods to fulfill.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span>) {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">event_type</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">event</span>.<span class="ident">kind</span>(), <span class="question-mark">?</span><span class="ident">event</span>, <span class="string">&quot;processing event&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="ident">event_type</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">event</span>.<span class="ident">kind</span>(), <span class="question-mark">?</span><span class="ident">event</span>, <span class="string">&quot;processing event&quot;</span>);
 
         <span class="kw">match</span> <span class="ident">event</span> {
             <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">process_message</span>(<span class="ident">e</span>.<span class="number">0</span>.<span class="ident">channel_id</span>, <span class="kw-2">&amp;</span><span class="ident">e</span>),
@@ -1415,7 +1415,7 @@
         <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
         <span class="ident">check</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WaitForGuildEventFuture</span> {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="string">&quot;waiting for event in guild&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="string">&quot;waiting for event in guild&quot;</span>);
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
 
         {
@@ -1469,7 +1469,7 @@
         <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
         <span class="ident">check</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WaitForGuildEventStream</span> {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="string">&quot;waiting for event in guild&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="string">&quot;waiting for event in guild&quot;</span>);
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">mpsc</span>::<span class="ident">unbounded</span>();
 
         {
@@ -1518,7 +1518,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">check</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WaitForEventFuture</span> {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;waiting for event&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;waiting for event&quot;</span>);
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
 
         {
@@ -1573,7 +1573,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">check</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WaitForEventStream</span> {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;waiting for event&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;waiting for event&quot;</span>);
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">mpsc</span>::<span class="ident">unbounded</span>();
 
         {
@@ -1620,7 +1620,7 @@
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
         <span class="ident">check</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WaitForMessageFuture</span> {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;waiting for message in channel&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;waiting for message in channel&quot;</span>);
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
 
         {
@@ -1670,7 +1670,7 @@
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
         <span class="ident">check</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WaitForMessageStream</span> {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;waiting for message in channel&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;waiting for message in channel&quot;</span>);
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">mpsc</span>::<span class="ident">unbounded</span>();
 
         {
@@ -1715,7 +1715,7 @@
         <span class="ident">message_id</span>: <span class="ident">MessageId</span>,
         <span class="ident">check</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WaitForReactionFuture</span> {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">message_id</span>, <span class="string">&quot;waiting for reaction on message&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">message_id</span>, <span class="string">&quot;waiting for reaction on message&quot;</span>);
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
 
         {
@@ -1768,7 +1768,7 @@
         <span class="ident">message_id</span>: <span class="ident">MessageId</span>,
         <span class="ident">check</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WaitForReactionStream</span> {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">message_id</span>, <span class="string">&quot;waiting for reaction on message&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">message_id</span>, <span class="string">&quot;waiting for reaction on message&quot;</span>);
         <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">mpsc</span>::<span class="ident">unbounded</span>();
 
         {
@@ -1788,14 +1788,14 @@
 
     <span class="attribute">#[<span class="ident">tracing</span>::<span class="ident">instrument</span>(<span class="ident">level</span> <span class="op">=</span> <span class="string">&quot;trace&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">process_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span>) {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">event</span>, <span class="ident">event_type</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">event</span>.<span class="ident">kind</span>(), <span class="string">&quot;processing event&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="question-mark">?</span><span class="ident">event</span>, <span class="ident">event_type</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">event</span>.<span class="ident">kind</span>(), <span class="string">&quot;processing event&quot;</span>);
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">retain</span>(<span class="op">|</span><span class="ident">id</span>, <span class="ident">bystander</span><span class="op">|</span> {
             <span class="comment">// `bystander_process` returns whether it is fulfilled, so invert it</span>
             <span class="comment">// here. If it&#39;s fulfilled, then we don&#39;t want to retain it.</span>
             <span class="kw">let</span> <span class="ident">retaining</span> <span class="op">=</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">bystander_process</span>(<span class="ident">bystander</span>, <span class="ident">event</span>);
 
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">bystander_id</span> <span class="op">=</span> <span class="ident">id</span>, <span class="op">%</span><span class="ident">retaining</span>, <span class="string">&quot;event bystander processed&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="ident">bystander_id</span> <span class="op">=</span> <span class="ident">id</span>, <span class="op">%</span><span class="ident">retaining</span>, <span class="string">&quot;event bystander processed&quot;</span>);
 
             <span class="ident">retaining</span>
         });
@@ -1810,14 +1810,14 @@
                 <span class="ident">bystanders</span>.<span class="ident">is_empty</span>()
             }
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="string">&quot;guild has no event bystanders&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="string">&quot;guild has no event bystanders&quot;</span>);
 
                 <span class="kw">return</span>;
             }
         };
 
         <span class="kw">if</span> <span class="ident">remove</span> {
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="string">&quot;removing guild from map&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">guild_id</span>, <span class="string">&quot;removing guild from map&quot;</span>);
 
             <span class="self">self</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">guild_id</span>);
         }
@@ -1825,7 +1825,7 @@
 
     <span class="attribute">#[<span class="ident">tracing</span>::<span class="ident">instrument</span>(<span class="ident">level</span> <span class="op">=</span> <span class="string">&quot;trace&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">process_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">MessageCreate</span>) {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;processing message bystanders in channel&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;processing message bystanders in channel&quot;</span>);
 
         <span class="kw">let</span> <span class="ident">remove</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>) {
             <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">bystanders</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -1834,16 +1834,16 @@
                 <span class="ident">bystanders</span>.<span class="ident">is_empty</span>()
             }
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;channel has no message bystanders&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;channel has no message bystanders&quot;</span>);
 
                 <span class="kw">return</span>;
             }
         };
 
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="op">%</span><span class="ident">remove</span>, <span class="string">&quot;bystanders processed&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="op">%</span><span class="ident">remove</span>, <span class="string">&quot;bystanders processed&quot;</span>);
 
         <span class="kw">if</span> <span class="ident">remove</span> {
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;removing channel&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">channel_id</span>, <span class="string">&quot;removing channel&quot;</span>);
 
             <span class="self">self</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">channel_id</span>);
         }
@@ -1857,14 +1857,14 @@
                 <span class="ident">bystanders</span>.<span class="ident">is_empty</span>()
             }
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;message {} has no reaction bystanders&quot;</span>, <span class="ident">message_id</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;message {} has no reaction bystanders&quot;</span>, <span class="ident">message_id</span>);
 
                 <span class="kw">return</span>;
             }
         };
 
         <span class="kw">if</span> <span class="ident">remove</span> {
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;removing message {}&quot;</span>, <span class="ident">message_id</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;removing message {}&quot;</span>, <span class="ident">message_id</span>);
             <span class="self">self</span>.<span class="number">0</span>.<span class="ident">reactions</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">message_id</span>);
         }
     }
@@ -1872,20 +1872,20 @@
     <span class="doccomment">/// Iterate over bystanders and remove the ones that match the predicate.</span>
     <span class="attribute">#[<span class="ident">tracing</span>::<span class="ident">instrument</span>(<span class="ident">level</span> <span class="op">=</span> <span class="string">&quot;trace&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">bystander_iter</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Debug</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bystanders</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Bystander</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">E</span>) {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">bystanders</span>, <span class="string">&quot;iterating over bystanders&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="question-mark">?</span><span class="ident">bystanders</span>, <span class="string">&quot;iterating over bystanders&quot;</span>);
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">idx</span> <span class="op">=</span> <span class="number">0</span>;
 
         <span class="kw">while</span> <span class="ident">idx</span> <span class="op">&lt;</span> <span class="ident">bystanders</span>.<span class="ident">len</span>() {
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">idx</span>, <span class="string">&quot;checking bystander&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">idx</span>, <span class="string">&quot;checking bystander&quot;</span>);
             <span class="kw">let</span> <span class="ident">bystander</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bystanders</span>[<span class="ident">idx</span>];
 
             <span class="kw">if</span> <span class="self">self</span>.<span class="ident">bystander_process</span>(<span class="ident">bystander</span>, <span class="ident">event</span>) {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="op">%</span><span class="ident">idx</span>, <span class="string">&quot;removing bystander in list&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="op">%</span><span class="ident">idx</span>, <span class="string">&quot;removing bystander in list&quot;</span>);
 
                 <span class="ident">bystanders</span>.<span class="ident">remove</span>(<span class="ident">idx</span>);
             } <span class="kw">else</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;retaining bystander&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;retaining bystander&quot;</span>);
 
                 <span class="ident">idx</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             }
@@ -1902,20 +1902,20 @@
         <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">bystander</span>.<span class="ident">sender</span>.<span class="ident">take</span>() {
             <span class="prelude-val">Some</span>(<span class="ident">sender</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sender</span>,
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;bystander has no sender, indicating for removal&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;bystander has no sender, indicating for removal&quot;</span>);
 
                 <span class="kw">return</span> <span class="bool-val">true</span>;
             }
         };
 
         <span class="kw">if</span> <span class="ident">sender</span>.<span class="ident">is_closed</span>() {
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;bystander&#39;s rx dropped, indicating for removal&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;bystander&#39;s rx dropped, indicating for removal&quot;</span>);
 
             <span class="kw">return</span> <span class="bool-val">true</span>;
         }
 
         <span class="kw">if</span> <span class="op">!</span>(<span class="ident">bystander</span>.<span class="ident">func</span>)(<span class="ident">event</span>) {
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;bystander check doesn&#39;t match, not removing&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;bystander check doesn&#39;t match, not removing&quot;</span>);
             <span class="ident">bystander</span>.<span class="ident">sender</span>.<span class="ident">replace</span>(<span class="ident">sender</span>);
 
             <span class="kw">return</span> <span class="bool-val">false</span>;
@@ -1924,13 +1924,13 @@
         <span class="kw">match</span> <span class="ident">sender</span> {
             <span class="ident">Sender</span>::<span class="ident">Oneshot</span>(<span class="ident">tx</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send</span>(<span class="ident">event</span>.<span class="ident">clone</span>());
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;bystander matched event, indicating for removal&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;bystander matched event, indicating for removal&quot;</span>);
 
                 <span class="bool-val">true</span>
             }
             <span class="ident">Sender</span>::<span class="ident">Mpsc</span>(<span class="ident">tx</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="ident">tx</span>.<span class="ident">unbounded_send</span>(<span class="ident">event</span>.<span class="ident">clone</span>()).<span class="ident">is_ok</span>() {
-                    <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;bystander is a stream, retaining in map&quot;</span>);
+                    <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;bystander is a stream, retaining in map&quot;</span>);
 
                     <span class="ident">bystander</span>.<span class="ident">sender</span>.<span class="ident">replace</span>(<span class="ident">Sender</span>::<span class="ident">Mpsc</span>(<span class="ident">tx</span>));
 
@@ -2025,7 +2025,7 @@
         <span class="ident">user</span>::{<span class="ident">CurrentUser</span>, <span class="ident">User</span>},
     };
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Standby</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">Standby</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 
     <span class="kw">fn</span> <span class="ident">message</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Message</span> {
         <span class="ident">Message</span> {
@@ -2096,14 +2096,14 @@
             <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">2</span>),
         }));
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">wait</span>.<span class="kw">await</span>,
             <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">RoleDelete</span> {
                 <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                 <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">2</span>),
             }))
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
@@ -2111,7 +2111,7 @@
         <span class="kw">let</span> <span class="ident">standby</span> <span class="op">=</span> <span class="ident">Standby</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_stream</span>(
             <span class="ident">GuildId</span>(<span class="number">1</span>),
-            <span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">e</span>) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">guild_id</span>.<span class="number">0</span> <span class="op">=</span><span class="op">=</span> <span class="number">1</span>),
+            <span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">e</span>) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">guild_id</span>.<span class="number">0</span> <span class="op">=</span><span class="op">=</span> <span class="number">1</span>),
         );
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">RoleDelete</span> {
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
@@ -2122,27 +2122,27 @@
             <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">3</span>),
         }));
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>,
             <span class="prelude-val">Some</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">RoleDelete</span> {
                 <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                 <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">2</span>),
             }))
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>,
             <span class="prelude-val">Some</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">RoleDelete</span> {
                 <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
                 <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">3</span>),
             }))
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">is_empty</span>());
         <span class="ident">drop</span>(<span class="ident">stream</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="ident">RoleDelete</span> {
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
             <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">4</span>),
         }));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">guilds</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
@@ -2174,11 +2174,11 @@
             <span class="ident">Event</span>::<span class="ident">Ready</span>(<span class="ident">ready</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ready</span>.<span class="ident">shard</span>.<span class="ident">map</span>(<span class="op">|</span>[<span class="ident">id</span>, <span class="kw">_</span>]<span class="op">|</span> <span class="ident">id</span> <span class="op">=</span><span class="op">=</span> <span class="number">5</span>).<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>),
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
         });
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">event</span>), <span class="ident">wait</span>.<span class="kw">await</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">event</span>), <span class="ident">wait</span>.<span class="kw">await</span>);
+        <span class="macro">assert!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
@@ -2187,11 +2187,11 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stream</span> <span class="op">=</span>
             <span class="ident">standby</span>.<span class="ident">wait_for_event_stream</span>(<span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">Resumed</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">Resumed</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>, <span class="prelude-val">Some</span>(<span class="ident">Event</span>::<span class="ident">Resumed</span>));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>, <span class="prelude-val">Some</span>(<span class="ident">Event</span>::<span class="ident">Resumed</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
         <span class="ident">drop</span>(<span class="ident">stream</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">Resumed</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
@@ -2205,8 +2205,8 @@
         });
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">MessageId</span>(<span class="number">3</span>)), <span class="ident">wait</span>.<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">msg</span><span class="op">|</span> <span class="ident">msg</span>.<span class="ident">id</span>));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">MessageId</span>(<span class="number">3</span>)), <span class="ident">wait</span>.<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">msg</span><span class="op">|</span> <span class="ident">msg</span>.<span class="ident">id</span>));
+        <span class="macro">assert!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
@@ -2216,12 +2216,12 @@
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MessageCreate</span>(<span class="ident">message</span>()))));
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MessageCreate</span>(<span class="ident">message</span>()))));
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
+        <span class="macro">assert!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
+        <span class="macro">assert!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
         <span class="ident">drop</span>(<span class="ident">stream</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">len</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">len</span>());
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MessageCreate</span>(<span class="ident">message</span>()))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">messages</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
@@ -2235,8 +2235,8 @@
 
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">UserId</span>(<span class="number">3</span>)), <span class="ident">wait</span>.<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">reaction</span><span class="op">|</span> <span class="ident">reaction</span>.<span class="ident">user_id</span>));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">reactions</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">UserId</span>(<span class="number">3</span>)), <span class="ident">wait</span>.<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">reaction</span><span class="op">|</span> <span class="ident">reaction</span>.<span class="ident">user_id</span>));
+        <span class="macro">assert!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">reactions</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
@@ -2246,12 +2246,12 @@
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
+        <span class="macro">assert!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
+        <span class="macro">assert!</span>(<span class="ident">stream</span>.<span class="ident">next</span>().<span class="kw">await</span>.<span class="ident">is_some</span>());
         <span class="ident">drop</span>(<span class="ident">stream</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">reactions</span>.<span class="ident">len</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">reactions</span>.<span class="ident">len</span>());
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">reactions</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">standby</span>.<span class="number">0</span>.<span class="ident">reactions</span>.<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
@@ -2263,7 +2263,7 @@
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">PresencesReplace</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">Resumed</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">Resumed</span>), <span class="ident">wait</span>.<span class="kw">await</span>);
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">Resumed</span>), <span class="ident">wait</span>.<span class="kw">await</span>);
     }
 
     <span class="doccomment">/// Test that generic event handlers will be given the opportunity to</span>
@@ -2277,12 +2277,12 @@
         <span class="comment">// generic event handler gets message creates</span>
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_event</span>(<span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">MessageCreate</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MessageCreate</span>(<span class="ident">message</span>()))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="kw">_</span>))));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="kw">_</span>))));
 
         <span class="comment">// generic event handler gets reaction adds</span>
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_event</span>(<span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">ReactionAdd</span>);
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="kw">_</span>))));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="kw">_</span>))));
 
         <span class="comment">// generic event handler gets other guild events</span>
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for_event</span>(<span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">RoleDelete</span>);
@@ -2290,14 +2290,14 @@
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
             <span class="ident">role_id</span>: <span class="ident">RoleId</span>(<span class="number">2</span>),
         }));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="kw">_</span>))));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">RoleDelete</span>(<span class="kw">_</span>))));
 
         <span class="comment">// guild event handler gets message creates or reaction events</span>
         <span class="kw">let</span> <span class="ident">wait</span> <span class="op">=</span> <span class="ident">standby</span>.<span class="ident">wait_for</span>(<span class="ident">GuildId</span>(<span class="number">1</span>), <span class="op">|</span><span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Event</span><span class="op">|</span> {
             <span class="ident">event</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">ReactionAdd</span>
         });
         <span class="ident">standby</span>.<span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ReactionAdd</span>(<span class="ident">reaction</span>()))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="kw">_</span>))));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">wait</span>.<span class="kw">await</span>, <span class="prelude-val">Ok</span>(<span class="ident">Event</span>::<span class="ident">ReactionAdd</span>(<span class="kw">_</span>))));
     }
 }
 </pre></div>

@@ -53,7 +53,7 @@ modified.</p>
     .<span class="ident">build</span>()<span class="question-mark">?</span>;
 
 <span class="ident">client</span>.<span class="ident">update_webhook_message</span>(<span class="ident">WebhookId</span>(<span class="number">1</span>), <span class="string">&quot;token&quot;</span>, <span class="ident">MessageId</span>(<span class="number">2</span>))
-    .<span class="ident">embeds</span>(<span class="prelude-val">Some</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">embed</span>]))<span class="question-mark">?</span>
+    .<span class="ident">embeds</span>(<span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="ident">embed</span>]))<span class="question-mark">?</span>
     .<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
 <h1 id="errors-1" class="section-header"><a href="#errors-1">Errors</a></h1>
 <p>Returns <a href="../../../../../twilight_http/request/channel/webhook/update_webhook_message/enum.UpdateWebhookMessageError.html#variant.EmbedTooLarge" title="UpdateWebhookMessageError::EmbedTooLarge"><code>UpdateWebhookMessageError::EmbedTooLarge</code></a> if one of the

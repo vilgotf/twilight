@@ -130,7 +130,7 @@
             <span class="ident">name</span>: <span class="string">&quot;foo&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">managed</span>: <span class="bool-val">false</span>,
             <span class="ident">require_colons</span>: <span class="bool-val">true</span>,
-            <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[],
+            <span class="ident">roles</span>: <span class="macro">vec!</span>[],
             <span class="ident">user</span>: <span class="prelude-val">None</span>,
             <span class="ident">available</span>: <span class="bool-val">true</span>,
         };
@@ -140,17 +140,17 @@
             <span class="ident">name</span>: <span class="string">&quot;foo&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">managed</span>: <span class="bool-val">false</span>,
             <span class="ident">require_colons</span>: <span class="bool-val">true</span>,
-            <span class="ident">roles</span>: <span class="macro">vec</span><span class="macro">!</span>[],
+            <span class="ident">roles</span>: <span class="macro">vec!</span>[],
             <span class="ident">user</span>: <span class="prelude-val">None</span>,
             <span class="ident">available</span>: <span class="bool-val">true</span>,
         };
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">cached</span>, <span class="ident">emoji</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">cached</span>, <span class="ident">emoji</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_fields</span>() {
-        <span class="ident">static_assertions</span>::<span class="macro">assert_fields</span><span class="macro">!</span>(
+        <span class="ident">static_assertions</span>::<span class="macro">assert_fields!</span>(
             <span class="ident">CachedEmoji</span>: <span class="ident">id</span>,
             <span class="ident">animated</span>,
             <span class="ident">name</span>,
@@ -163,7 +163,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_impls</span>() {
-        <span class="ident">static_assertions</span>::<span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">CachedEmoji</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>);
+        <span class="ident">static_assertions</span>::<span class="macro">assert_impl_all!</span>(<span class="ident">CachedEmoji</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>);
     }
 }
 </pre></div>

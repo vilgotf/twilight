@@ -1262,13 +1262,13 @@
     }
 
     <span class="kw">fn</span> <span class="ident">ignore_all</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;ignoring all other fields&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;ignoring all other fields&quot;</span>);
 
         <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>)) <span class="op">|</span> <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span> <span class="ident">map</span>.<span class="ident">next_key</span>::<span class="op">&lt;</span><span class="ident">Field</span><span class="op">&gt;</span>() {
             <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
         }
 
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;ignored all other fields&quot;</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;ignored all other fields&quot;</span>);
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -1296,14 +1296,14 @@
             <span class="string">&quot;RECONNECT&quot;</span>,
         ];
 
-        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;deserializing gateway event&quot;</span>);
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(<span class="string">&quot;deserializing gateway event&quot;</span>);
         <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
-        <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">event_type</span><span class="op">=</span><span class="question-mark">?</span><span class="self">self</span>.<span class="number">2</span>, <span class="ident">op</span><span class="op">=</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">seq</span><span class="op">=</span><span class="question-mark">?</span><span class="self">self</span>.<span class="number">1</span>);
+        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="ident">event_type</span><span class="op">=</span><span class="question-mark">?</span><span class="self">self</span>.<span class="number">2</span>, <span class="ident">op</span><span class="op">=</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">seq</span><span class="op">=</span><span class="question-mark">?</span><span class="self">self</span>.<span class="number">1</span>);
 
         <span class="kw">let</span> <span class="ident">op_deser</span>: <span class="ident">U8Deserializer</span><span class="op">&lt;</span><span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">into_deserializer</span>();
 
         <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="ident">OpCode</span>::<span class="ident">deserialize</span>(<span class="ident">op_deser</span>).<span class="ident">ok</span>().<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">op</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>, <span class="string">&quot;unknown opcode&quot;</span>);
+            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="ident">op</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>, <span class="string">&quot;unknown opcode&quot;</span>);
             <span class="kw">let</span> <span class="ident">unexpected</span> <span class="op">=</span> <span class="ident">Unexpected</span>::<span class="ident">Unsigned</span>(<span class="ident">u64</span>::<span class="ident">from</span>(<span class="self">self</span>.<span class="number">0</span>));
 
             <span class="ident">DeError</span>::<span class="ident">invalid_value</span>(<span class="ident">unexpected</span>, <span class="kw-2">&amp;</span><span class="string">&quot;an opcode&quot;</span>)
@@ -1315,17 +1315,17 @@
                     .<span class="number">2</span>
                     .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">custom</span>(<span class="string">&quot;event type not provided beforehand&quot;</span>))<span class="question-mark">?</span>;
 
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing gateway dispatch&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;deserializing gateway dispatch&quot;</span>);
 
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">d</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
                 <span class="kw">loop</span> {
-                    <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;iterating over element&quot;</span>);
+                    <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(<span class="string">&quot;iterating over element&quot;</span>);
                     <span class="kw">let</span> <span class="ident">_span_child_enter</span> <span class="op">=</span> <span class="ident">span_child</span>.<span class="ident">enter</span>();
 
                     <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">next_key</span>() {
                         <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
+                            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
 
                             <span class="ident">key</span>
                         }
@@ -1333,7 +1333,7 @@
                         <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
-                            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
+                            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
 
                             <span class="kw">continue</span>;
                         }
@@ -1352,7 +1352,7 @@
                         <span class="ident">Field</span>::<span class="ident">Op</span> <span class="op">|</span> <span class="ident">Field</span>::<span class="ident">S</span> <span class="op">|</span> <span class="ident">Field</span>::<span class="ident">T</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
-                            <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">key</span><span class="op">=</span><span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;ignoring key&quot;</span>);
+                            <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="ident">key</span><span class="op">=</span><span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;ignoring key&quot;</span>);
                         }
                     }
                 }
@@ -1365,34 +1365,34 @@
                 <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="ident">s</span>, <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">d</span>))
             }
             <span class="ident">OpCode</span>::<span class="ident">Heartbeat</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing gateway heartbeat&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;deserializing gateway heartbeat&quot;</span>);
                 <span class="kw">let</span> <span class="ident">seq</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">field</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>, <span class="ident">Field</span>::<span class="ident">D</span>)<span class="question-mark">?</span>;
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">seq</span> <span class="op">=</span> <span class="op">%</span><span class="ident">seq</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="ident">seq</span> <span class="op">=</span> <span class="op">%</span><span class="ident">seq</span>);
 
                 <span class="self">Self</span>::<span class="ident">ignore_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>)<span class="question-mark">?</span>;
 
                 <span class="ident">GatewayEvent</span>::<span class="ident">Heartbeat</span>(<span class="ident">seq</span>)
             }
             <span class="ident">OpCode</span>::<span class="ident">HeartbeatAck</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing gateway heartbeat ack&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;deserializing gateway heartbeat ack&quot;</span>);
 
                 <span class="self">Self</span>::<span class="ident">ignore_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>)<span class="question-mark">?</span>;
 
                 <span class="ident">GatewayEvent</span>::<span class="ident">HeartbeatAck</span>
             }
             <span class="ident">OpCode</span>::<span class="ident">Hello</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing gateway hello&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;deserializing gateway hello&quot;</span>);
                 <span class="kw">let</span> <span class="ident">hello</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">field</span>::<span class="op">&lt;</span><span class="ident">Hello</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>, <span class="ident">Field</span>::<span class="ident">D</span>)<span class="question-mark">?</span>;
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">hello</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">hello</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="ident">hello</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">hello</span>);
 
                 <span class="self">Self</span>::<span class="ident">ignore_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>)<span class="question-mark">?</span>;
 
                 <span class="ident">GatewayEvent</span>::<span class="ident">Hello</span>(<span class="ident">hello</span>.<span class="ident">heartbeat_interval</span>)
             }
             <span class="ident">OpCode</span>::<span class="ident">InvalidSession</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;deserializing invalid session&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;deserializing invalid session&quot;</span>);
                 <span class="kw">let</span> <span class="ident">invalidate</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">field</span>::<span class="op">&lt;</span><span class="ident">bool</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>, <span class="ident">Field</span>::<span class="ident">D</span>)<span class="question-mark">?</span>;
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="ident">invalidate</span> <span class="op">=</span> <span class="op">%</span><span class="ident">invalidate</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="ident">invalidate</span> <span class="op">=</span> <span class="op">%</span><span class="ident">invalidate</span>);
 
                 <span class="self">Self</span>::<span class="ident">ignore_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">map</span>)<span class="question-mark">?</span>;
 
@@ -1482,7 +1482,7 @@
         <span class="ident">s</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;op&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">opcode</span>(<span class="self">self</span>))<span class="question-mark">?</span>;
 
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;dispatch already handled&quot;</span>),
+            <span class="self">Self</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;dispatch already handled&quot;</span>),
             <span class="self">Self</span>::<span class="ident">Heartbeat</span>(<span class="ident">sequence</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">s</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;d&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">sequence</span>)<span class="question-mark">?</span>;
             }
@@ -1531,7 +1531,7 @@
         <span class="kw">let</span> <span class="ident">deserializer</span> <span class="op">=</span> <span class="ident">GatewayEventDeserializer</span>::<span class="ident">from_json</span>(<span class="ident">input</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">7</span>, <span class="kw">_</span>)));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">7</span>, <span class="kw">_</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1603,7 +1603,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">42</span>, <span class="kw">_</span>)));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">42</span>, <span class="kw">_</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1672,7 +1672,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">1_190_911</span>, <span class="kw">_</span>)));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="number">1_190_911</span>, <span class="kw">_</span>)));
     }
 
     <span class="comment">// Test that events which are not documented to have any data will not fail if</span>
@@ -1694,7 +1694,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>)));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Dispatch</span>(<span class="kw">_</span>, <span class="kw">_</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1710,7 +1710,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Heartbeat</span>(<span class="number">123</span>)));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Heartbeat</span>(<span class="number">123</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1726,7 +1726,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">HeartbeatAck</span>));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">HeartbeatAck</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1747,7 +1747,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Hello</span>(<span class="number">41_250</span>)));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Hello</span>(<span class="number">41_250</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1763,7 +1763,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">InvalidateSession</span>(<span class="bool-val">true</span>)));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">InvalidateSession</span>(<span class="bool-val">true</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1779,7 +1779,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Reconnect</span>));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">Reconnect</span>));
     }
 
     <span class="doccomment">/// Test that the deserializer won&#39;t mess up on a nested &quot;t&quot; in user input</span>
@@ -1796,8 +1796,8 @@
         }&quot;#</span>;
 
         <span class="kw">let</span> <span class="ident">deserializer</span> <span class="op">=</span> <span class="ident">GatewayEventDeserializer</span>::<span class="ident">from_json</span>(<span class="ident">input</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">deserializer</span>.<span class="ident">event_type</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;DOESNT_MATTER&quot;</span>));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">deserializer</span>.<span class="ident">op</span>, <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">deserializer</span>.<span class="ident">event_type</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;DOESNT_MATTER&quot;</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">deserializer</span>.<span class="ident">op</span>, <span class="number">0</span>);
     }
 
     <span class="comment">// Test that the GatewayEventDeserializer handles non-string (read: null)</span>
@@ -1811,7 +1811,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_deserializer</span> <span class="op">=</span> <span class="ident">Deserializer</span>::<span class="ident">from_str</span>(<span class="ident">input</span>);
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">HeartbeatAck</span>));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">GatewayEvent</span>::<span class="ident">HeartbeatAck</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

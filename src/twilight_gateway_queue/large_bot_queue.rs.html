@@ -156,9 +156,9 @@
         <span class="comment">// tracing levels. It is made for the static_max_level_xxx features</span>
         <span class="comment">// And will return false if you do not use those features of if</span>
         <span class="comment">// You use the feature but then dynamically set a lower feature.</span>
-        <span class="kw">if</span> <span class="ident">tracing</span>::<span class="macro">level_enabled</span><span class="macro">!</span>(<span class="ident">tracing</span>::<span class="ident">Level</span>::<span class="ident">INFO</span>) {
+        <span class="kw">if</span> <span class="ident">tracing</span>::<span class="macro">level_enabled!</span>(<span class="ident">tracing</span>::<span class="ident">Level</span>::<span class="ident">INFO</span>) {
             <span class="kw">let</span> <span class="ident">lock</span> <span class="op">=</span> <span class="ident">limiter</span>.<span class="number">0</span>.<span class="ident">lock</span>().<span class="kw">await</span>;
-            <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(
+            <span class="ident">tracing</span>::<span class="macro">info!</span>(
                 <span class="string">&quot;{}/{} identifies used before next reset in {:.2?}&quot;</span>,
                 <span class="ident">lock</span>.<span class="ident">current</span>,
                 <span class="ident">lock</span>.<span class="ident">total</span>,
@@ -177,7 +177,7 @@
     <span class="kw">const</span> <span class="ident">DUR</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">6</span>);
     <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">req</span>) <span class="op">=</span> <span class="ident">rx</span>.<span class="ident">next</span>().<span class="kw">await</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">req</span>.<span class="ident">send</span>(()) {
-            <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed with: {:?}&quot;</span>, <span class="ident">err</span>);
+            <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;skipping, send failed with: {:?}&quot;</span>, <span class="ident">err</span>);
         }
         <span class="ident">sleep</span>(<span class="ident">DUR</span>).<span class="kw">await</span>;
     }
@@ -195,11 +195,11 @@
         <span class="ident">Box</span>::<span class="ident">pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
             <span class="self">self</span>.<span class="ident">limiter</span>.<span class="ident">get</span>().<span class="kw">await</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">buckets</span>[<span class="ident">bucket</span>].<span class="ident">clone</span>().<span class="ident">send</span>(<span class="ident">tx</span>).<span class="kw">await</span> {
-                <span class="ident">tracing</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;skipping, send failed with: {:?}&quot;</span>, <span class="ident">err</span>);
+                <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;skipping, send failed with: {:?}&quot;</span>, <span class="ident">err</span>);
                 <span class="kw">return</span>;
             }
 
-            <span class="ident">tracing</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;waiting for allowance on shard {}&quot;</span>, <span class="ident">shard_id</span>[<span class="number">0</span>]);
+            <span class="ident">tracing</span>::<span class="macro">info!</span>(<span class="string">&quot;waiting for allowance on shard {}&quot;</span>, <span class="ident">shard_id</span>[<span class="number">0</span>]);
 
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">rx</span>.<span class="kw">await</span>;
         })
@@ -212,7 +212,7 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">LargeBotQueue</span>: <span class="ident">Debug</span>, <span class="ident">Queue</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">LargeBotQueue</span>: <span class="ident">Debug</span>, <span class="ident">Queue</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="twilight_gateway_queue" data-search-js="../../search-index.js"></div>

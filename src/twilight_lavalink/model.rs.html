@@ -1649,8 +1649,8 @@
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
     <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::<span class="ident">GuildId</span>;
 
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">Destroy</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">Destroy</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">Destroy</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1661,8 +1661,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EqualizerBand</span>: <span class="ident">band</span>, <span class="ident">gain</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">EqualizerBand</span>: <span class="ident">band</span>, <span class="ident">gain</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EqualizerBand</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1672,8 +1672,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">Equalizer</span>: <span class="ident">bands</span>, <span class="ident">guild_id</span>, <span class="ident">op</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">Equalizer</span>: <span class="ident">bands</span>, <span class="ident">guild_id</span>, <span class="ident">op</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">Equalizer</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1683,7 +1683,7 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">IncomingEvent</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1694,7 +1694,7 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">OutgoingEvent</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1711,8 +1711,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">Pause</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">pause</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">Pause</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">pause</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">Pause</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1723,8 +1723,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">PlayerUpdateState</span>: <span class="ident">position</span>, <span class="ident">time</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">PlayerUpdateState</span>: <span class="ident">position</span>, <span class="ident">time</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">PlayerUpdateState</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1734,8 +1734,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">PlayerUpdate</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">state</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">PlayerUpdate</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">state</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">PlayerUpdate</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1745,8 +1745,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">Play</span>: <span class="ident">end_time</span>, <span class="ident">guild_id</span>, <span class="ident">no_replace</span>, <span class="ident">op</span>, <span class="ident">start_time</span>, <span class="ident">track</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">Play</span>: <span class="ident">end_time</span>, <span class="ident">guild_id</span>, <span class="ident">no_replace</span>, <span class="ident">op</span>, <span class="ident">start_time</span>, <span class="ident">track</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">Play</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1767,8 +1767,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">Seek</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">position</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">Seek</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">position</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">Seek</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1779,8 +1779,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">SlimVoiceServerUpdate</span>: <span class="ident">endpoint</span>, <span class="ident">guild_id</span>, <span class="ident">token</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">SlimVoiceServerUpdate</span>: <span class="ident">endpoint</span>, <span class="ident">guild_id</span>, <span class="ident">token</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">SlimVoiceServerUpdate</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1790,7 +1790,7 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(
         <span class="ident">Stats</span>: <span class="ident">cpu</span>,
         <span class="ident">frames</span>,
         <span class="ident">memory</span>,
@@ -1799,7 +1799,7 @@
         <span class="ident">op</span>,
         <span class="ident">uptime</span>
     );
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">Stats</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1808,8 +1808,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">StatsCpu</span>: <span class="ident">cores</span>, <span class="ident">lavalink_load</span>, <span class="ident">system_load</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">StatsCpu</span>: <span class="ident">cores</span>, <span class="ident">lavalink_load</span>, <span class="ident">system_load</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">StatsCpu</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1818,8 +1818,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">StatsFrames</span>: <span class="ident">deficit</span>, <span class="ident">nulled</span>, <span class="ident">sent</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">StatsFrames</span>: <span class="ident">deficit</span>, <span class="ident">nulled</span>, <span class="ident">sent</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">StatsFrames</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1828,8 +1828,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">StatsMemory</span>: <span class="ident">allocated</span>, <span class="ident">free</span>, <span class="ident">reservable</span>, <span class="ident">used</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">StatsMemory</span>: <span class="ident">allocated</span>, <span class="ident">free</span>, <span class="ident">reservable</span>, <span class="ident">used</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">StatsMemory</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1838,8 +1838,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">Stop</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">Stop</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">Stop</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1850,8 +1850,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">TrackEnd</span>: <span class="ident">guild_id</span>, <span class="ident">kind</span>, <span class="ident">op</span>, <span class="ident">reason</span>, <span class="ident">track</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">TrackEnd</span>: <span class="ident">guild_id</span>, <span class="ident">kind</span>, <span class="ident">op</span>, <span class="ident">reason</span>, <span class="ident">track</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">TrackEnd</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1860,7 +1860,7 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">TrackEventType</span>: <span class="ident">Clone</span>,
         <span class="ident">Copy</span>,
         <span class="ident">Debug</span>,
@@ -1870,8 +1870,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">TrackStart</span>: <span class="ident">guild_id</span>, <span class="ident">kind</span>, <span class="ident">op</span>, <span class="ident">track</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">TrackStart</span>: <span class="ident">guild_id</span>, <span class="ident">kind</span>, <span class="ident">op</span>, <span class="ident">track</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">TrackStart</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1880,8 +1880,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">VoiceUpdate</span>: <span class="ident">event</span>, <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">session_id</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">VoiceUpdate</span>: <span class="ident">event</span>, <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">session_id</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">VoiceUpdate</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
@@ -1892,8 +1892,8 @@
         <span class="ident">Serialize</span>,
         <span class="ident">Sync</span>,
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">Volume</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">volume</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">Volume</span>: <span class="ident">guild_id</span>, <span class="ident">op</span>, <span class="ident">volume</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">Volume</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>,

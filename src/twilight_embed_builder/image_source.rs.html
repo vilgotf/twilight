@@ -272,7 +272,7 @@
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ImageSourceAttachmentError</span>::<span class="ident">ExtensionEmpty</span>);
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;attachment://{}&quot;</span>, <span class="ident">filename</span>)))
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="macro">format!</span>(<span class="string">&quot;attachment://{}&quot;</span>, <span class="ident">filename</span>)))
     }
 
     <span class="doccomment">/// Create a URL image source.</span>
@@ -304,7 +304,7 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>};
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">ImageSourceAttachmentError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
@@ -313,7 +313,7 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">ImageSourceUrlError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
@@ -322,20 +322,20 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ImageSourceUrlError</span>::<span class="ident">ProtocolUnsupported</span>: <span class="ident">url</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">ImageSource</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">ImageSourceUrlError</span>::<span class="ident">ProtocolUnsupported</span>: <span class="ident">url</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">ImageSource</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_attachment</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">ImageSource</span>::<span class="ident">attachment</span>(<span class="string">&quot;abc&quot;</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">ImageSourceAttachmentError</span>::<span class="ident">ExtensionMissing</span>
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">ImageSource</span>::<span class="ident">attachment</span>(<span class="string">&quot;abc.&quot;</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">ImageSourceAttachmentError</span>::<span class="ident">ExtensionEmpty</span>
         ));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ImageSource</span>::<span class="ident">attachment</span>(<span class="string">&quot;abc.png&quot;</span>)<span class="question-mark">?</span>,
             <span class="ident">ImageSource</span>(<span class="string">&quot;attachment://abc.png&quot;</span>.<span class="ident">to_owned</span>()),
         );
@@ -345,16 +345,16 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_url</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">ImageSource</span>::<span class="ident">url</span>(<span class="string">&quot;ftp://example.com/foo&quot;</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">ImageSourceUrlError</span>::<span class="ident">ProtocolUnsupported</span> { <span class="ident">url</span> }
             <span class="kw">if</span> <span class="ident">url</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;ftp://example.com/foo&quot;</span>
         ));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ImageSource</span>::<span class="ident">url</span>(<span class="string">&quot;https://example.com&quot;</span>)<span class="question-mark">?</span>,
             <span class="ident">ImageSource</span>(<span class="string">&quot;https://example.com&quot;</span>.<span class="ident">to_owned</span>()),
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">ImageSource</span>::<span class="ident">url</span>(<span class="string">&quot;http://example.com&quot;</span>)<span class="question-mark">?</span>,
             <span class="ident">ImageSource</span>(<span class="string">&quot;http://example.com&quot;</span>.<span class="ident">to_owned</span>()),
         );

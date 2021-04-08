@@ -366,7 +366,7 @@
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
     <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::<span class="ident">EmbedAuthor</span>;
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedAuthorNameError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Error</span>,
@@ -375,9 +375,9 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">Empty</span>: <span class="ident">name</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">TooLong</span>: <span class="ident">name</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">Empty</span>: <span class="ident">name</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">TooLong</span>: <span class="ident">name</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedAuthorBuilder</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Default</span>,
@@ -386,8 +386,8 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">const_assert</span><span class="macro">!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmbedAuthor</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EmbedAuthorBuilder</span><span class="op">&gt;</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">EmbedAuthor</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EmbedAuthorBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_defaults</span>() {
@@ -398,13 +398,13 @@
             <span class="ident">url</span>: <span class="prelude-val">None</span>,
         };
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>, <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="number">0</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="number">0</span>, <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">default</span>().<span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">expected</span>, <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="number">0</span>, <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">default</span>().<span class="number">0</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_name_empty</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="ident">name</span>(<span class="string">&quot;&quot;</span>),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">Empty</span> { .. })
         ));
@@ -412,8 +412,8 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_name_too_long</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="ident">name</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">256</span>)).<span class="ident">is_ok</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="ident">name</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">256</span>)).<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="ident">name</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">257</span>)),
             <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">TooLong</span> { .. })
         ));
@@ -435,7 +435,7 @@
             .<span class="ident">url</span>(<span class="string">&quot;https://example.com&quot;</span>)
             .<span class="ident">build</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
 
         <span class="prelude-val">Ok</span>(())
     }

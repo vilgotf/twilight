@@ -247,7 +247,7 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmitJsonError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">EventTypeUnknown</span> { <span class="ident">event_type</span>, <span class="ident">op</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">EventTypeUnknown</span> { <span class="ident">event_type</span>, <span class="ident">op</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;provided event type ({:?})/op ({}) pair is unknown&quot;</span>,
                 <span class="ident">event_type</span>, <span class="ident">op</span>,
             )),
@@ -325,11 +325,11 @@
             <span class="comment">// If there are 2 listeners, then the first will be given a clone of</span>
             <span class="comment">// the event. The last one will then be given ownership of the event.</span>
             <span class="kw">if</span> <span class="ident">idx</span> <span class="op">=</span><span class="op">=</span> <span class="ident">listener_count</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;moving event to send to listener&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;moving event to send to listener&quot;</span>);
 
                 <span class="ident">event</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>()
             } <span class="kw">else</span> {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;cloning event to send to listener&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;cloning event to send to listener&quot;</span>);
 
                 <span class="ident">event</span>.<span class="ident">clone</span>().<span class="ident">unwrap</span>()
             }
@@ -367,7 +367,7 @@
         <span class="kw">let</span> <span class="ident">listener_count</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">listeners</span>.<span class="ident">len</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">idx</span> <span class="op">=</span> <span class="number">0</span>;
 
-        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(
             <span class="string">&quot;beginning to iterate over listeners&quot;</span>,
             <span class="question-mark">?</span><span class="ident">event_type</span>,
             <span class="question-mark">?</span><span class="ident">listener_count</span>,
@@ -375,13 +375,13 @@
         <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
 
         <span class="self">self</span>.<span class="ident">listeners</span>.<span class="ident">all</span>().<span class="ident">retain</span>(<span class="op">|</span><span class="ident">id</span>, <span class="ident">listener</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span</span><span class="macro">!</span>(<span class="string">&quot;sending to listener&quot;</span>, <span class="op">%</span><span class="ident">id</span>, <span class="question-mark">?</span><span class="ident">event_type</span>);
+            <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(<span class="string">&quot;sending to listener&quot;</span>, <span class="op">%</span><span class="ident">id</span>, <span class="question-mark">?</span><span class="ident">event_type</span>);
             <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
 
             <span class="ident">idx</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 
             <span class="kw">if</span> <span class="op">!</span><span class="ident">listener</span>.<span class="ident">wants</span>(<span class="ident">event_type</span>) {
-                <span class="ident">tracing</span>::<span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;listener doesn&#39;t want event type&quot;</span>);
+                <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;listener doesn&#39;t want event type&quot;</span>);
 
                 <span class="kw">return</span> <span class="op">!</span><span class="ident">listener</span>.<span class="ident">tx</span>.<span class="ident">is_closed</span>();
             }
@@ -402,10 +402,10 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rx</span> <span class="op">=</span> <span class="ident">listeners</span>.<span class="ident">add</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_PAYLOAD</span>);
         <span class="kw">let</span> <span class="ident">emitter</span> <span class="op">=</span> <span class="ident">Emitter</span>::<span class="ident">new</span>(<span class="ident">listeners</span>);
         <span class="ident">emitter</span>.<span class="ident">bytes</span>(<span class="kw-2">&amp;</span>[<span class="number">1</span>]);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="ident">emitter</span>.<span class="ident">listeners</span>.<span class="ident">len</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="ident">emitter</span>.<span class="ident">listeners</span>.<span class="ident">len</span>());
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">rx</span>.<span class="ident">try_next</span>(), <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rx</span>.<span class="ident">try_next</span>().<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">rx</span>.<span class="ident">try_next</span>(), <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>))));
+        <span class="macro">assert!</span>(<span class="ident">rx</span>.<span class="ident">try_next</span>().<span class="ident">is_err</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -414,7 +414,7 @@
         <span class="ident">listeners</span>.<span class="ident">add</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">default</span>());
         <span class="kw">let</span> <span class="ident">emitter</span> <span class="op">=</span> <span class="ident">Emitter</span>::<span class="ident">new</span>(<span class="ident">listeners</span>);
         <span class="ident">emitter</span>.<span class="ident">event</span>(<span class="ident">Event</span>::<span class="ident">GatewayReconnect</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">emitter</span>.<span class="ident">listeners</span>.<span class="ident">all</span>().<span class="ident">is_empty</span>());
+        <span class="macro">assert!</span>(<span class="ident">emitter</span>.<span class="ident">listeners</span>.<span class="ident">all</span>().<span class="ident">is_empty</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -424,14 +424,14 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rx2</span> <span class="op">=</span> <span class="ident">listeners</span>.<span class="ident">add</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">default</span>());
         <span class="kw">let</span> <span class="ident">emitter</span> <span class="op">=</span> <span class="ident">Emitter</span>::<span class="ident">new</span>(<span class="ident">listeners</span>);
         <span class="ident">emitter</span>.<span class="ident">event</span>(<span class="ident">Event</span>::<span class="ident">GatewayReconnect</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="ident">emitter</span>.<span class="ident">listeners</span>.<span class="ident">len</span>());
+        <span class="macro">assert_eq!</span>(<span class="number">2</span>, <span class="ident">emitter</span>.<span class="ident">listeners</span>.<span class="ident">len</span>());
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">rx1</span>.<span class="ident">try_next</span>(), <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>))));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(<span class="ident">rx2</span>.<span class="ident">try_next</span>(), <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>))));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">rx1</span>.<span class="ident">try_next</span>(), <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>))));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">rx2</span>.<span class="ident">try_next</span>(), <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw">_</span>))));
 
         <span class="comment">// now check that they didn&#39;t send the event twice</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rx1</span>.<span class="ident">try_next</span>().<span class="ident">is_err</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rx2</span>.<span class="ident">try_next</span>().<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">rx1</span>.<span class="ident">try_next</span>().<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">rx2</span>.<span class="ident">try_next</span>().<span class="ident">is_err</span>());
     }
 }
 </pre></div>

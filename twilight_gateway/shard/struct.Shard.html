@@ -35,10 +35,10 @@ can be cloned and passed around tasks and threads cheaply.</p>
 <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
     <span class="kw">match</span> <span class="ident">event</span> {
         <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">message</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;message received with content: {}&quot;</span>, <span class="ident">message</span>.<span class="ident">content</span>);
+            <span class="macro">println!</span>(<span class="string">&quot;message received with content: {}&quot;</span>, <span class="ident">message</span>.<span class="ident">content</span>);
         },
         <span class="ident">Event</span>::<span class="ident">MessageDelete</span>(<span class="ident">message</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;message with ID {} deleted&quot;</span>, <span class="ident">message</span>.<span class="ident">id</span>);
+            <span class="macro">println!</span>(<span class="string">&quot;message with ID {} deleted&quot;</span>, <span class="ident">message</span>.<span class="ident">id</span>);
         },
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {},
     }
@@ -63,7 +63,7 @@ current connection stage:</p>
 <span class="ident">tokio_time</span>::<span class="ident">sleep</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">1</span>)).<span class="kw">await</span>;
 
 <span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="ident">shard</span>.<span class="ident">info</span>()<span class="question-mark">?</span>;
-<span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Shard stage: {}&quot;</span>, <span class="ident">info</span>.<span class="ident">stage</span>());</pre></div>
+<span class="macro">println!</span>(<span class="string">&quot;Shard stage: {}&quot;</span>, <span class="ident">info</span>.<span class="ident">stage</span>());</pre></div>
 </div><h4 id="method.builder" class="method"><code>pub fn <a href="#method.builder" class="fnname">builder</a>(token: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, intents: <a class="struct" href="../../twilight_gateway/struct.Intents.html" title="struct twilight_gateway::Intents">Intents</a>) -&gt; <a class="struct" href="../../twilight_gateway/shard/struct.ShardBuilder.html" title="struct twilight_gateway::shard::ShardBuilder">ShardBuilder</a></code><a class="srclink" href="../../src/twilight_gateway/shard/impl.rs.html#368-370" title="goto source code">[src]</a></h4><div class="docblock"><p>Create a builder to configure and construct a shard.</p>
 <p>Refer to the builder for more information.</p>
 </div><h4 id="method.config" class="method"><code>pub fn <a href="#method.config" class="fnname">config</a>(&amp;self) -&gt; &amp;<a class="struct" href="../../twilight_gateway/shard/struct.Config.html" title="struct twilight_gateway::shard::Config">Config</a></code><a class="srclink" href="../../src/twilight_gateway/shard/impl.rs.html#373-375" title="goto source code">[src]</a></h4><div class="docblock"><p>Return an immutable reference to the configuration used for this client.</p>
@@ -108,8 +108,8 @@ and <a href="../../twilight_model/gateway/event/enum.Event.html#variant.ShardDis
 
 <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
     <span class="kw">match</span> <span class="ident">event</span> {
-        <span class="ident">Event</span>::<span class="ident">ShardConnected</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Shard is now connected&quot;</span>),
-        <span class="ident">Event</span>::<span class="ident">ShardDisconnected</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Shard is now disconnected&quot;</span>),
+        <span class="ident">Event</span>::<span class="ident">ShardConnected</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard is now connected&quot;</span>),
+        <span class="ident">Event</span>::<span class="ident">ShardDisconnected</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard is now disconnected&quot;</span>),
         <span class="comment">// No other event will come in through the stream.</span>
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {},
     }

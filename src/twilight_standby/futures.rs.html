@@ -339,14 +339,14 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fmt</span>::<span class="ident">Debug</span>, <span class="ident">future</span>::<span class="ident">Future</span>};
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">WaitForEventFuture</span>: <span class="ident">Debug</span>, <span class="ident">Future</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">WaitForGuildEventFuture</span>: <span class="ident">Debug</span>, <span class="ident">Future</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">WaitForMessageFuture</span>: <span class="ident">Debug</span>, <span class="ident">Future</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">WaitForReactionFuture</span>: <span class="ident">Debug</span>, <span class="ident">Future</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">WaitForEventStream</span>: <span class="ident">Debug</span>, <span class="ident">Stream</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">WaitForGuildEventStream</span>: <span class="ident">Debug</span>, <span class="ident">Stream</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">WaitForMessageStream</span>: <span class="ident">Debug</span>, <span class="ident">Stream</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">WaitForReactionStream</span>: <span class="ident">Debug</span>, <span class="ident">Stream</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">WaitForEventFuture</span>: <span class="ident">Debug</span>, <span class="ident">Future</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">WaitForGuildEventFuture</span>: <span class="ident">Debug</span>, <span class="ident">Future</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">WaitForMessageFuture</span>: <span class="ident">Debug</span>, <span class="ident">Future</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">WaitForReactionFuture</span>: <span class="ident">Debug</span>, <span class="ident">Future</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">WaitForEventStream</span>: <span class="ident">Debug</span>, <span class="ident">Stream</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">WaitForGuildEventStream</span>: <span class="ident">Debug</span>, <span class="ident">Stream</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">WaitForMessageStream</span>: <span class="ident">Debug</span>, <span class="ident">Stream</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">WaitForReactionStream</span>: <span class="ident">Debug</span>, <span class="ident">Stream</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="twilight_standby" data-search-js="../../search-index.js"></div>

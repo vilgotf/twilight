@@ -31,14 +31,14 @@ and <code>&quot;ping&quot;</code>:</p>
     <span class="prelude-val">Some</span>(<span class="ident">Command</span> { <span class="ident">name</span>: <span class="string">&quot;echo&quot;</span>, <span class="ident">arguments</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">arguments</span>.<span class="ident">as_str</span>();
 
-        <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Got an echo request to send `{}`&quot;</span>, <span class="ident">content</span>);
+        <span class="macro">println!</span>(<span class="string">&quot;Got an echo request to send `{}`&quot;</span>, <span class="ident">content</span>);
     },
     <span class="prelude-val">Some</span>(<span class="ident">Command</span> { <span class="ident">name</span>: <span class="string">&quot;ping&quot;</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Got a ping request&quot;</span>);
+        <span class="macro">println!</span>(<span class="string">&quot;Got a ping request&quot;</span>);
     },
     <span class="comment">// Ignore all other commands.</span>
     <span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {},
-    <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Message didn&#39;t match a prefix and command&quot;</span>),
+    <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Message didn&#39;t match a prefix and command&quot;</span>),
 }</pre></div>
 </div><h2 id="reexports" class="section-header"><a href="#reexports">Re-exports</a></h2>
 <table><tr><td><code>pub use self::config::<a class="struct" href="../twilight_command_parser/config/struct.CommandParserConfig.html" title="struct twilight_command_parser::config::CommandParserConfig">CommandParserConfig</a>;</code></td></tr></table><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>

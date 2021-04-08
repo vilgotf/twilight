@@ -254,7 +254,7 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ParseMentionError</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">IdNotU64</span> { <span class="ident">found</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">IdNotU64</span> { <span class="ident">found</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;id portion (&#39;{}&#39;) of mention is not a u64&quot;</span>,
                 <span class="ident">found</span>,
             )),
@@ -262,12 +262,12 @@
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;expected to find a leading arrow (&#39;&lt;&#39;) but instead &quot;</span>)<span class="question-mark">?</span>;
 
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=</span> <span class="ident">found</span> {
-                    <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(<span class="string">&quot;found &#39;{}&#39;&quot;</span>, <span class="ident">c</span>))
+                    <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;found &#39;{}&#39;&quot;</span>, <span class="ident">c</span>))
                 } <span class="kw">else</span> {
                     <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;found nothing&quot;</span>)
                 }
             }
-            <span class="self">Self</span>::<span class="ident">PartMissing</span> { <span class="ident">expected</span>, <span class="ident">found</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">PartMissing</span> { <span class="ident">expected</span>, <span class="ident">found</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;
                     expected {} parts but only found {}&quot;</span>,
                 <span class="ident">expected</span>, <span class="ident">found</span>,
@@ -276,7 +276,7 @@
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;expected to find a mention sigil (&quot;</span>)<span class="question-mark">?</span>;
 
                 <span class="kw">for</span> (<span class="ident">idx</span>, <span class="ident">sigil</span>) <span class="kw">in</span> <span class="ident">expected</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
-                    <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(<span class="string">&quot;&#39;{}&#39;&quot;</span>, <span class="ident">sigil</span>))<span class="question-mark">?</span>;
+                    <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;&#39;{}&#39;&quot;</span>, <span class="ident">sigil</span>))<span class="question-mark">?</span>;
 
                     <span class="kw">if</span> <span class="ident">idx</span> <span class="op">&lt;</span> <span class="ident">expected</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="number">1</span> {
                         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;, &quot;</span>)<span class="question-mark">?</span>;
@@ -286,7 +286,7 @@
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;) but instead found &quot;</span>)<span class="question-mark">?</span>;
 
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=</span> <span class="ident">found</span> {
-                    <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(<span class="string">&quot;&#39;{}&#39;&quot;</span>, <span class="ident">c</span>))
+                    <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;&#39;{}&#39;&quot;</span>, <span class="ident">c</span>))
                 } <span class="kw">else</span> {
                     <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;nothing&quot;</span>)
                 }
@@ -295,7 +295,7 @@
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;expected to find a trailing arrow (&#39;&gt;&#39;) but instead &quot;</span>)<span class="question-mark">?</span>;
 
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=</span> <span class="ident">found</span> {
-                    <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args</span><span class="macro">!</span>(<span class="string">&quot;found &#39;{}&#39;&quot;</span>, <span class="ident">c</span>))
+                    <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;found &#39;{}&#39;&quot;</span>, <span class="ident">c</span>))
                 } <span class="kw">else</span> {
                     <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;found nothing&quot;</span>)
                 }
@@ -322,16 +322,16 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>};
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
 
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ParseMentionError</span>::<span class="ident">IdNotU64</span>: <span class="ident">found</span>, <span class="ident">source</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ParseMentionError</span>::<span class="ident">LeadingArrow</span>: <span class="ident">found</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span>: <span class="ident">expected</span>, <span class="ident">found</span>);
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">ParseMentionError</span>::<span class="ident">TrailingArrow</span>: <span class="ident">found</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">ParseMentionError</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Error</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">ParseMentionError</span>::<span class="ident">IdNotU64</span>: <span class="ident">found</span>, <span class="ident">source</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">ParseMentionError</span>::<span class="ident">LeadingArrow</span>: <span class="ident">found</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span>: <span class="ident">expected</span>, <span class="ident">found</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">ParseMentionError</span>::<span class="ident">TrailingArrow</span>: <span class="ident">found</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">ParseMentionError</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Error</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_display</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;id portion (&#39;abcd&#39;) of mention is not a u64&quot;</span>;
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">expected</span>,
             <span class="ident">ParseMentionError</span>::<span class="ident">IdNotU64</span> {
                 <span class="ident">found</span>: <span class="string">&quot;abcd&quot;</span>,
@@ -340,19 +340,19 @@
             .<span class="ident">to_string</span>(),
         );
         <span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;expected to find a leading arrow (&#39;&lt;&#39;) but instead found &#39;a&#39;&quot;</span>;
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">expected</span>,
             <span class="ident">ParseMentionError</span>::<span class="ident">LeadingArrow</span> { <span class="ident">found</span>: <span class="prelude-val">Some</span>(<span class="string">&#39;a&#39;</span>) }.<span class="ident">to_string</span>(),
         );
 
         <span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;expected to find a leading arrow (&#39;&lt;&#39;) but instead found nothing&quot;</span>;
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">expected</span>,
             <span class="ident">ParseMentionError</span>::<span class="ident">LeadingArrow</span> { <span class="ident">found</span>: <span class="prelude-val">None</span> }.<span class="ident">to_string</span>(),
         );
 
         <span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;expected to find a mention sigil (&#39;@&#39;) but instead found &#39;#&#39;&quot;</span>;
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">expected</span>,
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;@&quot;</span>],
@@ -362,7 +362,7 @@
         );
 
         <span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;expected to find a mention sigil (&#39;@&#39;) but instead found nothing&quot;</span>;
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">expected</span>,
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;@&quot;</span>],
@@ -372,7 +372,7 @@
         );
 
         <span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;expected to find a mention sigil (&#39;@!&#39;, &#39;@&#39;) but instead found &#39;#&#39;&quot;</span>;
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">expected</span>,
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;@!&quot;</span>, <span class="string">&quot;@&quot;</span>],
@@ -382,7 +382,7 @@
         );
 
         <span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;expected to find a mention sigil (&#39;@!&#39;, &#39;@&#39;) but instead found nothing&quot;</span>;
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">expected</span>,
             <span class="ident">ParseMentionError</span>::<span class="ident">Sigil</span> {
                 <span class="ident">expected</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;@!&quot;</span>, <span class="string">&quot;@&quot;</span>],
@@ -392,13 +392,13 @@
         );
 
         <span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;expected to find a trailing arrow (&#39;&gt;&#39;) but instead found &#39;a&#39;&quot;</span>;
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">expected</span>,
             <span class="ident">ParseMentionError</span>::<span class="ident">TrailingArrow</span> { <span class="ident">found</span>: <span class="prelude-val">Some</span>(<span class="string">&#39;a&#39;</span>) }.<span class="ident">to_string</span>(),
         );
 
         <span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;expected to find a trailing arrow (&#39;&gt;&#39;) but instead found nothing&quot;</span>;
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">expected</span>,
             <span class="ident">ParseMentionError</span>::<span class="ident">TrailingArrow</span> { <span class="ident">found</span>: <span class="prelude-val">None</span> }.<span class="ident">to_string</span>(),
         );

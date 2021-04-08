@@ -332,8 +332,8 @@
         <span class="ident">fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Display</span>},
     };
 
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">WebhookParseError</span>::<span class="ident">IdInvalid</span>: <span class="ident">source</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">WebhookParseError</span>::<span class="ident">IdInvalid</span>: <span class="ident">source</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">WebhookParseError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
         <span class="ident">Display</span>,
@@ -344,17 +344,17 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_parse_no_token</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             (<span class="ident">WebhookId</span>(<span class="number">123</span>), <span class="prelude-val">None</span>),
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/123&quot;</span>).<span class="ident">unwrap</span>(),
         );
         <span class="comment">// There&#39;s a / after the ID signifying another segment, but the token</span>
         <span class="comment">// ends up being None.</span>
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             (<span class="ident">WebhookId</span>(<span class="number">123</span>), <span class="prelude-val">None</span>),
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/123&quot;</span>).<span class="ident">unwrap</span>(),
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/123/&quot;</span>)
+        <span class="macro">assert!</span>(<span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/123/&quot;</span>)
             .<span class="ident">unwrap</span>()
             .<span class="number">1</span>
             .<span class="ident">is_none</span>());
@@ -362,24 +362,24 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_parse_with_token</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/456/token&quot;</span>).<span class="ident">unwrap</span>(),
             (<span class="ident">WebhookId</span>(<span class="number">456</span>), <span class="prelude-val">Some</span>(<span class="string">&quot;token&quot;</span>)),
         );
         <span class="comment">// The value of the segment(s) after the token are ignored.</span>
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/456/token/github&quot;</span>).<span class="ident">unwrap</span>(),
             (<span class="ident">WebhookId</span>(<span class="number">456</span>), <span class="prelude-val">Some</span>(<span class="string">&quot;token&quot;</span>)),
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/456/token/slack&quot;</span>).<span class="ident">unwrap</span>(),
             (<span class="ident">WebhookId</span>(<span class="number">456</span>), <span class="prelude-val">Some</span>(<span class="string">&quot;token&quot;</span>)),
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/456/token/randomsegment&quot;</span>).<span class="ident">unwrap</span>(),
             (<span class="ident">WebhookId</span>(<span class="number">456</span>), <span class="prelude-val">Some</span>(<span class="string">&quot;token&quot;</span>)),
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/456/token/one/two/three&quot;</span>).<span class="ident">unwrap</span>(),
             (<span class="ident">WebhookId</span>(<span class="number">456</span>), <span class="prelude-val">Some</span>(<span class="string">&quot;token&quot;</span>)),
         );
@@ -388,17 +388,17 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_parse_invalid</span>() {
         <span class="comment">// Base URL is improper.</span>
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">WebhookParseError</span>::<span class="ident">SegmentMissing</span>,
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/foo/bar/456&quot;</span>).<span class="ident">unwrap_err</span>(),
         );
         <span class="comment">// No ID is present.</span>
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">WebhookParseError</span>::<span class="ident">SegmentMissing</span>,
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/&quot;</span>).<span class="ident">unwrap_err</span>(),
         );
         <span class="comment">// ID segment isn&#39;t an integer.</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="macro">matches</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="kw">super</span>::<span class="ident">parse</span>(<span class="string">&quot;https://discord.com/api/webhooks/notaninteger&quot;</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">WebhookParseError</span>::<span class="ident">IdInvalid</span> { .. },
         ));

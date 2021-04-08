@@ -365,85 +365,85 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Arguments</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">Iterator</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">Arguments</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">Iterator</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_as_str</span>() {
         <span class="kw">let</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Arguments</span>::<span class="ident">from</span>(<span class="string">&quot;foo bar baz&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;foo bar baz&quot;</span>, <span class="ident">args</span>.<span class="ident">as_str</span>());
+        <span class="macro">assert_eq!</span>(<span class="string">&quot;foo bar baz&quot;</span>, <span class="ident">args</span>.<span class="ident">as_str</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_simple_args</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Arguments</span>::<span class="ident">new</span>(<span class="string">&quot;foo bar baz&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;foo&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;bar&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;baz&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;foo&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;bar&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;baz&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_quoted_args</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Arguments</span>::<span class="ident">new</span>(<span class="string">r#&quot;this &quot;is a longer argument&quot; here&quot;#</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;this&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;is a longer argument&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;here&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;this&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;is a longer argument&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;here&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_quoted_close_args</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Arguments</span>::<span class="ident">new</span>(<span class="string">r#&quot;&quot;kind of weird&quot;&quot;but okay&quot;#</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;kind of weird&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;but okay&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;kind of weird&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;but okay&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_unicode_chars_1</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Arguments</span>::<span class="ident">new</span>(<span class="string">&quot;𝓒𝓢𝓐 nice try&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;𝓒𝓢𝓐&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;nice&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;try&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;𝓒𝓢𝓐&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;nice&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;try&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_unicode_chars_2</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Arguments</span>::<span class="ident">new</span>(<span class="string">&quot;Saighdiúr réalta what even&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;Saighdiúr&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;réalta&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;what&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;even&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;Saighdiúr&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;réalta&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;what&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;even&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_quoted_unicode_chars</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Arguments</span>::<span class="ident">new</span>(<span class="string">r#&quot;&quot;𝓒𝓢𝓐 | CSA&quot; amazing try&quot;#</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;𝓒𝓢𝓐 | CSA&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;amazing&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;try&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;𝓒𝓢𝓐 | CSA&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;amazing&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;try&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_emote</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Arguments</span>::<span class="ident">new</span>(<span class="string">&quot;why an emote 🙃&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;why&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;an&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;emote&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;🙃&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;why&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;an&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;emote&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;🙃&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_quoted_emote</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Arguments</span>::<span class="ident">new</span>(<span class="string">r#&quot;omg &quot;😕 - 😟&quot; kewl&quot;#</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;omg&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;😕 - 😟&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;kewl&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;omg&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;😕 - 😟&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;kewl&quot;</span>), <span class="ident">args</span>.<span class="ident">next</span>());
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, <span class="ident">args</span>.<span class="ident">next</span>());
     }
 }
 </pre></div>

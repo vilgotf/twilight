@@ -61,7 +61,7 @@ events already.</p>
 <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">sleep</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">60</span>)).<span class="kw">await</span>;
 
 <span class="kw">for</span> (<span class="ident">shard_id</span>, <span class="ident">info</span>) <span class="kw">in</span> <span class="ident">cluster</span>.<span class="ident">info</span>() {
-    <span class="macro">println</span><span class="macro">!</span>(
+    <span class="macro">println!</span>(
         <span class="string">&quot;Shard {} is {} with an average latency of {:?}&quot;</span>,
         <span class="ident">shard_id</span>,
         <span class="ident">info</span>.<span class="ident">stage</span>(),
@@ -136,9 +136,9 @@ updated:</p>
 
 <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">shard_id</span>, <span class="ident">event</span>)) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
     <span class="kw">match</span> <span class="ident">event</span> {
-        <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Shard {} got a new message&quot;</span>, <span class="ident">shard_id</span>),
-        <span class="ident">Event</span>::<span class="ident">MessageDelete</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Shard {} got a deleted message&quot;</span>, <span class="ident">shard_id</span>),
-        <span class="ident">Event</span>::<span class="ident">MessageUpdate</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;Shard {} got an updated message&quot;</span>, <span class="ident">shard_id</span>),
+        <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard {} got a new message&quot;</span>, <span class="ident">shard_id</span>),
+        <span class="ident">Event</span>::<span class="ident">MessageDelete</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard {} got a deleted message&quot;</span>, <span class="ident">shard_id</span>),
+        <span class="ident">Event</span>::<span class="ident">MessageUpdate</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard {} got an updated message&quot;</span>, <span class="ident">shard_id</span>),
         <span class="comment">// No other events will come in through the stream.</span>
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {},
     }

@@ -361,25 +361,25 @@
         <span class="ident">MessageId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>, <span class="ident">WebhookId</span>,
     };
 
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">AttachmentId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">AuditLogEntryId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">ChannelId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">EmojiId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">GenericId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">GuildId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">IntegrationId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">MessageId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">RoleId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">UserId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">WebhookId</span>: <span class="ident">Snowflake</span>);
-    <span class="macro">assert_obj_safe</span><span class="macro">!</span>(<span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">AttachmentId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">AuditLogEntryId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">ChannelId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">EmojiId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">GenericId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">GuildId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">IntegrationId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">MessageId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">RoleId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">UserId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">WebhookId</span>: <span class="ident">Snowflake</span>);
+    <span class="macro">assert_obj_safe!</span>(<span class="ident">Snowflake</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_timestamp</span>() {
         <span class="kw">let</span> <span class="ident">expected</span>: <span class="ident">i64</span> <span class="op">=</span> <span class="number">1_445_219_918_546</span>;
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">GenericId</span>(<span class="number">105_484_726_235_607_040</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>, <span class="ident">id</span>.<span class="ident">timestamp</span>())
+        <span class="macro">assert_eq!</span>(<span class="ident">expected</span>, <span class="ident">id</span>.<span class="ident">timestamp</span>())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -387,7 +387,7 @@
         <span class="kw">let</span> <span class="ident">expected</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">GenericId</span>(<span class="number">762_022_344_856_174_632</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>, <span class="ident">id</span>.<span class="ident">worker_id</span>())
+        <span class="macro">assert_eq!</span>(<span class="ident">expected</span>, <span class="ident">id</span>.<span class="ident">worker_id</span>())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -395,7 +395,7 @@
         <span class="kw">let</span> <span class="ident">expected</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">GenericId</span>(<span class="number">61_189_081_970_774_016</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>, <span class="ident">id</span>.<span class="ident">process_id</span>())
+        <span class="macro">assert_eq!</span>(<span class="ident">expected</span>, <span class="ident">id</span>.<span class="ident">process_id</span>())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -403,7 +403,7 @@
         <span class="kw">let</span> <span class="ident">expected</span>: <span class="ident">u16</span> <span class="op">=</span> <span class="number">40</span>;
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">GenericId</span>(<span class="number">762_022_344_856_174_632</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected</span>, <span class="ident">id</span>.<span class="ident">increment</span>())
+        <span class="macro">assert_eq!</span>(<span class="ident">expected</span>, <span class="ident">id</span>.<span class="ident">increment</span>())
     }
 }
 </pre></div>

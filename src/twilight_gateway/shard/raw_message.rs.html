@@ -196,8 +196,8 @@
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>};
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
 
-    <span class="macro">assert_fields</span><span class="macro">!</span>(<span class="ident">CloseFrame</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>: <span class="ident">code</span>, <span class="ident">reason</span>);
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(
+    <span class="macro">assert_fields!</span>(<span class="ident">CloseFrame</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>: <span class="ident">code</span>, <span class="ident">reason</span>);
+    <span class="macro">assert_impl_all!</span>(
         <span class="ident">CloseFrame</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>:
         <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
@@ -206,7 +206,7 @@
         <span class="ident">From</span><span class="op">&lt;</span>(<span class="ident">u16</span>, <span class="ident">String</span>)<span class="op">&gt;</span>,
         <span class="ident">PartialEq</span>,
     );
-    <span class="macro">assert_impl_all</span><span class="macro">!</span>(<span class="ident">Message</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>);
+    <span class="macro">assert_impl_all!</span>(<span class="ident">Message</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>);
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="twilight_gateway" data-search-js="../../../search-index.js"></div>

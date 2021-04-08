@@ -229,12 +229,12 @@
             <span class="self">Self</span>::<span class="ident">BuildingRequest</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;failed to build the request&quot;</span>),
             <span class="self">Self</span>::<span class="ident">ChunkingResponse</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Chunking the response failed&quot;</span>),
             <span class="self">Self</span>::<span class="ident">CreatingHeader</span> { <span class="ident">name</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Parsing the value for header {} failed&quot;</span>, <span class="ident">name</span>)
+                <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Parsing the value for header {} failed&quot;</span>, <span class="ident">name</span>)
             }
             <span class="self">Self</span>::<span class="ident">Formatting</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Formatting a string failed&quot;</span>),
             <span class="self">Self</span>::<span class="ident">Json</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Given value couldn&#39;t be serialized&quot;</span>),
             <span class="self">Self</span>::<span class="ident">Parsing</span> { <span class="ident">body</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Response body couldn&#39;t be deserialized: {:?}&quot;</span>, <span class="ident">body</span>)
+                <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Response body couldn&#39;t be deserialized: {:?}&quot;</span>, <span class="ident">body</span>)
             }
             <span class="self">Self</span>::<span class="ident">Ratelimiting</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Ratelimiting failure&quot;</span>),
             <span class="self">Self</span>::<span class="ident">RequestCanceled</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
@@ -242,7 +242,7 @@
             }
             <span class="self">Self</span>::<span class="ident">RequestError</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Parsing or sending the response failed&quot;</span>),
             <span class="self">Self</span>::<span class="ident">RequestTimedOut</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;request timed out&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">Response</span> { <span class="ident">error</span>, <span class="ident">status</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(
+            <span class="self">Self</span>::<span class="ident">Response</span> { <span class="ident">error</span>, <span class="ident">status</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;Response error: status code {}, error: {}&quot;</span>,
                 <span class="ident">status</span>, <span class="ident">error</span>

@@ -472,7 +472,7 @@
             <span class="ident">url</span>: <span class="prelude-val">None</span>,
         };
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Presence</span> {
-            <span class="ident">activities</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">activity</span>],
+            <span class="ident">activities</span>: <span class="macro">vec!</span>[<span class="ident">activity</span>],
             <span class="ident">client_status</span>: <span class="ident">ClientStatus</span> {
                 <span class="ident">desktop</span>: <span class="prelude-val">Some</span>(<span class="ident">Status</span>::<span class="ident">Online</span>),
                 <span class="ident">mobile</span>: <span class="prelude-val">None</span>,
@@ -574,7 +574,7 @@
         }]&quot;#</span>;
 
         <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">from</span>([<span class="ident">Presence</span> {
-            <span class="ident">activities</span>: <span class="macro">vec</span><span class="macro">!</span>[],
+            <span class="ident">activities</span>: <span class="macro">vec!</span>[],
             <span class="ident">client_status</span>: <span class="ident">ClientStatus</span> {
                 <span class="ident">desktop</span>: <span class="prelude-val">Some</span>(<span class="ident">Status</span>::<span class="ident">Online</span>),
                 <span class="ident">mobile</span>: <span class="prelude-val">None</span>,
@@ -589,7 +589,7 @@
         <span class="kw">let</span> <span class="ident">deserializer</span> <span class="op">=</span> <span class="ident">PresenceListDeserializer</span>::<span class="ident">new</span>(<span class="ident">GuildId</span>(<span class="number">2</span>));
         <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">deserializer</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">json_deserializer</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
     }
 }
 </pre></div>
