@@ -19,7 +19,7 @@
 <span id="16">16</span>
 <span id="17">17</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">gateway</span>::<span class="ident">OpCode</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::gateway::OpCode</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
@@ -32,7 +32,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">seq</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">d</span>: <span class="ident">seq</span>,
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">Heartbeat</span>,
+            <span class="ident">op</span>: <span class="ident">OpCode::Heartbeat</span>,
         }
     }
 }

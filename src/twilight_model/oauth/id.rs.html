@@ -79,14 +79,14 @@
 <span class="doccomment">//! [`id`]: ../id</span>
 
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
+<span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">Ord</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SkuId</span>(<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;crate::id::string&quot;</span>)]</span> <span class="kw">pub</span> <span class="ident">u64</span>);
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">SkuId</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
-        <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">f</span>)
+        <span class="ident">Display::fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">f</span>)
     }
 }
 
@@ -95,43 +95,43 @@
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">TeamId</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
-        <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">f</span>)
+        <span class="ident">Display::fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">SkuId</span>, <span class="ident">TeamId</span>};
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_id_deser</span>() {
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">SkuId</span>(<span class="number">114_941_315_417_899_012</span>),
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;SkuId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;114941315417899012&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;SkuId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;114941315417899012&quot;</span>),
             ],
         );
-        <span class="ident">serde_test</span>::<span class="ident">assert_de_tokens</span>(
+        <span class="ident">serde_test::assert_de_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">SkuId</span>(<span class="number">114_941_315_417_899_012</span>),
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;SkuId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">114_941_315_417_899_012</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;SkuId&quot;</span> },
+                <span class="ident">Token::U64</span>(<span class="number">114_941_315_417_899_012</span>),
             ],
         );
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">TeamId</span>(<span class="number">114_941_315_417_899_012</span>),
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;TeamId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;114941315417899012&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;TeamId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;114941315417899012&quot;</span>),
             ],
         );
-        <span class="ident">serde_test</span>::<span class="ident">assert_de_tokens</span>(
+        <span class="ident">serde_test::assert_de_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">TeamId</span>(<span class="number">114_941_315_417_899_012</span>),
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;TeamId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">114_941_315_417_899_012</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;TeamId&quot;</span> },
+                <span class="ident">Token::U64</span>(<span class="number">114_941_315_417_899_012</span>),
             ],
         );
     }

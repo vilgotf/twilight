@@ -342,8 +342,8 @@
 <span id="339">339</span>
 <span id="340">340</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">message</span>::<span class="ident">CreateMessage</span>, <span class="ident">webhook</span>::<span class="ident">ExecuteWebhook</span>};
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">RoleId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">message::CreateMessage</span>, <span class="ident">webhook::ExecuteWebhook</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">RoleId</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// Whether or not the section will be parsed.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>)]</span>
@@ -362,7 +362,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Unspecified</span>;
 
 <span class="doccomment">/// Parse types.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">serde</span>::<span class="ident">Deserialize</span>, <span class="ident">serde</span>::<span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">serde::Deserialize</span>, <span class="ident">serde::Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;lowercase&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ParseTypes</span> {
@@ -372,7 +372,7 @@
 }
 
 <span class="doccomment">/// Stores the allowed mentions.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">serde</span>::<span class="ident">Deserialize</span>, <span class="ident">serde</span>::<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">serde::Deserialize</span>, <span class="ident">serde::Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;It will not be added unless `build()` is called.&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AllowedMentions</span> {
     <span class="ident">parse</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ParseTypes</span><span class="op">&gt;</span>,
@@ -399,19 +399,19 @@
 
 <span class="kw">impl</span> <span class="ident">VisitAllowedMentionsEveryone</span> <span class="kw">for</span> <span class="ident">Parsed</span> {
     <span class="kw">fn</span> <span class="ident">visit</span>(<span class="self">self</span>, <span class="ident">d</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">AllowedMentions</span>) {
-        <span class="ident">d</span>.<span class="ident">parse</span>.<span class="ident">push</span>(<span class="ident">ParseTypes</span>::<span class="ident">Everyone</span>);
+        <span class="ident">d</span>.<span class="ident">parse</span>.<span class="ident">push</span>(<span class="ident">ParseTypes::Everyone</span>);
     }
 }
 
 <span class="kw">impl</span> <span class="ident">VisitAllowedMentionsUsers</span> <span class="kw">for</span> <span class="ident">Parsed</span> {
     <span class="kw">fn</span> <span class="ident">visit</span>(<span class="self">self</span>, <span class="ident">d</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">AllowedMentions</span>) {
-        <span class="ident">d</span>.<span class="ident">parse</span>.<span class="ident">push</span>(<span class="ident">ParseTypes</span>::<span class="ident">Users</span>);
+        <span class="ident">d</span>.<span class="ident">parse</span>.<span class="ident">push</span>(<span class="ident">ParseTypes::Users</span>);
     }
 }
 
 <span class="kw">impl</span> <span class="ident">VisitAllowedMentionsRoles</span> <span class="kw">for</span> <span class="ident">Parsed</span> {
     <span class="kw">fn</span> <span class="ident">visit</span>(<span class="self">self</span>, <span class="ident">d</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">AllowedMentions</span>) {
-        <span class="ident">d</span>.<span class="ident">parse</span>.<span class="ident">push</span>(<span class="ident">ParseTypes</span>::<span class="ident">Roles</span>);
+        <span class="ident">d</span>.<span class="ident">parse</span>.<span class="ident">push</span>(<span class="ident">ParseTypes::Roles</span>);
     }
 }
 
@@ -488,7 +488,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">AllowedMentionsBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span>, <span class="ident">Unspecified</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new</span>()
+        <span class="self">Self</span><span class="ident">::new</span>()
     }
 }
 
@@ -633,7 +633,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CreateMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">create_message</span> {
             <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">builder</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">AllowedMentions</span>::<span class="ident">default</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">AllowedMentions::default</span>();
                 <span class="self">self</span>.<span class="ident">e</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
                 <span class="self">self</span>.<span class="ident">u</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
                 <span class="self">self</span>.<span class="ident">r</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
@@ -655,7 +655,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_webhook</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecuteWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">execute_webhook</span> {
             <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">builder</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">AllowedMentions</span>::<span class="ident">default</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">AllowedMentions::default</span>();
                 <span class="self">self</span>.<span class="ident">e</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
                 <span class="self">self</span>.<span class="ident">u</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
                 <span class="self">self</span>.<span class="ident">r</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
@@ -673,7 +673,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClientBuilder::default_allowed_mentions`]: crate::client::ClientBuilder::default_allowed_mentions</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_solo</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AllowedMentions</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">AllowedMentions</span>::<span class="ident">default</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">AllowedMentions::default</span>();
 
         <span class="self">self</span>.<span class="ident">e</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);
         <span class="self">self</span>.<span class="ident">u</span>.<span class="ident">visit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>);

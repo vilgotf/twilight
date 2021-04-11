@@ -113,11 +113,11 @@
 <span class="doccomment">//! input will not be checked and will be passed directly to the underlying</span>
 <span class="doccomment">//! websocket library.</span>
 
-<span class="kw">use</span> <span class="ident">async_tungstenite</span>::<span class="ident">tungstenite</span>::{
-    <span class="ident">protocol</span>::{<span class="ident">frame</span>::<span class="ident">coding</span>::<span class="ident">CloseCode</span>, <span class="ident">CloseFrame</span> <span class="kw">as</span> <span class="ident">TungsteniteCloseFrame</span>},
+<span class="kw">use</span> <span class="ident">async_tungstenite::tungstenite</span>::{
+    <span class="ident">protocol</span>::{<span class="ident">frame::coding::CloseCode</span>, <span class="ident">CloseFrame</span> <span class="kw">as</span> <span class="ident">TungsteniteCloseFrame</span>},
     <span class="ident">Message</span> <span class="kw">as</span> <span class="ident">TungsteniteMessage</span>,
 };
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span>;
+<span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
 
 <span class="doccomment">/// Information about a close message, if any.</span>
 <span class="doccomment">///</span>
@@ -176,16 +176,16 @@
 <span class="kw">impl</span> <span class="ident">Message</span> {
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">into_tungstenite</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TungsteniteMessage</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Binary</span>(<span class="ident">bytes</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TungsteniteMessage</span>::<span class="ident">Binary</span>(<span class="ident">bytes</span>),
-            <span class="self">Self</span>::<span class="ident">Close</span>(<span class="ident">close</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">TungsteniteMessage</span>::<span class="ident">Close</span>(<span class="ident">close</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">close</span><span class="op">|</span> <span class="ident">TungsteniteCloseFrame</span> {
-                    <span class="ident">code</span>: <span class="ident">CloseCode</span>::<span class="ident">from</span>(<span class="ident">close</span>.<span class="ident">code</span>),
+            <span class="self">Self</span><span class="ident">::Binary</span>(<span class="ident">bytes</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TungsteniteMessage::Binary</span>(<span class="ident">bytes</span>),
+            <span class="self">Self</span><span class="ident">::Close</span>(<span class="ident">close</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">TungsteniteMessage::Close</span>(<span class="ident">close</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">close</span><span class="op">|</span> <span class="ident">TungsteniteCloseFrame</span> {
+                    <span class="ident">code</span>: <span class="ident">CloseCode::from</span>(<span class="ident">close</span>.<span class="ident">code</span>),
                     <span class="ident">reason</span>: <span class="ident">close</span>.<span class="ident">reason</span>,
                 }))
             }
-            <span class="self">Self</span>::<span class="ident">Ping</span>(<span class="ident">bytes</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TungsteniteMessage</span>::<span class="ident">Ping</span>(<span class="ident">bytes</span>),
-            <span class="self">Self</span>::<span class="ident">Pong</span>(<span class="ident">bytes</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TungsteniteMessage</span>::<span class="ident">Pong</span>(<span class="ident">bytes</span>),
-            <span class="self">Self</span>::<span class="ident">Text</span>(<span class="ident">string</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TungsteniteMessage</span>::<span class="ident">Text</span>(<span class="ident">string</span>),
+            <span class="self">Self</span><span class="ident">::Ping</span>(<span class="ident">bytes</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TungsteniteMessage::Ping</span>(<span class="ident">bytes</span>),
+            <span class="self">Self</span><span class="ident">::Pong</span>(<span class="ident">bytes</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TungsteniteMessage::Pong</span>(<span class="ident">bytes</span>),
+            <span class="self">Self</span><span class="ident">::Text</span>(<span class="ident">string</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TungsteniteMessage::Text</span>(<span class="ident">string</span>),
         }
     }
 }
@@ -194,7 +194,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">CloseFrame</span>, <span class="ident">Message</span>};
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>};
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
+    <span class="kw">use</span> <span class="ident">std::fmt::Debug</span>;
 
     <span class="macro">assert_fields!</span>(<span class="ident">CloseFrame</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>: <span class="ident">code</span>, <span class="ident">reason</span>);
     <span class="macro">assert_impl_all!</span>(

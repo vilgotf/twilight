@@ -33,12 +33,12 @@
 <span class="kw">mod</span> <span class="ident">partial_integration</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
-    <span class="ident">change</span>::<span class="ident">AuditLogChange</span>, <span class="ident">change_key</span>::<span class="ident">AuditLogChangeKey</span>, <span class="ident">entry</span>::<span class="ident">AuditLogEntry</span>,
-    <span class="ident">event</span>::<span class="ident">AuditLogEvent</span>, <span class="ident">optional_entry_info</span>::<span class="ident">AuditLogOptionalEntryInfo</span>,
-    <span class="ident">partial_integration</span>::<span class="ident">PartialGuildIntegration</span>,
+    <span class="ident">change::AuditLogChange</span>, <span class="ident">change_key::AuditLogChangeKey</span>, <span class="ident">entry::AuditLogEntry</span>,
+    <span class="ident">event::AuditLogEvent</span>, <span class="ident">optional_entry_info::AuditLogOptionalEntryInfo</span>,
+    <span class="ident">partial_integration::PartialGuildIntegration</span>,
 };
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">channel</span>::<span class="ident">Webhook</span>, <span class="ident">user</span>::<span class="ident">User</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">channel::Webhook</span>, <span class="ident">user::User</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>

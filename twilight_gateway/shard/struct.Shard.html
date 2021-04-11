@@ -16,28 +16,28 @@ can be cloned and passed around tasks and threads cheaply.</p>
 <p>Create and start a shard and print new and deleted messages:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">futures</span>::<span class="ident">stream</span>::<span class="ident">StreamExt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
+<span class="kw">use</span> <span class="ident">futures::stream::StreamExt</span>;
+<span class="kw">use</span> <span class="ident">std::env</span>;
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">EventTypeFlags</span>, <span class="ident">Event</span>, <span class="ident">Intents</span>, <span class="ident">Shard</span>};
 
 <span class="comment">// Use the value of the &quot;DISCORD_TOKEN&quot; environment variable as the bot&#39;s</span>
 <span class="comment">// token. Of course, you may pass this into your program however you want.</span>
-<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGES</span>);
+<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILD_MESSAGES</span>);
 
 <span class="comment">// Start the shard.</span>
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
 <span class="comment">// Create a loop of only new message and deleted message events.</span>
-<span class="kw">let</span> <span class="ident">event_types</span> <span class="op">=</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_CREATE</span> <span class="op">|</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_DELETE</span>;
+<span class="kw">let</span> <span class="ident">event_types</span> <span class="op">=</span> <span class="ident">EventTypeFlags::MESSAGE_CREATE</span> <span class="op">|</span> <span class="ident">EventTypeFlags::MESSAGE_DELETE</span>;
 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">events</span> <span class="op">=</span> <span class="ident">shard</span>.<span class="ident">some_events</span>(<span class="ident">event_types</span>);
 
 <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
     <span class="kw">match</span> <span class="ident">event</span> {
-        <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">message</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">Event::MessageCreate</span>(<span class="ident">message</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="macro">println!</span>(<span class="string">&quot;message received with content: {}&quot;</span>, <span class="ident">message</span>.<span class="ident">content</span>);
         },
-        <span class="ident">Event</span>::<span class="ident">MessageDelete</span>(<span class="ident">message</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">Event::MessageDelete</span>(<span class="ident">message</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="macro">println!</span>(<span class="string">&quot;message with ID {} deleted&quot;</span>, <span class="ident">message</span>.<span class="ident">id</span>);
         },
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {},
@@ -51,16 +51,16 @@ current connection stage:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">Intents</span>, <span class="ident">Shard</span>};
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">env</span>, <span class="ident">time</span>::<span class="ident">Duration</span>};
-<span class="kw">use</span> <span class="ident">tokio</span>::<span class="ident">time</span> <span class="kw">as</span> <span class="ident">tokio_time</span>;
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">env</span>, <span class="ident">time::Duration</span>};
+<span class="kw">use</span> <span class="ident">tokio::time</span> <span class="kw">as</span> <span class="ident">tokio_time</span>;
 
-<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
 
-<span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGES</span> <span class="op">|</span> <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGE_TYPING</span>;
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">intents</span>);
+<span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">Intents::GUILD_MESSAGES</span> <span class="op">|</span> <span class="ident">Intents::GUILD_MESSAGE_TYPING</span>;
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">intents</span>);
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
-<span class="ident">tokio_time</span>::<span class="ident">sleep</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">1</span>)).<span class="kw">await</span>;
+<span class="ident">tokio_time::sleep</span>(<span class="ident">Duration::from_secs</span>(<span class="number">1</span>)).<span class="kw">await</span>;
 
 <span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="ident">shard</span>.<span class="ident">info</span>()<span class="question-mark">?</span>;
 <span class="macro">println!</span>(<span class="string">&quot;Shard stage: {}&quot;</span>, <span class="ident">info</span>.<span class="ident">stage</span>());</pre></div>
@@ -97,19 +97,19 @@ and <a href="../../twilight_model/gateway/event/enum.Event.html#variant.ShardDis
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">EventTypeFlags</span>, <span class="ident">Event</span>, <span class="ident">Intents</span>, <span class="ident">Shard</span>};
-<span class="kw">use</span> <span class="ident">futures</span>::<span class="ident">StreamExt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
+<span class="kw">use</span> <span class="ident">futures::StreamExt</span>;
+<span class="kw">use</span> <span class="ident">std::env</span>;
 
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>, <span class="ident">Intents</span>::<span class="ident">empty</span>());
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>, <span class="ident">Intents::empty</span>());
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
-<span class="kw">let</span> <span class="ident">event_types</span> <span class="op">=</span> <span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_CONNECTED</span> <span class="op">|</span> <span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_DISCONNECTED</span>;
+<span class="kw">let</span> <span class="ident">event_types</span> <span class="op">=</span> <span class="ident">EventTypeFlags::SHARD_CONNECTED</span> <span class="op">|</span> <span class="ident">EventTypeFlags::SHARD_DISCONNECTED</span>;
 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">events</span> <span class="op">=</span> <span class="ident">shard</span>.<span class="ident">some_events</span>(<span class="ident">event_types</span>);
 
 <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
     <span class="kw">match</span> <span class="ident">event</span> {
-        <span class="ident">Event</span>::<span class="ident">ShardConnected</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard is now connected&quot;</span>),
-        <span class="ident">Event</span>::<span class="ident">ShardDisconnected</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard is now disconnected&quot;</span>),
+        <span class="ident">Event::ShardConnected</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard is now connected&quot;</span>),
+        <span class="ident">Event::ShardDisconnected</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard is now disconnected&quot;</span>),
         <span class="comment">// No other event will come in through the stream.</span>
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {},
     }
@@ -139,18 +139,18 @@ started.</p>
 <p>Send a ping message:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
-<span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">shard</span>::{<span class="ident">raw_message</span>::<span class="ident">Message</span>, <span class="ident">Shard</span>}, <span class="ident">Intents</span>};
+<span class="kw">use</span> <span class="ident">std::env</span>;
+<span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">shard</span>::{<span class="ident">raw_message::Message</span>, <span class="ident">Shard</span>}, <span class="ident">Intents</span>};
 
-<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">Intents</span>::<span class="ident">GUILDS</span>);
+<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILDS</span>);
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
-<span class="ident">shard</span>.<span class="ident">send</span>(<span class="ident">Message</span>::<span class="ident">Ping</span>(<span class="ident">Vec</span>::<span class="ident">new</span>())).<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
+<span class="ident">shard</span>.<span class="ident">send</span>(<span class="ident">Message::Ping</span>(<span class="ident">Vec::new</span>())).<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
 <p>Send a normal close (you may prefer to use <a href="../../twilight_gateway/shard/struct.Shard.html#method.shutdown"><code>shutdown</code></a>):</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow</span>::<span class="ident">Cow</span>, <span class="ident">env</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">env</span>};
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{
     <span class="ident">shard</span>::{
         <span class="ident">raw_message</span>::{<span class="ident">CloseFrame</span>, <span class="ident">Message</span>},
@@ -159,12 +159,12 @@ started.</p>
     <span class="ident">Intents</span>,
 };
 
-<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">Intents</span>::<span class="ident">GUILDS</span>);
+<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILDS</span>);
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
-<span class="kw">let</span> <span class="ident">close</span> <span class="op">=</span> <span class="ident">CloseFrame</span>::<span class="ident">from</span>((<span class="number">1000</span>, <span class="string">&quot;&quot;</span>));
-<span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message</span>::<span class="ident">Close</span>(<span class="prelude-val">Some</span>(<span class="ident">close</span>));
+<span class="kw">let</span> <span class="ident">close</span> <span class="op">=</span> <span class="ident">CloseFrame::from</span>((<span class="number">1000</span>, <span class="string">&quot;&quot;</span>));
+<span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message::Close</span>(<span class="prelude-val">Some</span>(<span class="ident">close</span>));
 <span class="ident">shard</span>.<span class="ident">send</span>(<span class="ident">message</span>).<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
 <h1 id="errors-4" class="section-header"><a href="#errors-4">Errors</a></h1>
 <p>Returns a <a href="../../twilight_gateway/shard/enum.SendError.html#variant.Sending" title="SendError::Sending"><code>SendError::Sending</code></a> if there is an issue with sending via

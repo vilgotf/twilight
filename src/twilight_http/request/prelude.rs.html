@@ -18,14 +18,14 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">audit_reason</span>::{<span class="ident">AuditLogReason</span>, <span class="ident">AuditLogReasonError</span>},
     <span class="ident">channel</span>::{<span class="ident">invite</span>::<span class="kw-2">*</span>, <span class="ident">message</span>::<span class="kw-2">*</span>, <span class="ident">reaction</span>::<span class="kw-2">*</span>, <span class="ident">webhook</span>::<span class="kw-2">*</span>, <span class="kw-2">*</span>},
-    <span class="ident">get_gateway</span>::<span class="ident">GetGateway</span>,
-    <span class="ident">get_gateway_authed</span>::<span class="ident">GetGatewayAuthed</span>,
-    <span class="ident">get_voice_regions</span>::<span class="ident">GetVoiceRegions</span>,
+    <span class="ident">get_gateway::GetGateway</span>,
+    <span class="ident">get_gateway_authed::GetGatewayAuthed</span>,
+    <span class="ident">get_voice_regions::GetVoiceRegions</span>,
     <span class="ident">guild</span>::{<span class="ident">ban</span>::<span class="kw-2">*</span>, <span class="ident">emoji</span>::<span class="kw-2">*</span>, <span class="ident">integration</span>::<span class="kw-2">*</span>, <span class="ident">member</span>::<span class="kw-2">*</span>, <span class="ident">role</span>::<span class="kw-2">*</span>, <span class="kw-2">*</span>},
     <span class="ident">user</span>::<span class="kw-2">*</span>,
 };
-<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">client</span>::<span class="ident">Client</span>, <span class="ident">error</span>::<span class="prelude-ty">Result</span>, <span class="ident">routing</span>::<span class="ident">Route</span>};
-<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">Serialize</span>;
+<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">client::Client</span>, <span class="ident">error::Result</span>, <span class="ident">routing::Route</span>};
+<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="twilight_http" data-search-js="../../../search-index.js"></div>
     <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>

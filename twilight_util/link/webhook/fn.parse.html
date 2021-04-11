@@ -7,12 +7,12 @@ string.</p>
 <p>Parse a webhook URL with a token:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::<span class="ident">WebhookId</span>;
-<span class="kw">use</span> <span class="ident">twilight_util</span>::<span class="ident">link</span>::<span class="ident">webhook</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id::WebhookId</span>;
+<span class="kw">use</span> <span class="ident">twilight_util::link::webhook</span>;
 
 <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="string">&quot;https://canary.discord.com/api/webhooks/794590023369752587/tjxHaPHLKp9aEdSwJuLeHhHHGEqIxt1aay4I67FOP9uzsYEWmj0eJmDn-2ZvCYLyOb_K&quot;</span>;
 
-<span class="kw">let</span> (<span class="ident">id</span>, <span class="ident">token</span>) <span class="op">=</span> <span class="ident">webhook</span>::<span class="ident">parse</span>(<span class="ident">url</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> (<span class="ident">id</span>, <span class="ident">token</span>) <span class="op">=</span> <span class="ident">webhook::parse</span>(<span class="ident">url</span>)<span class="question-mark">?</span>;
 <span class="macro">assert_eq!</span>(<span class="ident">WebhookId</span>(<span class="number">794590023369752587</span>), <span class="ident">id</span>);
 <span class="macro">assert_eq!</span>(
     <span class="prelude-val">Some</span>(<span class="string">&quot;tjxHaPHLKp9aEdSwJuLeHhHHGEqIxt1aay4I67FOP9uzsYEWmj0eJmDn-2ZvCYLyOb_K&quot;</span>),
@@ -21,12 +21,12 @@ string.</p>
 <p>Parse a webhook URL without a token:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::<span class="ident">WebhookId</span>;
-<span class="kw">use</span> <span class="ident">twilight_util</span>::<span class="ident">link</span>::<span class="ident">webhook</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id::WebhookId</span>;
+<span class="kw">use</span> <span class="ident">twilight_util::link::webhook</span>;
 
 <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="string">&quot;https://canary.discord.com/api/webhooks/794590023369752587&quot;</span>;
 
-<span class="kw">let</span> (<span class="ident">id</span>, <span class="ident">token</span>) <span class="op">=</span> <span class="ident">webhook</span>::<span class="ident">parse</span>(<span class="ident">url</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> (<span class="ident">id</span>, <span class="ident">token</span>) <span class="op">=</span> <span class="ident">webhook::parse</span>(<span class="ident">url</span>)<span class="question-mark">?</span>;
 <span class="macro">assert_eq!</span>(<span class="ident">WebhookId</span>(<span class="number">794590023369752587</span>), <span class="ident">id</span>);
 <span class="macro">assert!</span>(<span class="ident">token</span>.<span class="ident">is_none</span>());</pre></div>
 <h1 id="errors" class="section-header"><a href="#errors">Errors</a></h1>

@@ -185,12 +185,12 @@
 <span class="doccomment">//! Sources to image URLs and attachments.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">error</span>::<span class="ident">Error</span>,
+    <span class="ident">error::Error</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
 
 <span class="doccomment">/// Error creating an embed field.</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">module_name_repetitions</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::module_name_repetitions</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ImageSourceAttachmentError</span> {
@@ -203,8 +203,8 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ImageSourceAttachmentError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">ExtensionEmpty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the extension is empty&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">ExtensionMissing</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the extension is missing&quot;</span>),
+            <span class="self">Self</span><span class="ident">::ExtensionEmpty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the extension is empty&quot;</span>),
+            <span class="self">Self</span><span class="ident">::ExtensionMissing</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the extension is missing&quot;</span>),
         }
     }
 }
@@ -212,7 +212,7 @@
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">ImageSourceAttachmentError</span> {}
 
 <span class="doccomment">/// Error creating an embed field.</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">module_name_repetitions</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::module_name_repetitions</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ImageSourceUrlError</span> {
@@ -228,7 +228,7 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ImageSourceUrlError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">ProtocolUnsupported</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::ProtocolUnsupported</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the provided URL&#39;s protocol is unsupported by Discord&quot;</span>)
             }
         }
@@ -255,21 +255,21 @@
     <span class="doccomment">/// Returns [`ImageSourceAttachmentError::ExtensionMissing`] if an extension is</span>
     <span class="doccomment">/// missing.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachment</span>(<span class="ident">filename</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ImageSourceAttachmentError</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">_attachment</span>(<span class="ident">filename</span>.<span class="ident">as_ref</span>())
+        <span class="self">Self</span><span class="ident">::_attachment</span>(<span class="ident">filename</span>.<span class="ident">as_ref</span>())
     }
 
     <span class="kw">fn</span> <span class="ident">_attachment</span>(<span class="ident">filename</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ImageSourceAttachmentError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">dot</span> <span class="op">=</span> <span class="ident">filename</span>
             .<span class="ident">rfind</span>(<span class="string">&#39;.&#39;</span>)
-            .<span class="ident">ok_or</span>(<span class="ident">ImageSourceAttachmentError</span>::<span class="ident">ExtensionMissing</span>)<span class="question-mark">?</span>
+            .<span class="ident">ok_or</span>(<span class="ident">ImageSourceAttachmentError::ExtensionMissing</span>)<span class="question-mark">?</span>
             <span class="op">+</span> <span class="number">1</span>;
 
         <span class="kw">if</span> <span class="ident">filename</span>
             .<span class="ident">get</span>(<span class="ident">dot</span>..)
-            .<span class="ident">ok_or</span>(<span class="ident">ImageSourceAttachmentError</span>::<span class="ident">ExtensionMissing</span>)<span class="question-mark">?</span>
+            .<span class="ident">ok_or</span>(<span class="ident">ImageSourceAttachmentError::ExtensionMissing</span>)<span class="question-mark">?</span>
             .<span class="ident">is_empty</span>()
         {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ImageSourceAttachmentError</span>::<span class="ident">ExtensionEmpty</span>);
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ImageSourceAttachmentError::ExtensionEmpty</span>);
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="macro">format!</span>(<span class="string">&quot;attachment://{}&quot;</span>, <span class="ident">filename</span>)))
@@ -286,12 +286,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`ImageSourceUrlError::ProtocolUnsupported`] if the URL&#39;s protocol is unsupported.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">url</span>(<span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ImageSourceUrlError</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">_url</span>(<span class="ident">url</span>.<span class="ident">into</span>())
+        <span class="self">Self</span><span class="ident">::_url</span>(<span class="ident">url</span>.<span class="ident">into</span>())
     }
 
     <span class="kw">fn</span> <span class="ident">_url</span>(<span class="ident">url</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ImageSourceUrlError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">url</span>.<span class="ident">starts_with</span>(<span class="string">&quot;https:&quot;</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">url</span>.<span class="ident">starts_with</span>(<span class="string">&quot;http:&quot;</span>) {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ImageSourceUrlError</span>::<span class="ident">ProtocolUnsupported</span> { <span class="ident">url</span> });
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ImageSourceUrlError::ProtocolUnsupported</span> { <span class="ident">url</span> });
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">url</span>))
@@ -302,7 +302,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ImageSource</span>, <span class="ident">ImageSourceAttachmentError</span>, <span class="ident">ImageSourceUrlError</span>};
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>};
-    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
+    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error::Error</span>, <span class="ident">fmt::Debug</span>};
 
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">ImageSourceAttachmentError</span>: <span class="ident">Clone</span>,
@@ -322,21 +322,21 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields!</span>(<span class="ident">ImageSourceUrlError</span>::<span class="ident">ProtocolUnsupported</span>: <span class="ident">url</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">ImageSourceUrlError::ProtocolUnsupported</span>: <span class="ident">url</span>);
     <span class="macro">assert_impl_all!</span>(<span class="ident">ImageSource</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_attachment</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">ImageSource</span>::<span class="ident">attachment</span>(<span class="string">&quot;abc&quot;</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">ImageSourceAttachmentError</span>::<span class="ident">ExtensionMissing</span>
+            <span class="ident">ImageSource::attachment</span>(<span class="string">&quot;abc&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">ImageSourceAttachmentError::ExtensionMissing</span>
         ));
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">ImageSource</span>::<span class="ident">attachment</span>(<span class="string">&quot;abc.&quot;</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">ImageSourceAttachmentError</span>::<span class="ident">ExtensionEmpty</span>
+            <span class="ident">ImageSource::attachment</span>(<span class="string">&quot;abc.&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">ImageSourceAttachmentError::ExtensionEmpty</span>
         ));
         <span class="macro">assert_eq!</span>(
-            <span class="ident">ImageSource</span>::<span class="ident">attachment</span>(<span class="string">&quot;abc.png&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">ImageSource::attachment</span>(<span class="string">&quot;abc.png&quot;</span>)<span class="question-mark">?</span>,
             <span class="ident">ImageSource</span>(<span class="string">&quot;attachment://abc.png&quot;</span>.<span class="ident">to_owned</span>()),
         );
 
@@ -346,16 +346,16 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_url</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">ImageSource</span>::<span class="ident">url</span>(<span class="string">&quot;ftp://example.com/foo&quot;</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">ImageSourceUrlError</span>::<span class="ident">ProtocolUnsupported</span> { <span class="ident">url</span> }
+            <span class="ident">ImageSource::url</span>(<span class="string">&quot;ftp://example.com/foo&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">ImageSourceUrlError::ProtocolUnsupported</span> { <span class="ident">url</span> }
             <span class="kw">if</span> <span class="ident">url</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;ftp://example.com/foo&quot;</span>
         ));
         <span class="macro">assert_eq!</span>(
-            <span class="ident">ImageSource</span>::<span class="ident">url</span>(<span class="string">&quot;https://example.com&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">ImageSource::url</span>(<span class="string">&quot;https://example.com&quot;</span>)<span class="question-mark">?</span>,
             <span class="ident">ImageSource</span>(<span class="string">&quot;https://example.com&quot;</span>.<span class="ident">to_owned</span>()),
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">ImageSource</span>::<span class="ident">url</span>(<span class="string">&quot;http://example.com&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">ImageSource::url</span>(<span class="string">&quot;http://example.com&quot;</span>)<span class="question-mark">?</span>,
             <span class="ident">ImageSource</span>(<span class="string">&quot;http://example.com&quot;</span>.<span class="ident">to_owned</span>()),
         );
 

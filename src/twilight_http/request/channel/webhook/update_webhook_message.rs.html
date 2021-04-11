@@ -333,23 +333,23 @@
 <span class="doccomment">//! Update a message created by a webhook via execution.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">client</span>::<span class="ident">Client</span>,
-    <span class="ident">error</span>::<span class="prelude-ty">Result</span>,
+    <span class="ident">client::Client</span>,
+    <span class="ident">error::Result</span>,
     <span class="ident">request</span>::{
         <span class="self">self</span>,
-        <span class="ident">channel</span>::<span class="ident">allowed_mentions</span>::<span class="ident">AllowedMentions</span>,
+        <span class="ident">channel::allowed_mentions::AllowedMentions</span>,
         <span class="ident">validate</span>::{<span class="self">self</span>, <span class="ident">EmbedValidationError</span>},
         <span class="ident">AuditLogReason</span>, <span class="ident">AuditLogReasonError</span>, <span class="ident">Pending</span>, <span class="ident">Request</span>,
     },
-    <span class="ident">routing</span>::<span class="ident">Route</span>,
+    <span class="ident">routing::Route</span>,
 };
-<span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">Serialize</span>;
+<span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">error</span>::<span class="ident">Error</span>,
+    <span class="ident">error::Error</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
-    <span class="ident">channel</span>::<span class="ident">embed</span>::<span class="ident">Embed</span>,
+    <span class="ident">channel::embed::Embed</span>,
     <span class="ident">id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>},
 };
 
@@ -387,9 +387,9 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">UpdateWebhookMessageError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">ContentInvalid</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;message content is invalid&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">EmbedTooLarge</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;length of one of the embeds is too large&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">TooManyEmbeds</span> { <span class="ident">embeds</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
+            <span class="self">Self</span><span class="ident">::ContentInvalid</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;message content is invalid&quot;</span>),
+            <span class="self">Self</span><span class="ident">::EmbedTooLarge</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;length of one of the embeds is too large&quot;</span>),
+            <span class="self">Self</span><span class="ident">::TooManyEmbeds</span> { <span class="ident">embeds</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;{} embeds were provided, but only 10 may be provided&quot;</span>,
                 <span class="ident">embeds</span>.<span class="ident">len</span>()
             )),
@@ -400,8 +400,8 @@
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">UpdateWebhookMessageError</span> {
     <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">EmbedTooLarge</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">ContentInvalid</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">TooManyEmbeds</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="self">Self</span><span class="ident">::EmbedTooLarge</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::ContentInvalid</span> { .. } <span class="op">|</span> <span class="self">Self</span><span class="ident">::TooManyEmbeds</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }
@@ -410,10 +410,10 @@
 <span class="kw">struct</span> <span class="ident">UpdateWebhookMessageFields</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">allowed_mentions</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AllowedMentions</span><span class="op">&gt;</span>,
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">option_option</span>)]</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::option_option</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">option_option</span>)]</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::option_option</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">embeds</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Embed</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
@@ -471,7 +471,7 @@
         <span class="self">Self</span> {
             <span class="ident">fields</span>: <span class="ident">UpdateWebhookMessageFields</span> {
                 <span class="ident">allowed_mentions</span>: <span class="ident">http</span>.<span class="ident">default_allowed_mentions</span>(),
-                ..<span class="ident">UpdateWebhookMessageFields</span>::<span class="ident">default</span>()
+                ..<span class="ident">UpdateWebhookMessageFields::default</span>()
             },
             <span class="ident">fut</span>: <span class="prelude-val">None</span>,
             <span class="ident">http</span>,
@@ -504,8 +504,8 @@
     <span class="doccomment">/// length is too long.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateWebhookMessageError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content_ref</span>) <span class="op">=</span> <span class="ident">content</span>.<span class="ident">as_ref</span>() {
-            <span class="kw">if</span> <span class="op">!</span><span class="ident">validate</span>::<span class="ident">content_limit</span>(<span class="ident">content_ref</span>) {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UpdateWebhookMessageError</span>::<span class="ident">ContentInvalid</span> {
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">validate::content_limit</span>(<span class="ident">content_ref</span>) {
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UpdateWebhookMessageError::ContentInvalid</span> {
                     <span class="ident">content</span>: <span class="ident">content</span>.<span class="ident">expect</span>(<span class="string">&quot;content is known to be some&quot;</span>),
                 });
             }
@@ -564,15 +564,15 @@
     <span class="doccomment">/// [`EMBED_COUNT_LIMIT`]: Self::EMBED_COUNT_LIMIT</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">embeds</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">embeds</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Embed</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">UpdateWebhookMessageError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">embeds_present</span>) <span class="op">=</span> <span class="ident">embeds</span>.<span class="ident">as_deref</span>() {
-            <span class="kw">if</span> <span class="ident">embeds_present</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">EMBED_COUNT_LIMIT</span> {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UpdateWebhookMessageError</span>::<span class="ident">TooManyEmbeds</span> {
+            <span class="kw">if</span> <span class="ident">embeds_present</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::EMBED_COUNT_LIMIT</span> {
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UpdateWebhookMessageError::TooManyEmbeds</span> {
                     <span class="ident">embeds</span>: <span class="ident">embeds</span>.<span class="ident">expect</span>(<span class="string">&quot;embeds are known to be present&quot;</span>),
                 });
             }
 
             <span class="kw">for</span> (<span class="ident">idx</span>, <span class="ident">embed</span>) <span class="kw">in</span> <span class="ident">embeds_present</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">source</span>) <span class="op">=</span> <span class="ident">validate</span>::<span class="ident">embed</span>(<span class="kw-2">&amp;</span><span class="ident">embed</span>) {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UpdateWebhookMessageError</span>::<span class="ident">EmbedTooLarge</span> {
+                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">source</span>) <span class="op">=</span> <span class="ident">validate::embed</span>(<span class="kw-2">&amp;</span><span class="ident">embed</span>) {
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UpdateWebhookMessageError::EmbedTooLarge</span> {
                         <span class="ident">embeds</span>: <span class="ident">embeds</span>.<span class="ident">expect</span>(<span class="string">&quot;embeds are known to be present&quot;</span>),
                         <span class="ident">index</span>: <span class="ident">idx</span>,
                         <span class="ident">source</span>,
@@ -587,24 +587,24 @@
     }
 
     <span class="kw">fn</span> <span class="ident">request</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">route</span> <span class="op">=</span> <span class="ident">Route</span>::<span class="ident">UpdateWebhookMessage</span> {
+        <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">route</span> <span class="op">=</span> <span class="ident">Route::UpdateWebhookMessage</span> {
             <span class="ident">message_id</span>: <span class="self">self</span>.<span class="ident">message_id</span>.<span class="number">0</span>,
             <span class="ident">token</span>: <span class="self">self</span>.<span class="ident">token</span>.<span class="ident">clone</span>(),
             <span class="ident">webhook_id</span>: <span class="self">self</span>.<span class="ident">webhook_id</span>.<span class="number">0</span>,
         };
 
         <span class="prelude-val">Ok</span>(<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">reason</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">reason</span> {
-            <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">request</span>::<span class="ident">audit_header</span>(<span class="kw-2">&amp;</span><span class="ident">reason</span>)<span class="question-mark">?</span>;
-            <span class="ident">Request</span>::<span class="ident">from</span>((<span class="ident">body</span>, <span class="ident">headers</span>, <span class="ident">route</span>))
+            <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">request::audit_header</span>(<span class="kw-2">&amp;</span><span class="ident">reason</span>)<span class="question-mark">?</span>;
+            <span class="ident">Request::from</span>((<span class="ident">body</span>, <span class="ident">headers</span>, <span class="ident">route</span>))
         } <span class="kw">else</span> {
-            <span class="ident">Request</span>::<span class="ident">from</span>((<span class="ident">body</span>, <span class="ident">route</span>))
+            <span class="ident">Request::from</span>((<span class="ident">body</span>, <span class="ident">route</span>))
         })
     }
 
     <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">request</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">request</span>()<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">verify</span>(<span class="ident">request</span>)));
+        <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box::pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">verify</span>(<span class="ident">request</span>)));
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -613,7 +613,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">AuditLogReason</span> <span class="kw">for</span> <span class="ident">UpdateWebhookMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">reason</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">reason</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">AuditLogReasonError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">reason</span>
-            .<span class="ident">replace</span>(<span class="ident">AuditLogReasonError</span>::<span class="ident">validate</span>(<span class="ident">reason</span>.<span class="ident">into</span>())<span class="question-mark">?</span>);
+            .<span class="ident">replace</span>(<span class="ident">AuditLogReasonError::validate</span>(<span class="ident">reason</span>.<span class="ident">into</span>())<span class="question-mark">?</span>);
 
         <span class="prelude-val">Ok</span>(<span class="self">self</span>)
     }
@@ -625,34 +625,34 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">UpdateWebhookMessage</span>, <span class="ident">UpdateWebhookMessageFields</span>};
     <span class="kw">use</span> <span class="kw">crate</span>::{
-        <span class="ident">client</span>::<span class="ident">Client</span>,
+        <span class="ident">client::Client</span>,
         <span class="ident">request</span>::{<span class="ident">AuditLogReason</span>, <span class="ident">Request</span>},
-        <span class="ident">routing</span>::<span class="ident">Route</span>,
+        <span class="ident">routing::Route</span>,
     };
-    <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
+    <span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_request</span>() {
-        <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="string">&quot;token&quot;</span>);
-        <span class="kw">let</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">UpdateWebhookMessage</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">client</span>, <span class="ident">WebhookId</span>(<span class="number">1</span>), <span class="string">&quot;token&quot;</span>, <span class="ident">MessageId</span>(<span class="number">2</span>))
+        <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="string">&quot;token&quot;</span>);
+        <span class="kw">let</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">UpdateWebhookMessage::new</span>(<span class="kw-2">&amp;</span><span class="ident">client</span>, <span class="ident">WebhookId</span>(<span class="number">1</span>), <span class="string">&quot;token&quot;</span>, <span class="ident">MessageId</span>(<span class="number">2</span>))
             .<span class="ident">content</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;test&quot;</span>.<span class="ident">to_owned</span>()))
             .<span class="ident">expect</span>(<span class="string">&quot;&#39;test&#39; content couldn&#39;t be set&quot;</span>)
             .<span class="ident">reason</span>(<span class="string">&quot;reason&quot;</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;&#39;reason&#39; is not a valid reason&quot;</span>);
         <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">request</span>().<span class="ident">expect</span>(<span class="string">&quot;failed to create request&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">json_to_vec</span>(<span class="kw-2">&amp;</span><span class="ident">UpdateWebhookMessageFields</span> {
+        <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json_to_vec</span>(<span class="kw-2">&amp;</span><span class="ident">UpdateWebhookMessageFields</span> {
             <span class="ident">allowed_mentions</span>: <span class="prelude-val">None</span>,
             <span class="ident">content</span>: <span class="prelude-val">Some</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;test&quot;</span>.<span class="ident">to_owned</span>())),
             <span class="ident">embeds</span>: <span class="prelude-val">None</span>,
         })
         .<span class="ident">expect</span>(<span class="string">&quot;failed to serialize fields&quot;</span>);
-        <span class="kw">let</span> <span class="ident">route</span> <span class="op">=</span> <span class="ident">Route</span>::<span class="ident">UpdateWebhookMessage</span> {
+        <span class="kw">let</span> <span class="ident">route</span> <span class="op">=</span> <span class="ident">Route::UpdateWebhookMessage</span> {
             <span class="ident">message_id</span>: <span class="number">2</span>,
             <span class="ident">token</span>: <span class="string">&quot;token&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">webhook_id</span>: <span class="number">1</span>,
         };
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">Request</span>::<span class="ident">from</span>((<span class="ident">body</span>, <span class="ident">route</span>));
+        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">Request::from</span>((<span class="ident">body</span>, <span class="ident">route</span>));
 
         <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">body</span>, <span class="ident">actual</span>.<span class="ident">body</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">path</span>, <span class="ident">actual</span>.<span class="ident">path</span>);

@@ -33,9 +33,9 @@
 <span id="30">30</span>
 <span id="31">31</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">DeleteChannelPermissionConfigured</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::DeleteChannelPermissionConfigured</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">ChannelId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// Clear the permissions for a target ID in a channel.</span>
 <span class="doccomment">///</span>
@@ -61,7 +61,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">configure</span>(<span class="self">self</span>, <span class="ident">target_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeleteChannelPermissionConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-        <span class="ident">DeleteChannelPermissionConfigured</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">http</span>, <span class="self">self</span>.<span class="ident">channel_id</span>, <span class="ident">target_id</span>)
+        <span class="ident">DeleteChannelPermissionConfigured::new</span>(<span class="self">self</span>.<span class="ident">http</span>, <span class="self">self</span>.<span class="ident">channel_id</span>, <span class="ident">target_id</span>)
     }
 }
 </pre></div>

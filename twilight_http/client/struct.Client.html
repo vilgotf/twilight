@@ -9,13 +9,13 @@ supplied with a Discord Token. Get yours <a href="https://discord.com/developers
 at the end like so:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
-<span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Client</span>;
+<span class="kw">use</span> <span class="ident">std::env</span>;
+<span class="kw">use</span> <span class="ident">twilight_http::Client</span>;
 
-<span class="kw">let</span> <span class="ident">bearer</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;BEARER_TOKEN&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">bearer</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;BEARER_TOKEN&quot;</span>)<span class="question-mark">?</span>;
 <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;Bearer {}&quot;</span>, <span class="ident">bearer</span>);
 
-<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="ident">token</span>);</pre></div>
+<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="ident">token</span>);</pre></div>
 <h1 id="cloning" class="section-header"><a href="#cloning">Cloning</a></h1>
 <p>The client internally wraps its data within an Arc. This means that the
 client can be cloned and passed around tasks and threads cheaply.</p>
@@ -29,18 +29,18 @@ prevent API bans and will always return <a href="../../twilight_http/error/enum.
 <p>Create a client called <code>client</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Client</span>;
+<span class="kw">use</span> <span class="ident">twilight_http::Client</span>;
 
-<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="string">&quot;my token&quot;</span>);</pre></div>
+<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="string">&quot;my token&quot;</span>);</pre></div>
 <p>Use <a href="../../twilight_http/client/struct.ClientBuilder.html" title="ClientBuilder"><code>ClientBuilder</code></a> to create a client called <code>client</code>, with a shorter timeout:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Client</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
+<span class="kw">use</span> <span class="ident">twilight_http::Client</span>;
+<span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
-<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">builder</span>()
+<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client::builder</span>()
     .<span class="ident">token</span>(<span class="string">&quot;my token&quot;</span>)
-    .<span class="ident">timeout</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">5</span>))
+    .<span class="ident">timeout</span>(<span class="ident">Duration::from_secs</span>(<span class="number">5</span>))
     .<span class="ident">build</span>();</pre></div>
 <p>All the examples on this page assume you have already created a client, and have named it
 <code>client</code>.</p>
@@ -58,7 +58,7 @@ has been explicitly disabled in the <a href="../../twilight_http/client/struct.C
 </div><h4 id="method.audit_log" class="method"><code>pub fn <a href="#method.audit_log" class="fnname">audit_log</a>(&amp;self, guild_id: <a class="struct" href="../../twilight_model/id/struct.GuildId.html" title="struct twilight_model::id::GuildId">GuildId</a>) -&gt; <a class="struct" href="../../twilight_http/request/guild/get_audit_log/struct.GetAuditLog.html" title="struct twilight_http::request::guild::get_audit_log::GetAuditLog">GetAuditLog</a>&lt;'_&gt;<span class="notable-traits"><span class="notable-traits-tooltip">ⓘ<div class="notable-traits-tooltiptext"><span class="docblock"><h3 class="notable">Notable traits for <a class="struct" href="../../twilight_http/request/guild/get_audit_log/struct.GetAuditLog.html" title="struct twilight_http::request::guild::get_audit_log::GetAuditLog">GetAuditLog</a>&lt;'_&gt;</h3><code class="content"><span class="where fmt-newline">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a> for <a class="struct" href="../../twilight_http/request/guild/get_audit_log/struct.GetAuditLog.html" title="struct twilight_http::request::guild::get_audit_log::GetAuditLog">GetAuditLog</a>&lt;'_&gt;</span><span class="where fmt-newline">    type <a href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html#associatedtype.Output" class="type">Output</a> = <a class="type" href="../../twilight_http/error/type.Result.html" title="type twilight_http::error::Result">Result</a>&lt;<a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../twilight_model/guild/audit_log/struct.AuditLog.html" title="struct twilight_model::guild::audit_log::AuditLog">AuditLog</a>&gt;&gt;;</span></code></span></div></span></span></code><a class="srclink" href="../../src/twilight_http/client/mod.rs.html#198-200" title="goto source code">[src]</a></h4><div class="docblock"><p>Get the audit log for a guild.</p>
 <h1 id="examples-1" class="section-header"><a href="#examples-1">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::<span class="ident">GuildId</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id::GuildId</span>;
 
 <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">101</span>);
 <span class="kw">let</span> <span class="ident">audit_log</span> <span class="op">=</span> <span class="ident">client</span>
@@ -70,7 +70,7 @@ has been explicitly disabled in the <a href="../../twilight_http/client/struct.C
 <p>Retrieve the bans for guild <code>1</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::<span class="ident">GuildId</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id::GuildId</span>;
 <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">1</span>);
 
 <span class="kw">let</span> <span class="ident">bans</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">bans</span>(<span class="ident">guild_id</span>).<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
@@ -83,7 +83,7 @@ messages to delete and the reason.</p>
 1 day’s worth of messages, for the reason <code>&quot;memes&quot;</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>};
 <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">100</span>);
 <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="ident">UserId</span>(<span class="number">200</span>);
 <span class="ident">client</span>.<span class="ident">create_ban</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>)
@@ -95,7 +95,7 @@ messages to delete and the reason.</p>
 <p>Unban user <code>200</code> from guild <code>100</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>};
 <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">100</span>);
 <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="ident">UserId</span>(<span class="number">200</span>);
 
@@ -128,10 +128,10 @@ Once these are specified, the type returned is <a href="../../twilight_http/requ
 <p>If <a href="../../twilight_http/request/channel/message/get_channel_messages/struct.GetChannelMessages.html#method.limit"><code>limit</code></a> is unspecified, the default set by Discord is 50.</p>
 <h1 id="examples-6" class="section-header"><a href="#examples-6">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Client</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>};
+<span class="kw">use</span> <span class="ident">twilight_http::Client</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>};
 
-<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="string">&quot;my token&quot;</span>);
+<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="string">&quot;my token&quot;</span>);
 <span class="kw">let</span> <span class="ident">channel_id</span> <span class="op">=</span> <span class="ident">ChannelId</span>(<span class="number">123</span>);
 <span class="kw">let</span> <span class="ident">message_id</span> <span class="op">=</span> <span class="ident">MessageId</span>(<span class="number">234</span>);
 <span class="kw">let</span> <span class="ident">limit</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">6</span>;
@@ -149,12 +149,12 @@ Once these are specified, the type returned is <a href="../../twilight_http/requ
 <p>Create permission overrides for a role to view the channel, but not send messages:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">guild</span>::<span class="ident">Permissions</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">RoleId</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::guild::Permissions</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">ChannelId</span>, <span class="ident">RoleId</span>};
 
 <span class="kw">let</span> <span class="ident">channel_id</span> <span class="op">=</span> <span class="ident">ChannelId</span>(<span class="number">123</span>);
-<span class="kw">let</span> <span class="ident">allow</span> <span class="op">=</span> <span class="ident">Permissions</span>::<span class="ident">VIEW_CHANNEL</span>;
-<span class="kw">let</span> <span class="ident">deny</span> <span class="op">=</span> <span class="ident">Permissions</span>::<span class="ident">SEND_MESSAGES</span>;
+<span class="kw">let</span> <span class="ident">allow</span> <span class="op">=</span> <span class="ident">Permissions::VIEW_CHANNEL</span>;
+<span class="kw">let</span> <span class="ident">deny</span> <span class="op">=</span> <span class="ident">Permissions::SEND_MESSAGES</span>;
 <span class="kw">let</span> <span class="ident">role_id</span> <span class="op">=</span> <span class="ident">RoleId</span>(<span class="number">432</span>);
 
 <span class="ident">client</span>.<span class="ident">update_channel_permission</span>(<span class="ident">channel_id</span>, <span class="ident">allow</span>, <span class="ident">deny</span>)
@@ -174,7 +174,7 @@ be randomized.</p>
 <code>400</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::<span class="ident">GuildId</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id::GuildId</span>;
 
 <span class="kw">let</span> <span class="ident">after</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">300</span>);
 <span class="kw">let</span> <span class="ident">before</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">400</span>);
@@ -268,7 +268,7 @@ must be chained. Discord defaults the limit to 1.</p>
 <p>Get the first 500 members of guild <code>100</code> after user ID <code>3000</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>};
 <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">100</span>);
 <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="ident">UserId</span>(<span class="number">3000</span>);
 <span class="kw">let</span> <span class="ident">members</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">guild_members</span>(<span class="ident">guild_id</span>).<span class="ident">after</span>(<span class="ident">user_id</span>).<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
@@ -293,7 +293,7 @@ long.</p>
 <p>In guild <code>1</code>, add role <code>2</code> to user <code>3</code>, for the reason <code>&quot;test&quot;</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>};
 <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">1</span>);
 <span class="kw">let</span> <span class="ident">role_id</span> <span class="op">=</span> <span class="ident">RoleId</span>(<span class="number">2</span>);
 <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="ident">UserId</span>(<span class="number">3</span>);
@@ -354,10 +354,10 @@ use <code>.[embed](None)</code> to remove the embed.</p>
 <p>Replace the content with <code>&quot;test update&quot;</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Client</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>};
+<span class="kw">use</span> <span class="ident">twilight_http::Client</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>};
 
-<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="string">&quot;my token&quot;</span>);
+<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="string">&quot;my token&quot;</span>);
 <span class="ident">client</span>.<span class="ident">update_message</span>(<span class="ident">ChannelId</span>(<span class="number">1</span>), <span class="ident">MessageId</span>(<span class="number">2</span>))
     .<span class="ident">content</span>(<span class="string">&quot;test update&quot;</span>.<span class="ident">to_owned</span>())<span class="question-mark">?</span>
     .<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
@@ -380,7 +380,7 @@ requests must be chained until all reactions are retireved.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">let</span> <span class="ident">channel_id</span> <span class="op">=</span> <span class="ident">ChannelId</span>(<span class="number">123</span>);
 <span class="kw">let</span> <span class="ident">message_id</span> <span class="op">=</span> <span class="ident">MessageId</span>(<span class="number">456</span>);
-<span class="kw">let</span> <span class="ident">emoji</span> <span class="op">=</span> <span class="ident">RequestReactionType</span>::<span class="ident">Unicode</span> { <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;🌃&quot;</span>) };
+<span class="kw">let</span> <span class="ident">emoji</span> <span class="op">=</span> <span class="ident">RequestReactionType::Unicode</span> { <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;🌃&quot;</span>) };
 
 <span class="kw">let</span> <span class="ident">reaction</span> <span class="op">=</span> <span class="ident">client</span>
     .<span class="ident">create_reaction</span>(<span class="ident">channel_id</span>, <span class="ident">message_id</span>, <span class="ident">emoji</span>)
@@ -396,7 +396,7 @@ requests must be chained until all reactions are retireved.</p>
 </div><h4 id="method.create_role" class="method"><code>pub fn <a href="#method.create_role" class="fnname">create_role</a>(&amp;self, guild_id: <a class="struct" href="../../twilight_model/id/struct.GuildId.html" title="struct twilight_model::id::GuildId">GuildId</a>) -&gt; <a class="struct" href="../../twilight_http/request/guild/role/struct.CreateRole.html" title="struct twilight_http::request::guild::role::CreateRole">CreateRole</a>&lt;'_&gt;<span class="notable-traits"><span class="notable-traits-tooltip">ⓘ<div class="notable-traits-tooltiptext"><span class="docblock"><h3 class="notable">Notable traits for <a class="struct" href="../../twilight_http/request/guild/role/struct.CreateRole.html" title="struct twilight_http::request::guild::role::CreateRole">CreateRole</a>&lt;'_&gt;</h3><code class="content"><span class="where fmt-newline">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a> for <a class="struct" href="../../twilight_http/request/guild/role/struct.CreateRole.html" title="struct twilight_http::request::guild::role::CreateRole">CreateRole</a>&lt;'_&gt;</span><span class="where fmt-newline">    type <a href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html#associatedtype.Output" class="type">Output</a> = <a class="type" href="../../twilight_http/error/type.Result.html" title="type twilight_http::error::Result">Result</a>&lt;<a class="struct" href="../../twilight_model/guild/role/struct.Role.html" title="struct twilight_model::guild::role::Role">Role</a>&gt;;</span></code></span></div></span></span></code><a class="srclink" href="../../src/twilight_http/client/mod.rs.html#1253-1255" title="goto source code">[src]</a></h4><div class="docblock"><p>Create a role in a guild.</p>
 <h1 id="examples-18" class="section-header"><a href="#examples-18">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::<span class="ident">GuildId</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id::GuildId</span>;
 
 <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">234</span>);
 
@@ -434,7 +434,7 @@ requests must be chained until all reactions are retireved.</p>
 </div><h4 id="method.update_webhook_message" class="method"><code>pub fn <a href="#method.update_webhook_message" class="fnname">update_webhook_message</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;webhook_id: <a class="struct" href="../../twilight_model/id/struct.WebhookId.html" title="struct twilight_model::id::WebhookId">WebhookId</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;token: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;message_id: <a class="struct" href="../../twilight_model/id/struct.MessageId.html" title="struct twilight_model::id::MessageId">MessageId</a><br>) -&gt; <a class="struct" href="../../twilight_http/request/channel/webhook/update_webhook_message/struct.UpdateWebhookMessage.html" title="struct twilight_http::request::channel::webhook::update_webhook_message::UpdateWebhookMessage">UpdateWebhookMessage</a>&lt;'_&gt;<span class="notable-traits"><span class="notable-traits-tooltip">ⓘ<div class="notable-traits-tooltiptext"><span class="docblock"><h3 class="notable">Notable traits for <a class="struct" href="../../twilight_http/request/channel/webhook/update_webhook_message/struct.UpdateWebhookMessage.html" title="struct twilight_http::request::channel::webhook::update_webhook_message::UpdateWebhookMessage">UpdateWebhookMessage</a>&lt;'_&gt;</h3><code class="content"><span class="where fmt-newline">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a> for <a class="struct" href="../../twilight_http/request/channel/webhook/update_webhook_message/struct.UpdateWebhookMessage.html" title="struct twilight_http::request::channel::webhook::update_webhook_message::UpdateWebhookMessage">UpdateWebhookMessage</a>&lt;'_&gt;</span><span class="where fmt-newline">    type <a href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html#associatedtype.Output" class="type">Output</a> = <a class="type" href="../../twilight_http/error/type.Result.html" title="type twilight_http::error::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;;</span></code></span></div></span></span></code><a class="srclink" href="../../src/twilight_http/client/mod.rs.html#1387-1394" title="goto source code">[src]</a></h4><div class="docblock"><p>Update a message executed by a webhook.</p>
 <h1 id="examples-21" class="section-header"><a href="#examples-21">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
 
 <span class="ident">client</span>.<span class="ident">update_webhook_message</span>(<span class="ident">WebhookId</span>(<span class="number">1</span>), <span class="string">&quot;token here&quot;</span>, <span class="ident">MessageId</span>(<span class="number">2</span>))
     .<span class="ident">content</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;new message content&quot;</span>.<span class="ident">to_owned</span>()))<span class="question-mark">?</span>
@@ -442,7 +442,7 @@ requests must be chained until all reactions are retireved.</p>
 </div><h4 id="method.delete_webhook_message" class="method"><code>pub fn <a href="#method.delete_webhook_message" class="fnname">delete_webhook_message</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;webhook_id: <a class="struct" href="../../twilight_model/id/struct.WebhookId.html" title="struct twilight_model::id::WebhookId">WebhookId</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;token: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;message_id: <a class="struct" href="../../twilight_model/id/struct.MessageId.html" title="struct twilight_model::id::MessageId">MessageId</a><br>) -&gt; <a class="struct" href="../../twilight_http/request/channel/webhook/struct.DeleteWebhookMessage.html" title="struct twilight_http::request::channel::webhook::DeleteWebhookMessage">DeleteWebhookMessage</a>&lt;'_&gt;<span class="notable-traits"><span class="notable-traits-tooltip">ⓘ<div class="notable-traits-tooltiptext"><span class="docblock"><h3 class="notable">Notable traits for <a class="struct" href="../../twilight_http/request/channel/webhook/struct.DeleteWebhookMessage.html" title="struct twilight_http::request::channel::webhook::DeleteWebhookMessage">DeleteWebhookMessage</a>&lt;'_&gt;</h3><code class="content"><span class="where fmt-newline">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a> for <a class="struct" href="../../twilight_http/request/channel/webhook/struct.DeleteWebhookMessage.html" title="struct twilight_http::request::channel::webhook::DeleteWebhookMessage">DeleteWebhookMessage</a>&lt;'_&gt;</span><span class="where fmt-newline">    type <a href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html#associatedtype.Output" class="type">Output</a> = <a class="type" href="../../twilight_http/error/type.Result.html" title="type twilight_http::error::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;;</span></code></span></div></span></span></code><a class="srclink" href="../../src/twilight_http/client/mod.rs.html#1412-1419" title="goto source code">[src]</a></h4><div class="docblock"><p>Delete a message executed by a webhook.</p>
 <h1 id="examples-22" class="section-header"><a href="#examples-22">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
 
 <span class="ident">client</span>
     .<span class="ident">delete_webhook_message</span>(<span class="ident">WebhookId</span>(<span class="number">1</span>), <span class="string">&quot;token here&quot;</span>, <span class="ident">MessageId</span>(<span class="number">2</span>))

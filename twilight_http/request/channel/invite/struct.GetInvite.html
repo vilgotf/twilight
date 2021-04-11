@@ -5,9 +5,9 @@
 <p>If <a href="../../../../twilight_http/request/channel/invite/struct.GetInvite.html#method.with_counts"><code>with_counts</code></a> is called, the returned invite will contain approximate member counts.</p>
 <h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Client</span>;
+<span class="kw">use</span> <span class="ident">twilight_http::Client</span>;
 
-<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="string">&quot;my token&quot;</span>);
+<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="string">&quot;my token&quot;</span>);
 
 <span class="kw">let</span> <span class="ident">invite</span> <span class="op">=</span> <span class="ident">client</span>
     .<span class="ident">invite</span>(<span class="string">&quot;code&quot;</span>)

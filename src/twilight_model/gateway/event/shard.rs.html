@@ -341,7 +341,7 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Event</span>, <span class="ident">EventConversionError</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
+<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
 <span class="doccomment">/// Indicator that a shard is now fully connected.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
@@ -432,17 +432,17 @@
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ShardEvent</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">EventConversionError</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">event</span>: <span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">event</span>: <span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">event</span> {
-            <span class="ident">Event</span>::<span class="ident">ShardConnected</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Connected</span>(<span class="ident">v</span>),
-            <span class="ident">Event</span>::<span class="ident">ShardConnecting</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Connecting</span>(<span class="ident">v</span>),
-            <span class="ident">Event</span>::<span class="ident">ShardDisconnected</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Disconnected</span>(<span class="ident">v</span>),
-            <span class="ident">Event</span>::<span class="ident">ShardIdentifying</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Identifying</span>(<span class="ident">v</span>),
-            <span class="ident">Event</span>::<span class="ident">ShardPayload</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Payload</span>(<span class="ident">v</span>),
-            <span class="ident">Event</span>::<span class="ident">ShardReconnecting</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Reconnecting</span>(<span class="ident">v</span>),
-            <span class="ident">Event</span>::<span class="ident">ShardResuming</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Resuming</span>(<span class="ident">v</span>),
+            <span class="ident">Event::ShardConnected</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Connected</span>(<span class="ident">v</span>),
+            <span class="ident">Event::ShardConnecting</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Connecting</span>(<span class="ident">v</span>),
+            <span class="ident">Event::ShardDisconnected</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Disconnected</span>(<span class="ident">v</span>),
+            <span class="ident">Event::ShardIdentifying</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Identifying</span>(<span class="ident">v</span>),
+            <span class="ident">Event::ShardPayload</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Payload</span>(<span class="ident">v</span>),
+            <span class="ident">Event::ShardReconnecting</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Reconnecting</span>(<span class="ident">v</span>),
+            <span class="ident">Event::ShardResuming</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Resuming</span>(<span class="ident">v</span>),
 
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EventConversionError</span>::<span class="ident">new</span>(<span class="ident">event</span>)),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EventConversionError::new</span>(<span class="ident">event</span>)),
         })
     }
 }
@@ -453,8 +453,8 @@
         <span class="ident">Connected</span>, <span class="ident">Connecting</span>, <span class="ident">Disconnected</span>, <span class="ident">Event</span>, <span class="ident">Identifying</span>, <span class="ident">Payload</span>, <span class="ident">Reconnecting</span>, <span class="ident">Resuming</span>,
         <span class="ident">ShardEvent</span>,
     };
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryInto</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
+    <span class="kw">use</span> <span class="ident">std::convert::TryInto</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_connected</span>() {
@@ -463,18 +463,18 @@
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Connected&quot;</span>,
                     <span class="ident">len</span>: <span class="number">2</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;heartbeat_interval&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">41_250</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;shard_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">4</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;heartbeat_interval&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">41_250</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;shard_id&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">4</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }
@@ -486,18 +486,18 @@
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Connecting&quot;</span>,
                     <span class="ident">len</span>: <span class="number">2</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;gateway&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;https://example.com&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;shard_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">4</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;gateway&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;https://example.com&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;shard_id&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">4</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }
@@ -510,22 +510,22 @@
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Disconnected&quot;</span>,
                     <span class="ident">len</span>: <span class="number">3</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;code&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">U16</span>(<span class="number">4_000</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;reason&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;the reason&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;shard_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">4</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;code&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::U16</span>(<span class="number">4_000</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;reason&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;the reason&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;shard_id&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">4</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }
@@ -537,18 +537,18 @@
             <span class="ident">shard_total</span>: <span class="number">7</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Identifying&quot;</span>,
                     <span class="ident">len</span>: <span class="number">2</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;shard_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">4</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;shard_total&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">7</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;shard_id&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">4</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;shard_total&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">7</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }
@@ -557,19 +557,19 @@
     <span class="kw">fn</span> <span class="ident">test_payload</span>() {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Payload</span> { <span class="ident">bytes</span>: <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>] };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Payload&quot;</span>,
                     <span class="ident">len</span>: <span class="number">1</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;bytes&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">2</span>) },
-                <span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">1</span>),
-                <span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">2</span>),
-                <span class="ident">Token</span>::<span class="ident">SeqEnd</span>,
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;bytes&quot;</span>),
+                <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">2</span>) },
+                <span class="ident">Token::U8</span>(<span class="number">1</span>),
+                <span class="ident">Token::U8</span>(<span class="number">2</span>),
+                <span class="ident">Token::SeqEnd</span>,
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }
@@ -578,16 +578,16 @@
     <span class="kw">fn</span> <span class="ident">test_reconnecting</span>() {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Reconnecting</span> { <span class="ident">shard_id</span>: <span class="number">4</span> };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Reconnecting&quot;</span>,
                     <span class="ident">len</span>: <span class="number">1</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;shard_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">4</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;shard_id&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">4</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }
@@ -599,80 +599,80 @@
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Resuming&quot;</span>,
                     <span class="ident">len</span>: <span class="number">2</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;seq&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">100</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;shard_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">4</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;seq&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">100</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;shard_id&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">4</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_shard_event_try_from_event</span>() {
-        <span class="kw">let</span> <span class="ident">connected</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardConnected</span>(<span class="ident">Connected</span> {
+        <span class="kw">let</span> <span class="ident">connected</span> <span class="op">=</span> <span class="ident">Event::ShardConnected</span>(<span class="ident">Connected</span> {
             <span class="ident">heartbeat_interval</span>: <span class="number">41_250</span>,
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         });
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">connected</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
-            <span class="ident">ShardEvent</span>::<span class="ident">Connected</span>(<span class="kw">_</span>)
+            <span class="ident">ShardEvent::Connected</span>(<span class="kw">_</span>)
         ));
 
-        <span class="kw">let</span> <span class="ident">connecting</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardConnecting</span>(<span class="ident">Connecting</span> {
+        <span class="kw">let</span> <span class="ident">connecting</span> <span class="op">=</span> <span class="ident">Event::ShardConnecting</span>(<span class="ident">Connecting</span> {
             <span class="ident">gateway</span>: <span class="string">&quot;https://example.com&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         });
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">connecting</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
-            <span class="ident">ShardEvent</span>::<span class="ident">Connecting</span>(<span class="kw">_</span>)
+            <span class="ident">ShardEvent::Connecting</span>(<span class="kw">_</span>)
         ));
 
-        <span class="kw">let</span> <span class="ident">disconnected</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardDisconnected</span>(<span class="ident">Disconnected</span> {
+        <span class="kw">let</span> <span class="ident">disconnected</span> <span class="op">=</span> <span class="ident">Event::ShardDisconnected</span>(<span class="ident">Disconnected</span> {
             <span class="ident">code</span>: <span class="prelude-val">Some</span>(<span class="number">4_000</span>),
             <span class="ident">reason</span>: <span class="prelude-val">None</span>,
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         });
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">disconnected</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
-            <span class="ident">ShardEvent</span>::<span class="ident">Disconnected</span>(<span class="kw">_</span>)
+            <span class="ident">ShardEvent::Disconnected</span>(<span class="kw">_</span>)
         ));
 
-        <span class="kw">let</span> <span class="ident">identifying</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardIdentifying</span>(<span class="ident">Identifying</span> {
+        <span class="kw">let</span> <span class="ident">identifying</span> <span class="op">=</span> <span class="ident">Event::ShardIdentifying</span>(<span class="ident">Identifying</span> {
             <span class="ident">shard_id</span>: <span class="number">4</span>,
             <span class="ident">shard_total</span>: <span class="number">7</span>,
         });
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">identifying</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
-            <span class="ident">ShardEvent</span>::<span class="ident">Identifying</span>(<span class="kw">_</span>)
+            <span class="ident">ShardEvent::Identifying</span>(<span class="kw">_</span>)
         ));
 
-        <span class="kw">let</span> <span class="ident">payload</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardPayload</span>(<span class="ident">Payload</span> { <span class="ident">bytes</span>: <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>] });
+        <span class="kw">let</span> <span class="ident">payload</span> <span class="op">=</span> <span class="ident">Event::ShardPayload</span>(<span class="ident">Payload</span> { <span class="ident">bytes</span>: <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>] });
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">payload</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
-            <span class="ident">ShardEvent</span>::<span class="ident">Payload</span>(<span class="kw">_</span>)
+            <span class="ident">ShardEvent::Payload</span>(<span class="kw">_</span>)
         ));
 
-        <span class="kw">let</span> <span class="ident">reconnecting</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardReconnecting</span>(<span class="ident">Reconnecting</span> { <span class="ident">shard_id</span>: <span class="number">4</span> });
+        <span class="kw">let</span> <span class="ident">reconnecting</span> <span class="op">=</span> <span class="ident">Event::ShardReconnecting</span>(<span class="ident">Reconnecting</span> { <span class="ident">shard_id</span>: <span class="number">4</span> });
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">reconnecting</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
-            <span class="ident">ShardEvent</span>::<span class="ident">Reconnecting</span>(<span class="kw">_</span>)
+            <span class="ident">ShardEvent::Reconnecting</span>(<span class="kw">_</span>)
         ));
 
-        <span class="kw">let</span> <span class="ident">resuming</span> <span class="op">=</span> <span class="ident">Event</span>::<span class="ident">ShardResuming</span>(<span class="ident">Resuming</span> {
+        <span class="kw">let</span> <span class="ident">resuming</span> <span class="op">=</span> <span class="ident">Event::ShardResuming</span>(<span class="ident">Resuming</span> {
             <span class="ident">seq</span>: <span class="number">100</span>,
             <span class="ident">shard_id</span>: <span class="number">4</span>,
         });
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
             <span class="ident">resuming</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
-            <span class="ident">ShardEvent</span>::<span class="ident">Resuming</span>(<span class="kw">_</span>)
+            <span class="ident">ShardEvent::Resuming</span>(<span class="kw">_</span>)
         ));
     }
 }

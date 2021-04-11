@@ -24,13 +24,13 @@ to manage.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">cluster</span>::{<span class="ident">Cluster</span>, <span class="ident">ShardScheme</span>}, <span class="ident">Intents</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">convert</span>::<span class="ident">TryFrom</span>,
+    <span class="ident">convert::TryFrom</span>,
     <span class="ident">env</span>,
 };
 
-<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ShardScheme</span>::<span class="ident">try_from</span>((<span class="number">0</span>..<span class="op">=</span><span class="number">9</span>, <span class="number">10</span>))<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster</span>::<span class="ident">builder</span>(<span class="ident">token</span>, <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGES</span>)
+<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ShardScheme::try_from</span>((<span class="number">0</span>..<span class="op">=</span><span class="number">9</span>, <span class="number">10</span>))<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster::builder</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILD_MESSAGES</span>)
     .<span class="ident">shard_scheme</span>(<span class="ident">scheme</span>)
     .<span class="ident">build</span>()
     .<span class="kw">await</span><span class="question-mark">?</span>;
@@ -53,12 +53,12 @@ events already.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">Cluster</span>, <span class="ident">Intents</span>};
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">env</span>, <span class="ident">time</span>::<span class="ident">Duration</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">env</span>, <span class="ident">time::Duration</span>};
 
-<span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster</span>::<span class="ident">new</span>(<span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>, <span class="ident">Intents</span>::<span class="ident">empty</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster::new</span>(<span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>, <span class="ident">Intents::empty</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
 <span class="ident">cluster</span>.<span class="ident">up</span>().<span class="kw">await</span>;
 
-<span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">sleep</span>(<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">60</span>)).<span class="kw">await</span>;
+<span class="ident">tokio::time::sleep</span>(<span class="ident">Duration::from_secs</span>(<span class="number">60</span>)).<span class="kw">await</span>;
 
 <span class="kw">for</span> (<span class="ident">shard_id</span>, <span class="ident">info</span>) <span class="kw">in</span> <span class="ident">cluster</span>.<span class="ident">info</span>() {
     <span class="macro">println!</span>(
@@ -86,20 +86,20 @@ ID does not exist in the cluster.</p>
 <p>Send a restart close to shard ID 7:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
+<span class="kw">use</span> <span class="ident">std::env</span>;
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{
-    <span class="ident">cluster</span>::<span class="ident">Cluster</span>,
-    <span class="ident">shard</span>::<span class="ident">raw_message</span>::{<span class="ident">CloseFrame</span>, <span class="ident">Message</span>},
+    <span class="ident">cluster::Cluster</span>,
+    <span class="ident">shard::raw_message</span>::{<span class="ident">CloseFrame</span>, <span class="ident">Message</span>},
     <span class="ident">Intents</span>,
 };
 
-<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">Intents</span>::<span class="ident">GUILDS</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILDS</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 <span class="ident">cluster</span>.<span class="ident">up</span>().<span class="kw">await</span>;
 
 <span class="comment">// some time later..</span>
-<span class="kw">let</span> <span class="ident">close</span> <span class="op">=</span> <span class="ident">CloseFrame</span>::<span class="ident">from</span>((<span class="number">1012</span>, <span class="string">&quot;&quot;</span>));
-<span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message</span>::<span class="ident">Close</span>(<span class="prelude-val">Some</span>(<span class="ident">close</span>));
+<span class="kw">let</span> <span class="ident">close</span> <span class="op">=</span> <span class="ident">CloseFrame::from</span>((<span class="number">1012</span>, <span class="string">&quot;&quot;</span>));
+<span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message::Close</span>(<span class="prelude-val">Some</span>(<span class="ident">close</span>));
 <span class="ident">cluster</span>.<span class="ident">send</span>(<span class="number">7</span>, <span class="ident">message</span>).<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
 <h1 id="errors-3" class="section-header"><a href="#errors-3">Errors</a></h1>
 <p>Returns <a href="../../twilight_gateway/cluster/enum.ClusterCommandError.html#variant.Sending" title="ClusterCommandError::Sending"><code>ClusterCommandError::Sending</code></a> if the shard exists, but
@@ -123,22 +123,22 @@ updated:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">Cluster</span>, <span class="ident">EventTypeFlags</span>, <span class="ident">Event</span>, <span class="ident">Intents</span>};
-<span class="kw">use</span> <span class="ident">futures</span>::<span class="ident">StreamExt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
+<span class="kw">use</span> <span class="ident">futures::StreamExt</span>;
+<span class="kw">use</span> <span class="ident">std::env</span>;
 
-<span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster</span>::<span class="ident">new</span>(<span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>, <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGES</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster::new</span>(<span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>, <span class="ident">Intents::GUILD_MESSAGES</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 <span class="ident">cluster</span>.<span class="ident">up</span>().<span class="kw">await</span>;
 
-<span class="kw">let</span> <span class="ident">types</span> <span class="op">=</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_CREATE</span>
-    <span class="op">|</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_DELETE</span>
-    <span class="op">|</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_UPDATE</span>;
+<span class="kw">let</span> <span class="ident">types</span> <span class="op">=</span> <span class="ident">EventTypeFlags::MESSAGE_CREATE</span>
+    <span class="op">|</span> <span class="ident">EventTypeFlags::MESSAGE_DELETE</span>
+    <span class="op">|</span> <span class="ident">EventTypeFlags::MESSAGE_UPDATE</span>;
 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">events</span> <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">some_events</span>(<span class="ident">types</span>);
 
 <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">shard_id</span>, <span class="ident">event</span>)) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
     <span class="kw">match</span> <span class="ident">event</span> {
-        <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard {} got a new message&quot;</span>, <span class="ident">shard_id</span>),
-        <span class="ident">Event</span>::<span class="ident">MessageDelete</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard {} got a deleted message&quot;</span>, <span class="ident">shard_id</span>),
-        <span class="ident">Event</span>::<span class="ident">MessageUpdate</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard {} got an updated message&quot;</span>, <span class="ident">shard_id</span>),
+        <span class="ident">Event::MessageCreate</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard {} got a new message&quot;</span>, <span class="ident">shard_id</span>),
+        <span class="ident">Event::MessageDelete</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard {} got a deleted message&quot;</span>, <span class="ident">shard_id</span>),
+        <span class="ident">Event::MessageUpdate</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">println!</span>(<span class="string">&quot;Shard {} got an updated message&quot;</span>, <span class="ident">shard_id</span>),
         <span class="comment">// No other events will come in through the stream.</span>
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {},
     }

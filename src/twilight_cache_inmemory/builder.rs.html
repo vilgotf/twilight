@@ -61,12 +61,12 @@
 <span class="kw">impl</span> <span class="ident">InMemoryCacheBuilder</span> {
     <span class="doccomment">/// Creates a builder to configure and construct an [`InMemoryCache`].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">default</span>()
+        <span class="self">Self</span><span class="ident">::default</span>()
     }
 
     <span class="doccomment">/// Consume the builder, returning a configured cache.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InMemoryCache</span> {
-        <span class="ident">InMemoryCache</span>::<span class="ident">new_with_config</span>(<span class="self">self</span>.<span class="number">0</span>)
+        <span class="ident">InMemoryCache::new_with_config</span>(<span class="self">self</span>.<span class="number">0</span>)
     }
 
     <span class="doccomment">/// Sets the list of resource types for the cache to handle.</span>
@@ -90,9 +90,9 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">InMemoryCacheBuilder</span>;
-    <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
+    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::InMemoryCacheBuilder</span>;
+    <span class="kw">use</span> <span class="ident">static_assertions::assert_impl_all</span>;
+    <span class="kw">use</span> <span class="ident">std::fmt::Debug</span>;
 
     <span class="macro">assert_impl_all!</span>(<span class="ident">InMemoryCacheBuilder</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 }

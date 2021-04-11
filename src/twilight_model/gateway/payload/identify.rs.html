@@ -64,8 +64,8 @@
 <span id="61">61</span>
 <span id="62">62</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">update_status</span>::<span class="ident">UpdateStatusInfo</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">gateway</span>::{<span class="ident">intents</span>::<span class="ident">Intents</span>, <span class="ident">opcode</span>::<span class="ident">OpCode</span>};
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::update_status::UpdateStatusInfo</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::gateway</span>::{<span class="ident">intents::Intents</span>, <span class="ident">opcode::OpCode</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
@@ -78,7 +78,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">info</span>: <span class="ident">IdentifyInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">d</span>: <span class="ident">info</span>,
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">Identify</span>,
+            <span class="ident">op</span>: <span class="ident">OpCode::Identify</span>,
         }
     }
 }

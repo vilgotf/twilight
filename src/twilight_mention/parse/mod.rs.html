@@ -151,10 +151,10 @@
 <span class="kw">mod</span> <span class="ident">r#impl</span>;
 <span class="kw">mod</span> <span class="ident">iter</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{<span class="ident">error</span>::<span class="ident">ParseMentionError</span>, <span class="ident">iter</span>::<span class="ident">MentionIter</span>, <span class="ident">r#impl</span>::<span class="ident">ParseMention</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{<span class="ident">error::ParseMentionError</span>, <span class="ident">iter::MentionIter</span>, <span class="ident">r#impl</span><span class="ident">::ParseMention</span>};
 
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">EmojiId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">ChannelId</span>, <span class="ident">EmojiId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// Any type of mention.</span>
 <span class="doccomment">///</span>
@@ -207,10 +207,10 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">MentionType</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Channel</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">id</span>, <span class="ident">f</span>),
-            <span class="self">Self</span>::<span class="ident">Emoji</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">id</span>, <span class="ident">f</span>),
-            <span class="self">Self</span>::<span class="ident">Role</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">id</span>, <span class="ident">f</span>),
-            <span class="self">Self</span>::<span class="ident">User</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">id</span>, <span class="ident">f</span>),
+            <span class="self">Self</span><span class="ident">::Channel</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display::fmt</span>(<span class="ident">id</span>, <span class="ident">f</span>),
+            <span class="self">Self</span><span class="ident">::Emoji</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display::fmt</span>(<span class="ident">id</span>, <span class="ident">f</span>),
+            <span class="self">Self</span><span class="ident">::Role</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display::fmt</span>(<span class="ident">id</span>, <span class="ident">f</span>),
+            <span class="self">Self</span><span class="ident">::User</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Display::fmt</span>(<span class="ident">id</span>, <span class="ident">f</span>),
         }
     }
 }

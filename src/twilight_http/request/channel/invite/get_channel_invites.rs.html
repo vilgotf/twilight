@@ -35,8 +35,8 @@
 <span id="32">32</span>
 <span id="33">33</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::{<span class="ident">id</span>::<span class="ident">ChannelId</span>, <span class="ident">invite</span>::<span class="ident">Invite</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">twilight_model</span>::{<span class="ident">id::ChannelId</span>, <span class="ident">invite::Invite</span>};
 
 <span class="doccomment">/// Get the invites for a guild channel.</span>
 <span class="doccomment">///</span>
@@ -57,8 +57,8 @@
     }
 
     <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request</span>(<span class="ident">Request</span>::<span class="ident">from</span>(
-            <span class="ident">Route</span>::<span class="ident">GetChannelInvites</span> {
+        <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box::pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request</span>(<span class="ident">Request::from</span>(
+            <span class="ident">Route::GetChannelInvites</span> {
                 <span class="ident">channel_id</span>: <span class="self">self</span>.<span class="ident">channel_id</span>.<span class="number">0</span>,
             },
         ))));

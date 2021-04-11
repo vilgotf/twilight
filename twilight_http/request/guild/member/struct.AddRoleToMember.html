@@ -6,10 +6,10 @@
 <p>In guild <code>1</code>, add role <code>2</code> to user <code>3</code>, for the reason <code>&quot;test&quot;</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_http</span>::{<span class="ident">request</span>::<span class="ident">AuditLogReason</span>, <span class="ident">Client</span>};
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">twilight_http</span>::{<span class="ident">request::AuditLogReason</span>, <span class="ident">Client</span>};
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>};
 
-<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="string">&quot;my token&quot;</span>);
+<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="string">&quot;my token&quot;</span>);
 
 <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">GuildId</span>(<span class="number">1</span>);
 <span class="kw">let</span> <span class="ident">role_id</span> <span class="op">=</span> <span class="ident">RoleId</span>(<span class="number">2</span>);

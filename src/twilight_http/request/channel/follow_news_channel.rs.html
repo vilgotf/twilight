@@ -48,9 +48,9 @@
 <span id="45">45</span>
 <span id="46">46</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">Serialize</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::{<span class="ident">channel</span>::<span class="ident">FollowedChannel</span>, <span class="ident">id</span>::<span class="ident">ChannelId</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">serde::Serialize</span>;
+<span class="kw">use</span> <span class="ident">twilight_model</span>::{<span class="ident">channel::FollowedChannel</span>, <span class="ident">id::ChannelId</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">struct</span> <span class="ident">FollowNewsChannelFields</span> {
@@ -80,14 +80,14 @@
     }
 
     <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">request</span> <span class="op">=</span> <span class="ident">Request</span>::<span class="ident">from</span>((
-            <span class="kw">crate</span>::<span class="ident">json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>,
-            <span class="ident">Route</span>::<span class="ident">FollowNewsChannel</span> {
+        <span class="kw">let</span> <span class="ident">request</span> <span class="op">=</span> <span class="ident">Request::from</span>((
+            <span class="kw">crate</span><span class="ident">::json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>,
+            <span class="ident">Route::FollowNewsChannel</span> {
                 <span class="ident">channel_id</span>: <span class="self">self</span>.<span class="ident">channel_id</span>.<span class="number">0</span>,
             },
         ));
 
-        <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request</span>(<span class="ident">request</span>)));
+        <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box::pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request</span>(<span class="ident">request</span>)));
 
         <span class="prelude-val">Ok</span>(())
     }

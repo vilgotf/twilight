@@ -38,10 +38,10 @@ bucket, also known as the maximum concurrency.</p>
 shards 0 through 24:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_gateway</span>::<span class="ident">cluster</span>::<span class="ident">ShardScheme</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
+<span class="kw">use</span> <span class="ident">twilight_gateway::cluster::ShardScheme</span>;
+<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
-<span class="kw">let</span> <span class="ident">range</span> <span class="op">=</span> <span class="ident">ShardScheme</span>::<span class="ident">try_from</span>((<span class="number">0</span>..<span class="number">24</span>, <span class="number">50</span>))<span class="question-mark">?</span>;</pre></div>
+<span class="kw">let</span> <span class="ident">range</span> <span class="op">=</span> <span class="ident">ShardScheme::try_from</span>((<span class="number">0</span>..<span class="number">24</span>, <span class="number">50</span>))<span class="question-mark">?</span>;</pre></div>
 </div><div class="autohide sub-variant" id="variant.Range.fields"><h3>Fields of <b>Range</b></h3><div><span id="variant.Range.field.from" class="variant small-section-header"><a href="#variant.Range.field.from" class="anchor field"></a><code>from:&nbsp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code></span><div class="docblock"><p>First shard ID to spawn.</p>
 </div><span id="variant.Range.field.to" class="variant small-section-header"><a href="#variant.Range.field.to" class="anchor field"></a><code>to:&nbsp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code></span><div class="docblock"><p>Last shard ID to spawn.</p>
 <p>This doesn’t necessarily have to be up to the <code>total</code>.</p>
@@ -73,10 +73,10 @@ by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Pa
 total of 320 shards:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
-<span class="kw">use</span> <span class="ident">twilight_gateway</span>::<span class="ident">cluster</span>::<span class="ident">ShardScheme</span>;
+<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
+<span class="kw">use</span> <span class="ident">twilight_gateway::cluster::ShardScheme</span>;
 
-<span class="kw">let</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ShardScheme</span>::<span class="ident">try_from</span>((<span class="number">7u64</span>, <span class="number">16</span>, <span class="number">320</span>))<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ShardScheme::try_from</span>((<span class="number">7u64</span>, <span class="number">16</span>, <span class="number">320</span>))<span class="question-mark">?</span>;
 <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="number">7</span>), <span class="ident">scheme</span>.<span class="ident">from</span>());
 <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="number">306</span>), <span class="ident">scheme</span>.<span class="ident">to</span>());
 <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="number">320</span>), <span class="ident">scheme</span>.<span class="ident">total</span>());</pre></div>

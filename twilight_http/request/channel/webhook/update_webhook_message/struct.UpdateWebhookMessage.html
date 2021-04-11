@@ -11,13 +11,13 @@ attempting to mention user ID 3 - and specifying that only that the user may
 not be mentioned.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">request</span>::<span class="ident">channel</span>::<span class="ident">allowed_mentions</span>::<span class="ident">AllowedMentions</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
+<span class="kw">use</span> <span class="ident">twilight_http::request::channel::allowed_mentions::AllowedMentions</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
 
 <span class="ident">client</span>.<span class="ident">update_webhook_message</span>(<span class="ident">WebhookId</span>(<span class="number">1</span>), <span class="string">&quot;token here&quot;</span>, <span class="ident">MessageId</span>(<span class="number">2</span>))
     <span class="comment">// By creating a default set of allowed mentions, no entity can be</span>
     <span class="comment">// mentioned.</span>
-    .<span class="ident">allowed_mentions</span>(<span class="ident">AllowedMentions</span>::<span class="ident">default</span>())
+    .<span class="ident">allowed_mentions</span>(<span class="ident">AllowedMentions::default</span>())
     .<span class="ident">content</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;test &lt;@3&gt;&quot;</span>.<span class="ident">to_owned</span>()))<span class="question-mark">?</span>
     .<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
 </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><h3 id="impl" class="impl"><code class="in-band">impl&lt;'a&gt; <a class="struct" href="../../../../../twilight_http/request/channel/webhook/update_webhook_message/struct.UpdateWebhookMessage.html" title="struct twilight_http::request::channel::webhook::update_webhook_message::UpdateWebhookMessage">UpdateWebhookMessage</a>&lt;'a&gt;</code><a href="#impl" class="anchor"></a><a class="srclink" href="../../../../../src/twilight_http/request/channel/webhook/update_webhook_message.rs.html#129-279" title="goto source code">[src]</a></h3><div class="impl-items"><h4 id="associatedconstant.EMBED_COUNT_LIMIT" class="associatedconstant"><code>pub const <a href="#associatedconstant.EMBED_COUNT_LIMIT" class="constant"><b>EMBED_COUNT_LIMIT</b></a>: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code><a class="srclink" href="../../../../../src/twilight_http/request/channel/webhook/update_webhook_message.rs.html#131" title="goto source code">[src]</a></h4><div class="docblock"><p>Maximum number of embeds that a webhook’s message may have.</p>
@@ -43,10 +43,10 @@ of the original message is unaffected and only the embed(s) are
 modified.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::<span class="ident">EmbedBuilder</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
+<span class="kw">use</span> <span class="ident">twilight_embed_builder::EmbedBuilder</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">MessageId</span>, <span class="ident">WebhookId</span>};
 
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
     .<span class="ident">description</span>(<span class="string">&quot;Powerful, flexible, and scalable ecosystem of Rust libraries for the Discord API.&quot;</span>)<span class="question-mark">?</span>
     .<span class="ident">title</span>(<span class="string">&quot;Twilight&quot;</span>)<span class="question-mark">?</span>
     .<span class="ident">url</span>(<span class="string">&quot;https://twilight.rs&quot;</span>)

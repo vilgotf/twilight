@@ -230,9 +230,9 @@
 <span id="227">227</span>
 <span id="228">228</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">bitflags</span>::<span class="ident">bitflags</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::<span class="ident">event</span>::<span class="ident">EventType</span>;
+<span class="kw">use</span> <span class="ident">bitflags::bitflags</span>;
+<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::gateway::event::EventType</span>;
 
 <span class="macro">bitflags!</span> {
     <span class="doccomment">/// Bitflags representing all of the possible types of events.</span>
@@ -355,57 +355,57 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EventType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EventTypeFlags</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">event_type</span>: <span class="ident">EventType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">event_type</span> {
-            <span class="ident">EventType</span>::<span class="ident">BanAdd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">BAN_ADD</span>,
-            <span class="ident">EventType</span>::<span class="ident">BanRemove</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">BAN_REMOVE</span>,
-            <span class="ident">EventType</span>::<span class="ident">ChannelCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">CHANNEL_CREATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">ChannelDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">CHANNEL_DELETE</span>,
-            <span class="ident">EventType</span>::<span class="ident">ChannelPinsUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">CHANNEL_PINS_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">ChannelUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">CHANNEL_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">GatewayHeartbeat</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_HEARTBEAT</span>,
-            <span class="ident">EventType</span>::<span class="ident">GatewayHeartbeatAck</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_HEARTBEAT_ACK</span>,
-            <span class="ident">EventType</span>::<span class="ident">GatewayHello</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_HELLO</span>,
-            <span class="ident">EventType</span>::<span class="ident">GatewayInvalidateSession</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_INVALIDATE_SESSION</span>,
-            <span class="ident">EventType</span>::<span class="ident">GatewayReconnect</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_RECONNECT</span>,
-            <span class="ident">EventType</span>::<span class="ident">GiftCodeUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GIFT_CODE_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">GuildCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GUILD_CREATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">GuildDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GUILD_DELETE</span>,
-            <span class="ident">EventType</span>::<span class="ident">GuildEmojisUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GUILD_EMOJIS_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">GuildIntegrationsUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GUILD_INTEGRATIONS_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">GuildUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">GUILD_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">InviteCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">INVITE_CREATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">InviteDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">INVITE_DELETE</span>,
-            <span class="ident">EventType</span>::<span class="ident">MemberAdd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MEMBER_ADD</span>,
-            <span class="ident">EventType</span>::<span class="ident">MemberRemove</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MEMBER_REMOVE</span>,
-            <span class="ident">EventType</span>::<span class="ident">MemberUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MEMBER_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">MemberChunk</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MEMBER_CHUNK</span>,
-            <span class="ident">EventType</span>::<span class="ident">MessageCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_CREATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">MessageDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_DELETE</span>,
-            <span class="ident">EventType</span>::<span class="ident">MessageDeleteBulk</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_DELETE_BULK</span>,
-            <span class="ident">EventType</span>::<span class="ident">MessageUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">MESSAGE_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">PresenceUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">PRESENCE_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">PresencesReplace</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">PRESENCES_REPLACE</span>,
-            <span class="ident">EventType</span>::<span class="ident">ReactionAdd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">REACTION_ADD</span>,
-            <span class="ident">EventType</span>::<span class="ident">ReactionRemove</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">REACTION_REMOVE</span>,
-            <span class="ident">EventType</span>::<span class="ident">ReactionRemoveAll</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">REACTION_REMOVE_ALL</span>,
-            <span class="ident">EventType</span>::<span class="ident">ReactionRemoveEmoji</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">REACTION_REMOVE_EMOJI</span>,
-            <span class="ident">EventType</span>::<span class="ident">Ready</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">READY</span>,
-            <span class="ident">EventType</span>::<span class="ident">Resumed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">RESUMED</span>,
-            <span class="ident">EventType</span>::<span class="ident">RoleCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">ROLE_CREATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">RoleDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">ROLE_DELETE</span>,
-            <span class="ident">EventType</span>::<span class="ident">RoleUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">ROLE_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">ShardConnected</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_CONNECTED</span>,
-            <span class="ident">EventType</span>::<span class="ident">ShardConnecting</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_CONNECTING</span>,
-            <span class="ident">EventType</span>::<span class="ident">ShardDisconnected</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_DISCONNECTED</span>,
-            <span class="ident">EventType</span>::<span class="ident">ShardIdentifying</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_IDENTIFYING</span>,
-            <span class="ident">EventType</span>::<span class="ident">ShardReconnecting</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_RECONNECTING</span>,
-            <span class="ident">EventType</span>::<span class="ident">ShardPayload</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_PAYLOAD</span>,
-            <span class="ident">EventType</span>::<span class="ident">ShardResuming</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">SHARD_RESUMING</span>,
-            <span class="ident">EventType</span>::<span class="ident">TypingStart</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">TYPING_START</span>,
-            <span class="ident">EventType</span>::<span class="ident">UnavailableGuild</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">UNAVAILABLE_GUILD</span>,
-            <span class="ident">EventType</span>::<span class="ident">UserUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">USER_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">VoiceServerUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">VOICE_SERVER_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">VoiceStateUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">VOICE_STATE_UPDATE</span>,
-            <span class="ident">EventType</span>::<span class="ident">WebhooksUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags</span>::<span class="ident">WEBHOOKS_UPDATE</span>,
+            <span class="ident">EventType::BanAdd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::BAN_ADD</span>,
+            <span class="ident">EventType::BanRemove</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::BAN_REMOVE</span>,
+            <span class="ident">EventType::ChannelCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::CHANNEL_CREATE</span>,
+            <span class="ident">EventType::ChannelDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::CHANNEL_DELETE</span>,
+            <span class="ident">EventType::ChannelPinsUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::CHANNEL_PINS_UPDATE</span>,
+            <span class="ident">EventType::ChannelUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::CHANNEL_UPDATE</span>,
+            <span class="ident">EventType::GatewayHeartbeat</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GATEWAY_HEARTBEAT</span>,
+            <span class="ident">EventType::GatewayHeartbeatAck</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GATEWAY_HEARTBEAT_ACK</span>,
+            <span class="ident">EventType::GatewayHello</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GATEWAY_HELLO</span>,
+            <span class="ident">EventType::GatewayInvalidateSession</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GATEWAY_INVALIDATE_SESSION</span>,
+            <span class="ident">EventType::GatewayReconnect</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GATEWAY_RECONNECT</span>,
+            <span class="ident">EventType::GiftCodeUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GIFT_CODE_UPDATE</span>,
+            <span class="ident">EventType::GuildCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GUILD_CREATE</span>,
+            <span class="ident">EventType::GuildDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GUILD_DELETE</span>,
+            <span class="ident">EventType::GuildEmojisUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GUILD_EMOJIS_UPDATE</span>,
+            <span class="ident">EventType::GuildIntegrationsUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GUILD_INTEGRATIONS_UPDATE</span>,
+            <span class="ident">EventType::GuildUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::GUILD_UPDATE</span>,
+            <span class="ident">EventType::InviteCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::INVITE_CREATE</span>,
+            <span class="ident">EventType::InviteDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::INVITE_DELETE</span>,
+            <span class="ident">EventType::MemberAdd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::MEMBER_ADD</span>,
+            <span class="ident">EventType::MemberRemove</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::MEMBER_REMOVE</span>,
+            <span class="ident">EventType::MemberUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::MEMBER_UPDATE</span>,
+            <span class="ident">EventType::MemberChunk</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::MEMBER_CHUNK</span>,
+            <span class="ident">EventType::MessageCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::MESSAGE_CREATE</span>,
+            <span class="ident">EventType::MessageDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::MESSAGE_DELETE</span>,
+            <span class="ident">EventType::MessageDeleteBulk</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::MESSAGE_DELETE_BULK</span>,
+            <span class="ident">EventType::MessageUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::MESSAGE_UPDATE</span>,
+            <span class="ident">EventType::PresenceUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::PRESENCE_UPDATE</span>,
+            <span class="ident">EventType::PresencesReplace</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::PRESENCES_REPLACE</span>,
+            <span class="ident">EventType::ReactionAdd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::REACTION_ADD</span>,
+            <span class="ident">EventType::ReactionRemove</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::REACTION_REMOVE</span>,
+            <span class="ident">EventType::ReactionRemoveAll</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::REACTION_REMOVE_ALL</span>,
+            <span class="ident">EventType::ReactionRemoveEmoji</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::REACTION_REMOVE_EMOJI</span>,
+            <span class="ident">EventType::Ready</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::READY</span>,
+            <span class="ident">EventType::Resumed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::RESUMED</span>,
+            <span class="ident">EventType::RoleCreate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::ROLE_CREATE</span>,
+            <span class="ident">EventType::RoleDelete</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::ROLE_DELETE</span>,
+            <span class="ident">EventType::RoleUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::ROLE_UPDATE</span>,
+            <span class="ident">EventType::ShardConnected</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::SHARD_CONNECTED</span>,
+            <span class="ident">EventType::ShardConnecting</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::SHARD_CONNECTING</span>,
+            <span class="ident">EventType::ShardDisconnected</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::SHARD_DISCONNECTED</span>,
+            <span class="ident">EventType::ShardIdentifying</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::SHARD_IDENTIFYING</span>,
+            <span class="ident">EventType::ShardReconnecting</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::SHARD_RECONNECTING</span>,
+            <span class="ident">EventType::ShardPayload</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::SHARD_PAYLOAD</span>,
+            <span class="ident">EventType::ShardResuming</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::SHARD_RESUMING</span>,
+            <span class="ident">EventType::TypingStart</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::TYPING_START</span>,
+            <span class="ident">EventType::UnavailableGuild</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::UNAVAILABLE_GUILD</span>,
+            <span class="ident">EventType::UserUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::USER_UPDATE</span>,
+            <span class="ident">EventType::VoiceServerUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::VOICE_SERVER_UPDATE</span>,
+            <span class="ident">EventType::VoiceStateUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::VOICE_STATE_UPDATE</span>,
+            <span class="ident">EventType::WebhooksUpdate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventTypeFlags::WEBHOOKS_UPDATE</span>,
         }
     }
 }
@@ -413,17 +413,17 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span>(<span class="ident">u8</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EventTypeFlags</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> (<span class="ident">u8</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>);
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>((<span class="ident">op</span>, <span class="ident">event_type</span>): (<span class="ident">u8</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>((<span class="ident">op</span>, <span class="ident">event_type</span>): (<span class="ident">u8</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> (<span class="ident">op</span>, <span class="ident">event_type</span>) {
-            (<span class="number">1</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_HEARTBEAT</span>),
-            (<span class="number">7</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_RECONNECT</span>),
-            (<span class="number">9</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_INVALIDATE_SESSION</span>),
-            (<span class="number">10</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_HELLO</span>),
-            (<span class="number">11</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags</span>::<span class="ident">GATEWAY_HEARTBEAT_ACK</span>),
+            (<span class="number">1</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags::GATEWAY_HEARTBEAT</span>),
+            (<span class="number">7</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags::GATEWAY_RECONNECT</span>),
+            (<span class="number">9</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags::GATEWAY_INVALIDATE_SESSION</span>),
+            (<span class="number">10</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags::GATEWAY_HELLO</span>),
+            (<span class="number">11</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">EventTypeFlags::GATEWAY_HEARTBEAT_ACK</span>),
             (<span class="kw">_</span>, <span class="prelude-val">Some</span>(<span class="ident">event_type</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">flag</span> <span class="op">=</span> <span class="ident">EventType</span>::<span class="ident">try_from</span>(<span class="ident">event_type</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">kind</span><span class="op">|</span> (<span class="ident">op</span>, <span class="prelude-val">Some</span>(<span class="ident">kind</span>)))<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">flag</span> <span class="op">=</span> <span class="ident">EventType::try_from</span>(<span class="ident">event_type</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">kind</span><span class="op">|</span> (<span class="ident">op</span>, <span class="prelude-val">Some</span>(<span class="ident">kind</span>)))<span class="question-mark">?</span>;
 
-                <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="ident">from</span>(<span class="ident">flag</span>))
+                <span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::from</span>(<span class="ident">flag</span>))
             }
             (<span class="kw">_</span>, <span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>((<span class="ident">op</span>, <span class="ident">event_type</span>)),
         }
@@ -432,8 +432,8 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">EventTypeFlags</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">flags</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">all</span>();
-        <span class="ident">flags</span>.<span class="ident">remove</span>(<span class="self">Self</span>::<span class="ident">SHARD_PAYLOAD</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">flags</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::all</span>();
+        <span class="ident">flags</span>.<span class="ident">remove</span>(<span class="self">Self</span><span class="ident">::SHARD_PAYLOAD</span>);
 
         <span class="ident">flags</span>
     }
@@ -442,8 +442,8 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EventType</span>, <span class="ident">EventTypeFlags</span>};
-    <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryFrom</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>, <span class="ident">hash</span>::<span class="ident">Hash</span>};
+    <span class="kw">use</span> <span class="ident">static_assertions::assert_impl_all</span>;
+    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">fmt::Debug</span>, <span class="ident">hash::Hash</span>};
 
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">EventTypeFlags</span>: <span class="ident">Copy</span>,

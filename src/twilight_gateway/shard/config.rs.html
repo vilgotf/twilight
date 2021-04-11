@@ -79,10 +79,10 @@
 <span id="76">76</span>
 <span id="77">77</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Arc</span>;
-<span class="kw">use</span> <span class="ident">twilight_gateway_queue</span>::<span class="ident">Queue</span>;
-<span class="kw">use</span> <span class="ident">twilight_http</span>::<span class="ident">Client</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">gateway</span>::{<span class="ident">payload</span>::<span class="ident">update_status</span>::<span class="ident">UpdateStatusInfo</span>, <span class="ident">Intents</span>};
+<span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
+<span class="kw">use</span> <span class="ident">twilight_gateway_queue::Queue</span>;
+<span class="kw">use</span> <span class="ident">twilight_http::Client</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::gateway</span>::{<span class="ident">payload::update_status::UpdateStatusInfo</span>, <span class="ident">Intents</span>};
 
 <span class="doccomment">/// The configuration used by the shard to identify with the gateway and</span>
 <span class="doccomment">/// operate.</span>
@@ -150,9 +150,9 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Config</span>;
-    <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
+    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::Config</span>;
+    <span class="kw">use</span> <span class="ident">static_assertions::assert_impl_all</span>;
+    <span class="kw">use</span> <span class="ident">std::fmt::Debug</span>;
 
     <span class="macro">assert_impl_all!</span>(<span class="ident">Config</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
 }

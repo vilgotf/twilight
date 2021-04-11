@@ -70,8 +70,8 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">SessionStartLimit</span>;
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::SessionStartLimit</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_connection_info</span>() {
@@ -82,22 +82,22 @@
             <span class="ident">total</span>: <span class="number">1_000</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;SessionStartLimit&quot;</span>,
                     <span class="ident">len</span>: <span class="number">4</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;max_concurrency&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">16</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;remaining&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">998</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;reset_after&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">84_686_789</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;total&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1_000</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;max_concurrency&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">16</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;remaining&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">998</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;reset_after&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">84_686_789</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;total&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">1_000</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }

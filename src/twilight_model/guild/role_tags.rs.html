@@ -133,7 +133,7 @@
 <span id="130">130</span>
 <span id="131">131</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::{<span class="ident">IntegrationId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::id</span>::{<span class="ident">IntegrationId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="doccomment">/// The role tags&#39; `premium_subscriber` field is tricky. It&#39;s an optional null.</span>
@@ -144,9 +144,9 @@
 <span class="kw">mod</span> <span class="ident">premium_subscriber</span> {
     <span class="kw">use</span> <span class="ident">serde</span>::{
         <span class="ident">de</span>::{<span class="ident">Deserializer</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">DeError</span>, <span class="ident">Visitor</span>},
-        <span class="ident">ser</span>::<span class="ident">Serializer</span>,
+        <span class="ident">ser::Serializer</span>,
     };
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
+    <span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
 
     <span class="kw">struct</span> <span class="ident">PremiumSubscriberVisitor</span>;
 
@@ -157,32 +157,32 @@
             <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;null&quot;</span>)
         }
 
-        <span class="kw">fn</span> <span class="ident">visit_none</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">visit_none</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
             <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
         }
 
         <span class="comment">// `visit_none` is used by `serde_json` when a present `null` value is</span>
         <span class="comment">// encountered, but other implementations - such as `simd_json` - may</span>
         <span class="comment">// use `visit_unit` instead.</span>
-        <span class="kw">fn</span> <span class="ident">visit_unit</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">visit_unit</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">DeError</span><span class="op">&gt;</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Value</span>, <span class="ident">E</span><span class="op">&gt;</span> {
             <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
         }
     }
 
     <span class="comment">// Clippy will say this bool can be taken by value, but we need it to be</span>
     <span class="comment">// passed by reference because that&#39;s what serde does.</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">trivially_copy_pass_by_ref</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Serializer</span><span class="op">&gt;</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">bool</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::trivially_copy_pass_by_ref</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Serializer</span><span class="op">&gt;</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">bool</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S::Ok</span>, <span class="ident">S::Error</span><span class="op">&gt;</span> {
         <span class="ident">serializer</span>.<span class="ident">serialize_none</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, <span class="ident">D::Error</span><span class="op">&gt;</span> {
         <span class="ident">deserializer</span>.<span class="ident">deserialize_option</span>(<span class="ident">PremiumSubscriberVisitor</span>)
     }
 }
 
 <span class="comment">// Clippy situation is the same as above.</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">trivially_copy_pass_by_ref</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::trivially_copy_pass_by_ref</span>)]</span>
 <span class="kw">fn</span> <span class="ident">is_false</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="op">!</span><span class="ident">value</span>
 }
@@ -205,9 +205,9 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">RoleTags</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::{<span class="ident">IntegrationId</span>, <span class="ident">UserId</span>};
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::RoleTags</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::id</span>::{<span class="ident">IntegrationId</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_role_tags_all</span>() {
@@ -217,26 +217,26 @@
             <span class="ident">premium_subscriber</span>: <span class="bool-val">true</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">tags</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;RoleTags&quot;</span>,
                     <span class="ident">len</span>: <span class="number">3</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;bot_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;integration_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> {
+                <span class="ident">Token::Str</span>(<span class="string">&quot;bot_id&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;1&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;integration_id&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::NewtypeStruct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;IntegrationId&quot;</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;premium_subscriber&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;2&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;premium_subscriber&quot;</span>),
+                <span class="ident">Token::None</span>,
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }
@@ -252,14 +252,14 @@
             <span class="ident">premium_subscriber</span>: <span class="bool-val">false</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">tags</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;RoleTags&quot;</span>,
                     <span class="ident">len</span>: <span class="number">0</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }

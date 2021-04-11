@@ -156,9 +156,9 @@
 <span id="153">153</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">channel</span>::<span class="ident">WebhookType</span>,
+    <span class="ident">channel::WebhookType</span>,
     <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">WebhookId</span>},
-    <span class="ident">user</span>::<span class="ident">User</span>,
+    <span class="ident">user::User</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -181,8 +181,8 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">User</span>, <span class="ident">Webhook</span>, <span class="ident">WebhookId</span>, <span class="ident">WebhookType</span>};
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::<span class="ident">UserId</span>;
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::id::UserId</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_webhook</span>() {
@@ -191,41 +191,41 @@
             <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
             <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">2</span>)),
             <span class="ident">id</span>: <span class="ident">WebhookId</span>(<span class="number">3</span>),
-            <span class="ident">kind</span>: <span class="ident">WebhookType</span>::<span class="ident">Incoming</span>,
+            <span class="ident">kind</span>: <span class="ident">WebhookType::Incoming</span>,
             <span class="ident">name</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a webhook&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">token</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a token&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">user</span>: <span class="prelude-val">None</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Webhook&quot;</span>,
                     <span class="ident">len</span>: <span class="number">7</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;channel_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;ChannelId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;guild_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;GuildId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;WebhookId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;3&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;type&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">1</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;a webhook&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;token&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;a token&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;avatar&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;avatar&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;channel_id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;ChannelId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;1&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;guild_id&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;GuildId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;2&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;WebhookId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;3&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;type&quot;</span>),
+                <span class="ident">Token::U8</span>(<span class="number">1</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;name&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;a webhook&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;token&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;a token&quot;</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }
@@ -237,7 +237,7 @@
             <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
             <span class="ident">guild_id</span>: <span class="prelude-val">Some</span>(<span class="ident">GuildId</span>(<span class="number">2</span>)),
             <span class="ident">id</span>: <span class="ident">WebhookId</span>(<span class="number">3</span>),
-            <span class="ident">kind</span>: <span class="ident">WebhookType</span>::<span class="ident">Incoming</span>,
+            <span class="ident">kind</span>: <span class="ident">WebhookType::Incoming</span>,
             <span class="ident">name</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a webhook&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">token</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a token&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">user</span>: <span class="prelude-val">Some</span>(<span class="ident">User</span> {
@@ -257,53 +257,53 @@
             }),
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Webhook&quot;</span>,
                     <span class="ident">len</span>: <span class="number">8</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;channel_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;ChannelId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;guild_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;GuildId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;WebhookId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;3&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;type&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">1</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;a webhook&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;token&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;a token&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Str</span>(<span class="string">&quot;avatar&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;avatar&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;channel_id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;ChannelId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;1&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;guild_id&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;GuildId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;2&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;WebhookId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;3&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;type&quot;</span>),
+                <span class="ident">Token::U8</span>(<span class="number">1</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;name&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;a webhook&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;token&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;a token&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;user&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;User&quot;</span>,
                     <span class="ident">len</span>: <span class="number">5</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;bot&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;discriminator&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;0001&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;username&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;test&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;avatar&quot;</span>),
+                <span class="ident">Token::None</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;bot&quot;</span>),
+                <span class="ident">Token::Bool</span>(<span class="bool-val">false</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;discriminator&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;0001&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;2&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;username&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;test&quot;</span>),
+                <span class="ident">Token::StructEnd</span>,
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }

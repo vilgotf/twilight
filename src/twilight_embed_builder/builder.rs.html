@@ -752,13 +752,13 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Create embeds.</span>
 
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">image_source</span>::<span class="ident">ImageSource</span>;
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::image_source::ImageSource</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">convert</span>::<span class="ident">TryFrom</span>,
-    <span class="ident">error</span>::<span class="ident">Error</span>,
+    <span class="ident">convert::TryFrom</span>,
+    <span class="ident">error::Error</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::{
+<span class="kw">use</span> <span class="ident">twilight_model::channel::embed</span>::{
     <span class="ident">Embed</span>, <span class="ident">EmbedAuthor</span>, <span class="ident">EmbedField</span>, <span class="ident">EmbedFooter</span>, <span class="ident">EmbedImage</span>, <span class="ident">EmbedThumbnail</span>,
 };
 
@@ -789,8 +789,8 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedBuildError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">ContentTooLarge</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the content of the embed is too large&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">TooManyFields</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;more than 25 fields were provided&quot;</span>),
+            <span class="self">Self</span><span class="ident">::ContentTooLarge</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the content of the embed is too large&quot;</span>),
+            <span class="self">Self</span><span class="ident">::TooManyFields</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;more than 25 fields were provided&quot;</span>),
         }
     }
 }
@@ -816,8 +816,8 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedColorError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">NotRgb</span> { <span class="ident">color</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the color {} is invalid&quot;</span>, <span class="ident">color</span>)),
-            <span class="self">Self</span>::<span class="ident">Zero</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the given color value is 0, which is not acceptable&quot;</span>),
+            <span class="self">Self</span><span class="ident">::NotRgb</span> { <span class="ident">color</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the color {} is invalid&quot;</span>, <span class="ident">color</span>)),
+            <span class="self">Self</span><span class="ident">::Zero</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the given color value is 0, which is not acceptable&quot;</span>),
         }
     }
 }
@@ -846,8 +846,8 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedDescriptionError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Empty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the description is empty&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">TooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the description is too long&quot;</span>),
+            <span class="self">Self</span><span class="ident">::Empty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the description is empty&quot;</span>),
+            <span class="self">Self</span><span class="ident">::TooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the description is too long&quot;</span>),
         }
     }
 }
@@ -875,8 +875,8 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedTitleError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Empty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the title is empty&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">TooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the title is too long&quot;</span>),
+            <span class="self">Self</span><span class="ident">::Empty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the title is empty&quot;</span>),
+            <span class="self">Self</span><span class="ident">::TooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the title is too long&quot;</span>),
         }
     }
 }
@@ -890,7 +890,7 @@
 <span class="doccomment">/// Refer to the [crate-level documentation] for examples.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [crate-level documentation]: crate</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">module_name_repetitions</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::module_name_repetitions</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;must be built into an embed&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EmbedBuilder</span>(<span class="ident">Embed</span>);
@@ -944,7 +944,7 @@
     <span class="doccomment">/// [crate-level documentation]: crate</span>
     <span class="doccomment">/// [default implementation]: Self::default</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">default</span>()
+        <span class="self">Self</span><span class="ident">::default</span>()
     }
 
     <span class="doccomment">/// Build this into an embed.</span>
@@ -962,8 +962,8 @@
     <span class="doccomment">/// [`EMBED_LENGTH_LIMIT`]: Self::EMBED_LENGTH_LIMIT</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;should be used as part of something like a message&quot;</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Embed</span>, <span class="ident">EmbedBuildError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">fields</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">EMBED_FIELD_LIMIT</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedBuildError</span>::<span class="ident">TooManyFields</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">fields</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::EMBED_FIELD_LIMIT</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedBuildError::TooManyFields</span> {
                 <span class="ident">fields</span>: <span class="self">self</span>.<span class="number">0</span>.<span class="ident">fields</span>,
             });
         }
@@ -995,8 +995,8 @@
             <span class="ident">total</span> <span class="op">+</span><span class="op">=</span> <span class="ident">title</span>.<span class="ident">chars</span>().<span class="ident">count</span>();
         }
 
-        <span class="kw">if</span> <span class="ident">total</span> <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">EMBED_LENGTH_LIMIT</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedBuildError</span>::<span class="ident">ContentTooLarge</span> { <span class="ident">length</span>: <span class="ident">total</span> });
+        <span class="kw">if</span> <span class="ident">total</span> <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::EMBED_LENGTH_LIMIT</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedBuildError::ContentTooLarge</span> { <span class="ident">length</span>: <span class="ident">total</span> });
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="number">0</span>)
@@ -1062,11 +1062,11 @@
     <span class="doccomment">/// [`COLOR_MAXIMUM`]: Self::COLOR_MAXIMUM</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">color</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">color</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedColorError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">color</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedColorError</span>::<span class="ident">Zero</span>);
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedColorError::Zero</span>);
         }
 
-        <span class="kw">if</span> <span class="ident">color</span> <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">COLOR_MAXIMUM</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedColorError</span>::<span class="ident">NotRgb</span> { <span class="ident">color</span> });
+        <span class="kw">if</span> <span class="ident">color</span> <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::COLOR_MAXIMUM</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedColorError::NotRgb</span> { <span class="ident">color</span> });
         }
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">color</span>.<span class="ident">replace</span>(<span class="ident">color</span>);
@@ -1104,11 +1104,11 @@
 
     <span class="kw">fn</span> <span class="ident">_description</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">description</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedDescriptionError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">description</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedDescriptionError</span>::<span class="ident">Empty</span> { <span class="ident">description</span> });
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedDescriptionError::Empty</span> { <span class="ident">description</span> });
         }
 
-        <span class="kw">if</span> <span class="ident">description</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">DESCRIPTION_LENGTH_LIMIT</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedDescriptionError</span>::<span class="ident">TooLong</span> { <span class="ident">description</span> });
+        <span class="kw">if</span> <span class="ident">description</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::DESCRIPTION_LENGTH_LIMIT</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedDescriptionError::TooLong</span> { <span class="ident">description</span> });
         }
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">description</span>.<span class="ident">replace</span>(<span class="ident">description</span>);
@@ -1265,11 +1265,11 @@
 
     <span class="kw">fn</span> <span class="ident">_title</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">title</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedTitleError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">title</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedTitleError</span>::<span class="ident">Empty</span> { <span class="ident">title</span> });
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedTitleError::Empty</span> { <span class="ident">title</span> });
         }
 
-        <span class="kw">if</span> <span class="ident">title</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">TITLE_LENGTH_LIMIT</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedTitleError</span>::<span class="ident">TooLong</span> { <span class="ident">title</span> });
+        <span class="kw">if</span> <span class="ident">title</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::TITLE_LENGTH_LIMIT</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedTitleError::TooLong</span> { <span class="ident">title</span> });
         }
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">title</span>.<span class="ident">replace</span>(<span class="ident">title</span>);
@@ -1315,10 +1315,10 @@
             <span class="ident">author</span>: <span class="prelude-val">None</span>,
             <span class="ident">color</span>: <span class="prelude-val">None</span>,
             <span class="ident">description</span>: <span class="prelude-val">None</span>,
-            <span class="ident">fields</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+            <span class="ident">fields</span>: <span class="ident">Vec::new</span>(),
             <span class="ident">footer</span>: <span class="prelude-val">None</span>,
             <span class="ident">image</span>: <span class="prelude-val">None</span>,
-            <span class="ident">kind</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;rich&quot;</span>),
+            <span class="ident">kind</span>: <span class="ident">String::from</span>(<span class="string">&quot;rich&quot;</span>),
             <span class="ident">provider</span>: <span class="prelude-val">None</span>,
             <span class="ident">thumbnail</span>: <span class="prelude-val">None</span>,
             <span class="ident">timestamp</span>: <span class="prelude-val">None</span>,
@@ -1335,7 +1335,7 @@
     <span class="doccomment">/// Convert an embed builder into an embed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to calling [`EmbedBuilder::build`].</span>
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">builder</span>: <span class="ident">EmbedBuilder</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">builder</span>: <span class="ident">EmbedBuilder</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="ident">builder</span>.<span class="ident">build</span>()
     }
 }
@@ -1345,10 +1345,10 @@
     <span class="kw">use</span> <span class="kw">super</span>::{
         <span class="ident">EmbedBuildError</span>, <span class="ident">EmbedBuilder</span>, <span class="ident">EmbedColorError</span>, <span class="ident">EmbedDescriptionError</span>, <span class="ident">EmbedTitleError</span>,
     };
-    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">field</span>::<span class="ident">EmbedFieldBuilder</span>, <span class="ident">footer</span>::<span class="ident">EmbedFooterBuilder</span>, <span class="ident">image_source</span>::<span class="ident">ImageSource</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">field::EmbedFieldBuilder</span>, <span class="ident">footer::EmbedFooterBuilder</span>, <span class="ident">image_source::ImageSource</span>};
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>, <span class="ident">const_assert</span>};
-    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryFrom</span>, <span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
-    <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::{<span class="ident">Embed</span>, <span class="ident">EmbedField</span>, <span class="ident">EmbedFooter</span>};
+    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">error::Error</span>, <span class="ident">fmt::Debug</span>};
+    <span class="kw">use</span> <span class="ident">twilight_model::channel::embed</span>::{<span class="ident">Embed</span>, <span class="ident">EmbedField</span>, <span class="ident">EmbedFooter</span>};
 
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedBuildError</span>: <span class="ident">Clone</span>,
@@ -1359,8 +1359,8 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedBuildError</span>::<span class="ident">ContentTooLarge</span>: <span class="ident">length</span>);
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedBuildError</span>::<span class="ident">TooManyFields</span>: <span class="ident">fields</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedBuildError::ContentTooLarge</span>: <span class="ident">length</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedBuildError::TooManyFields</span>: <span class="ident">fields</span>);
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedColorError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
@@ -1370,7 +1370,7 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedColorError</span>::<span class="ident">NotRgb</span>: <span class="ident">color</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedColorError::NotRgb</span>: <span class="ident">color</span>);
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedDescriptionError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
@@ -1380,8 +1380,8 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedDescriptionError</span>::<span class="ident">Empty</span>: <span class="ident">description</span>);
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedDescriptionError</span>::<span class="ident">TooLong</span>: <span class="ident">description</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedDescriptionError::Empty</span>: <span class="ident">description</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedDescriptionError::TooLong</span>: <span class="ident">description</span>);
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedTitleError</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
@@ -1391,8 +1391,8 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedTitleError</span>::<span class="ident">Empty</span>: <span class="ident">title</span>);
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedTitleError</span>::<span class="ident">TooLong</span>: <span class="ident">title</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedTitleError::Empty</span>: <span class="ident">title</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedTitleError::TooLong</span>: <span class="ident">title</span>);
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedBuilder</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
@@ -1402,37 +1402,37 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">COLOR_MAXIMUM</span> <span class="op">=</span><span class="op">=</span> <span class="number">0xff_ff_ff</span>);
-    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">DESCRIPTION_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">2048</span>);
-    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">EMBED_FIELD_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">25</span>);
-    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">EMBED_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">6000</span>);
-    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder</span>::<span class="ident">TITLE_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder::COLOR_MAXIMUM</span> <span class="op">=</span><span class="op">=</span> <span class="number">0xff_ff_ff</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder::DESCRIPTION_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">2048</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder::EMBED_FIELD_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">25</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder::EMBED_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">6000</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedBuilder::TITLE_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
     <span class="macro">assert_impl_all!</span>(<span class="ident">Embed</span>: <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">EmbedBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_color_error</span>() {
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">color</span>(<span class="number">0</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">EmbedColorError</span>::<span class="ident">Zero</span>
+            <span class="ident">EmbedBuilder::new</span>().<span class="ident">color</span>(<span class="number">0</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">EmbedColorError::Zero</span>
         ));
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">color</span>(<span class="ident">u32</span>::<span class="ident">MAX</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">EmbedColorError</span>::<span class="ident">NotRgb</span> { <span class="ident">color</span> }
-            <span class="kw">if</span> <span class="ident">color</span> <span class="op">=</span><span class="op">=</span> <span class="ident">u32</span>::<span class="ident">MAX</span>
+            <span class="ident">EmbedBuilder::new</span>().<span class="ident">color</span>(<span class="ident">u32::MAX</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">EmbedColorError::NotRgb</span> { <span class="ident">color</span> }
+            <span class="kw">if</span> <span class="ident">color</span> <span class="op">=</span><span class="op">=</span> <span class="ident">u32::MAX</span>
         ));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_description_error</span>() {
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">description</span>(<span class="string">&quot;&quot;</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">EmbedDescriptionError</span>::<span class="ident">Empty</span> { <span class="ident">description</span> }
+            <span class="ident">EmbedBuilder::new</span>().<span class="ident">description</span>(<span class="string">&quot;&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">EmbedDescriptionError::Empty</span> { <span class="ident">description</span> }
             <span class="kw">if</span> <span class="ident">description</span>.<span class="ident">is_empty</span>()
         ));
-        <span class="kw">let</span> <span class="ident">description_too_long</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">DESCRIPTION_LENGTH_LIMIT</span> <span class="op">+</span> <span class="number">1</span>;
+        <span class="kw">let</span> <span class="ident">description_too_long</span> <span class="op">=</span> <span class="ident">EmbedBuilder::DESCRIPTION_LENGTH_LIMIT</span> <span class="op">+</span> <span class="number">1</span>;
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">description</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="ident">description_too_long</span>)).<span class="ident">unwrap_err</span>(),
-            <span class="ident">EmbedDescriptionError</span>::<span class="ident">TooLong</span> { <span class="ident">description</span> }
+            <span class="ident">EmbedBuilder::new</span>().<span class="ident">description</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="ident">description_too_long</span>)).<span class="ident">unwrap_err</span>(),
+            <span class="ident">EmbedDescriptionError::TooLong</span> { <span class="ident">description</span> }
             <span class="kw">if</span> <span class="ident">description</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">description_too_long</span>
         ));
     }
@@ -1440,29 +1440,29 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_title_error</span>() {
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">title</span>(<span class="string">&quot;&quot;</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">EmbedTitleError</span>::<span class="ident">Empty</span> { <span class="ident">title</span> }
+            <span class="ident">EmbedBuilder::new</span>().<span class="ident">title</span>(<span class="string">&quot;&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">EmbedTitleError::Empty</span> { <span class="ident">title</span> }
             <span class="kw">if</span> <span class="ident">title</span>.<span class="ident">is_empty</span>()
         ));
-        <span class="kw">let</span> <span class="ident">title_too_long</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">TITLE_LENGTH_LIMIT</span> <span class="op">+</span> <span class="number">1</span>;
+        <span class="kw">let</span> <span class="ident">title_too_long</span> <span class="op">=</span> <span class="ident">EmbedBuilder::TITLE_LENGTH_LIMIT</span> <span class="op">+</span> <span class="number">1</span>;
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">title</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="ident">title_too_long</span>)).<span class="ident">unwrap_err</span>(),
-            <span class="ident">EmbedTitleError</span>::<span class="ident">TooLong</span> { <span class="ident">title</span> }
+            <span class="ident">EmbedBuilder::new</span>().<span class="ident">title</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="ident">title_too_long</span>)).<span class="ident">unwrap_err</span>(),
+            <span class="ident">EmbedTitleError::TooLong</span> { <span class="ident">title</span> }
             <span class="kw">if</span> <span class="ident">title</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">title_too_long</span>
         ));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_builder</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">footer_image</span> <span class="op">=</span> <span class="ident">ImageSource</span>::<span class="ident">url</span>(
+        <span class="kw">let</span> <span class="ident">footer_image</span> <span class="op">=</span> <span class="ident">ImageSource::url</span>(
             <span class="string">&quot;https://raw.githubusercontent.com/twilight-rs/twilight/trunk/logo.png&quot;</span>,
         )<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>()
+        <span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
             .<span class="ident">color</span>(<span class="number">0x00_43_ff</span>)<span class="question-mark">?</span>
             .<span class="ident">description</span>(<span class="string">&quot;Description&quot;</span>)<span class="question-mark">?</span>
             .<span class="ident">timestamp</span>(<span class="string">&quot;123&quot;</span>)
-            .<span class="ident">footer</span>(<span class="ident">EmbedFooterBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;Warn&quot;</span>)<span class="question-mark">?</span>.<span class="ident">icon_url</span>(<span class="ident">footer_image</span>))
-            .<span class="ident">field</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;title&quot;</span>)<span class="question-mark">?</span>.<span class="ident">inline</span>())
+            .<span class="ident">footer</span>(<span class="ident">EmbedFooterBuilder::new</span>(<span class="string">&quot;Warn&quot;</span>)<span class="question-mark">?</span>.<span class="ident">icon_url</span>(<span class="ident">footer_image</span>))
+            .<span class="ident">field</span>(<span class="ident">EmbedFieldBuilder::new</span>(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;title&quot;</span>)<span class="question-mark">?</span>.<span class="ident">inline</span>())
             .<span class="ident">build</span>()<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">Embed</span> {

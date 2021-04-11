@@ -59,9 +59,9 @@
 <span class="kw">mod</span> <span class="ident">member</span>;
 <span class="kw">mod</span> <span class="ident">membership_state</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{<span class="ident">member</span>::<span class="ident">TeamMember</span>, <span class="ident">membership_state</span>::<span class="ident">TeamMembershipState</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{<span class="ident">member::TeamMember</span>, <span class="ident">membership_state::TeamMembershipState</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">id</span>::<span class="ident">UserId</span>, <span class="ident">oauth</span>::<span class="ident">id</span>::<span class="ident">TeamId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">id::UserId</span>, <span class="ident">oauth::id::TeamId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
@@ -75,37 +75,37 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Team</span>, <span class="ident">TeamId</span>, <span class="ident">UserId</span>};
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_team</span>() {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Team</span> {
             <span class="ident">icon</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;hash&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">id</span>: <span class="ident">TeamId</span>(<span class="number">1</span>),
-            <span class="ident">members</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+            <span class="ident">members</span>: <span class="ident">Vec::new</span>(),
             <span class="ident">owner_user_id</span>: <span class="ident">UserId</span>(<span class="number">2</span>),
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Team&quot;</span>,
                     <span class="ident">len</span>: <span class="number">4</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;icon&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;hash&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;TeamId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;members&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">0</span>) },
-                <span class="ident">Token</span>::<span class="ident">SeqEnd</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;owner_user_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;icon&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;hash&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;TeamId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;1&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;members&quot;</span>),
+                <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">0</span>) },
+                <span class="ident">Token::SeqEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;owner_user_id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;2&quot;</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }

@@ -69,8 +69,8 @@
 <span id="66">66</span>
 <span id="67">67</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">RoleTags</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">guild</span>::<span class="ident">Permissions</span>, <span class="ident">id</span>::<span class="ident">RoleId</span>};
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::RoleTags</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">guild::Permissions</span>, <span class="ident">id::RoleId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
@@ -91,7 +91,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Permissions</span>, <span class="ident">Role</span>, <span class="ident">RoleId</span>};
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_role</span>() {
@@ -102,36 +102,36 @@
             <span class="ident">managed</span>: <span class="bool-val">false</span>,
             <span class="ident">mentionable</span>: <span class="bool-val">true</span>,
             <span class="ident">name</span>: <span class="string">&quot;test&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">permissions</span>: <span class="ident">Permissions</span>::<span class="ident">ADMINISTRATOR</span>,
+            <span class="ident">permissions</span>: <span class="ident">Permissions::ADMINISTRATOR</span>,
             <span class="ident">position</span>: <span class="number">12</span>,
             <span class="ident">tags</span>: <span class="prelude-val">None</span>,
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">role</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Role&quot;</span>,
                     <span class="ident">len</span>: <span class="number">8</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;color&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U32</span>(<span class="number">0</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;hoist&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;RoleId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;123&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;managed&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;mentionable&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;test&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;permissions&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;8&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;position&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">I64</span>(<span class="number">12</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;color&quot;</span>),
+                <span class="ident">Token::U32</span>(<span class="number">0</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;hoist&quot;</span>),
+                <span class="ident">Token::Bool</span>(<span class="bool-val">true</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;RoleId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;123&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;managed&quot;</span>),
+                <span class="ident">Token::Bool</span>(<span class="bool-val">false</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;mentionable&quot;</span>),
+                <span class="ident">Token::Bool</span>(<span class="bool-val">true</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;name&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;test&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;permissions&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;8&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;position&quot;</span>),
+                <span class="ident">Token::I64</span>(<span class="number">12</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }

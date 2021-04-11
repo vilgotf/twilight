@@ -92,12 +92,12 @@
 <span id="89">89</span>
 <span id="90">90</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span>::<span class="ident">ShardStream</span>;
-<span class="kw">use</span> <span class="ident">async_tungstenite</span>::<span class="ident">tungstenite</span>::<span class="ident">Message</span>;
-<span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">mpsc</span>::{<span class="self">self</span>, <span class="ident">UnboundedReceiver</span>, <span class="ident">UnboundedSender</span>};
-<span class="kw">use</span> <span class="ident">futures_timer</span>::<span class="ident">Delay</span>;
-<span class="kw">use</span> <span class="ident">futures_util</span>::{<span class="ident">future</span>::<span class="ident">FutureExt</span>, <span class="ident">sink</span>::<span class="ident">SinkExt</span>, <span class="ident">stream</span>::<span class="ident">StreamExt</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
+<span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span><span class="ident">::ShardStream</span>;
+<span class="kw">use</span> <span class="ident">async_tungstenite::tungstenite::Message</span>;
+<span class="kw">use</span> <span class="ident">futures_channel::mpsc</span>::{<span class="self">self</span>, <span class="ident">UnboundedReceiver</span>, <span class="ident">UnboundedSender</span>};
+<span class="kw">use</span> <span class="ident">futures_timer::Delay</span>;
+<span class="kw">use</span> <span class="ident">futures_util</span>::{<span class="ident">future::FutureExt</span>, <span class="ident">sink::SinkExt</span>, <span class="ident">stream::StreamExt</span>};
+<span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SocketForwarder</span> {
     <span class="ident">rx</span>: <span class="ident">UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span>,
@@ -106,13 +106,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SocketForwarder</span> {
-    <span class="kw">const</span> <span class="ident">TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">90</span>);
+    <span class="kw">const</span> <span class="ident">TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">90</span>);
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">stream</span>: <span class="ident">ShardStream</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> (<span class="self">Self</span>, <span class="ident">UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span>, <span class="ident">UnboundedSender</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span>) {
-        <span class="kw">let</span> (<span class="ident">to_user</span>, <span class="ident">from_forwarder</span>) <span class="op">=</span> <span class="ident">mpsc</span>::<span class="ident">unbounded</span>();
-        <span class="kw">let</span> (<span class="ident">to_forwarder</span>, <span class="ident">from_user</span>) <span class="op">=</span> <span class="ident">mpsc</span>::<span class="ident">unbounded</span>();
+        <span class="kw">let</span> (<span class="ident">to_user</span>, <span class="ident">from_forwarder</span>) <span class="op">=</span> <span class="ident">mpsc::unbounded</span>();
+        <span class="kw">let</span> (<span class="ident">to_forwarder</span>, <span class="ident">from_user</span>) <span class="op">=</span> <span class="ident">mpsc::unbounded</span>();
 
         (
             <span class="self">Self</span> {
@@ -126,27 +126,27 @@
     }
 
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;starting driving loop&quot;</span>);
+        <span class="macro">tracing::debug!</span>(<span class="string">&quot;starting driving loop&quot;</span>);
 
         <span class="comment">// This seems to come from the `if let` in the macro and may be a false</span>
         <span class="comment">// positive.</span>
-        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">mut_mut</span>)]</span>
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::mut_mut</span>)]</span>
         <span class="kw">loop</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rx</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">rx</span>.<span class="ident">next</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stream</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">stream</span>.<span class="ident">next</span>().<span class="ident">fuse</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">timeout</span> <span class="op">=</span> <span class="ident">Delay</span>::<span class="ident">new</span>(<span class="self">Self</span>::<span class="ident">TIMEOUT</span>).<span class="ident">fuse</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">timeout</span> <span class="op">=</span> <span class="ident">Delay::new</span>(<span class="self">Self</span><span class="ident">::TIMEOUT</span>).<span class="ident">fuse</span>();
 
-            <span class="ident">futures_util</span>::<span class="macro">select!</span> {
+            <span class="macro">futures_util::select!</span> {
                 <span class="ident">maybe_msg</span> <span class="op">=</span> <span class="ident">rx</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">msg</span>) <span class="op">=</span> <span class="ident">maybe_msg</span> {
-                        <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;sending message: {}&quot;</span>, <span class="ident">msg</span>);
+                        <span class="macro">tracing::trace!</span>(<span class="string">&quot;sending message: {}&quot;</span>, <span class="ident">msg</span>);
 
                         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">stream</span>.<span class="ident">send</span>(<span class="ident">msg</span>).<span class="kw">await</span> {
-                            <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;sending failed: {}&quot;</span>, <span class="ident">err</span>);
+                            <span class="macro">tracing::warn!</span>(<span class="string">&quot;sending failed: {}&quot;</span>, <span class="ident">err</span>);
                             <span class="kw">break</span>;
                         }
                     } <span class="kw">else</span> {
-                        <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;rx stream ended, closing socket&quot;</span>);
+                        <span class="macro">tracing::debug!</span>(<span class="string">&quot;rx stream ended, closing socket&quot;</span>);
                         <span class="kw">let</span> <span class="ident">_res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">stream</span>.<span class="ident">close</span>(<span class="prelude-val">None</span>).<span class="kw">await</span>;
 
                         <span class="kw">break</span>;
@@ -160,26 +160,26 @@
                             }
                         },
                         <span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(<span class="ident">err</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                            <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;socket errored, closing tx: {}&quot;</span>, <span class="ident">err</span>);
+                            <span class="macro">tracing::warn!</span>(<span class="string">&quot;socket errored, closing tx: {}&quot;</span>, <span class="ident">err</span>);
                             <span class="self">self</span>.<span class="ident">tx</span>.<span class="ident">close_channel</span>();
                             <span class="kw">break</span>;
                         },
                         <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                            <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;socket ended, closing tx&quot;</span>);
+                            <span class="macro">tracing::debug!</span>(<span class="string">&quot;socket ended, closing tx&quot;</span>);
                             <span class="self">self</span>.<span class="ident">tx</span>.<span class="ident">close_channel</span>();
                             <span class="kw">break</span>;
                         }
                     }
                 },
                 <span class="kw">_</span> <span class="op">=</span> <span class="ident">timeout</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="ident">tracing</span>::<span class="macro">warn!</span>(<span class="string">&quot;socket timed out, closing tx&quot;</span>);
+                    <span class="macro">tracing::warn!</span>(<span class="string">&quot;socket timed out, closing tx&quot;</span>);
                     <span class="self">self</span>.<span class="ident">tx</span>.<span class="ident">close_channel</span>();
                     <span class="kw">break</span>;
                 }
             };
         }
 
-        <span class="ident">tracing</span>::<span class="macro">debug!</span>(<span class="string">&quot;Leaving loop&quot;</span>);
+        <span class="macro">tracing::debug!</span>(<span class="string">&quot;Leaving loop&quot;</span>);
     }
 }
 </pre></div>

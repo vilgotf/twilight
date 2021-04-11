@@ -47,7 +47,7 @@
 <span id="44">44</span>
 <span id="45">45</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">WebhookId</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::id</span>::{<span class="ident">ChannelId</span>, <span class="ident">WebhookId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="doccomment">/// An object indicating that following a news channel</span>
@@ -65,7 +65,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ChannelId</span>, <span class="ident">FollowedChannel</span>, <span class="ident">WebhookId</span>};
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_followed_channel</span>() {
@@ -74,20 +74,20 @@
             <span class="ident">webhook_id</span>: <span class="ident">WebhookId</span>(<span class="number">2</span>),
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;FollowedChannel&quot;</span>,
                     <span class="ident">len</span>: <span class="number">2</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;channel_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;ChannelId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;webhook_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;WebhookId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;channel_id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;ChannelId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;1&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;webhook_id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;WebhookId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;2&quot;</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }

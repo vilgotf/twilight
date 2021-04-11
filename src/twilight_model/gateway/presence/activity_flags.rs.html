@@ -49,7 +49,7 @@
 <span id="46">46</span>
 <span id="47">47</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">bitflags</span>::<span class="ident">bitflags</span>;
+<span class="kw">use</span> <span class="ident">bitflags::bitflags</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>},
     <span class="ident">ser</span>::{<span class="ident">Serialize</span>, <span class="ident">Serializer</span>},
@@ -67,13 +67,13 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ActivityFlags</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">u64</span>::<span class="ident">deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>))
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">u64::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Serialize</span> <span class="kw">for</span> <span class="ident">ActivityFlags</span> {
-    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S::Ok</span>, <span class="ident">S::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">S</span>: <span class="ident">Serializer</span>,
     {
@@ -83,17 +83,17 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">ActivityFlags</span>;
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::ActivityFlags</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_variants</span>() {
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">INSTANCE</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">JOIN</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">1</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">SPECTATE</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">2</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">JOIN_REQUEST</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">3</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">SYNC</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">4</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags</span>::<span class="ident">PLAY</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">5</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags::INSTANCE</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U64</span>(<span class="number">1</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags::JOIN</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">1</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags::SPECTATE</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">2</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags::JOIN_REQUEST</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">3</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags::SYNC</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">4</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">ActivityFlags::PLAY</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U64</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">5</span>)]);
     }
 }
 </pre></div>

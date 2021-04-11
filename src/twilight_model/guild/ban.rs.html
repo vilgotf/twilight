@@ -71,7 +71,7 @@
 <span id="68">68</span>
 <span id="69">69</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">user</span>::<span class="ident">User</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::user::User</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
@@ -83,8 +83,8 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Ban</span>, <span class="ident">User</span>};
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::<span class="ident">UserId</span>;
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::id::UserId</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_ban</span>() {
@@ -107,35 +107,35 @@
             },
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_de_tokens</span>(
+        <span class="ident">serde_test::assert_de_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">ban</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Ban&quot;</span>,
                     <span class="ident">len</span>: <span class="number">2</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;reason&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;foo&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;user&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Str</span>(<span class="string">&quot;reason&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;foo&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;user&quot;</span>),
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;User&quot;</span>,
                     <span class="ident">len</span>: <span class="number">5</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;avatar&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;discriminator&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;0001&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;100000000000000000&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;public_flags&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;username&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;test&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;avatar&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;discriminator&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;0001&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;100000000000000000&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;public_flags&quot;</span>),
+                <span class="ident">Token::None</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;username&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;test&quot;</span>),
+                <span class="ident">Token::StructEnd</span>,
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }

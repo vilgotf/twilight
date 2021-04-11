@@ -9,21 +9,21 @@ disconnected, and when new message commands come in:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">Cluster</span>, <span class="ident">Event</span>, <span class="ident">Intents</span>};
-<span class="kw">use</span> <span class="ident">futures</span>::<span class="ident">StreamExt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
+<span class="kw">use</span> <span class="ident">futures::StreamExt</span>;
+<span class="kw">use</span> <span class="ident">std::env</span>;
 
-<span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">main</span>]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">Intents</span>::<span class="ident">GUILD_BANS</span> <span class="op">|</span> <span class="ident">Intents</span>::<span class="ident">GUILD_EMOJIS</span> <span class="op">|</span> <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGES</span>;
-    <span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster</span>::<span class="ident">new</span>(<span class="ident">token</span>, <span class="ident">intents</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="attribute">#[<span class="ident">tokio::main</span>]</span>
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">Intents::GUILD_BANS</span> <span class="op">|</span> <span class="ident">Intents::GUILD_EMOJIS</span> <span class="op">|</span> <span class="ident">Intents::GUILD_MESSAGES</span>;
+    <span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster::new</span>(<span class="ident">token</span>, <span class="ident">intents</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="ident">cluster</span>.<span class="ident">up</span>().<span class="kw">await</span>;
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">events</span> <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">events</span>();
 
     <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">shard_id</span>, <span class="ident">event</span>)) <span class="op">=</span> <span class="ident">events</span>.<span class="ident">next</span>().<span class="kw">await</span> {
-        <span class="ident">tokio</span>::<span class="ident">spawn</span>(<span class="ident">handle_event</span>(<span class="ident">cluster</span>.<span class="ident">clone</span>(), <span class="ident">shard_id</span>, <span class="ident">event</span>));
+        <span class="ident">tokio::spawn</span>(<span class="ident">handle_event</span>(<span class="ident">cluster</span>.<span class="ident">clone</span>(), <span class="ident">shard_id</span>, <span class="ident">event</span>));
     }
 
     <span class="macro">println!</span>(<span class="string">&quot;Cluster is now shutdown&quot;</span>);
@@ -33,20 +33,20 @@ disconnected, and when new message commands come in:</p>
 
 <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_event</span>(<span class="ident">cluster</span>: <span class="ident">Cluster</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>, <span class="ident">event</span>: <span class="ident">Event</span>) {
     <span class="kw">match</span> <span class="ident">event</span> {
-        <span class="ident">Event</span>::<span class="ident">ShardConnected</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">Event::ShardConnected</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
             <span class="macro">println!</span>(<span class="string">&quot;Shard {} is now connected&quot;</span>, <span class="ident">shard_id</span>);
         },
-        <span class="ident">Event</span>::<span class="ident">ShardDisconnected</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">Event::ShardDisconnected</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
             <span class="macro">println!</span>(<span class="string">&quot;Shard {} is now disconnected&quot;</span>, <span class="ident">shard_id</span>);
         },
-        <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">msg</span>) <span class="kw">if</span> <span class="ident">msg</span>.<span class="ident">content</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!latency&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">Event::MessageCreate</span>(<span class="ident">msg</span>) <span class="kw">if</span> <span class="ident">msg</span>.<span class="ident">content</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!latency&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">shard</span>) <span class="op">=</span> <span class="ident">cluster</span>.<span class="ident">shard</span>(<span class="ident">shard_id</span>) {
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">info</span>) <span class="op">=</span> <span class="ident">shard</span>.<span class="ident">info</span>() {
                     <span class="macro">println!</span>(<span class="string">&quot;Shard {}&#39;s latency is {:?}&quot;</span>, <span class="ident">shard_id</span>, <span class="ident">info</span>.<span class="ident">latency</span>());
                 }
             }
         },
-        <span class="ident">Event</span>::<span class="ident">MessageCreate</span>(<span class="ident">msg</span>) <span class="kw">if</span> <span class="ident">msg</span>.<span class="ident">content</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!shutdown&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">Event::MessageCreate</span>(<span class="ident">msg</span>) <span class="kw">if</span> <span class="ident">msg</span>.<span class="ident">content</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!shutdown&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
             <span class="macro">println!</span>(<span class="string">&quot;Got a shutdown request from shard {}&quot;</span>, <span class="ident">shard_id</span>);
 
             <span class="ident">cluster</span>.<span class="ident">down</span>();
@@ -58,16 +58,16 @@ disconnected, and when new message commands come in:</p>
 of 16:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">cluster</span>::<span class="ident">ShardScheme</span>, <span class="ident">Cluster</span>, <span class="ident">Event</span>, <span class="ident">Intents</span>};
-<span class="kw">use</span> <span class="ident">futures</span>::<span class="ident">StreamExt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryFrom</span>, <span class="ident">env</span>};
+<span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">cluster::ShardScheme</span>, <span class="ident">Cluster</span>, <span class="ident">Event</span>, <span class="ident">Intents</span>};
+<span class="kw">use</span> <span class="ident">futures::StreamExt</span>;
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">env</span>};
 
-<span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">main</span>]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">Intents</span>::<span class="ident">GUILD_MESSAGES</span>;
-    <span class="kw">let</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ShardScheme</span>::<span class="ident">try_from</span>((<span class="number">1</span>, <span class="number">16</span>, <span class="number">320</span>))<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster</span>::<span class="ident">builder</span>(<span class="ident">token</span>, <span class="ident">intents</span>).<span class="ident">shard_scheme</span>(<span class="ident">scheme</span>).<span class="ident">build</span>().<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="attribute">#[<span class="ident">tokio::main</span>]</span>
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">Intents::GUILD_MESSAGES</span>;
+    <span class="kw">let</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ShardScheme::try_from</span>((<span class="number">1</span>, <span class="number">16</span>, <span class="number">320</span>))<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">cluster</span> <span class="op">=</span> <span class="ident">Cluster::builder</span>(<span class="ident">token</span>, <span class="ident">intents</span>).<span class="ident">shard_scheme</span>(<span class="ident">scheme</span>).<span class="ident">build</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="ident">cluster</span>.<span class="ident">up</span>().<span class="kw">await</span>;
 

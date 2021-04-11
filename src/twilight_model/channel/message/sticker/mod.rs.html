@@ -132,14 +132,14 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Sticker</span>, <span class="ident">StickerFormatType</span>, <span class="ident">StickerId</span>, <span class="ident">StickerPackId</span>};
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_minimal</span>() {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Sticker</span> {
             <span class="ident">asset</span>: <span class="string">&quot;foo1&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">description</span>: <span class="string">&quot;foo2&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">format_type</span>: <span class="ident">StickerFormatType</span>::<span class="ident">Png</span>,
+            <span class="ident">format_type</span>: <span class="ident">StickerFormatType::Png</span>,
             <span class="ident">id</span>: <span class="ident">StickerId</span>(<span class="number">1</span>),
             <span class="ident">name</span>: <span class="string">&quot;sticker name&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">pack_id</span>: <span class="ident">StickerPackId</span>(<span class="number">2</span>),
@@ -147,35 +147,35 @@
             <span class="ident">tags</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;foo,bar,baz&quot;</span>.<span class="ident">to_owned</span>()),
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Sticker&quot;</span>,
                     <span class="ident">len</span>: <span class="number">8</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;asset&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;foo1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;description&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;foo2&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;format_type&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">1</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;StickerId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;sticker name&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;pack_id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> {
+                <span class="ident">Token::Str</span>(<span class="string">&quot;asset&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;foo1&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;description&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;foo2&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;format_type&quot;</span>),
+                <span class="ident">Token::U8</span>(<span class="number">1</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;StickerId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;1&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;name&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;sticker name&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;pack_id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;StickerPackId&quot;</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;preview_asset&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">None</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;tags&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;foo,bar,baz&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;2&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;preview_asset&quot;</span>),
+                <span class="ident">Token::None</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;tags&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;foo,bar,baz&quot;</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }

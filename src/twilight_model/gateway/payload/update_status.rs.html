@@ -60,8 +60,8 @@
 <span id="57">57</span>
 <span id="58">58</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">gateway</span>::{
-    <span class="ident">opcode</span>::<span class="ident">OpCode</span>,
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::gateway</span>::{
+    <span class="ident">opcode::OpCode</span>,
     <span class="ident">presence</span>::{<span class="ident">Activity</span>, <span class="ident">Status</span>},
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -80,8 +80,8 @@
         <span class="ident">status</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Status</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
-            <span class="ident">d</span>: <span class="ident">UpdateStatusInfo</span>::<span class="ident">new</span>(<span class="ident">activities</span>, <span class="ident">afk</span>, <span class="ident">since</span>, <span class="ident">status</span>),
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">StatusUpdate</span>,
+            <span class="ident">d</span>: <span class="ident">UpdateStatusInfo::new</span>(<span class="ident">activities</span>, <span class="ident">afk</span>, <span class="ident">since</span>, <span class="ident">status</span>),
+            <span class="ident">op</span>: <span class="ident">OpCode::StatusUpdate</span>,
         }
     }
 }
@@ -101,7 +101,7 @@
         <span class="ident">since</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">status</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Status</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">activities</span>.<span class="ident">into</span>(), <span class="ident">afk</span>, <span class="ident">since</span>.<span class="ident">into</span>(), <span class="ident">status</span>.<span class="ident">into</span>())
+        <span class="self">Self</span><span class="ident">::_new</span>(<span class="ident">activities</span>.<span class="ident">into</span>(), <span class="ident">afk</span>, <span class="ident">since</span>.<span class="ident">into</span>(), <span class="ident">status</span>.<span class="ident">into</span>())
     }
 
     <span class="kw">fn</span> <span class="ident">_new</span>(

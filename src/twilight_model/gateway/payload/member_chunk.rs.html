@@ -469,15 +469,15 @@
 <span id="466">466</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">gateway</span>::<span class="ident">presence</span>::{<span class="ident">Presence</span>, <span class="ident">PresenceListDeserializer</span>},
-    <span class="ident">guild</span>::<span class="ident">member</span>::{<span class="ident">Member</span>, <span class="ident">MemberListDeserializer</span>},
+    <span class="ident">gateway::presence</span>::{<span class="ident">Presence</span>, <span class="ident">PresenceListDeserializer</span>},
+    <span class="ident">guild::member</span>::{<span class="ident">Member</span>, <span class="ident">MemberListDeserializer</span>},
     <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>},
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Deserializer</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">DeError</span>, <span class="ident">IgnoredAny</span>, <span class="ident">MapAccess</span>, <span class="ident">Visitor</span>},
     <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>,
 };
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
+<span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemberChunk</span> {
@@ -513,8 +513,8 @@
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;struct MemberChunk&quot;</span>)
     }
 
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">visit_map</span><span class="op">&lt;</span><span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Value</span>, <span class="ident">V</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::too_many_lines</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">visit_map</span><span class="op">&lt;</span><span class="ident">V</span>: <span class="ident">MapAccess</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Value</span>, <span class="ident">V::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">chunk_count</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">chunk_index</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="prelude-val">None</span>;
@@ -523,16 +523,16 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">not_found</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">presences</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
-        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(<span class="string">&quot;deserializing member chunk&quot;</span>);
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="macro">tracing::trace_span!</span>(<span class="string">&quot;deserializing member chunk&quot;</span>);
         <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
 
         <span class="kw">loop</span> {
-            <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="ident">tracing</span>::<span class="macro">trace_span!</span>(<span class="string">&quot;iterating over element&quot;</span>);
+            <span class="kw">let</span> <span class="ident">span_child</span> <span class="op">=</span> <span class="macro">tracing::trace_span!</span>(<span class="string">&quot;iterating over element&quot;</span>);
             <span class="kw">let</span> <span class="ident">_span_child_enter</span> <span class="op">=</span> <span class="ident">span_child</span>.<span class="ident">enter</span>();
 
             <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">next_key</span>() {
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">key</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
+                    <span class="macro">tracing::trace!</span>(<span class="question-mark">?</span><span class="ident">key</span>, <span class="string">&quot;found key&quot;</span>);
 
                     <span class="ident">key</span>
                 }
@@ -541,80 +541,80 @@
                     <span class="comment">// Encountered when we run into an unknown key.</span>
                     <span class="ident">map</span>.<span class="ident">next_value</span>::<span class="op">&lt;</span><span class="ident">IgnoredAny</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
-                    <span class="ident">tracing</span>::<span class="macro">trace!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
+                    <span class="macro">tracing::trace!</span>(<span class="string">&quot;ran into an unknown key: {:?}&quot;</span>, <span class="ident">why</span>);
 
                     <span class="kw">continue</span>;
                 }
             };
 
             <span class="kw">match</span> <span class="ident">key</span> {
-                <span class="ident">Field</span>::<span class="ident">ChunkCount</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">Field::ChunkCount</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">chunk_count</span>.<span class="ident">is_some</span>() {
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;chunk_count&quot;</span>));
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError::duplicate_field</span>(<span class="string">&quot;chunk_count&quot;</span>));
                     }
 
                     <span class="ident">chunk_count</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">ChunkIndex</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">Field::ChunkIndex</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">chunk_index</span>.<span class="ident">is_some</span>() {
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;chunk_index&quot;</span>));
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError::duplicate_field</span>(<span class="string">&quot;chunk_index&quot;</span>));
                     }
 
                     <span class="ident">chunk_index</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">GuildId</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">Field::GuildId</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">guild_id</span>.<span class="ident">is_some</span>() {
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;guild_id&quot;</span>));
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError::duplicate_field</span>(<span class="string">&quot;guild_id&quot;</span>));
                     }
 
                     <span class="ident">guild_id</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">Members</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">Field::Members</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">members</span>.<span class="ident">is_some</span>() {
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;members&quot;</span>));
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError::duplicate_field</span>(<span class="string">&quot;members&quot;</span>));
                     }
 
                     <span class="comment">// Since the guild ID may not be deserialised yet we&#39;ll use</span>
                     <span class="comment">// a temporary placeholder value and update it with the real</span>
                     <span class="comment">// guild ID after all the fields have been deserialised.</span>
-                    <span class="kw">let</span> <span class="ident">deserializer</span> <span class="op">=</span> <span class="ident">MemberListDeserializer</span>::<span class="ident">new</span>(<span class="ident">GuildId</span>(<span class="number">0</span>));
+                    <span class="kw">let</span> <span class="ident">deserializer</span> <span class="op">=</span> <span class="ident">MemberListDeserializer::new</span>(<span class="ident">GuildId</span>(<span class="number">0</span>));
 
                     <span class="ident">members</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value_seed</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">Nonce</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">Field::Nonce</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">nonce</span>.<span class="ident">is_some</span>() {
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;nonce&quot;</span>));
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError::duplicate_field</span>(<span class="string">&quot;nonce&quot;</span>));
                     }
 
                     <span class="ident">nonce</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">NotFound</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">Field::NotFound</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">not_found</span>.<span class="ident">is_some</span>() {
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;not_found&quot;</span>));
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError::duplicate_field</span>(<span class="string">&quot;not_found&quot;</span>));
                     }
 
                     <span class="ident">not_found</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
-                <span class="ident">Field</span>::<span class="ident">Presences</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">Field::Presences</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="ident">presences</span>.<span class="ident">is_some</span>() {
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError</span>::<span class="ident">duplicate_field</span>(<span class="string">&quot;presences&quot;</span>));
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError::duplicate_field</span>(<span class="string">&quot;presences&quot;</span>));
                     }
 
-                    <span class="kw">let</span> <span class="ident">deserializer</span> <span class="op">=</span> <span class="ident">PresenceListDeserializer</span>::<span class="ident">new</span>(<span class="ident">GuildId</span>(<span class="number">0</span>));
+                    <span class="kw">let</span> <span class="ident">deserializer</span> <span class="op">=</span> <span class="ident">PresenceListDeserializer::new</span>(<span class="ident">GuildId</span>(<span class="number">0</span>));
 
                     <span class="ident">presences</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value_seed</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>);
                 }
             }
         }
 
-        <span class="kw">let</span> <span class="ident">chunk_count</span> <span class="op">=</span> <span class="ident">chunk_count</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;chunk_count&quot;</span>))<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">chunk_index</span> <span class="op">=</span> <span class="ident">chunk_index</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;chunk_index&quot;</span>))<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">guild_id</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;guild_id&quot;</span>))<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">members</span> <span class="op">=</span> <span class="ident">members</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError</span>::<span class="ident">missing_field</span>(<span class="string">&quot;members&quot;</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">chunk_count</span> <span class="op">=</span> <span class="ident">chunk_count</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError::missing_field</span>(<span class="string">&quot;chunk_count&quot;</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">chunk_index</span> <span class="op">=</span> <span class="ident">chunk_index</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError::missing_field</span>(<span class="string">&quot;chunk_index&quot;</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">guild_id</span> <span class="op">=</span> <span class="ident">guild_id</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError::missing_field</span>(<span class="string">&quot;guild_id&quot;</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">members</span> <span class="op">=</span> <span class="ident">members</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError::missing_field</span>(<span class="string">&quot;members&quot;</span>))<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">not_found</span> <span class="op">=</span> <span class="ident">not_found</span>.<span class="ident">unwrap_or_default</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">presences</span> <span class="op">=</span> <span class="ident">presences</span>.<span class="ident">unwrap_or_default</span>();
 
-        <span class="ident">tracing</span>::<span class="macro">trace!</span>(
+        <span class="macro">tracing::trace!</span>(
             <span class="op">%</span><span class="ident">chunk_count</span>,
             <span class="op">%</span><span class="ident">chunk_index</span>,
             <span class="question-mark">?</span><span class="ident">guild_id</span>,
@@ -644,7 +644,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MemberChunk</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span> {
         <span class="kw">const</span> <span class="ident">FIELDS</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[
             <span class="string">&quot;chunk_count&quot;</span>,
             <span class="string">&quot;chunk_index&quot;</span>,
@@ -661,18 +661,18 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span>::<span class="ident">MemberChunk</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span><span class="ident">::MemberChunk</span>;
     <span class="kw">use</span> <span class="kw">crate</span>::{
-        <span class="ident">gateway</span>::<span class="ident">presence</span>::{<span class="ident">ClientStatus</span>, <span class="ident">Presence</span>, <span class="ident">Status</span>, <span class="ident">UserOrId</span>},
-        <span class="ident">guild</span>::<span class="ident">Member</span>,
+        <span class="ident">gateway::presence</span>::{<span class="ident">ClientStatus</span>, <span class="ident">Presence</span>, <span class="ident">Status</span>, <span class="ident">UserOrId</span>},
+        <span class="ident">guild::Member</span>,
         <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">RoleId</span>, <span class="ident">UserId</span>},
         <span class="ident">user</span>::{<span class="ident">User</span>, <span class="ident">UserFlags</span>},
     };
 
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::too_many_lines</span>)]</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_simple_member_chunk</span>() {
-        <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="macro">json!</span>({
+        <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">serde_json::json!</span>({
             <span class="string">&quot;chunk_count&quot;</span>: <span class="number">1</span>,
             <span class="string">&quot;chunk_index&quot;</span>: <span class="number">0</span>,
             <span class="string">&quot;guild_id&quot;</span>: <span class="string">&quot;1&quot;</span>,
@@ -773,7 +773,7 @@
             <span class="ident">chunk_count</span>: <span class="number">1</span>,
             <span class="ident">chunk_index</span>: <span class="number">0</span>,
             <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
-            <span class="ident">members</span>: <span class="ident">Vec</span>::<span class="ident">from</span>([
+            <span class="ident">members</span>: <span class="ident">Vec::from</span>([
                 <span class="ident">Member</span> {
                     <span class="ident">deaf</span>: <span class="bool-val">false</span>,
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
@@ -849,7 +849,7 @@
                         <span class="ident">flags</span>: <span class="prelude-val">None</span>,
                         <span class="ident">premium_type</span>: <span class="prelude-val">None</span>,
                         <span class="ident">system</span>: <span class="prelude-val">None</span>,
-                        <span class="ident">public_flags</span>: <span class="prelude-val">Some</span>(<span class="ident">UserFlags</span>::<span class="ident">VERIFIED_BOT_DEVELOPER</span>),
+                        <span class="ident">public_flags</span>: <span class="prelude-val">Some</span>(<span class="ident">UserFlags::VERIFIED_BOT_DEVELOPER</span>),
                     },
                 },
                 <span class="ident">Member</span> {
@@ -880,45 +880,45 @@
                 },
             ]),
             <span class="ident">nonce</span>: <span class="prelude-val">None</span>,
-            <span class="ident">not_found</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">presences</span>: <span class="ident">Vec</span>::<span class="ident">from</span>([
+            <span class="ident">not_found</span>: <span class="ident">Vec::new</span>(),
+            <span class="ident">presences</span>: <span class="ident">Vec::from</span>([
                 <span class="ident">Presence</span> {
-                    <span class="ident">activities</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+                    <span class="ident">activities</span>: <span class="ident">Vec::new</span>(),
                     <span class="ident">client_status</span>: <span class="ident">ClientStatus</span> {
                         <span class="ident">desktop</span>: <span class="prelude-val">None</span>,
                         <span class="ident">mobile</span>: <span class="prelude-val">None</span>,
-                        <span class="ident">web</span>: <span class="prelude-val">Some</span>(<span class="ident">Status</span>::<span class="ident">Online</span>),
+                        <span class="ident">web</span>: <span class="prelude-val">Some</span>(<span class="ident">Status::Online</span>),
                     },
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
-                    <span class="ident">status</span>: <span class="ident">Status</span>::<span class="ident">Online</span>,
-                    <span class="ident">user</span>: <span class="ident">UserOrId</span>::<span class="ident">UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">2</span>) },
+                    <span class="ident">status</span>: <span class="ident">Status::Online</span>,
+                    <span class="ident">user</span>: <span class="ident">UserOrId::UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">2</span>) },
                 },
                 <span class="ident">Presence</span> {
-                    <span class="ident">activities</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+                    <span class="ident">activities</span>: <span class="ident">Vec::new</span>(),
                     <span class="ident">client_status</span>: <span class="ident">ClientStatus</span> {
                         <span class="ident">desktop</span>: <span class="prelude-val">None</span>,
                         <span class="ident">mobile</span>: <span class="prelude-val">None</span>,
-                        <span class="ident">web</span>: <span class="prelude-val">Some</span>(<span class="ident">Status</span>::<span class="ident">Online</span>),
+                        <span class="ident">web</span>: <span class="prelude-val">Some</span>(<span class="ident">Status::Online</span>),
                     },
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
-                    <span class="ident">status</span>: <span class="ident">Status</span>::<span class="ident">Online</span>,
-                    <span class="ident">user</span>: <span class="ident">UserOrId</span>::<span class="ident">UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">3</span>) },
+                    <span class="ident">status</span>: <span class="ident">Status::Online</span>,
+                    <span class="ident">user</span>: <span class="ident">UserOrId::UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">3</span>) },
                 },
                 <span class="ident">Presence</span> {
-                    <span class="ident">activities</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+                    <span class="ident">activities</span>: <span class="ident">Vec::new</span>(),
                     <span class="ident">client_status</span>: <span class="ident">ClientStatus</span> {
-                        <span class="ident">desktop</span>: <span class="prelude-val">Some</span>(<span class="ident">Status</span>::<span class="ident">DoNotDisturb</span>),
+                        <span class="ident">desktop</span>: <span class="prelude-val">Some</span>(<span class="ident">Status::DoNotDisturb</span>),
                         <span class="ident">mobile</span>: <span class="prelude-val">None</span>,
                         <span class="ident">web</span>: <span class="prelude-val">None</span>,
                     },
                     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>(<span class="number">1</span>),
-                    <span class="ident">status</span>: <span class="ident">Status</span>::<span class="ident">DoNotDisturb</span>,
-                    <span class="ident">user</span>: <span class="ident">UserOrId</span>::<span class="ident">UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">5</span>) },
+                    <span class="ident">status</span>: <span class="ident">Status::DoNotDisturb</span>,
+                    <span class="ident">user</span>: <span class="ident">UserOrId::UserId</span> { <span class="ident">id</span>: <span class="ident">UserId</span>(<span class="number">5</span>) },
                 },
             ]),
         };
 
-        <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="ident">from_value</span>::<span class="op">&lt;</span><span class="ident">MemberChunk</span><span class="op">&gt;</span>(<span class="ident">input</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">MemberChunk</span><span class="op">&gt;</span>(<span class="ident">input</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">chunk_count</span>, <span class="ident">actual</span>.<span class="ident">chunk_count</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">chunk_index</span>, <span class="ident">actual</span>.<span class="ident">chunk_index</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">guild_id</span>, <span class="ident">actual</span>.<span class="ident">guild_id</span>);

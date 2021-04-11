@@ -34,12 +34,12 @@ in the embed. Refer to <a href="../../twilight_embed_builder/builder/struct.Embe
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::{<span class="ident">EmbedAuthorBuilder</span>, <span class="ident">EmbedBuilder</span>};
 
-<span class="kw">let</span> <span class="ident">author</span> <span class="op">=</span> <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">author</span> <span class="op">=</span> <span class="ident">EmbedAuthorBuilder::new</span>()
     .<span class="ident">name</span>(<span class="string">&quot;Twilight&quot;</span>)<span class="question-mark">?</span>
     .<span class="ident">url</span>(<span class="string">&quot;https://github.com/twilight-rs/twilight&quot;</span>)
     .<span class="ident">build</span>();
 
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">author</span>(<span class="ident">author</span>).<span class="ident">build</span>();</pre></div>
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>().<span class="ident">author</span>(<span class="ident">author</span>).<span class="ident">build</span>();</pre></div>
 </div><h4 id="method.color" class="method"><code>pub fn <a href="#method.color" class="fnname">color</a>(self, color: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;Self, <a class="enum" href="../../twilight_embed_builder/builder/enum.EmbedColorError.html" title="enum twilight_embed_builder::builder::EmbedColorError">EmbedColorError</a>&gt;</code><a class="srclink" href="../../src/twilight_embed_builder/builder.rs.html#311-323" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the color.</p>
 <p>This must be a valid hexadecimal RGB value. <code>0x000000</code> is not an
 acceptable value as it would be thrown out by Discord.</p>
@@ -47,9 +47,9 @@ acceptable value as it would be thrown out by Discord.</p>
 <p>Set the color of an embed to <code>0xfd69b3</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::<span class="ident">EmbedBuilder</span>;
+<span class="kw">use</span> <span class="ident">twilight_embed_builder::EmbedBuilder</span>;
 
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
     .<span class="ident">color</span>(<span class="number">0xfd_69_b3</span>)<span class="question-mark">?</span>
     .<span class="ident">description</span>(<span class="string">&quot;a description&quot;</span>)<span class="question-mark">?</span>
     .<span class="ident">build</span>();</pre></div>
@@ -64,9 +64,9 @@ an acceptable value.</p>
 code points that can be in a description.</p>
 <h1 id="examples-3" class="section-header"><a href="#examples-3">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::<span class="ident">EmbedBuilder</span>;
+<span class="kw">use</span> <span class="ident">twilight_embed_builder::EmbedBuilder</span>;
 
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>().<span class="ident">description</span>(<span class="string">&quot;this is an embed&quot;</span>)<span class="question-mark">?</span>.<span class="ident">build</span>();</pre></div>
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>().<span class="ident">description</span>(<span class="string">&quot;this is an embed&quot;</span>)<span class="question-mark">?</span>.<span class="ident">build</span>();</pre></div>
 <h1 id="errors-2" class="section-header"><a href="#errors-2">Errors</a></h1>
 <p>Returns <a href="../../twilight_embed_builder/builder/enum.EmbedDescriptionError.html#variant.TooLong" title="EmbedDescriptionError::TooLong"><code>EmbedDescriptionError::TooLong</code></a> if the provided
 description is longer than the maximum number of code points.</p>
@@ -75,18 +75,18 @@ description is longer than the maximum number of code points.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::{<span class="ident">EmbedBuilder</span>, <span class="ident">EmbedFieldBuilder</span>};
 
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
     .<span class="ident">description</span>(<span class="string">&quot;this is an embed&quot;</span>)<span class="question-mark">?</span>
-    .<span class="ident">field</span>(<span class="ident">EmbedFieldBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a field&quot;</span>, <span class="string">&quot;and its value&quot;</span>)<span class="question-mark">?</span>)
+    .<span class="ident">field</span>(<span class="ident">EmbedFieldBuilder::new</span>(<span class="string">&quot;a field&quot;</span>, <span class="string">&quot;and its value&quot;</span>)<span class="question-mark">?</span>)
     .<span class="ident">build</span>()<span class="question-mark">?</span>;</pre></div>
 </div><h4 id="method.footer" class="method"><code>pub fn <a href="#method.footer" class="fnname">footer</a>(self, footer: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="../../twilight_model/channel/embed/footer/struct.EmbedFooter.html" title="struct twilight_model::channel::embed::footer::EmbedFooter">EmbedFooter</a>&gt;) -&gt; Self</code><a class="srclink" href="../../src/twilight_embed_builder/builder.rs.html#405-407" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the footer of the embed.</p>
 <h1 id="examples-5" class="section-header"><a href="#examples-5">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::{<span class="ident">EmbedBuilder</span>, <span class="ident">EmbedFooterBuilder</span>};
 
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
     .<span class="ident">description</span>(<span class="string">&quot;this is an embed&quot;</span>)<span class="question-mark">?</span>
-    .<span class="ident">footer</span>(<span class="ident">EmbedFooterBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a footer&quot;</span>)<span class="question-mark">?</span>)
+    .<span class="ident">footer</span>(<span class="ident">EmbedFooterBuilder::new</span>(<span class="string">&quot;a footer&quot;</span>)<span class="question-mark">?</span>)
     .<span class="ident">build</span>()<span class="question-mark">?</span>;</pre></div>
 </div><h4 id="method.image" class="method"><code>pub fn <a href="#method.image" class="fnname">image</a>(self, image_source: <a class="struct" href="../../twilight_embed_builder/image_source/struct.ImageSource.html" title="struct twilight_embed_builder::image_source::ImageSource">ImageSource</a>) -&gt; Self</code><a class="srclink" href="../../src/twilight_embed_builder/builder.rs.html#432-441" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the image.</p>
 <h1 id="examples-6" class="section-header"><a href="#examples-6">Examples</a></h1>
@@ -95,9 +95,9 @@ description is longer than the maximum number of code points.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::{<span class="ident">EmbedBuilder</span>, <span class="ident">EmbedFooterBuilder</span>, <span class="ident">ImageSource</span>};
 
-<span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ImageSource</span>::<span class="ident">url</span>(<span class="string">&quot;https://raw.githubusercontent.com/twilight-rs/twilight/trunk/logo.png&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>()
-    .<span class="ident">footer</span>(<span class="ident">EmbedFooterBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;twilight&quot;</span>)<span class="question-mark">?</span>)
+<span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ImageSource::url</span>(<span class="string">&quot;https://raw.githubusercontent.com/twilight-rs/twilight/trunk/logo.png&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
+    .<span class="ident">footer</span>(<span class="ident">EmbedFooterBuilder::new</span>(<span class="string">&quot;twilight&quot;</span>)<span class="question-mark">?</span>)
     .<span class="ident">image</span>(<span class="ident">source</span>)
     .<span class="ident">build</span>()<span class="question-mark">?</span>;</pre></div>
 </div><h4 id="method.thumbnail" class="method"><code>pub fn <a href="#method.thumbnail" class="fnname">thumbnail</a>(self, image_source: <a class="struct" href="../../twilight_embed_builder/image_source/struct.ImageSource.html" title="struct twilight_embed_builder::image_source::ImageSource">ImageSource</a>) -&gt; Self</code><a class="srclink" href="../../src/twilight_embed_builder/builder.rs.html#460-469" title="goto source code">[src]</a></h4><div class="docblock"><p>Add a thumbnail.</p>
@@ -108,9 +108,9 @@ description is longer than the maximum number of code points.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::{<span class="ident">EmbedBuilder</span>, <span class="ident">ImageSource</span>};
 
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
     .<span class="ident">description</span>(<span class="string">&quot;a picture of twilight&quot;</span>)<span class="question-mark">?</span>
-    .<span class="ident">thumbnail</span>(<span class="ident">ImageSource</span>::<span class="ident">attachment</span>(<span class="string">&quot;twilight.png&quot;</span>)<span class="question-mark">?</span>)
+    .<span class="ident">thumbnail</span>(<span class="ident">ImageSource::attachment</span>(<span class="string">&quot;twilight.png&quot;</span>)<span class="question-mark">?</span>)
     .<span class="ident">build</span>()<span class="question-mark">?</span>;</pre></div>
 </div><h4 id="method.timestamp" class="method"><code>pub fn <a href="#method.timestamp" class="fnname">timestamp</a>(self, timestamp: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;) -&gt; Self</code><a class="srclink" href="../../src/twilight_embed_builder/builder.rs.html#472-474" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the ISO 8601 timestamp.</p>
 </div><h4 id="method.title" class="method"><code>pub fn <a href="#method.title" class="fnname">title</a>(self, title: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;Self, <a class="enum" href="../../twilight_embed_builder/builder/enum.EmbedTitleError.html" title="enum twilight_embed_builder::builder::EmbedTitleError">EmbedTitleError</a>&gt;</code><a class="srclink" href="../../src/twilight_embed_builder/builder.rs.html#510-512" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the title.</p>
@@ -120,9 +120,9 @@ points that can be in a title.</p>
 <p>Set the title to “twilight”:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::<span class="ident">EmbedBuilder</span>;
+<span class="kw">use</span> <span class="ident">twilight_embed_builder::EmbedBuilder</span>;
 
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
     .<span class="ident">title</span>(<span class="string">&quot;twilight&quot;</span>)<span class="question-mark">?</span>
     .<span class="ident">url</span>(<span class="string">&quot;https://github.com/twilight-rs/twilight&quot;</span>)
     .<span class="ident">build</span>()<span class="question-mark">?</span>;</pre></div>
@@ -137,7 +137,7 @@ than the limit defined at <a href="../../twilight_embed_builder/builder/struct.E
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_embed_builder</span>::{<span class="ident">EmbedBuilder</span>, <span class="ident">EmbedFooterBuilder</span>};
 
-<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
     .<span class="ident">description</span>(<span class="string">&quot;twilight&#39;s repository&quot;</span>)<span class="question-mark">?</span>
     .<span class="ident">url</span>(<span class="string">&quot;https://github.com/twilight-rs/twilight&quot;</span>)
     .<span class="ident">build</span>()<span class="question-mark">?</span>;</pre></div>

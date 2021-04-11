@@ -190,12 +190,12 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Create embed footers.</span>
 
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">image_source</span>::<span class="ident">ImageSource</span>;
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::image_source::ImageSource</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">error</span>::<span class="ident">Error</span>,
+    <span class="ident">error::Error</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::<span class="ident">EmbedFooter</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::channel::embed::EmbedFooter</span>;
 
 <span class="doccomment">/// Error creating an embed footer.</span>
 <span class="doccomment">///</span>
@@ -219,8 +219,8 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedFooterTextError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Empty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the footer text is empty&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">TooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the footer text is too long&quot;</span>),
+            <span class="self">Self</span><span class="ident">::Empty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the footer text is empty&quot;</span>),
+            <span class="self">Self</span><span class="ident">::TooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the footer text is too long&quot;</span>),
         }
     }
 }
@@ -255,16 +255,16 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`TEXT_LENGTH_LIMIT`]: Self::TEXT_LENGTH_LIMIT</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">text</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedFooterTextError</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">text</span>.<span class="ident">into</span>())
+        <span class="self">Self</span><span class="ident">::_new</span>(<span class="ident">text</span>.<span class="ident">into</span>())
     }
 
     <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">text</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedFooterTextError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">text</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedFooterTextError</span>::<span class="ident">Empty</span> { <span class="ident">text</span> });
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedFooterTextError::Empty</span> { <span class="ident">text</span> });
         }
 
-        <span class="kw">if</span> <span class="ident">text</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">TEXT_LENGTH_LIMIT</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedFooterTextError</span>::<span class="ident">TooLong</span> { <span class="ident">text</span> });
+        <span class="kw">if</span> <span class="ident">text</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::TEXT_LENGTH_LIMIT</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedFooterTextError::TooLong</span> { <span class="ident">text</span> });
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">EmbedFooter</span> {
@@ -315,10 +315,10 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EmbedFooterBuilder</span>, <span class="ident">EmbedFooterTextError</span>};
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ImageSource</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ImageSource</span>;
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>, <span class="ident">const_assert</span>};
-    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
-    <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::<span class="ident">EmbedFooter</span>;
+    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error::Error</span>, <span class="ident">fmt::Debug</span>};
+    <span class="kw">use</span> <span class="ident">twilight_model::channel::embed::EmbedFooter</span>;
 
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedFooterTextError</span>: <span class="ident">Clone</span>,
@@ -329,23 +329,23 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedFooterTextError</span>::<span class="ident">Empty</span>: <span class="ident">text</span>);
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedFooterTextError</span>::<span class="ident">TooLong</span>: <span class="ident">text</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedFooterTextError::Empty</span>: <span class="ident">text</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedFooterTextError::TooLong</span>: <span class="ident">text</span>);
     <span class="macro">assert_impl_all!</span>(<span class="ident">EmbedFooterBuilder</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Send</span>, <span class="ident">Sync</span>);
-    <span class="macro">const_assert!</span>(<span class="ident">EmbedFooterBuilder</span>::<span class="ident">TEXT_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">2048</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedFooterBuilder::TEXT_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">2048</span>);
     <span class="macro">assert_impl_all!</span>(<span class="ident">EmbedFooter</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EmbedFooterBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_text</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedFooterBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;&quot;</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">EmbedFooterTextError</span>::<span class="ident">Empty</span> { <span class="ident">text</span> }
+            <span class="ident">EmbedFooterBuilder::new</span>(<span class="string">&quot;&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">EmbedFooterTextError::Empty</span> { <span class="ident">text</span> }
             <span class="kw">if</span> <span class="ident">text</span>.<span class="ident">is_empty</span>()
         ));
-        <span class="kw">let</span> <span class="ident">too_long_len</span> <span class="op">=</span> <span class="ident">EmbedFooterBuilder</span>::<span class="ident">TEXT_LENGTH_LIMIT</span> <span class="op">+</span> <span class="number">1</span>;
+        <span class="kw">let</span> <span class="ident">too_long_len</span> <span class="op">=</span> <span class="ident">EmbedFooterBuilder::TEXT_LENGTH_LIMIT</span> <span class="op">+</span> <span class="number">1</span>;
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedFooterBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="ident">too_long_len</span>)).<span class="ident">unwrap_err</span>(),
-            <span class="ident">EmbedFooterTextError</span>::<span class="ident">TooLong</span> { <span class="ident">text</span> }
+            <span class="ident">EmbedFooterBuilder::new</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="ident">too_long_len</span>)).<span class="ident">unwrap_err</span>(),
+            <span class="ident">EmbedFooterTextError::TooLong</span> { <span class="ident">text</span> }
             <span class="kw">if</span> <span class="ident">text</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">too_long_len</span>
         ));
 
@@ -354,7 +354,7 @@
             <span class="ident">proxy_icon_url</span>: <span class="prelude-val">None</span>,
             <span class="ident">text</span>: <span class="string">&quot;a footer&quot;</span>.<span class="ident">to_owned</span>(),
         };
-        <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">EmbedFooterBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a footer&quot;</span>)<span class="question-mark">?</span>.<span class="ident">build</span>();
+        <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">EmbedFooterBuilder::new</span>(<span class="string">&quot;a footer&quot;</span>)<span class="question-mark">?</span>.<span class="ident">build</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
 
         <span class="prelude-val">Ok</span>(())
@@ -367,8 +367,8 @@
             <span class="ident">proxy_icon_url</span>: <span class="prelude-val">None</span>,
             <span class="ident">text</span>: <span class="string">&quot;a footer&quot;</span>.<span class="ident">to_owned</span>(),
         };
-        <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">ImageSource</span>::<span class="ident">url</span>(<span class="string">&quot;https://example.com/1.png&quot;</span>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">EmbedFooterBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a footer&quot;</span>)<span class="question-mark">?</span>.<span class="ident">icon_url</span>(<span class="ident">image</span>).<span class="ident">build</span>();
+        <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">ImageSource::url</span>(<span class="string">&quot;https://example.com/1.png&quot;</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">EmbedFooterBuilder::new</span>(<span class="string">&quot;a footer&quot;</span>)<span class="question-mark">?</span>.<span class="ident">icon_url</span>(<span class="ident">image</span>).<span class="ident">build</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
 
         <span class="prelude-val">Ok</span>(())

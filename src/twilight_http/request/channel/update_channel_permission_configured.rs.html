@@ -138,11 +138,11 @@
 <span id="135">135</span>
 <span id="136">136</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">request</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
-    <span class="ident">channel</span>::<span class="ident">permission_overwrite</span>::{<span class="ident">PermissionOverwriteTargetType</span>, <span class="ident">PermissionOverwriteType</span>},
-    <span class="ident">guild</span>::<span class="ident">Permissions</span>,
-    <span class="ident">id</span>::<span class="ident">ChannelId</span>,
+    <span class="ident">channel::permission_overwrite</span>::{<span class="ident">PermissionOverwriteTargetType</span>, <span class="ident">PermissionOverwriteType</span>},
+    <span class="ident">guild::Permissions</span>,
+    <span class="ident">id::ChannelId</span>,
 };
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>)]</span>
@@ -172,11 +172,11 @@
         <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident">PermissionOverwriteType</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> (<span class="ident">name</span>, <span class="ident">target_id</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">target</span> {
-            <span class="ident">PermissionOverwriteType</span>::<span class="ident">Member</span>(<span class="ident">user_id</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                (<span class="ident">PermissionOverwriteTargetType</span>::<span class="ident">Member</span>, <span class="ident">user_id</span>.<span class="number">0</span>)
+            <span class="ident">PermissionOverwriteType::Member</span>(<span class="ident">user_id</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                (<span class="ident">PermissionOverwriteTargetType::Member</span>, <span class="ident">user_id</span>.<span class="number">0</span>)
             }
-            <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">role_id</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                (<span class="ident">PermissionOverwriteTargetType</span>::<span class="ident">Role</span>, <span class="ident">role_id</span>.<span class="number">0</span>)
+            <span class="ident">PermissionOverwriteType::Role</span>(<span class="ident">role_id</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                (<span class="ident">PermissionOverwriteTargetType::Role</span>, <span class="ident">role_id</span>.<span class="number">0</span>)
             }
         };
 
@@ -197,18 +197,18 @@
     <span class="kw">fn</span> <span class="ident">request</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">reason</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">reason</span> {
             <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">audit_header</span>(<span class="kw-2">&amp;</span><span class="ident">reason</span>)<span class="question-mark">?</span>;
-            <span class="ident">Request</span>::<span class="ident">from</span>((
-                <span class="kw">crate</span>::<span class="ident">json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>,
+            <span class="ident">Request::from</span>((
+                <span class="kw">crate</span><span class="ident">::json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>,
                 <span class="ident">headers</span>,
-                <span class="ident">Route</span>::<span class="ident">UpdatePermissionOverwrite</span> {
+                <span class="ident">Route::UpdatePermissionOverwrite</span> {
                     <span class="ident">channel_id</span>: <span class="self">self</span>.<span class="ident">channel_id</span>.<span class="number">0</span>,
                     <span class="ident">target_id</span>: <span class="self">self</span>.<span class="ident">target_id</span>,
                 },
             ))
         } <span class="kw">else</span> {
-            <span class="ident">Request</span>::<span class="ident">from</span>((
-                <span class="kw">crate</span>::<span class="ident">json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>,
-                <span class="ident">Route</span>::<span class="ident">UpdatePermissionOverwrite</span> {
+            <span class="ident">Request::from</span>((
+                <span class="kw">crate</span><span class="ident">::json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>)<span class="question-mark">?</span>,
+                <span class="ident">Route::UpdatePermissionOverwrite</span> {
                     <span class="ident">channel_id</span>: <span class="self">self</span>.<span class="ident">channel_id</span>.<span class="number">0</span>,
                     <span class="ident">target_id</span>: <span class="self">self</span>.<span class="ident">target_id</span>,
                 },
@@ -219,7 +219,7 @@
     <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">request</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">request</span>()<span class="question-mark">?</span>;
 
-        <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">verify</span>(<span class="ident">request</span>)));
+        <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box::pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">verify</span>(<span class="ident">request</span>)));
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -228,7 +228,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">AuditLogReason</span> <span class="kw">for</span> <span class="ident">UpdateChannelPermissionConfigured</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">reason</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">reason</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">AuditLogReasonError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">reason</span>
-            .<span class="ident">replace</span>(<span class="ident">AuditLogReasonError</span>::<span class="ident">validate</span>(<span class="ident">reason</span>.<span class="ident">into</span>())<span class="question-mark">?</span>);
+            .<span class="ident">replace</span>(<span class="ident">AuditLogReasonError::validate</span>(<span class="ident">reason</span>.<span class="ident">into</span>())<span class="question-mark">?</span>);
 
         <span class="prelude-val">Ok</span>(<span class="self">self</span>)
     }
@@ -239,36 +239,36 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">UpdateChannelPermissionConfigured</span>, <span class="ident">UpdateChannelPermissionConfiguredFields</span>};
-    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">request</span>::<span class="ident">Request</span>, <span class="ident">routing</span>::<span class="ident">Route</span>, <span class="ident">Client</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">request::Request</span>, <span class="ident">routing::Route</span>, <span class="ident">Client</span>};
     <span class="kw">use</span> <span class="ident">twilight_model</span>::{
-        <span class="ident">channel</span>::<span class="ident">permission_overwrite</span>::{<span class="ident">PermissionOverwriteTargetType</span>, <span class="ident">PermissionOverwriteType</span>},
-        <span class="ident">guild</span>::<span class="ident">Permissions</span>,
+        <span class="ident">channel::permission_overwrite</span>::{<span class="ident">PermissionOverwriteTargetType</span>, <span class="ident">PermissionOverwriteType</span>},
+        <span class="ident">guild::Permissions</span>,
         <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">UserId</span>},
     };
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_request</span>() {
-        <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client</span>::<span class="ident">new</span>(<span class="string">&quot;foo&quot;</span>);
-        <span class="kw">let</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">UpdateChannelPermissionConfigured</span>::<span class="ident">new</span>(
+        <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="string">&quot;foo&quot;</span>);
+        <span class="kw">let</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">UpdateChannelPermissionConfigured::new</span>(
             <span class="kw-2">&amp;</span><span class="ident">client</span>,
             <span class="ident">ChannelId</span>(<span class="number">1</span>),
-            <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
-            <span class="ident">Permissions</span>::<span class="ident">SEND_MESSAGES</span>,
-            <span class="kw-2">&amp;</span><span class="ident">PermissionOverwriteType</span>::<span class="ident">Member</span>(<span class="ident">UserId</span>(<span class="number">2</span>)),
+            <span class="ident">Permissions::empty</span>(),
+            <span class="ident">Permissions::SEND_MESSAGES</span>,
+            <span class="kw-2">&amp;</span><span class="ident">PermissionOverwriteType::Member</span>(<span class="ident">UserId</span>(<span class="number">2</span>)),
         );
         <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">request</span>().<span class="ident">expect</span>(<span class="string">&quot;failed to create request&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">json_to_vec</span>(<span class="kw-2">&amp;</span><span class="ident">UpdateChannelPermissionConfiguredFields</span> {
-            <span class="ident">allow</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
-            <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">SEND_MESSAGES</span>,
-            <span class="ident">kind</span>: <span class="ident">PermissionOverwriteTargetType</span>::<span class="ident">Member</span>,
+        <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json_to_vec</span>(<span class="kw-2">&amp;</span><span class="ident">UpdateChannelPermissionConfiguredFields</span> {
+            <span class="ident">allow</span>: <span class="ident">Permissions::empty</span>(),
+            <span class="ident">deny</span>: <span class="ident">Permissions::SEND_MESSAGES</span>,
+            <span class="ident">kind</span>: <span class="ident">PermissionOverwriteTargetType::Member</span>,
         })
         .<span class="ident">expect</span>(<span class="string">&quot;failed to serialize payload&quot;</span>);
-        <span class="kw">let</span> <span class="ident">route</span> <span class="op">=</span> <span class="ident">Route</span>::<span class="ident">UpdatePermissionOverwrite</span> {
+        <span class="kw">let</span> <span class="ident">route</span> <span class="op">=</span> <span class="ident">Route::UpdatePermissionOverwrite</span> {
             <span class="ident">channel_id</span>: <span class="number">1</span>,
             <span class="ident">target_id</span>: <span class="number">2</span>,
         };
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">Request</span>::<span class="ident">from</span>((<span class="ident">body</span>, <span class="ident">route</span>));
+        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">Request::from</span>((<span class="ident">body</span>, <span class="ident">route</span>));
 
         <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">body</span>, <span class="ident">actual</span>.<span class="ident">body</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">path</span>, <span class="ident">actual</span>.<span class="ident">path</span>);

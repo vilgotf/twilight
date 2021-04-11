@@ -197,9 +197,9 @@
 <span id="194">194</span>
 <span id="195">195</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">error</span>::{<span class="ident">RatelimitError</span>, <span class="ident">RatelimitResult</span>};
-<span class="kw">use</span> <span class="ident">hyper</span>::<span class="ident">header</span>::{<span class="ident">HeaderMap</span>, <span class="ident">HeaderValue</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::error</span>::{<span class="ident">RatelimitError</span>, <span class="ident">RatelimitResult</span>};
+<span class="kw">use</span> <span class="ident">hyper::header</span>::{<span class="ident">HeaderMap</span>, <span class="ident">HeaderValue</span>};
+<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -223,9 +223,9 @@
 <span class="kw">impl</span> <span class="ident">RatelimitHeaders</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">global</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">GlobalLimited</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-            <span class="self">Self</span>::<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-            <span class="self">Self</span>::<span class="ident">Present</span> { <span class="ident">global</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">global</span>,
+            <span class="self">Self</span><span class="ident">::GlobalLimited</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+            <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+            <span class="self">Self</span><span class="ident">::Present</span> { <span class="ident">global</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">global</span>,
         }
     }
 }
@@ -269,33 +269,33 @@
                 <span class="kw">if</span> <span class="ident">headers</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">k</span><span class="op">|</span> <span class="ident">map</span>.<span class="ident">contains_key</span>(<span class="kw-2">*</span><span class="ident">k</span>)) {
                     <span class="prelude-val">Err</span>(<span class="ident">why</span>)
                 } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">map</span>.<span class="ident">contains_key</span>(<span class="string">&quot;x-ratelimit-global&quot;</span>) {
-                    <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="ident">GlobalLimited</span> {
+                    <span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::GlobalLimited</span> {
                         <span class="ident">reset_after</span>: <span class="ident">header_int</span>(<span class="ident">map</span>, <span class="string">&quot;x-ratelimit-reset-after&quot;</span>)<span class="question-mark">?</span>,
                     })
                 } <span class="kw">else</span> {
-                    <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="prelude-val">None</span>)
+                    <span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::None</span>)
                 }
             }
         }
     }
 }
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::cast_possible_truncation</span>)]</span>
 <span class="kw">fn</span> <span class="ident">parse_map</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="ident">HeaderMap</span><span class="op">&lt;</span><span class="ident">HeaderValue</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RatelimitResult</span><span class="op">&lt;</span><span class="ident">RatelimitHeaders</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">bucket</span> <span class="op">=</span> <span class="ident">header_str</span>(<span class="ident">map</span>, <span class="string">&quot;x-ratelimit-bucket&quot;</span>)
         .<span class="ident">ok</span>()
-        .<span class="ident">map</span>(<span class="ident">ToOwned</span>::<span class="ident">to_owned</span>);
+        .<span class="ident">map</span>(<span class="ident">ToOwned::to_owned</span>);
     <span class="kw">let</span> <span class="ident">global</span> <span class="op">=</span> <span class="ident">header_bool</span>(<span class="ident">map</span>, <span class="string">&quot;x-ratelimit-global&quot;</span>).<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>);
     <span class="kw">let</span> <span class="ident">limit</span> <span class="op">=</span> <span class="ident">header_int</span>(<span class="ident">map</span>, <span class="string">&quot;x-ratelimit-limit&quot;</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">remaining</span> <span class="op">=</span> <span class="ident">header_int</span>(<span class="ident">map</span>, <span class="string">&quot;x-ratelimit-remaining&quot;</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">reset</span> <span class="op">=</span> <span class="ident">header_float</span>(<span class="ident">map</span>, <span class="string">&quot;x-ratelimit-reset&quot;</span>)<span class="question-mark">?</span>;
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_sign_loss</span>)]</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::cast_sign_loss</span>)]</span>
     <span class="kw">let</span> <span class="ident">reset</span> <span class="op">=</span> (<span class="ident">reset</span> <span class="op">*</span> <span class="number">1000.</span>).<span class="ident">ceil</span>() <span class="kw">as</span> <span class="ident">u64</span>;
     <span class="kw">let</span> <span class="ident">reset_after</span> <span class="op">=</span> <span class="ident">header_float</span>(<span class="ident">map</span>, <span class="string">&quot;x-ratelimit-reset-after&quot;</span>)<span class="question-mark">?</span>;
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_sign_loss</span>)]</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::cast_sign_loss</span>)]</span>
     <span class="kw">let</span> <span class="ident">reset_after</span> <span class="op">=</span> (<span class="ident">reset_after</span> <span class="op">*</span> <span class="number">1000.</span>).<span class="ident">ceil</span>() <span class="kw">as</span> <span class="ident">u64</span>;
 
-    <span class="prelude-val">Ok</span>(<span class="ident">RatelimitHeaders</span>::<span class="ident">Present</span> {
+    <span class="prelude-val">Ok</span>(<span class="ident">RatelimitHeaders::Present</span> {
         <span class="ident">bucket</span>,
         <span class="ident">global</span>,
         <span class="ident">limit</span>,
@@ -308,11 +308,11 @@
 <span class="kw">fn</span> <span class="ident">header_bool</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="ident">HeaderMap</span><span class="op">&lt;</span><span class="ident">HeaderValue</span><span class="op">&gt;</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RatelimitResult</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">map</span>
         .<span class="ident">get</span>(<span class="ident">name</span>)
-        .<span class="ident">ok_or</span>(<span class="ident">RatelimitError</span>::<span class="ident">HeaderMissing</span> { <span class="ident">name</span> })<span class="question-mark">?</span>;
+        .<span class="ident">ok_or</span>(<span class="ident">RatelimitError::HeaderMissing</span> { <span class="ident">name</span> })<span class="question-mark">?</span>;
 
     <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">value</span>
         .<span class="ident">to_str</span>()
-        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError</span>::<span class="ident">HeaderNotUtf8</span> {
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError::HeaderNotUtf8</span> {
             <span class="ident">name</span>,
             <span class="ident">source</span>,
             <span class="ident">value</span>: <span class="ident">value</span>.<span class="ident">as_bytes</span>().<span class="ident">to_owned</span>(),
@@ -320,7 +320,7 @@
 
     <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <span class="ident">text</span>
         .<span class="ident">parse</span>()
-        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError</span>::<span class="ident">ParsingBoolText</span> {
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError::ParsingBoolText</span> {
             <span class="ident">name</span>,
             <span class="ident">source</span>,
             <span class="ident">text</span>: <span class="ident">text</span>.<span class="ident">to_owned</span>(),
@@ -332,11 +332,11 @@
 <span class="kw">fn</span> <span class="ident">header_float</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="ident">HeaderMap</span><span class="op">&lt;</span><span class="ident">HeaderValue</span><span class="op">&gt;</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RatelimitResult</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">map</span>
         .<span class="ident">get</span>(<span class="ident">name</span>)
-        .<span class="ident">ok_or</span>(<span class="ident">RatelimitError</span>::<span class="ident">HeaderMissing</span> { <span class="ident">name</span> })<span class="question-mark">?</span>;
+        .<span class="ident">ok_or</span>(<span class="ident">RatelimitError::HeaderMissing</span> { <span class="ident">name</span> })<span class="question-mark">?</span>;
 
     <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">value</span>
         .<span class="ident">to_str</span>()
-        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError</span>::<span class="ident">HeaderNotUtf8</span> {
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError::HeaderNotUtf8</span> {
             <span class="ident">name</span>,
             <span class="ident">source</span>,
             <span class="ident">value</span>: <span class="ident">value</span>.<span class="ident">as_bytes</span>().<span class="ident">to_owned</span>(),
@@ -344,7 +344,7 @@
 
     <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <span class="ident">text</span>
         .<span class="ident">parse</span>()
-        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError</span>::<span class="ident">ParsingFloatText</span> {
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError::ParsingFloatText</span> {
             <span class="ident">name</span>,
             <span class="ident">source</span>,
             <span class="ident">text</span>: <span class="ident">text</span>.<span class="ident">to_owned</span>(),
@@ -356,11 +356,11 @@
 <span class="kw">fn</span> <span class="ident">header_int</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="ident">HeaderMap</span><span class="op">&lt;</span><span class="ident">HeaderValue</span><span class="op">&gt;</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RatelimitResult</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">map</span>
         .<span class="ident">get</span>(<span class="ident">name</span>)
-        .<span class="ident">ok_or</span>(<span class="ident">RatelimitError</span>::<span class="ident">HeaderMissing</span> { <span class="ident">name</span> })<span class="question-mark">?</span>;
+        .<span class="ident">ok_or</span>(<span class="ident">RatelimitError::HeaderMissing</span> { <span class="ident">name</span> })<span class="question-mark">?</span>;
 
     <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">value</span>
         .<span class="ident">to_str</span>()
-        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError</span>::<span class="ident">HeaderNotUtf8</span> {
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError::HeaderNotUtf8</span> {
             <span class="ident">name</span>,
             <span class="ident">source</span>,
             <span class="ident">value</span>: <span class="ident">value</span>.<span class="ident">as_bytes</span>().<span class="ident">to_owned</span>(),
@@ -368,7 +368,7 @@
 
     <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <span class="ident">text</span>
         .<span class="ident">parse</span>()
-        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError</span>::<span class="ident">ParsingIntText</span> {
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError::ParsingIntText</span> {
             <span class="ident">name</span>,
             <span class="ident">source</span>,
             <span class="ident">text</span>: <span class="ident">text</span>.<span class="ident">to_owned</span>(),
@@ -380,11 +380,11 @@
 <span class="kw">fn</span> <span class="ident">header_str</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">HeaderMap</span><span class="op">&lt;</span><span class="ident">HeaderValue</span><span class="op">&gt;</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RatelimitResult</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">map</span>
         .<span class="ident">get</span>(<span class="ident">name</span>)
-        .<span class="ident">ok_or</span>(<span class="ident">RatelimitError</span>::<span class="ident">HeaderMissing</span> { <span class="ident">name</span> })<span class="question-mark">?</span>;
+        .<span class="ident">ok_or</span>(<span class="ident">RatelimitError::HeaderMissing</span> { <span class="ident">name</span> })<span class="question-mark">?</span>;
 
     <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">value</span>
         .<span class="ident">to_str</span>()
-        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError</span>::<span class="ident">HeaderNotUtf8</span> {
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">RatelimitError::HeaderNotUtf8</span> {
             <span class="ident">name</span>,
             <span class="ident">source</span>,
             <span class="ident">value</span>: <span class="ident">value</span>.<span class="ident">as_bytes</span>().<span class="ident">to_owned</span>(),

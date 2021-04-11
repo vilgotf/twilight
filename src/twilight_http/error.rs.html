@@ -136,23 +136,23 @@
 <span id="133">133</span>
 <span id="134">134</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">api_error</span>::<span class="ident">ApiError</span>, <span class="ident">ratelimiting</span>::<span class="ident">RatelimitError</span>};
-<span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">oneshot</span>::<span class="ident">Canceled</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">api_error::ApiError</span>, <span class="ident">ratelimiting::RatelimitError</span>};
+<span class="kw">use</span> <span class="ident">futures_channel::oneshot::Canceled</span>;
 <span class="kw">use</span> <span class="ident">hyper</span>::{
-    <span class="ident">header</span>::<span class="ident">InvalidHeaderValue</span>, <span class="ident">http</span>::<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">HttpError</span>, <span class="ident">Body</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">HyperError</span>, <span class="ident">Response</span>,
+    <span class="ident">header::InvalidHeaderValue</span>, <span class="ident">http::Error</span> <span class="kw">as</span> <span class="ident">HttpError</span>, <span class="ident">Body</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">HyperError</span>, <span class="ident">Response</span>,
     <span class="ident">StatusCode</span>,
 };
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">StdError</span>,
+    <span class="ident">error::Error</span> <span class="kw">as</span> <span class="ident">StdError</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">FmtError</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
-    <span class="ident">result</span>::<span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">StdResult</span>,
+    <span class="ident">result::Result</span> <span class="kw">as</span> <span class="ident">StdResult</span>,
 };
-<span class="kw">use</span> <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">error</span>::<span class="ident">Elapsed</span>;
+<span class="kw">use</span> <span class="ident">tokio::time::error::Elapsed</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd-json&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">serde_json</span>::<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">JsonError</span>;
+<span class="kw">use</span> <span class="ident">serde_json::Error</span> <span class="kw">as</span> <span class="ident">JsonError</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd-json&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">simd_json</span>::<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">JsonError</span>;
+<span class="kw">use</span> <span class="ident">simd_json::Error</span> <span class="kw">as</span> <span class="ident">JsonError</span>;
 
 <span class="kw">pub</span> <span class="kw">type</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span> <span class="op">=</span> <span class="ident">Error</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StdResult</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>;
 
@@ -213,44 +213,44 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">FmtError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Error</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">source</span>: <span class="ident">FmtError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">Formatting</span> { <span class="ident">source</span> }
+        <span class="self">Self</span><span class="ident">::Formatting</span> { <span class="ident">source</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">JsonError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Error</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">source</span>: <span class="ident">JsonError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">Json</span> { <span class="ident">source</span> }
+        <span class="self">Self</span><span class="ident">::Json</span> { <span class="ident">source</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Error</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">BuildingRequest</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;failed to build the request&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">ChunkingResponse</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Chunking the response failed&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">CreatingHeader</span> { <span class="ident">name</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::BuildingRequest</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;failed to build the request&quot;</span>),
+            <span class="self">Self</span><span class="ident">::ChunkingResponse</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Chunking the response failed&quot;</span>),
+            <span class="self">Self</span><span class="ident">::CreatingHeader</span> { <span class="ident">name</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Parsing the value for header {} failed&quot;</span>, <span class="ident">name</span>)
             }
-            <span class="self">Self</span>::<span class="ident">Formatting</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Formatting a string failed&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">Json</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Given value couldn&#39;t be serialized&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">Parsing</span> { <span class="ident">body</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::Formatting</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Formatting a string failed&quot;</span>),
+            <span class="self">Self</span><span class="ident">::Json</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Given value couldn&#39;t be serialized&quot;</span>),
+            <span class="self">Self</span><span class="ident">::Parsing</span> { <span class="ident">body</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Response body couldn&#39;t be deserialized: {:?}&quot;</span>, <span class="ident">body</span>)
             }
-            <span class="self">Self</span>::<span class="ident">Ratelimiting</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Ratelimiting failure&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">RequestCanceled</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::Ratelimiting</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Ratelimiting failure&quot;</span>),
+            <span class="self">Self</span><span class="ident">::RequestCanceled</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Request was canceled either before or while being sent&quot;</span>)
             }
-            <span class="self">Self</span>::<span class="ident">RequestError</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Parsing or sending the response failed&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">RequestTimedOut</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;request timed out&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">Response</span> { <span class="ident">error</span>, <span class="ident">status</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(
+            <span class="self">Self</span><span class="ident">::RequestError</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Parsing or sending the response failed&quot;</span>),
+            <span class="self">Self</span><span class="ident">::RequestTimedOut</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;request timed out&quot;</span>),
+            <span class="self">Self</span><span class="ident">::Response</span> { <span class="ident">error</span>, <span class="ident">status</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(
                 <span class="ident">f</span>,
                 <span class="string">&quot;Response error: status code {}, error: {}&quot;</span>,
                 <span class="ident">status</span>, <span class="ident">error</span>
             ),
-            <span class="self">Self</span>::<span class="ident">ServiceUnavailable</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::ServiceUnavailable</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;api may be temporarily unavailable (received a 503)&quot;</span>)
             }
-            <span class="self">Self</span>::<span class="ident">Unauthorized</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;token in use is invalid, expired, or is revoked&quot;</span>),
+            <span class="self">Self</span><span class="ident">::Unauthorized</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;token in use is invalid, expired, or is revoked&quot;</span>),
         }
     }
 }
@@ -258,15 +258,15 @@
 <span class="kw">impl</span> <span class="ident">StdError</span> <span class="kw">for</span> <span class="ident">Error</span> {
     <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">StdError</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">BuildingRequest</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">CreatingHeader</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">Formatting</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">Json</span> { <span class="ident">source</span> } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">Parsing</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">Ratelimiting</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">RequestCanceled</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">ChunkingResponse</span> { <span class="ident">source</span> } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">RequestError</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">RequestTimedOut</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">Response</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">ServiceUnavailable</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">Unauthorized</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="self">Self</span><span class="ident">::BuildingRequest</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::CreatingHeader</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::Formatting</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::Json</span> { <span class="ident">source</span> } <span class="op">|</span> <span class="self">Self</span><span class="ident">::Parsing</span> { <span class="ident">source</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::Ratelimiting</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::RequestCanceled</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::ChunkingResponse</span> { <span class="ident">source</span> } <span class="op">|</span> <span class="self">Self</span><span class="ident">::RequestError</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::RequestTimedOut</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::Response</span> { .. } <span class="op">|</span> <span class="self">Self</span><span class="ident">::ServiceUnavailable</span> { .. } <span class="op">|</span> <span class="self">Self</span><span class="ident">::Unauthorized</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }

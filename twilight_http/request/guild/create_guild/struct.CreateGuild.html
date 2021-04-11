@@ -13,22 +13,22 @@ This endpoint can only be used by bots in less than 10 guilds.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">twilight_http</span>::{
     <span class="ident">Client</span>,
-    <span class="ident">request</span>::<span class="ident">guild</span>::<span class="ident">create_guild</span>::{
+    <span class="ident">request::guild::create_guild</span>::{
         <span class="ident">GuildChannelFieldsBuilder</span>, <span class="ident">CategoryFieldsBuilder</span>, <span class="ident">TextFieldsBuilder</span>,
         <span class="ident">VoiceFieldsBuilder</span>,
     },
 };
 
-<span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">TextFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;text channel&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="ident">voice</span> <span class="op">=</span> <span class="ident">VoiceFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;voice channel&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="ident">text2</span> <span class="op">=</span> <span class="ident">TextFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;other text channel&quot;</span>)<span class="question-mark">?</span>
+<span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">TextFieldsBuilder::new</span>(<span class="string">&quot;text channel&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">voice</span> <span class="op">=</span> <span class="ident">VoiceFieldsBuilder::new</span>(<span class="string">&quot;voice channel&quot;</span>)<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">text2</span> <span class="op">=</span> <span class="ident">TextFieldsBuilder::new</span>(<span class="string">&quot;other text channel&quot;</span>)<span class="question-mark">?</span>
     .<span class="ident">topic</span>(<span class="string">&quot;posting&quot;</span>)<span class="question-mark">?</span>;
 
-<span class="kw">let</span> <span class="ident">category</span> <span class="op">=</span> <span class="ident">CategoryFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;category channel&quot;</span>)<span class="question-mark">?</span>
+<span class="kw">let</span> <span class="ident">category</span> <span class="op">=</span> <span class="ident">CategoryFieldsBuilder::new</span>(<span class="string">&quot;category channel&quot;</span>)<span class="question-mark">?</span>
     .<span class="ident">add_text</span>(<span class="ident">text2</span>)
     .<span class="ident">add_voice</span>(<span class="ident">voice</span>);
 
-<span class="kw">let</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">GuildChannelFieldsBuilder</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">GuildChannelFieldsBuilder::new</span>()
     .<span class="ident">add_text</span>(<span class="ident">text</span>)
     .<span class="ident">add_category_builder</span>(<span class="ident">category</span>)
     .<span class="ident">build</span>();
@@ -53,9 +53,9 @@ information.</p>
 <p>The maximum number of roles that can be provided is 250.</p>
 <h1 id="examples-1" class="section-header"><a href="#examples-1">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_http</span>::{<span class="ident">Client</span>, <span class="ident">request</span>::<span class="ident">guild</span>::<span class="ident">create_guild</span>::<span class="ident">RoleFieldsBuilder</span>};
+<span class="kw">use</span> <span class="ident">twilight_http</span>::{<span class="ident">Client</span>, <span class="ident">request::guild::create_guild::RoleFieldsBuilder</span>};
 
-<span class="kw">let</span> <span class="ident">roles</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">RoleFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;role 1&quot;</span>).<span class="ident">color</span>(<span class="number">0x543923</span>)<span class="question-mark">?</span>.<span class="ident">build</span>()];
+<span class="kw">let</span> <span class="ident">roles</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">RoleFieldsBuilder::new</span>(<span class="string">&quot;role 1&quot;</span>).<span class="ident">color</span>(<span class="number">0x543923</span>)<span class="question-mark">?</span>.<span class="ident">build</span>()];
 <span class="ident">client</span>.<span class="ident">create_guild</span>(<span class="string">&quot;guild name&quot;</span>)<span class="question-mark">?</span>.<span class="ident">roles</span>(<span class="ident">roles</span>)<span class="question-mark">?</span>.<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
 <h1 id="errors-2" class="section-header"><a href="#errors-2">Errors</a></h1>
 <p>Returns <a href="../../../../twilight_http/request/guild/create_guild/enum.CreateGuildError.html#variant.TooManyRoles" title="CreateGuildError::TooManyRoles"><code>CreateGuildError::TooManyRoles</code></a> if the number of roles is

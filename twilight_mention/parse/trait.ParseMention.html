@@ -22,12 +22,12 @@ the sigil may be either <code>@</code> or <code>@!</code>.</p>
 entire buffer as a mention.</p>
 <h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">twilight_mention</span>::<span class="ident">ParseMention</span>;
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">twilight_mention::ParseMention</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::id</span>::{<span class="ident">ChannelId</span>, <span class="ident">UserId</span>};
 
-<span class="macro">assert_eq!</span>(<span class="ident">ChannelId</span>(<span class="number">123</span>), <span class="ident">ChannelId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;#123&gt;&quot;</span>)<span class="question-mark">?</span>);
-<span class="macro">assert_eq!</span>(<span class="ident">UserId</span>(<span class="number">456</span>), <span class="ident">UserId</span>::<span class="ident">parse</span>(<span class="string">&quot;&lt;@456&gt;&quot;</span>)<span class="question-mark">?</span>);
-<span class="macro">assert!</span>(<span class="ident">ChannelId</span>::<span class="ident">parse</span>(<span class="string">&quot;not a mention&quot;</span>).<span class="ident">is_err</span>());</pre></div>
+<span class="macro">assert_eq!</span>(<span class="ident">ChannelId</span>(<span class="number">123</span>), <span class="ident">ChannelId::parse</span>(<span class="string">&quot;&lt;#123&gt;&quot;</span>)<span class="question-mark">?</span>);
+<span class="macro">assert_eq!</span>(<span class="ident">UserId</span>(<span class="number">456</span>), <span class="ident">UserId::parse</span>(<span class="string">&quot;&lt;@456&gt;&quot;</span>)<span class="question-mark">?</span>);
+<span class="macro">assert!</span>(<span class="ident">ChannelId::parse</span>(<span class="string">&quot;not a mention&quot;</span>).<span class="ident">is_err</span>());</pre></div>
 <h1 id="errors" class="section-header"><a href="#errors">Errors</a></h1>
 <p>Returns <a href="../../twilight_mention/parse/enum.ParseMentionError.html#variant.LeadingArrow" title="ParseMentionError::LeadingArrow"><code>ParseMentionError::LeadingArrow</code></a> if the leading arrow is not
 present.</p>

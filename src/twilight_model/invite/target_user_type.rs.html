@@ -34,12 +34,12 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">TargetUserType</span>;
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::TargetUserType</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_variants</span>() {
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">TargetUserType</span>::<span class="ident">Stream</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">1</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">TargetUserType::Stream</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">1</span>)]);
     }
 }
 </pre></div>

@@ -223,12 +223,12 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Create embed authors.</span>
 
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">image_source</span>::<span class="ident">ImageSource</span>;
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::image_source::ImageSource</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">error</span>::<span class="ident">Error</span>,
+    <span class="ident">error::Error</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
-<span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::<span class="ident">EmbedAuthor</span>;
+<span class="kw">use</span> <span class="ident">twilight_model::channel::embed::EmbedAuthor</span>;
 
 <span class="doccomment">/// Error setting an embed author&#39;s name.</span>
 <span class="doccomment">///</span>
@@ -252,8 +252,8 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmbedAuthorNameError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Empty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the author name is empty&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">TooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the author name is too long&quot;</span>),
+            <span class="self">Self</span><span class="ident">::Empty</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the author name is empty&quot;</span>),
+            <span class="self">Self</span><span class="ident">::TooLong</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the author name is too long&quot;</span>),
         }
     }
 }
@@ -279,7 +279,7 @@
 
     <span class="doccomment">/// Create a new default embed author builder.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">default</span>()
+        <span class="self">Self</span><span class="ident">::default</span>()
     }
 
     <span class="doccomment">/// Build into an embed author.</span>
@@ -314,11 +314,11 @@
 
     <span class="kw">fn</span> <span class="ident">_name</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">EmbedAuthorNameError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">Empty</span> { <span class="ident">name</span> });
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError::Empty</span> { <span class="ident">name</span> });
         }
 
-        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">NAME_LENGTH_LIMIT</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">TooLong</span> { <span class="ident">name</span> });
+        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">chars</span>().<span class="ident">count</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::NAME_LENGTH_LIMIT</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError::TooLong</span> { <span class="ident">name</span> });
         }
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">name</span>.<span class="ident">replace</span>(<span class="ident">name</span>);
@@ -361,10 +361,10 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EmbedAuthorBuilder</span>, <span class="ident">EmbedAuthorNameError</span>};
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ImageSource</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ImageSource</span>;
     <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>, <span class="ident">const_assert</span>};
-    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">fmt</span>::<span class="ident">Debug</span>};
-    <span class="kw">use</span> <span class="ident">twilight_model</span>::<span class="ident">channel</span>::<span class="ident">embed</span>::<span class="ident">EmbedAuthor</span>;
+    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error::Error</span>, <span class="ident">fmt::Debug</span>};
+    <span class="kw">use</span> <span class="ident">twilight_model::channel::embed::EmbedAuthor</span>;
 
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedAuthorNameError</span>: <span class="ident">Clone</span>,
@@ -375,8 +375,8 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">Empty</span>: <span class="ident">name</span>);
-    <span class="macro">assert_fields!</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">TooLong</span>: <span class="ident">name</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedAuthorNameError::Empty</span>: <span class="ident">name</span>);
+    <span class="macro">assert_fields!</span>(<span class="ident">EmbedAuthorNameError::TooLong</span>: <span class="ident">name</span>);
     <span class="macro">assert_impl_all!</span>(
         <span class="ident">EmbedAuthorBuilder</span>: <span class="ident">Clone</span>,
         <span class="ident">Debug</span>,
@@ -386,7 +386,7 @@
         <span class="ident">Send</span>,
         <span class="ident">Sync</span>
     );
-    <span class="macro">const_assert!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">NAME_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
+    <span class="macro">const_assert!</span>(<span class="ident">EmbedAuthorBuilder::NAME_LENGTH_LIMIT</span> <span class="op">=</span><span class="op">=</span> <span class="number">256</span>);
     <span class="macro">assert_impl_all!</span>(<span class="ident">EmbedAuthor</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EmbedAuthorBuilder</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -398,24 +398,24 @@
             <span class="ident">url</span>: <span class="prelude-val">None</span>,
         };
 
-        <span class="macro">assert_eq!</span>(<span class="ident">expected</span>, <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="number">0</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="number">0</span>, <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">default</span>().<span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">expected</span>, <span class="ident">EmbedAuthorBuilder::new</span>().<span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">EmbedAuthorBuilder::new</span>().<span class="number">0</span>, <span class="ident">EmbedAuthorBuilder::default</span>().<span class="number">0</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_name_empty</span>() {
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="ident">name</span>(<span class="string">&quot;&quot;</span>),
-            <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">Empty</span> { .. })
+            <span class="ident">EmbedAuthorBuilder::new</span>().<span class="ident">name</span>(<span class="string">&quot;&quot;</span>),
+            <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError::Empty</span> { .. })
         ));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_name_too_long</span>() {
-        <span class="macro">assert!</span>(<span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="ident">name</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">256</span>)).<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="ident">EmbedAuthorBuilder::new</span>().<span class="ident">name</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">256</span>)).<span class="ident">is_ok</span>());
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(
-            <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>().<span class="ident">name</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">257</span>)),
-            <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError</span>::<span class="ident">TooLong</span> { .. })
+            <span class="ident">EmbedAuthorBuilder::new</span>().<span class="ident">name</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">repeat</span>(<span class="number">257</span>)),
+            <span class="prelude-val">Err</span>(<span class="ident">EmbedAuthorNameError::TooLong</span> { .. })
         ));
     }
 
@@ -428,8 +428,8 @@
             <span class="ident">url</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;https://example.com&quot;</span>.<span class="ident">to_owned</span>()),
         };
 
-        <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ImageSource</span>::<span class="ident">url</span>(<span class="string">&quot;https://example.com/1.png&quot;</span>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">EmbedAuthorBuilder</span>::<span class="ident">new</span>()
+        <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ImageSource::url</span>(<span class="string">&quot;https://example.com/1.png&quot;</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">EmbedAuthorBuilder::new</span>()
             .<span class="ident">icon_url</span>(<span class="ident">source</span>)
             .<span class="ident">name</span>(<span class="string">&quot;an author&quot;</span>)<span class="question-mark">?</span>
             .<span class="ident">url</span>(<span class="string">&quot;https://example.com&quot;</span>)

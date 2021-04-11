@@ -822,12 +822,12 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">CategoryFields</span>, <span class="ident">GuildChannelFields</span>, <span class="ident">RoleFields</span>, <span class="ident">TextFields</span>, <span class="ident">VoiceFields</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">error</span>::<span class="ident">Error</span>,
+    <span class="ident">error::Error</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
-    <span class="ident">channel</span>::{<span class="ident">permission_overwrite</span>::<span class="ident">PermissionOverwrite</span>, <span class="ident">ChannelType</span>},
-    <span class="ident">guild</span>::<span class="ident">Permissions</span>,
+    <span class="ident">channel</span>::{<span class="ident">permission_overwrite::PermissionOverwrite</span>, <span class="ident">ChannelType</span>},
+    <span class="ident">guild::Permissions</span>,
     <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">RoleId</span>},
 };
 
@@ -847,10 +847,10 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">RoleFieldsError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">ColorNotRgb</span> { <span class="ident">color</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::ColorNotRgb</span> { <span class="ident">color</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the color {} is invalid&quot;</span>, <span class="ident">color</span>))
             }
-            <span class="self">Self</span>::<span class="ident">IdInvalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the given id value is 1, which is not acceptable&quot;</span>),
+            <span class="self">Self</span><span class="ident">::IdInvalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the given id value is 1, which is not acceptable&quot;</span>),
         }
     }
 }
@@ -877,7 +877,7 @@
         <span class="self">Self</span>(<span class="ident">RoleFields</span> {
             <span class="ident">color</span>: <span class="prelude-val">None</span>,
             <span class="ident">hoist</span>: <span class="prelude-val">None</span>,
-            <span class="ident">id</span>: <span class="self">Self</span>::<span class="ident">ROLE_ID</span>,
+            <span class="ident">id</span>: <span class="self">Self</span><span class="ident">::ROLE_ID</span>,
             <span class="ident">mentionable</span>: <span class="prelude-val">None</span>,
             <span class="ident">name</span>: <span class="ident">name</span>.<span class="ident">into</span>(),
             <span class="ident">permissions</span>: <span class="prelude-val">None</span>,
@@ -898,8 +898,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`RoleFieldsError::ColorNotRgb`] if the color is not valid RGB.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">color</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">color</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RoleFieldsError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">color</span> <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">COLOR_MAXIMUM</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RoleFieldsError</span>::<span class="ident">ColorNotRgb</span> { <span class="ident">color</span> });
+        <span class="kw">if</span> <span class="ident">color</span> <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::COLOR_MAXIMUM</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RoleFieldsError::ColorNotRgb</span> { <span class="ident">color</span> });
         }
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">color</span>.<span class="ident">replace</span>(<span class="ident">color</span>);
@@ -920,8 +920,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`RoleFieldsError::IdInvalid`] if the id is set to 1.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">RoleId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RoleFieldsError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">id</span> <span class="op">=</span><span class="op">=</span> <span class="self">Self</span>::<span class="ident">ROLE_ID</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RoleFieldsError</span>::<span class="ident">IdInvalid</span>);
+        <span class="kw">if</span> <span class="ident">id</span> <span class="op">=</span><span class="op">=</span> <span class="self">Self</span><span class="ident">::ROLE_ID</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RoleFieldsError::IdInvalid</span>);
         }
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">id</span> <span class="op">=</span> <span class="ident">id</span>;
@@ -980,16 +980,16 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">TextFieldsError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">NameTooShort</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::NameTooShort</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the name is too short: {}&quot;</span>, <span class="ident">name</span>.<span class="ident">len</span>()))
             }
-            <span class="self">Self</span>::<span class="ident">NameTooLong</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::NameTooLong</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the name is too long: {}&quot;</span>, <span class="ident">name</span>.<span class="ident">len</span>()))
             }
-            <span class="self">Self</span>::<span class="ident">RateLimitInvalid</span> { <span class="ident">limit</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::RateLimitInvalid</span> { <span class="ident">limit</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the rate limit {} is invalid&quot;</span>, <span class="ident">limit</span>))
             }
-            <span class="self">Self</span>::<span class="ident">TopicTooLong</span> { <span class="ident">topic</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::TopicTooLong</span> { <span class="ident">topic</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the topic is too long: {}&quot;</span>, <span class="ident">topic</span>.<span class="ident">len</span>()))
             }
         }
@@ -1040,21 +1040,21 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`TextFieldsError::NameTooLong`] if the name is too long.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">TextFieldsError</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">name</span>.<span class="ident">into</span>())
+        <span class="self">Self</span><span class="ident">::_new</span>(<span class="ident">name</span>.<span class="ident">into</span>())
     }
 
     <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">name</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">TextFieldsError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">Self</span>::<span class="ident">MIN_NAME_LENGTH</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TextFieldsError</span>::<span class="ident">NameTooShort</span> { <span class="ident">name</span> });
+        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">Self</span><span class="ident">::MIN_NAME_LENGTH</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TextFieldsError::NameTooShort</span> { <span class="ident">name</span> });
         }
 
-        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MAX_NAME_LENGTH</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TextFieldsError</span>::<span class="ident">NameTooLong</span> { <span class="ident">name</span> });
+        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MAX_NAME_LENGTH</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TextFieldsError::NameTooLong</span> { <span class="ident">name</span> });
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">TextFields</span> {
             <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-            <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildText</span>,
+            <span class="ident">kind</span>: <span class="ident">ChannelType::GuildText</span>,
             <span class="ident">name</span>,
             <span class="ident">nsfw</span>: <span class="prelude-val">None</span>,
             <span class="ident">permission_overwrites</span>: <span class="prelude-val">None</span>,
@@ -1089,8 +1089,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`TextFieldsError::RateLimitInvalid`] if the rate limit is invalid.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rate_limit_per_user</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">TextFieldsError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">limit</span> <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MAX_RATE_LIMIT</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TextFieldsError</span>::<span class="ident">RateLimitInvalid</span> { <span class="ident">limit</span> });
+        <span class="kw">if</span> <span class="ident">limit</span> <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MAX_RATE_LIMIT</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TextFieldsError::RateLimitInvalid</span> { <span class="ident">limit</span> });
         }
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">rate_limit_per_user</span>.<span class="ident">replace</span>(<span class="ident">limit</span>);
@@ -1108,8 +1108,8 @@
     }
 
     <span class="kw">fn</span> <span class="ident">_topic</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">topic</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">TextFieldsError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">topic</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MAX_TOPIC_LENGTH</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TextFieldsError</span>::<span class="ident">TopicTooLong</span> { <span class="ident">topic</span> });
+        <span class="kw">if</span> <span class="ident">topic</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MAX_TOPIC_LENGTH</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TextFieldsError::TopicTooLong</span> { <span class="ident">topic</span> });
         }
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">topic</span>.<span class="ident">replace</span>(<span class="ident">topic</span>);
@@ -1137,10 +1137,10 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">VoiceFieldsError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">NameTooShort</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::NameTooShort</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the name is too short: {}&quot;</span>, <span class="ident">name</span>.<span class="ident">len</span>()))
             }
-            <span class="self">Self</span>::<span class="ident">NameTooLong</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::NameTooLong</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the name is too long: {}&quot;</span>, <span class="ident">name</span>.<span class="ident">len</span>()))
             }
         }
@@ -1177,22 +1177,22 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`VoiceFieldsError::NameTooLong`] if the name is too long.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">VoiceFieldsError</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">name</span>.<span class="ident">into</span>())
+        <span class="self">Self</span><span class="ident">::_new</span>(<span class="ident">name</span>.<span class="ident">into</span>())
     }
 
     <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">name</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">VoiceFieldsError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">Self</span>::<span class="ident">MIN_NAME_LENGTH</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">VoiceFieldsError</span>::<span class="ident">NameTooShort</span> { <span class="ident">name</span> });
+        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">Self</span><span class="ident">::MIN_NAME_LENGTH</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">VoiceFieldsError::NameTooShort</span> { <span class="ident">name</span> });
         }
 
-        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MAX_NAME_LENGTH</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">VoiceFieldsError</span>::<span class="ident">NameTooLong</span> { <span class="ident">name</span> });
+        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MAX_NAME_LENGTH</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">VoiceFieldsError::NameTooLong</span> { <span class="ident">name</span> });
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">VoiceFields</span> {
             <span class="ident">bitrate</span>: <span class="prelude-val">None</span>,
             <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-            <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span>,
+            <span class="ident">kind</span>: <span class="ident">ChannelType::GuildVoice</span>,
             <span class="ident">name</span>,
             <span class="ident">permission_overwrites</span>: <span class="prelude-val">None</span>,
             <span class="ident">parent_id</span>: <span class="prelude-val">None</span>,
@@ -1246,10 +1246,10 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">CategoryFieldsError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">NameTooShort</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::NameTooShort</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the name is too short: {}&quot;</span>, <span class="ident">name</span>.<span class="ident">len</span>()))
             }
-            <span class="self">Self</span>::<span class="ident">NameTooLong</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::NameTooLong</span> { <span class="ident">name</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(<span class="string">&quot;the name is too long: {}&quot;</span>, <span class="ident">name</span>.<span class="ident">len</span>()))
             }
         }
@@ -1289,41 +1289,41 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns [`CategoryFieldsError::NameTooLong`] if the name is too long.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">CategoryFieldsError</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">_new</span>(<span class="ident">name</span>.<span class="ident">into</span>())
+        <span class="self">Self</span><span class="ident">::_new</span>(<span class="ident">name</span>.<span class="ident">into</span>())
     }
 
     <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">name</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">CategoryFieldsError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">Self</span>::<span class="ident">MIN_NAME_LENGTH</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">CategoryFieldsError</span>::<span class="ident">NameTooShort</span> { <span class="ident">name</span> });
+        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">Self</span><span class="ident">::MIN_NAME_LENGTH</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">CategoryFieldsError::NameTooShort</span> { <span class="ident">name</span> });
         }
 
-        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">MAX_NAME_LENGTH</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">CategoryFieldsError</span>::<span class="ident">NameTooLong</span> { <span class="ident">name</span> });
+        <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MAX_NAME_LENGTH</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">CategoryFieldsError::NameTooLong</span> { <span class="ident">name</span> });
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
             <span class="ident">fields</span>: <span class="ident">CategoryFields</span> {
                 <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
                 <span class="ident">name</span>,
-                <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildCategory</span>,
+                <span class="ident">kind</span>: <span class="ident">ChannelType::GuildCategory</span>,
                 <span class="ident">permission_overwrites</span>: <span class="prelude-val">None</span>,
             },
-            <span class="ident">channels</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+            <span class="ident">channels</span>: <span class="ident">Vec::new</span>(),
         })
     }
 
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">build</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GuildChannelFields</span><span class="op">&gt;</span> {
         <span class="kw">for</span> <span class="ident">channel</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">channels</span> {
             <span class="kw">match</span> <span class="ident">channel</span> {
-                <span class="ident">GuildChannelFields</span>::<span class="ident">Text</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">t</span>.<span class="ident">parent_id</span>.<span class="ident">replace</span>(<span class="ident">id</span>),
-                <span class="ident">GuildChannelFields</span>::<span class="ident">Voice</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">v</span>.<span class="ident">parent_id</span>.<span class="ident">replace</span>(<span class="ident">id</span>),
-                <span class="ident">GuildChannelFields</span>::<span class="ident">Category</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+                <span class="ident">GuildChannelFields::Text</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">t</span>.<span class="ident">parent_id</span>.<span class="ident">replace</span>(<span class="ident">id</span>),
+                <span class="ident">GuildChannelFields::Voice</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">v</span>.<span class="ident">parent_id</span>.<span class="ident">replace</span>(<span class="ident">id</span>),
+                <span class="ident">GuildChannelFields::Category</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
             };
         }
 
         <span class="self">self</span>.<span class="ident">channels</span>.<span class="ident">insert</span>(
             <span class="number">0</span>,
-            <span class="ident">GuildChannelFields</span>::<span class="ident">Category</span>(<span class="ident">CategoryFields</span> { <span class="ident">id</span>, ..<span class="self">self</span>.<span class="ident">fields</span> }),
+            <span class="ident">GuildChannelFields::Category</span>(<span class="ident">CategoryFields</span> { <span class="ident">id</span>, ..<span class="self">self</span>.<span class="ident">fields</span> }),
         );
 
         <span class="self">self</span>.<span class="ident">channels</span>
@@ -1331,7 +1331,7 @@
 
     <span class="doccomment">/// Add a child text channel.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">channel</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">TextFields</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">channels</span>.<span class="ident">push</span>(<span class="ident">GuildChannelFields</span>::<span class="ident">Text</span>(<span class="ident">channel</span>.<span class="ident">into</span>()));
+        <span class="self">self</span>.<span class="ident">channels</span>.<span class="ident">push</span>(<span class="ident">GuildChannelFields::Text</span>(<span class="ident">channel</span>.<span class="ident">into</span>()));
 
         <span class="self">self</span>
     }
@@ -1339,7 +1339,7 @@
     <span class="doccomment">/// add a child voice channel.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_voice</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">channel</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">VoiceFields</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">channels</span>
-            .<span class="ident">push</span>(<span class="ident">GuildChannelFields</span>::<span class="ident">Voice</span>(<span class="ident">channel</span>.<span class="ident">into</span>()));
+            .<span class="ident">push</span>(<span class="ident">GuildChannelFields::Voice</span>(<span class="ident">channel</span>.<span class="ident">into</span>()));
 
         <span class="self">self</span>
     }
@@ -1353,7 +1353,7 @@
 <span class="kw">impl</span> <span class="ident">GuildChannelFieldsBuilder</span> {
     <span class="doccomment">/// Create a new channels builder.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">default</span>()
+        <span class="self">Self</span><span class="ident">::default</span>()
     }
 
     <span class="doccomment">/// Build the list of channels.</span>
@@ -1363,14 +1363,14 @@
 
     <span class="doccomment">/// Add a text channel to the builder.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">channel</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">TextFields</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">push</span>(<span class="ident">GuildChannelFields</span>::<span class="ident">Text</span>(<span class="ident">channel</span>.<span class="ident">into</span>()));
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">push</span>(<span class="ident">GuildChannelFields::Text</span>(<span class="ident">channel</span>.<span class="ident">into</span>()));
 
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Add a voice channel to the builder.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_voice</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">channel</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">VoiceFields</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">push</span>(<span class="ident">GuildChannelFields</span>::<span class="ident">Voice</span>(<span class="ident">channel</span>.<span class="ident">into</span>()));
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">push</span>(<span class="ident">GuildChannelFields::Voice</span>(<span class="ident">channel</span>.<span class="ident">into</span>()));
 
         <span class="self">self</span>
     }
@@ -1381,7 +1381,7 @@
             .<span class="number">0</span>
             .<span class="ident">iter</span>()
             .<span class="ident">rev</span>()
-            .<span class="ident">find</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="macro">matches!</span>(<span class="ident">c</span>, <span class="ident">GuildChannelFields</span>::<span class="ident">Category</span>(<span class="kw">_</span>)))
+            .<span class="ident">find</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="macro">matches!</span>(<span class="ident">c</span>, <span class="ident">GuildChannelFields::Category</span>(<span class="kw">_</span>)))
             .<span class="ident">map_or</span>(<span class="ident">ChannelId</span>(<span class="number">1</span>), <span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">clone</span>().<span class="ident">id</span>());
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">channel</span>.<span class="ident">build</span>(<span class="ident">ChannelId</span>(<span class="ident">last_id</span>.<span class="number">0</span> <span class="op">+</span> <span class="number">1</span>));
@@ -1404,24 +1404,24 @@
             <span class="ident">permission_overwrite</span>::{<span class="ident">PermissionOverwrite</span>, <span class="ident">PermissionOverwriteType</span>},
             <span class="ident">ChannelType</span>,
         },
-        <span class="ident">guild</span>::<span class="ident">Permissions</span>,
+        <span class="ident">guild::Permissions</span>,
         <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">RoleId</span>},
     };
 
     <span class="kw">fn</span> <span class="ident">perms</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Permissions</span> {
-        <span class="ident">Permissions</span>::<span class="ident">CONNECT</span> <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SPEAK</span> <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SEND_TTS_MESSAGES</span>
+        <span class="ident">Permissions::CONNECT</span> <span class="op">|</span> <span class="ident">Permissions::SPEAK</span> <span class="op">|</span> <span class="ident">Permissions::SEND_TTS_MESSAGES</span>
     }
 
     <span class="kw">fn</span> <span class="ident">overwrite</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PermissionOverwrite</span> {
         <span class="ident">PermissionOverwrite</span> {
             <span class="ident">allow</span>: <span class="ident">perms</span>(),
-            <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
-            <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
+            <span class="ident">deny</span>: <span class="ident">Permissions::empty</span>(),
+            <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType::Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
         }
     }
 
     <span class="kw">fn</span> <span class="ident">voice</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VoiceFieldsBuilder</span> {
-        <span class="ident">VoiceFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;voicename&quot;</span>)
+        <span class="ident">VoiceFieldsBuilder::new</span>(<span class="string">&quot;voicename&quot;</span>)
             .<span class="ident">unwrap</span>()
             .<span class="ident">bitrate</span>(<span class="number">96_000</span>)
             .<span class="ident">permission_overwrites</span>(<span class="macro">vec!</span>[<span class="ident">overwrite</span>()])
@@ -1431,20 +1431,20 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_role_fields</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">RoleFieldsError</span>::<span class="ident">ColorNotRgb</span> { <span class="ident">color</span>: <span class="number">123_123_123</span> },
-            <span class="ident">RoleFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;role&quot;</span>)
+            <span class="ident">RoleFieldsError::ColorNotRgb</span> { <span class="ident">color</span>: <span class="number">123_123_123</span> },
+            <span class="ident">RoleFieldsBuilder::new</span>(<span class="string">&quot;role&quot;</span>)
                 .<span class="ident">color</span>(<span class="number">123_123_123</span>)
                 .<span class="ident">unwrap_err</span>()
         );
 
-        <span class="kw">let</span> <span class="ident">fields</span> <span class="op">=</span> <span class="ident">RoleFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;rolename&quot;</span>)
+        <span class="kw">let</span> <span class="ident">fields</span> <span class="op">=</span> <span class="ident">RoleFieldsBuilder::new</span>(<span class="string">&quot;rolename&quot;</span>)
             .<span class="ident">color</span>(<span class="number">0x12_34_56</span>)
             .<span class="ident">unwrap</span>()
             .<span class="ident">hoist</span>()
             .<span class="ident">id</span>(<span class="ident">RoleId</span>(<span class="number">2</span>))
             .<span class="ident">unwrap</span>()
             .<span class="ident">mentionable</span>()
-            .<span class="ident">permissions</span>(<span class="ident">Permissions</span>::<span class="ident">empty</span>())
+            .<span class="ident">permissions</span>(<span class="ident">Permissions::empty</span>())
             .<span class="ident">position</span>(<span class="number">1</span>);
 
         <span class="macro">assert_eq!</span>(
@@ -1454,8 +1454,8 @@
                 <span class="ident">hoist</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
                 <span class="ident">id</span>: <span class="ident">RoleId</span>(<span class="number">2</span>),
                 <span class="ident">mentionable</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
-                <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;rolename&quot;</span>),
-                <span class="ident">permissions</span>: <span class="prelude-val">Some</span>(<span class="ident">Permissions</span>::<span class="ident">empty</span>()),
+                <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;rolename&quot;</span>),
+                <span class="ident">permissions</span>: <span class="prelude-val">Some</span>(<span class="ident">Permissions::empty</span>()),
                 <span class="ident">position</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>),
             }
         );
@@ -1464,10 +1464,10 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_voice_fields</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">VoiceFieldsError</span>::<span class="ident">NameTooShort</span> {
-                <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;c&quot;</span>)
+            <span class="ident">VoiceFieldsError::NameTooShort</span> {
+                <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;c&quot;</span>)
             },
-            <span class="ident">VoiceFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;c&quot;</span>).<span class="ident">unwrap_err</span>()
+            <span class="ident">VoiceFieldsBuilder::new</span>(<span class="string">&quot;c&quot;</span>).<span class="ident">unwrap_err</span>()
         );
 
         <span class="kw">let</span> <span class="ident">fields</span> <span class="op">=</span> <span class="ident">voice</span>();
@@ -1477,12 +1477,12 @@
             <span class="ident">VoiceFields</span> {
                 <span class="ident">bitrate</span>: <span class="prelude-val">Some</span>(<span class="number">96_000</span>),
                 <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-                <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span>,
-                <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;voicename&quot;</span>),
+                <span class="ident">kind</span>: <span class="ident">ChannelType::GuildVoice</span>,
+                <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;voicename&quot;</span>),
                 <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="ident">PermissionOverwrite</span> {
                     <span class="ident">allow</span>: <span class="ident">perms</span>(),
-                    <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
-                    <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
+                    <span class="ident">deny</span>: <span class="ident">Permissions::empty</span>(),
+                    <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType::Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                 }]),
                 <span class="ident">parent_id</span>: <span class="prelude-val">None</span>,
                 <span class="ident">user_limit</span>: <span class="prelude-val">Some</span>(<span class="number">40</span>),
@@ -1491,7 +1491,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">text</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TextFieldsBuilder</span> {
-        <span class="ident">TextFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;textname&quot;</span>)
+        <span class="ident">TextFieldsBuilder::new</span>(<span class="string">&quot;textname&quot;</span>)
             .<span class="ident">unwrap</span>()
             .<span class="ident">nsfw</span>()
             .<span class="ident">permission_overwrites</span>(<span class="macro">vec!</span>[<span class="ident">overwrite</span>()])
@@ -1504,10 +1504,10 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_text_fields</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">TextFieldsError</span>::<span class="ident">NameTooShort</span> {
-                <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;b&quot;</span>)
+            <span class="ident">TextFieldsError::NameTooShort</span> {
+                <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;b&quot;</span>)
             },
-            <span class="ident">TextFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;b&quot;</span>).<span class="ident">unwrap_err</span>()
+            <span class="ident">TextFieldsBuilder::new</span>(<span class="string">&quot;b&quot;</span>).<span class="ident">unwrap_err</span>()
         );
 
         <span class="kw">let</span> <span class="ident">fields</span> <span class="op">=</span> <span class="ident">text</span>();
@@ -1516,23 +1516,23 @@
             <span class="ident">fields</span>.<span class="ident">build</span>(),
             <span class="ident">TextFields</span> {
                 <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-                <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildText</span>,
-                <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;textname&quot;</span>),
+                <span class="ident">kind</span>: <span class="ident">ChannelType::GuildText</span>,
+                <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;textname&quot;</span>),
                 <span class="ident">nsfw</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
                 <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="ident">PermissionOverwrite</span> {
                     <span class="ident">allow</span>: <span class="ident">perms</span>(),
-                    <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
-                    <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
+                    <span class="ident">deny</span>: <span class="ident">Permissions::empty</span>(),
+                    <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType::Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                 }]),
                 <span class="ident">parent_id</span>: <span class="prelude-val">None</span>,
                 <span class="ident">rate_limit_per_user</span>: <span class="prelude-val">Some</span>(<span class="number">4_000</span>),
-                <span class="ident">topic</span>: <span class="prelude-val">Some</span>(<span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;a topic&quot;</span>)),
+                <span class="ident">topic</span>: <span class="prelude-val">Some</span>(<span class="ident">String::from</span>(<span class="string">&quot;a topic&quot;</span>)),
             }
         );
     }
 
     <span class="kw">fn</span> <span class="ident">category</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CategoryFieldsBuilder</span> {
-        <span class="ident">CategoryFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;category&quot;</span>)
+        <span class="ident">CategoryFieldsBuilder::new</span>(<span class="string">&quot;category&quot;</span>)
             .<span class="ident">unwrap</span>()
             .<span class="ident">add_text</span>(<span class="ident">text</span>())
             .<span class="ident">add_voice</span>(<span class="ident">voice</span>())
@@ -1541,51 +1541,51 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_category_fields</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">CategoryFieldsError</span>::<span class="ident">NameTooShort</span> {
-                <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;a&quot;</span>)
+            <span class="ident">CategoryFieldsError::NameTooShort</span> {
+                <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;a&quot;</span>)
             },
-            <span class="ident">CategoryFieldsBuilder</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>).<span class="ident">unwrap_err</span>()
+            <span class="ident">CategoryFieldsBuilder::new</span>(<span class="string">&quot;a&quot;</span>).<span class="ident">unwrap_err</span>()
         );
 
         <span class="kw">let</span> <span class="ident">fields</span> <span class="op">=</span> <span class="ident">category</span>();
-        <span class="kw">let</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">GuildChannelFieldsBuilder</span>::<span class="ident">new</span>().<span class="ident">add_category_builder</span>(<span class="ident">fields</span>);
+        <span class="kw">let</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">GuildChannelFieldsBuilder::new</span>().<span class="ident">add_category_builder</span>(<span class="ident">fields</span>);
 
         <span class="macro">assert_eq!</span>(
             <span class="ident">channels</span>.<span class="ident">build</span>(),
             <span class="macro">vec!</span>[
-                <span class="ident">GuildChannelFields</span>::<span class="ident">Category</span>(<span class="ident">CategoryFields</span> {
+                <span class="ident">GuildChannelFields::Category</span>(<span class="ident">CategoryFields</span> {
                     <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">2</span>),
-                    <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildCategory</span>,
-                    <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;category&quot;</span>),
+                    <span class="ident">kind</span>: <span class="ident">ChannelType::GuildCategory</span>,
+                    <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;category&quot;</span>),
                     <span class="ident">permission_overwrites</span>: <span class="prelude-val">None</span>,
                 }),
-                <span class="ident">GuildChannelFields</span>::<span class="ident">Text</span>(<span class="ident">TextFields</span> {
+                <span class="ident">GuildChannelFields::Text</span>(<span class="ident">TextFields</span> {
                     <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-                    <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildText</span>,
-                    <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;textname&quot;</span>),
+                    <span class="ident">kind</span>: <span class="ident">ChannelType::GuildText</span>,
+                    <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;textname&quot;</span>),
                     <span class="ident">nsfw</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
                     <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="ident">PermissionOverwrite</span> {
-                        <span class="ident">allow</span>: <span class="ident">Permissions</span>::<span class="ident">CONNECT</span>
-                            <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SPEAK</span>
-                            <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SEND_TTS_MESSAGES</span>,
-                        <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
-                        <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
+                        <span class="ident">allow</span>: <span class="ident">Permissions::CONNECT</span>
+                            <span class="op">|</span> <span class="ident">Permissions::SPEAK</span>
+                            <span class="op">|</span> <span class="ident">Permissions::SEND_TTS_MESSAGES</span>,
+                        <span class="ident">deny</span>: <span class="ident">Permissions::empty</span>(),
+                        <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType::Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                     }]),
                     <span class="ident">parent_id</span>: <span class="prelude-val">Some</span>(<span class="ident">ChannelId</span>(<span class="number">2</span>)),
                     <span class="ident">rate_limit_per_user</span>: <span class="prelude-val">Some</span>(<span class="number">4_000</span>),
-                    <span class="ident">topic</span>: <span class="prelude-val">Some</span>(<span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;a topic&quot;</span>)),
+                    <span class="ident">topic</span>: <span class="prelude-val">Some</span>(<span class="ident">String::from</span>(<span class="string">&quot;a topic&quot;</span>)),
                 }),
-                <span class="ident">GuildChannelFields</span>::<span class="ident">Voice</span>(<span class="ident">VoiceFields</span> {
+                <span class="ident">GuildChannelFields::Voice</span>(<span class="ident">VoiceFields</span> {
                     <span class="ident">bitrate</span>: <span class="prelude-val">Some</span>(<span class="number">96_000</span>),
                     <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-                    <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span>,
-                    <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;voicename&quot;</span>),
+                    <span class="ident">kind</span>: <span class="ident">ChannelType::GuildVoice</span>,
+                    <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;voicename&quot;</span>),
                     <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="ident">PermissionOverwrite</span> {
-                        <span class="ident">allow</span>: <span class="ident">Permissions</span>::<span class="ident">CONNECT</span>
-                            <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SPEAK</span>
-                            <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SEND_TTS_MESSAGES</span>,
-                        <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
-                        <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
+                        <span class="ident">allow</span>: <span class="ident">Permissions::CONNECT</span>
+                            <span class="op">|</span> <span class="ident">Permissions::SPEAK</span>
+                            <span class="op">|</span> <span class="ident">Permissions::SEND_TTS_MESSAGES</span>,
+                        <span class="ident">deny</span>: <span class="ident">Permissions::empty</span>(),
+                        <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType::Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                     }]),
                     <span class="ident">parent_id</span>: <span class="prelude-val">Some</span>(<span class="ident">ChannelId</span>(<span class="number">2</span>)),
                     <span class="ident">user_limit</span>: <span class="prelude-val">Some</span>(<span class="number">40</span>),
@@ -1596,40 +1596,40 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_channels</span>() {
-        <span class="kw">let</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">GuildChannelFieldsBuilder</span>::<span class="ident">new</span>()
+        <span class="kw">let</span> <span class="ident">channels</span> <span class="op">=</span> <span class="ident">GuildChannelFieldsBuilder::new</span>()
             .<span class="ident">add_text</span>(<span class="ident">text</span>())
             .<span class="ident">add_voice</span>(<span class="ident">voice</span>());
 
         <span class="macro">assert_eq!</span>(
             <span class="ident">channels</span>.<span class="ident">build</span>(),
             <span class="macro">vec!</span>[
-                <span class="ident">GuildChannelFields</span>::<span class="ident">Text</span>(<span class="ident">TextFields</span> {
+                <span class="ident">GuildChannelFields::Text</span>(<span class="ident">TextFields</span> {
                     <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-                    <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildText</span>,
-                    <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;textname&quot;</span>),
+                    <span class="ident">kind</span>: <span class="ident">ChannelType::GuildText</span>,
+                    <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;textname&quot;</span>),
                     <span class="ident">nsfw</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
                     <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="ident">PermissionOverwrite</span> {
-                        <span class="ident">allow</span>: <span class="ident">Permissions</span>::<span class="ident">CONNECT</span>
-                            <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SPEAK</span>
-                            <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SEND_TTS_MESSAGES</span>,
-                        <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
-                        <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
+                        <span class="ident">allow</span>: <span class="ident">Permissions::CONNECT</span>
+                            <span class="op">|</span> <span class="ident">Permissions::SPEAK</span>
+                            <span class="op">|</span> <span class="ident">Permissions::SEND_TTS_MESSAGES</span>,
+                        <span class="ident">deny</span>: <span class="ident">Permissions::empty</span>(),
+                        <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType::Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                     }]),
                     <span class="ident">parent_id</span>: <span class="prelude-val">None</span>,
                     <span class="ident">rate_limit_per_user</span>: <span class="prelude-val">Some</span>(<span class="number">4_000</span>),
-                    <span class="ident">topic</span>: <span class="prelude-val">Some</span>(<span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;a topic&quot;</span>)),
+                    <span class="ident">topic</span>: <span class="prelude-val">Some</span>(<span class="ident">String::from</span>(<span class="string">&quot;a topic&quot;</span>)),
                 }),
-                <span class="ident">GuildChannelFields</span>::<span class="ident">Voice</span>(<span class="ident">VoiceFields</span> {
+                <span class="ident">GuildChannelFields::Voice</span>(<span class="ident">VoiceFields</span> {
                     <span class="ident">bitrate</span>: <span class="prelude-val">Some</span>(<span class="number">96_000</span>),
                     <span class="ident">id</span>: <span class="ident">ChannelId</span>(<span class="number">1</span>),
-                    <span class="ident">kind</span>: <span class="ident">ChannelType</span>::<span class="ident">GuildVoice</span>,
-                    <span class="ident">name</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;voicename&quot;</span>),
+                    <span class="ident">kind</span>: <span class="ident">ChannelType::GuildVoice</span>,
+                    <span class="ident">name</span>: <span class="ident">String::from</span>(<span class="string">&quot;voicename&quot;</span>),
                     <span class="ident">permission_overwrites</span>: <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="ident">PermissionOverwrite</span> {
-                        <span class="ident">allow</span>: <span class="ident">Permissions</span>::<span class="ident">CONNECT</span>
-                            <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SPEAK</span>
-                            <span class="op">|</span> <span class="ident">Permissions</span>::<span class="ident">SEND_TTS_MESSAGES</span>,
-                        <span class="ident">deny</span>: <span class="ident">Permissions</span>::<span class="ident">empty</span>(),
-                        <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType</span>::<span class="ident">Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
+                        <span class="ident">allow</span>: <span class="ident">Permissions::CONNECT</span>
+                            <span class="op">|</span> <span class="ident">Permissions::SPEAK</span>
+                            <span class="op">|</span> <span class="ident">Permissions::SEND_TTS_MESSAGES</span>,
+                        <span class="ident">deny</span>: <span class="ident">Permissions::empty</span>(),
+                        <span class="ident">kind</span>: <span class="ident">PermissionOverwriteType::Role</span>(<span class="ident">RoleId</span>(<span class="number">2</span>)),
                     }]),
                     <span class="ident">parent_id</span>: <span class="prelude-val">None</span>,
                     <span class="ident">user_limit</span>: <span class="prelude-val">Some</span>(<span class="number">40</span>),

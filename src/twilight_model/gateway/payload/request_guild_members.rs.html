@@ -264,12 +264,12 @@
 <span id="261">261</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">gateway</span>::<span class="ident">opcode</span>::<span class="ident">OpCode</span>,
+    <span class="ident">gateway::opcode::OpCode</span>,
     <span class="ident">id</span>::{<span class="ident">GuildId</span>, <span class="ident">UserId</span>},
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">error</span>::<span class="ident">Error</span>,
+    <span class="ident">error::Error</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
 
@@ -289,7 +289,7 @@
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">UserIdsError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">TooMany</span> { <span class="ident">ids</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
+            <span class="self">Self</span><span class="ident">::TooMany</span> { <span class="ident">ids</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_fmt</span>(<span class="macro">format_args!</span>(
                 <span class="string">&quot;{} user IDs were provided when only a maximum of 100 is allowed&quot;</span>,
                 <span class="ident">ids</span>.<span class="ident">len</span>(),
             )),
@@ -311,7 +311,7 @@
     <span class="doccomment">/// This is an alias to [`RequestGuildMembersBuilder::new`]. Refer to its</span>
     <span class="doccomment">/// documentation for more information.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RequestGuildMembersBuilder</span> {
-        <span class="ident">RequestGuildMembersBuilder</span>::<span class="ident">new</span>(<span class="ident">guild_id</span>)
+        <span class="ident">RequestGuildMembersBuilder::new</span>(<span class="ident">guild_id</span>)
     }
 }
 
@@ -395,7 +395,7 @@
                 <span class="ident">query</span>: <span class="prelude-val">Some</span>(<span class="ident">query</span>),
                 <span class="ident">user_ids</span>: <span class="prelude-val">None</span>,
             },
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
+            <span class="ident">op</span>: <span class="ident">OpCode::RequestGuildMembers</span>,
         }
     }
 
@@ -426,9 +426,9 @@
                 <span class="ident">nonce</span>: <span class="self">self</span>.<span class="ident">nonce</span>,
                 <span class="ident">presences</span>: <span class="self">self</span>.<span class="ident">presences</span>,
                 <span class="ident">query</span>: <span class="prelude-val">None</span>,
-                <span class="ident">user_ids</span>: <span class="prelude-val">Some</span>(<span class="ident">RequestGuildMemberId</span>::<span class="ident">One</span>(<span class="ident">user_id</span>)),
+                <span class="ident">user_ids</span>: <span class="prelude-val">Some</span>(<span class="ident">RequestGuildMemberId::One</span>(<span class="ident">user_id</span>)),
             },
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
+            <span class="ident">op</span>: <span class="ident">OpCode::RequestGuildMembers</span>,
         }
     }
 
@@ -469,7 +469,7 @@
 
     <span class="kw">fn</span> <span class="ident">_user_ids</span>(<span class="self">self</span>, <span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RequestGuildMembers</span>, <span class="ident">UserIdsError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">user_ids</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">100</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UserIdsError</span>::<span class="ident">TooMany</span> { <span class="ident">ids</span>: <span class="ident">user_ids</span> });
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">UserIdsError::TooMany</span> { <span class="ident">ids</span>: <span class="ident">user_ids</span> });
         }
 
         <span class="prelude-val">Ok</span>(<span class="ident">RequestGuildMembers</span> {
@@ -479,9 +479,9 @@
                 <span class="ident">nonce</span>: <span class="self">self</span>.<span class="ident">nonce</span>,
                 <span class="ident">presences</span>: <span class="self">self</span>.<span class="ident">presences</span>,
                 <span class="ident">query</span>: <span class="prelude-val">None</span>,
-                <span class="ident">user_ids</span>: <span class="prelude-val">Some</span>(<span class="ident">RequestGuildMemberId</span>::<span class="ident">Multiple</span>(<span class="ident">user_ids</span>)),
+                <span class="ident">user_ids</span>: <span class="prelude-val">Some</span>(<span class="ident">RequestGuildMemberId::Multiple</span>(<span class="ident">user_ids</span>)),
             },
-            <span class="ident">op</span>: <span class="ident">OpCode</span>::<span class="ident">RequestGuildMembers</span>,
+            <span class="ident">op</span>: <span class="ident">OpCode::RequestGuildMembers</span>,
         })
     }
 }
@@ -515,13 +515,13 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">One</span>(<span class="ident">id</span>)
+        <span class="self">Self</span><span class="ident">::One</span>(<span class="ident">id</span>)
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RequestGuildMemberId</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">Multiple</span>(<span class="ident">ids</span>)
+        <span class="self">Self</span><span class="ident">::Multiple</span>(<span class="ident">ids</span>)
     }
 }
 </pre></div>

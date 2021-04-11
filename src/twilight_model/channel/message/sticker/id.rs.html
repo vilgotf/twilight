@@ -79,7 +79,7 @@
 <span id="76">76</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
+<span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
 
 <span class="doccomment">/// Unique ID denoting a sticker.</span>
 <span class="doccomment">///</span>
@@ -93,7 +93,7 @@
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">StickerId</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
-        <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">f</span>)
+        <span class="ident">Display::fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">f</span>)
     }
 }
 
@@ -109,47 +109,47 @@
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">StickerPackId</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
-        <span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">f</span>)
+        <span class="ident">Display::fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">StickerId</span>, <span class="ident">StickerPackId</span>};
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_id_deser</span>() {
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">StickerId</span>(<span class="number">114_941_315_417_899_012</span>),
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;StickerId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;114941315417899012&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;StickerId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;114941315417899012&quot;</span>),
             ],
         );
-        <span class="ident">serde_test</span>::<span class="ident">assert_de_tokens</span>(
+        <span class="ident">serde_test::assert_de_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">StickerId</span>(<span class="number">114_941_315_417_899_012</span>),
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;StickerId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">114_941_315_417_899_012</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;StickerId&quot;</span> },
+                <span class="ident">Token::U64</span>(<span class="number">114_941_315_417_899_012</span>),
             ],
         );
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">StickerPackId</span>(<span class="number">114_941_315_417_899_012</span>),
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> {
+                <span class="ident">Token::NewtypeStruct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;StickerPackId&quot;</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;114941315417899012&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;114941315417899012&quot;</span>),
             ],
         );
-        <span class="ident">serde_test</span>::<span class="ident">assert_de_tokens</span>(
+        <span class="ident">serde_test::assert_de_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">StickerPackId</span>(<span class="number">114_941_315_417_899_012</span>),
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> {
+                <span class="ident">Token::NewtypeStruct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;StickerPackId&quot;</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">114_941_315_417_899_012</span>),
+                <span class="ident">Token::U64</span>(<span class="number">114_941_315_417_899_012</span>),
             ],
         );
     }

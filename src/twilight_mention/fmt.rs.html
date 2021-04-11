@@ -377,7 +377,7 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Formatters for creating mentions.</span>
 
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
+<span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>};
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
     <span class="ident">channel</span>::{
         <span class="ident">CategoryChannel</span>, <span class="ident">Channel</span>, <span class="ident">Group</span>, <span class="ident">GuildChannel</span>, <span class="ident">PrivateChannel</span>, <span class="ident">TextChannel</span>, <span class="ident">VoiceChannel</span>,
@@ -678,8 +678,8 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Mention</span>, <span class="ident">MentionFormat</span>};
-    <span class="kw">use</span> <span class="ident">static_assertions</span>::<span class="ident">assert_impl_all</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Display</span>};
+    <span class="kw">use</span> <span class="ident">static_assertions::assert_impl_all</span>;
+    <span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Display</span>};
     <span class="kw">use</span> <span class="ident">twilight_model</span>::{
         <span class="ident">channel</span>::{
             <span class="ident">CategoryChannel</span>, <span class="ident">Channel</span>, <span class="ident">Group</span>, <span class="ident">GuildChannel</span>, <span class="ident">PrivateChannel</span>, <span class="ident">TextChannel</span>,

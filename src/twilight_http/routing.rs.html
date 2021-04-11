@@ -1567,14 +1567,14 @@
 <span id="1564">1564</span>
 <span id="1565">1565</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">hyper</span>::<span class="ident">Method</span>;
+<span class="kw">use</span> <span class="ident">hyper::Method</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">borrow</span>::<span class="ident">Cow</span>,
-    <span class="ident">convert</span>::<span class="ident">TryFrom</span>,
-    <span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">StdError</span>,
+    <span class="ident">borrow::Cow</span>,
+    <span class="ident">convert::TryFrom</span>,
+    <span class="ident">error::Error</span> <span class="kw">as</span> <span class="ident">StdError</span>,
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>, <span class="ident">Write</span>},
-    <span class="ident">num</span>::<span class="ident">ParseIntError</span>,
-    <span class="ident">str</span>::<span class="ident">FromStr</span>,
+    <span class="ident">num::ParseIntError</span>,
+    <span class="ident">str::FromStr</span>,
 };
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
@@ -1597,18 +1597,18 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ParseIntError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PathParseError</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">source</span>: <span class="ident">ParseIntError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">IntegerParsing</span> { <span class="ident">source</span> }
+        <span class="self">Self</span><span class="ident">::IntegerParsing</span> { <span class="ident">source</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PathParseError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">IntegerParsing</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;An ID in a segment was invalid&quot;</span>),
-            <span class="self">Self</span>::<span class="ident">MessageIdWithoutMethod</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::IntegerParsing</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;An ID in a segment was invalid&quot;</span>),
+            <span class="self">Self</span><span class="ident">::MessageIdWithoutMethod</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;A message path was detected but the method wasn&#39;t given&quot;</span>)
             }
-            <span class="self">Self</span>::<span class="ident">NoMatch</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;There was no matched path&quot;</span>),
+            <span class="self">Self</span><span class="ident">::NoMatch</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;There was no matched path&quot;</span>),
         }
     }
 }
@@ -1616,8 +1616,8 @@
 <span class="kw">impl</span> <span class="ident">StdError</span> <span class="kw">for</span> <span class="ident">PathParseError</span> {
     <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">StdError</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">IntegerParsing</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="self">Self</span>::<span class="ident">MessageIdWithoutMethod</span> { .. } <span class="op">|</span> <span class="self">Self</span>::<span class="ident">NoMatch</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="self">Self</span><span class="ident">::IntegerParsing</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="self">Self</span><span class="ident">::MessageIdWithoutMethod</span> { .. } <span class="op">|</span> <span class="self">Self</span><span class="ident">::NoMatch</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }
@@ -1725,11 +1725,11 @@
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">enum_glob_use</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">from_str</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="prelude-val">Err</span><span class="op">&gt;</span> {
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::enum_glob_use</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">from_str</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Err</span><span class="op">&gt;</span> {
         <span class="kw">use</span> <span class="ident">Path</span>::<span class="kw-2">*</span>;
 
-        <span class="kw">let</span> <span class="ident">skip</span> <span class="op">=</span> <span class="ident">usize</span>::<span class="ident">from</span>(<span class="ident">s</span>.<span class="ident">starts_with</span>(<span class="string">&#39;/&#39;</span>));
+        <span class="kw">let</span> <span class="ident">skip</span> <span class="op">=</span> <span class="ident">usize::from</span>(<span class="ident">s</span>.<span class="ident">starts_with</span>(<span class="string">&#39;/&#39;</span>));
 
         <span class="kw">let</span> <span class="ident">parts</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">split</span>(<span class="string">&#39;/&#39;</span>).<span class="ident">skip</span>(<span class="ident">skip</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
@@ -1739,7 +1739,7 @@
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;invites&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdInvites</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdMessages</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">PathParseError</span>::<span class="ident">MessageIdWithoutMethod</span> {
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">PathParseError::MessageIdWithoutMethod</span> {
                     <span class="ident">channel_id</span>: <span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>,
                 });
             }
@@ -1791,7 +1791,7 @@
             [<span class="string">&quot;users&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;guilds&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UsersIdGuildsId</span>,
             [<span class="string">&quot;voice&quot;</span>, <span class="string">&quot;regions&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">VoiceRegions</span>,
             [<span class="string">&quot;webhooks&quot;</span>, <span class="ident">id</span>] <span class="op">|</span> [<span class="string">&quot;webhooks&quot;</span>, <span class="ident">id</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">WebhooksId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">PathParseError</span>::<span class="ident">NoMatch</span>),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">PathParseError::NoMatch</span>),
         })
     }
 }
@@ -1799,11 +1799,11 @@
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span>(<span class="ident">Method</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Path</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">PathParseError</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>((<span class="ident">method</span>, <span class="ident">s</span>): (<span class="ident">Method</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="self">Self</span>::<span class="ident">from_str</span>(<span class="ident">s</span>) {
+    <span class="kw">fn</span> <span class="ident">try_from</span>((<span class="ident">method</span>, <span class="ident">s</span>): (<span class="ident">Method</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">Self</span><span class="ident">::from_str</span>(<span class="ident">s</span>) {
             <span class="prelude-val">Ok</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">v</span>),
-            <span class="prelude-val">Err</span>(<span class="ident">PathParseError</span>::<span class="ident">MessageIdWithoutMethod</span> { <span class="ident">channel_id</span> }) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="ident">ChannelsIdMessagesId</span>(<span class="ident">method</span>, <span class="ident">channel_id</span>))
+            <span class="prelude-val">Err</span>(<span class="ident">PathParseError::MessageIdWithoutMethod</span> { <span class="ident">channel_id</span> }) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::ChannelsIdMessagesId</span>(<span class="ident">method</span>, <span class="ident">channel_id</span>))
             }
             <span class="prelude-val">Err</span>(<span class="ident">why</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">why</span>),
         }
@@ -2390,24 +2390,24 @@
     <span class="doccomment">/// while the returned path enum is useful for ratelimiting.</span>
     <span class="comment">// This function contains some `write!`s, but they can&#39;t fail, so we ignore</span>
     <span class="comment">// them to remove an unnecessary Result here.</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cognitive_complexity</span>, <span class="ident">clippy</span>::<span class="ident">too_many_lines</span>)]</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::cognitive_complexity</span>, <span class="ident">clippy::too_many_lines</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_parts</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Method</span>, <span class="ident">Path</span>, <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>) {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">AddGuildMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PUT</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdMembersId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::AddGuildMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PUT</span>,
+                <span class="ident">Path::GuildsIdMembersId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/members/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">AddMemberRole</span> {
+            <span class="self">Self</span><span class="ident">::AddMemberRole</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">role_id</span>,
                 <span class="ident">user_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PUT</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdMembersIdRolesId</span>(<span class="ident">guild_id</span>),
+                <span class="ident">Method::PUT</span>,
+                <span class="ident">Path::GuildsIdMembersIdRolesId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/members/{}/roles/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>, <span class="ident">role_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreateBan</span> {
+            <span class="self">Self</span><span class="ident">::CreateBan</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">delete_message_days</span>,
                 <span class="ident">reason</span>,
@@ -2426,25 +2426,25 @@
                     <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">path</span>, <span class="string">&quot;reason={}&quot;</span>, <span class="ident">reason</span>);
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">PUT</span>, <span class="ident">Path</span>::<span class="ident">GuildsIdBansUserId</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::PUT</span>, <span class="ident">Path::GuildsIdBansUserId</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">CreateChannel</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdChannels</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::CreateChannel</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::GuildsIdChannels</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/channels&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreateEmoji</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdEmojis</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::CreateEmoji</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::GuildsIdEmojis</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/emojis&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreateGuild</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method</span>::<span class="ident">POST</span>, <span class="ident">Path</span>::<span class="ident">Guilds</span>, <span class="string">&quot;guilds&quot;</span>.<span class="ident">into</span>()),
-            <span class="self">Self</span>::<span class="ident">CreateGuildIntegration</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdIntegrationsId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::CreateGuild</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method::POST</span>, <span class="ident">Path::Guilds</span>, <span class="string">&quot;guilds&quot;</span>.<span class="ident">into</span>()),
+            <span class="self">Self</span><span class="ident">::CreateGuildIntegration</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::GuildsIdIntegrationsId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/integrations&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreateGuildPrune</span> {
+            <span class="self">Self</span><span class="ident">::CreateGuildPrune</span> {
                 <span class="ident">compute_prune_count</span>,
                 <span class="ident">days</span>,
                 <span class="ident">guild_id</span>,
@@ -2466,169 +2466,169 @@
                         <span class="string">&quot;include_roles={}&quot;</span>,
                         <span class="ident">include_roles</span>
                             .<span class="ident">iter</span>()
-                            .<span class="ident">map</span>(<span class="ident">ToString</span>::<span class="ident">to_string</span>)
+                            .<span class="ident">map</span>(<span class="ident">ToString::to_string</span>)
                             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>()
                             .<span class="ident">join</span>(<span class="string">&quot;,&quot;</span>)
                     );
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">POST</span>, <span class="ident">Path</span>::<span class="ident">GuildsIdPrune</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::POST</span>, <span class="ident">Path::GuildsIdPrune</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">CreateInvite</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdInvites</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::CreateInvite</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::ChannelsIdInvites</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/invites&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreateMessage</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessages</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::CreateMessage</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::ChannelsIdMessages</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/messages&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreatePrivateChannel</span> <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">UsersIdChannels</span>,
+            <span class="self">Self</span><span class="ident">::CreatePrivateChannel</span> <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::UsersIdChannels</span>,
                 <span class="string">&quot;users/@me/channels&quot;</span>.<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreateReaction</span> {
+            <span class="self">Self</span><span class="ident">::CreateReaction</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">emoji</span>,
                 <span class="ident">message_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PUT</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesIdReactionsUserIdType</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Method::PUT</span>,
+                <span class="ident">Path::ChannelsIdMessagesIdReactionsUserIdType</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(
                     <span class="string">&quot;channels/{}/messages/{}/reactions/{}/@me&quot;</span>,
                     <span class="ident">channel_id</span>, <span class="ident">message_id</span>, <span class="ident">emoji</span>,
                 )
                 .<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreateRole</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdRoles</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::CreateRole</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::GuildsIdRoles</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/roles&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreateTypingTrigger</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdTyping</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::CreateTypingTrigger</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::ChannelsIdTyping</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/typing&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CreateWebhook</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdWebhooks</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::CreateWebhook</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::ChannelsIdWebhooks</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/webhooks&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">CrosspostMessage</span> {
+            <span class="self">Self</span><span class="ident">::CrosspostMessage</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">message_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesIdCrosspost</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::ChannelsIdMessagesIdCrosspost</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/messages/{}/crosspost&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteBan</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdBansUserId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::DeleteBan</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::GuildsIdBansUserId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/bans/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteChannel</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsId</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::DeleteChannel</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::ChannelsId</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteEmoji</span> { <span class="ident">emoji_id</span>, <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdEmojisId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::DeleteEmoji</span> { <span class="ident">emoji_id</span>, <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::GuildsIdEmojisId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/emojis/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">emoji_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteGuild</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::DeleteGuild</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::GuildsId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteGuildIntegration</span> {
+            <span class="self">Self</span><span class="ident">::DeleteGuildIntegration</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">integration_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdIntegrationsId</span>(<span class="ident">guild_id</span>),
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::GuildsIdIntegrationsId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/integrations/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">integration_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteInvite</span> { <span class="ident">code</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">InvitesCode</span>,
+            <span class="self">Self</span><span class="ident">::DeleteInvite</span> { <span class="ident">code</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::InvitesCode</span>,
                 <span class="macro">format!</span>(<span class="string">&quot;invites/{}&quot;</span>, <span class="ident">code</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteMessageReactions</span> {
+            <span class="self">Self</span><span class="ident">::DeleteMessageReactions</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">message_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesIdReactions</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::ChannelsIdMessagesIdReactions</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/messages/{}/reactions&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteMessageSpecficReaction</span> {
+            <span class="self">Self</span><span class="ident">::DeleteMessageSpecficReaction</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">message_id</span>,
                 <span class="ident">emoji</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesIdReactions</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::ChannelsIdMessagesIdReactions</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(
                     <span class="string">&quot;channels/{}/messages/{}/reactions/{}&quot;</span>,
                     <span class="ident">channel_id</span>, <span class="ident">message_id</span>, <span class="ident">emoji</span>
                 )
                 .<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteMessage</span> {
+            <span class="self">Self</span><span class="ident">::DeleteMessage</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">message_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesId</span>(<span class="ident">Method</span>::<span class="ident">DELETE</span>, <span class="ident">message_id</span>),
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::ChannelsIdMessagesId</span>(<span class="ident">Method::DELETE</span>, <span class="ident">message_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/messages/{}&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteMessages</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesBulkDelete</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::DeleteMessages</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::ChannelsIdMessagesBulkDelete</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/messages/bulk-delete&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeletePermissionOverwrite</span> {
+            <span class="self">Self</span><span class="ident">::DeletePermissionOverwrite</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">target_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdPermissionsOverwriteId</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::ChannelsIdPermissionsOverwriteId</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/permissions/{}&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">target_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteReaction</span> {
+            <span class="self">Self</span><span class="ident">::DeleteReaction</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">emoji</span>,
                 <span class="ident">message_id</span>,
                 <span class="ident">user</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesIdReactionsUserIdType</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::ChannelsIdMessagesIdReactionsUserIdType</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(
                     <span class="string">&quot;channels/{}/messages/{}/reactions/{}/{}&quot;</span>,
                     <span class="ident">channel_id</span>, <span class="ident">message_id</span>, <span class="ident">emoji</span>, <span class="ident">user</span>,
                 )
                 .<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteRole</span> { <span class="ident">guild_id</span>, <span class="ident">role_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdRolesId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::DeleteRole</span> { <span class="ident">guild_id</span>, <span class="ident">role_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::GuildsIdRolesId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/roles/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">role_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteWebhookMessage</span> {
+            <span class="self">Self</span><span class="ident">::DeleteWebhookMessage</span> {
                 <span class="ident">message_id</span>,
                 <span class="ident">token</span>,
                 <span class="ident">webhook_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">WebhooksIdTokenMessageId</span>(<span class="ident">webhook_id</span>),
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::WebhooksIdTokenMessageId</span>(<span class="ident">webhook_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;webhooks/{}/{}/messages/{}&quot;</span>, <span class="ident">webhook_id</span>, <span class="ident">token</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">DeleteWebhook</span> { <span class="ident">token</span>, <span class="ident">webhook_id</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::DeleteWebhook</span> { <span class="ident">token</span>, <span class="ident">webhook_id</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">path</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;webhooks/{}&quot;</span>, <span class="ident">webhook_id</span>);
 
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">token</span>) <span class="op">=</span> <span class="ident">token</span> {
@@ -2636,9 +2636,9 @@
                     <span class="ident">path</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">token</span>);
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">DELETE</span>, <span class="ident">Path</span>::<span class="ident">WebhooksId</span>(<span class="ident">webhook_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::DELETE</span>, <span class="ident">Path::WebhooksId</span>(<span class="ident">webhook_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">ExecuteWebhook</span> {
+            <span class="self">Self</span><span class="ident">::ExecuteWebhook</span> {
                 <span class="ident">token</span>,
                 <span class="ident">wait</span>,
                 <span class="ident">webhook_id</span>,
@@ -2649,14 +2649,14 @@
                     <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">path</span>, <span class="string">&quot;?wait={}&quot;</span>, <span class="ident">wait</span>);
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">POST</span>, <span class="ident">Path</span>::<span class="ident">WebhooksId</span>(<span class="ident">webhook_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::POST</span>, <span class="ident">Path::WebhooksId</span>(<span class="ident">webhook_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">FollowNewsChannel</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdFollowers</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::FollowNewsChannel</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::ChannelsIdFollowers</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/followers&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetAuditLogs</span> {
+            <span class="self">Self</span><span class="ident">::GetAuditLogs</span> {
                 <span class="ident">action_type</span>,
                 <span class="ident">before</span>,
                 <span class="ident">guild_id</span>,
@@ -2681,56 +2681,56 @@
                     <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">path</span>, <span class="string">&quot;&amp;user_id={}&quot;</span>, <span class="ident">user_id</span>);
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">GuildsIdAuditLogs</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::GET</span>, <span class="ident">Path::GuildsIdAuditLogs</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">GetBan</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdBansId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetBan</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdBansId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/bans/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetBans</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdBans</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetBans</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdBans</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/bans&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGatewayBot</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">GatewayBot</span>, <span class="string">&quot;gateway/bot&quot;</span>.<span class="ident">into</span>()),
-            <span class="self">Self</span>::<span class="ident">GetChannel</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsId</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::GetGatewayBot</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method::GET</span>, <span class="ident">Path::GatewayBot</span>, <span class="string">&quot;gateway/bot&quot;</span>.<span class="ident">into</span>()),
+            <span class="self">Self</span><span class="ident">::GetChannel</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::ChannelsId</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetChannelInvites</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdInvites</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::GetChannelInvites</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::ChannelsIdInvites</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/invites&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetChannelWebhooks</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdWebhooks</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::GetChannelWebhooks</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::ChannelsIdWebhooks</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/webhooks&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetChannels</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdChannels</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetChannels</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdChannels</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/channels&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetCurrentUserApplicationInfo</span> <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">OauthApplicationsMe</span>,
+            <span class="self">Self</span><span class="ident">::GetCurrentUserApplicationInfo</span> <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::OauthApplicationsMe</span>,
                 <span class="string">&quot;/oauth2/applications/@me&quot;</span>.<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetEmoji</span> { <span class="ident">emoji_id</span>, <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdEmojisId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetEmoji</span> { <span class="ident">emoji_id</span>, <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdEmojisId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/emojis/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">emoji_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetEmojis</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdEmojis</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetEmojis</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdEmojis</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/emojis&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGateway</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">Gateway</span>, <span class="string">&quot;gateway&quot;</span>.<span class="ident">into</span>()),
-            <span class="self">Self</span>::<span class="ident">GetGuild</span> {
+            <span class="self">Self</span><span class="ident">::GetGateway</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method::GET</span>, <span class="ident">Path::Gateway</span>, <span class="string">&quot;gateway&quot;</span>.<span class="ident">into</span>()),
+            <span class="self">Self</span><span class="ident">::GetGuild</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">with_counts</span>,
             } <span class="op">=</span><span class="op">&gt;</span> {
@@ -2738,24 +2738,24 @@
                 <span class="kw">if</span> <span class="ident">with_counts</span> {
                     <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">path</span>, <span class="string">&quot;?with_counts=true&quot;</span>);
                 }
-                (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">GuildsId</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::GET</span>, <span class="ident">Path::GuildsId</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">GetGuildWidget</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdWidget</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetGuildWidget</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdWidget</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/widget&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGuildIntegrations</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> {
-                (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">GuildsIdIntegrations</span>(<span class="ident">guild_id</span>), {
+            <span class="self">Self</span><span class="ident">::GetGuildIntegrations</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> {
+                (<span class="ident">Method::GET</span>, <span class="ident">Path::GuildsIdIntegrations</span>(<span class="ident">guild_id</span>), {
                     <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/integrations&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>()
                 })
             }
-            <span class="self">Self</span>::<span class="ident">GetGuildInvites</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdInvites</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetGuildInvites</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdInvites</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/invites&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGuildMembers</span> {
+            <span class="self">Self</span><span class="ident">::GetGuildMembers</span> {
                 <span class="ident">after</span>,
                 <span class="ident">guild_id</span>,
                 <span class="ident">limit</span>,
@@ -2775,14 +2775,14 @@
                     <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">path</span>, <span class="string">&quot;&amp;presences={}&quot;</span>, <span class="ident">presences</span>);
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">GuildsIdMembers</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::GET</span>, <span class="ident">Path::GuildsIdMembers</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">GetGuildPreview</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdPreview</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetGuildPreview</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdPreview</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/preview&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGuildPruneCount</span> {
+            <span class="self">Self</span><span class="ident">::GetGuildPruneCount</span> {
                 <span class="ident">days</span>,
                 <span class="ident">guild_id</span>,
                 <span class="ident">include_roles</span>,
@@ -2799,35 +2799,35 @@
                         <span class="string">&quot;include_roles={}&quot;</span>,
                         <span class="ident">include_roles</span>
                             .<span class="ident">iter</span>()
-                            .<span class="ident">map</span>(<span class="ident">ToString</span>::<span class="ident">to_string</span>)
+                            .<span class="ident">map</span>(<span class="ident">ToString::to_string</span>)
                             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>()
                             .<span class="ident">join</span>(<span class="string">&quot;,&quot;</span>)
                     );
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">GuildsIdPrune</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::GET</span>, <span class="ident">Path::GuildsIdPrune</span>(<span class="ident">guild_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">GetGuildRoles</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdRoles</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetGuildRoles</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdRoles</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/roles&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGuildVanityUrl</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdVanityUrl</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetGuildVanityUrl</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdVanityUrl</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/vanity-url&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGuildVoiceRegions</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdRegions</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetGuildVoiceRegions</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdRegions</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/regions&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGuildWebhooks</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdWebhooks</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetGuildWebhooks</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdWebhooks</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/webhooks&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetGuilds</span> {
+            <span class="self">Self</span><span class="ident">::GetGuilds</span> {
                 <span class="ident">after</span>,
                 <span class="ident">before</span>,
                 <span class="ident">limit</span>,
@@ -2846,27 +2846,27 @@
                     <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">path</span>, <span class="string">&quot;&amp;limit={}&quot;</span>, <span class="ident">limit</span>);
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">UsersIdGuilds</span>, <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::GET</span>, <span class="ident">Path::UsersIdGuilds</span>, <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">GetInvite</span> { <span class="ident">code</span>, <span class="ident">with_counts</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">InvitesCode</span>,
+            <span class="self">Self</span><span class="ident">::GetInvite</span> { <span class="ident">code</span>, <span class="ident">with_counts</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::InvitesCode</span>,
                 <span class="macro">format!</span>(<span class="string">&quot;invites/{}?with-counts={}&quot;</span>, <span class="ident">code</span>, <span class="ident">with_counts</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdMembersId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::GetMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdMembersId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/members/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetMessage</span> {
+            <span class="self">Self</span><span class="ident">::GetMessage</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">message_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesId</span>(<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">channel_id</span>),
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::ChannelsIdMessagesId</span>(<span class="ident">Method::GET</span>, <span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/messages/{}&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetMessages</span> {
+            <span class="self">Self</span><span class="ident">::GetMessages</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">after</span>,
                 <span class="ident">around</span>,
@@ -2892,17 +2892,17 @@
                 }
 
                 (
-                    <span class="ident">Method</span>::<span class="ident">GET</span>,
-                    <span class="ident">Path</span>::<span class="ident">ChannelsIdMessages</span>(<span class="ident">channel_id</span>),
+                    <span class="ident">Method::GET</span>,
+                    <span class="ident">Path::ChannelsIdMessages</span>(<span class="ident">channel_id</span>),
                     <span class="ident">path</span>.<span class="ident">into</span>(),
                 )
             }
-            <span class="self">Self</span>::<span class="ident">GetPins</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdPins</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::GetPins</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::ChannelsIdPins</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/pins&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetReactionUsers</span> {
+            <span class="self">Self</span><span class="ident">::GetReactionUsers</span> {
                 <span class="ident">after</span>,
                 <span class="ident">before</span>,
                 <span class="ident">channel_id</span>,
@@ -2928,28 +2928,28 @@
                 }
 
                 (
-                    <span class="ident">Method</span>::<span class="ident">GET</span>,
-                    <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesIdReactions</span>(<span class="ident">channel_id</span>),
+                    <span class="ident">Method::GET</span>,
+                    <span class="ident">Path::ChannelsIdMessagesIdReactions</span>(<span class="ident">channel_id</span>),
                     <span class="ident">path</span>.<span class="ident">into</span>(),
                 )
             }
-            <span class="self">Self</span>::<span class="ident">GetUserConnections</span> <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">UsersIdConnections</span>,
+            <span class="self">Self</span><span class="ident">::GetUserConnections</span> <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::UsersIdConnections</span>,
                 <span class="string">&quot;users/@me/connections&quot;</span>.<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetUserPrivateChannels</span> <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">UsersIdChannels</span>,
+            <span class="self">Self</span><span class="ident">::GetUserPrivateChannels</span> <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::UsersIdChannels</span>,
                 <span class="string">&quot;users/@me/channels&quot;</span>.<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetUser</span> { <span class="ident">target_user</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">GET</span>,
-                <span class="ident">Path</span>::<span class="ident">UsersId</span>,
+            <span class="self">Self</span><span class="ident">::GetUser</span> { <span class="ident">target_user</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::UsersId</span>,
                 <span class="macro">format!</span>(<span class="string">&quot;users/{}&quot;</span>, <span class="ident">target_user</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">GetVoiceRegions</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">VoiceRegions</span>, <span class="string">&quot;voice/regions&quot;</span>.<span class="ident">into</span>()),
-            <span class="self">Self</span>::<span class="ident">GetWebhook</span> { <span class="ident">token</span>, <span class="ident">webhook_id</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::GetVoiceRegions</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method::GET</span>, <span class="ident">Path::VoiceRegions</span>, <span class="string">&quot;voice/regions&quot;</span>.<span class="ident">into</span>()),
+            <span class="self">Self</span><span class="ident">::GetWebhook</span> { <span class="ident">token</span>, <span class="ident">webhook_id</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">path</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;webhooks/{}&quot;</span>, <span class="ident">webhook_id</span>);
 
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">token</span>) <span class="op">=</span> <span class="ident">token</span> {
@@ -2957,131 +2957,131 @@
                     <span class="ident">path</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">token</span>);
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="ident">Path</span>::<span class="ident">WebhooksId</span>(<span class="ident">webhook_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::GET</span>, <span class="ident">Path::WebhooksId</span>(<span class="ident">webhook_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
-            <span class="self">Self</span>::<span class="ident">LeaveGuild</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">UsersIdGuildsId</span>,
+            <span class="self">Self</span><span class="ident">::LeaveGuild</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::UsersIdGuildsId</span>,
                 <span class="macro">format!</span>(<span class="string">&quot;users/@me/guilds/{}&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">PinMessage</span> {
+            <span class="self">Self</span><span class="ident">::PinMessage</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">message_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PUT</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdPins</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Method::PUT</span>,
+                <span class="ident">Path::ChannelsIdPins</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/pins/{}&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">RemoveMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdMembersId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::RemoveMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::GuildsIdMembersId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/members/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">RemoveMemberRole</span> {
+            <span class="self">Self</span><span class="ident">::RemoveMemberRole</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">role_id</span>,
                 <span class="ident">user_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdMembersIdRolesId</span>(<span class="ident">guild_id</span>),
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::GuildsIdMembersIdRolesId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/members/{}/roles/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>, <span class="ident">role_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">SyncGuildIntegration</span> {
+            <span class="self">Self</span><span class="ident">::SyncGuildIntegration</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">integration_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">POST</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdIntegrationsIdSync</span>(<span class="ident">guild_id</span>),
+                <span class="ident">Method::POST</span>,
+                <span class="ident">Path::GuildsIdIntegrationsIdSync</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/integrations/{}/sync&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">integration_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UnpinMessage</span> {
+            <span class="self">Self</span><span class="ident">::UnpinMessage</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">message_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">DELETE</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdPinsMessageId</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Method::DELETE</span>,
+                <span class="ident">Path::ChannelsIdPinsMessageId</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/pins/{}&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateChannel</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsId</span>(<span class="ident">channel_id</span>),
+            <span class="self">Self</span><span class="ident">::UpdateChannel</span> { <span class="ident">channel_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::ChannelsId</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateCurrentUser</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method</span>::<span class="ident">PATCH</span>, <span class="ident">Path</span>::<span class="ident">UsersId</span>, <span class="string">&quot;users/@me&quot;</span>.<span class="ident">into</span>()),
-            <span class="self">Self</span>::<span class="ident">UpdateEmoji</span> { <span class="ident">emoji_id</span>, <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdEmojisId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::UpdateCurrentUser</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method::PATCH</span>, <span class="ident">Path::UsersId</span>, <span class="string">&quot;users/@me&quot;</span>.<span class="ident">into</span>()),
+            <span class="self">Self</span><span class="ident">::UpdateEmoji</span> { <span class="ident">emoji_id</span>, <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdEmojisId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/emojis/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">emoji_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateGuild</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::UpdateGuild</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateGuildChannels</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdChannels</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::UpdateGuildChannels</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdChannels</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/channels&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateGuildWidget</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdWidget</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::UpdateGuildWidget</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdWidget</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/widget&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateGuildIntegration</span> {
+            <span class="self">Self</span><span class="ident">::UpdateGuildIntegration</span> {
                 <span class="ident">guild_id</span>,
                 <span class="ident">integration_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdIntegrationsId</span>(<span class="ident">guild_id</span>),
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdIntegrationsId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/integrations/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">integration_id</span>,).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdMembersId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::UpdateMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdMembersId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/members/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateMessage</span> {
+            <span class="self">Self</span><span class="ident">::UpdateMessage</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">message_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesId</span>(<span class="ident">Method</span>::<span class="ident">PATCH</span>, <span class="ident">channel_id</span>),
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::ChannelsIdMessagesId</span>(<span class="ident">Method::PATCH</span>, <span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/messages/{}&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateNickname</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdMembersMeNick</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::UpdateNickname</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdMembersMeNick</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/members/@me/nick&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdatePermissionOverwrite</span> {
+            <span class="self">Self</span><span class="ident">::UpdatePermissionOverwrite</span> {
                 <span class="ident">channel_id</span>,
                 <span class="ident">target_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PUT</span>,
-                <span class="ident">Path</span>::<span class="ident">ChannelsIdPermissionsOverwriteId</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Method::PUT</span>,
+                <span class="ident">Path::ChannelsIdPermissionsOverwriteId</span>(<span class="ident">channel_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}/permissions/{}&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">target_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateRole</span> { <span class="ident">guild_id</span>, <span class="ident">role_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdRolesId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::UpdateRole</span> { <span class="ident">guild_id</span>, <span class="ident">role_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdRolesId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/roles/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">role_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateRolePositions</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">GuildsIdRolesId</span>(<span class="ident">guild_id</span>),
+            <span class="self">Self</span><span class="ident">::UpdateRolePositions</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdRolesId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/roles&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateWebhookMessage</span> {
+            <span class="self">Self</span><span class="ident">::UpdateWebhookMessage</span> {
                 <span class="ident">message_id</span>,
                 <span class="ident">token</span>,
                 <span class="ident">webhook_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
-                <span class="ident">Method</span>::<span class="ident">PATCH</span>,
-                <span class="ident">Path</span>::<span class="ident">WebhooksIdTokenMessageId</span>(<span class="ident">webhook_id</span>),
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::WebhooksIdTokenMessageId</span>(<span class="ident">webhook_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;webhooks/{}/{}/messages/{}&quot;</span>, <span class="ident">webhook_id</span>, <span class="ident">token</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
             ),
-            <span class="self">Self</span>::<span class="ident">UpdateWebhook</span> { <span class="ident">token</span>, <span class="ident">webhook_id</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::UpdateWebhook</span> { <span class="ident">token</span>, <span class="ident">webhook_id</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">path</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;webhooks/{}&quot;</span>, <span class="ident">webhook_id</span>);
 
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">token</span>) <span class="op">=</span> <span class="ident">token</span> {
@@ -3089,7 +3089,7 @@
                     <span class="ident">path</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">token</span>);
                 }
 
-                (<span class="ident">Method</span>::<span class="ident">PATCH</span>, <span class="ident">Path</span>::<span class="ident">WebhooksId</span>(<span class="ident">webhook_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
+                (<span class="ident">Method::PATCH</span>, <span class="ident">Path::WebhooksId</span>(<span class="ident">webhook_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
         }
     }
@@ -3098,22 +3098,22 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Path</span>, <span class="ident">PathParseError</span>};
-    <span class="kw">use</span> <span class="ident">hyper</span>::<span class="ident">Method</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert</span>::<span class="ident">TryFrom</span>, <span class="ident">error</span>::<span class="ident">Error</span>, <span class="ident">str</span>::<span class="ident">FromStr</span>};
+    <span class="kw">use</span> <span class="ident">hyper::Method</span>;
+    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">error::Error</span>, <span class="ident">str::FromStr</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_path_prefix_unimportant</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="macro">assert_eq!</span>(<span class="ident">Path</span>::<span class="ident">Guilds</span>, <span class="ident">Path</span>::<span class="ident">from_str</span>(<span class="string">&quot;guilds&quot;</span>)<span class="question-mark">?</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">Path</span>::<span class="ident">Guilds</span>, <span class="ident">Path</span>::<span class="ident">from_str</span>(<span class="string">&quot;/guilds&quot;</span>)<span class="question-mark">?</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Path::Guilds</span>, <span class="ident">Path::from_str</span>(<span class="string">&quot;guilds&quot;</span>)<span class="question-mark">?</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Path::Guilds</span>, <span class="ident">Path::from_str</span>(<span class="string">&quot;/guilds&quot;</span>)<span class="question-mark">?</span>);
 
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_path_from_str</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="macro">assert_eq!</span>(<span class="ident">Path</span>::<span class="ident">ChannelsId</span>(<span class="number">123</span>), <span class="ident">Path</span>::<span class="ident">from_str</span>(<span class="string">&quot;/channels/123&quot;</span>)<span class="question-mark">?</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">Path</span>::<span class="ident">WebhooksId</span>(<span class="number">123</span>), <span class="ident">Path</span>::<span class="ident">from_str</span>(<span class="string">&quot;/webhooks/123&quot;</span>)<span class="question-mark">?</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">Path</span>::<span class="ident">InvitesCode</span>, <span class="ident">Path</span>::<span class="ident">from_str</span>(<span class="string">&quot;/invites/abc&quot;</span>)<span class="question-mark">?</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Path::ChannelsId</span>(<span class="number">123</span>), <span class="ident">Path::from_str</span>(<span class="string">&quot;/channels/123&quot;</span>)<span class="question-mark">?</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Path::WebhooksId</span>(<span class="number">123</span>), <span class="ident">Path::from_str</span>(<span class="string">&quot;/webhooks/123&quot;</span>)<span class="question-mark">?</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Path::InvitesCode</span>, <span class="ident">Path::from_str</span>(<span class="string">&quot;/invites/abc&quot;</span>)<span class="question-mark">?</span>);
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -3121,12 +3121,12 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_path_message_id</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">PathParseError</span>::<span class="ident">MessageIdWithoutMethod</span> { <span class="ident">channel_id</span>: <span class="number">123</span> },
-            <span class="ident">Path</span>::<span class="ident">from_str</span>(<span class="string">&quot;channels/123/messages/456&quot;</span>).<span class="ident">unwrap_err</span>()
+            <span class="ident">PathParseError::MessageIdWithoutMethod</span> { <span class="ident">channel_id</span>: <span class="number">123</span> },
+            <span class="ident">Path::from_str</span>(<span class="string">&quot;channels/123/messages/456&quot;</span>).<span class="ident">unwrap_err</span>()
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">Path</span>::<span class="ident">ChannelsIdMessagesId</span>(<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="number">123</span>),
-            <span class="ident">Path</span>::<span class="ident">try_from</span>((<span class="ident">Method</span>::<span class="ident">GET</span>, <span class="string">&quot;/channels/123/messages/456&quot;</span>))<span class="question-mark">?</span>,
+            <span class="ident">Path::ChannelsIdMessagesId</span>(<span class="ident">Method::GET</span>, <span class="number">123</span>),
+            <span class="ident">Path::try_from</span>((<span class="ident">Method::GET</span>, <span class="string">&quot;/channels/123/messages/456&quot;</span>))<span class="question-mark">?</span>,
         );
 
         <span class="prelude-val">Ok</span>(())

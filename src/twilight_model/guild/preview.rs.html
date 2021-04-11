@@ -107,7 +107,7 @@
 <span id="104">104</span>
 <span id="105">105</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">guild</span>::<span class="ident">Emoji</span>, <span class="ident">id</span>::<span class="ident">GuildId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">guild::Emoji</span>, <span class="ident">id::GuildId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
@@ -127,8 +127,8 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Emoji</span>, <span class="ident">GuildId</span>, <span class="ident">GuildPreview</span>};
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">id</span>::<span class="ident">EmojiId</span>;
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::id::EmojiId</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_guild_preview</span>() {
@@ -144,7 +144,7 @@
                 <span class="ident">managed</span>: <span class="bool-val">false</span>,
                 <span class="ident">name</span>: <span class="string">&quot;test&quot;</span>.<span class="ident">to_owned</span>(),
                 <span class="ident">require_colons</span>: <span class="bool-val">true</span>,
-                <span class="ident">roles</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+                <span class="ident">roles</span>: <span class="ident">Vec::new</span>(),
                 <span class="ident">user</span>: <span class="prelude-val">None</span>,
             }],
             <span class="ident">features</span>: <span class="macro">vec!</span>[<span class="string">&quot;a feature&quot;</span>.<span class="ident">to_owned</span>()],
@@ -154,60 +154,60 @@
             <span class="ident">splash</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;splash hash&quot;</span>.<span class="ident">to_owned</span>()),
         };
 
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
+        <span class="ident">serde_test::assert_tokens</span>(
             <span class="kw-2">&amp;</span><span class="ident">value</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;GuildPreview&quot;</span>,
                     <span class="ident">len</span>: <span class="number">10</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;approximate_member_count&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">1_000</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;approximate_presence_count&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">U64</span>(<span class="number">500</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;description&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;guild description&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;discovery_splash&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;discovery splash hash&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;emojis&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
-                <span class="ident">Token</span>::<span class="ident">Struct</span> {
+                <span class="ident">Token::Str</span>(<span class="string">&quot;approximate_member_count&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">1_000</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;approximate_presence_count&quot;</span>),
+                <span class="ident">Token::U64</span>(<span class="number">500</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;description&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;guild description&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;discovery_splash&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;discovery splash hash&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;emojis&quot;</span>),
+                <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
+                <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Emoji&quot;</span>,
                     <span class="ident">len</span>: <span class="number">6</span>,
                 },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;animated&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;available&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;EmojiId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;2&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;managed&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">false</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;test&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;require_colons&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Bool</span>(<span class="bool-val">true</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
-                <span class="ident">Token</span>::<span class="ident">SeqEnd</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;features&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;a feature&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">SeqEnd</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;id&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;GuildId&quot;</span> },
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;1&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;name&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;guild name&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;icon&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;icon hash&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;splash&quot;</span>),
-                <span class="ident">Token</span>::<span class="prelude-val">Some</span>,
-                <span class="ident">Token</span>::<span class="ident">Str</span>(<span class="string">&quot;splash hash&quot;</span>),
-                <span class="ident">Token</span>::<span class="ident">StructEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;animated&quot;</span>),
+                <span class="ident">Token::Bool</span>(<span class="bool-val">false</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;available&quot;</span>),
+                <span class="ident">Token::Bool</span>(<span class="bool-val">true</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;EmojiId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;2&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;managed&quot;</span>),
+                <span class="ident">Token::Bool</span>(<span class="bool-val">false</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;name&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;test&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;require_colons&quot;</span>),
+                <span class="ident">Token::Bool</span>(<span class="bool-val">true</span>),
+                <span class="ident">Token::StructEnd</span>,
+                <span class="ident">Token::SeqEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;features&quot;</span>),
+                <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;a feature&quot;</span>),
+                <span class="ident">Token::SeqEnd</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;id&quot;</span>),
+                <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;GuildId&quot;</span> },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;1&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;name&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;guild name&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;icon&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;icon hash&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;splash&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;splash hash&quot;</span>),
+                <span class="ident">Token::StructEnd</span>,
             ],
         );
     }

@@ -171,9 +171,9 @@
 <span id="168">168</span>
 <span id="169">169</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">channel</span>::<span class="ident">ConversionError</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::channel::ConversionError</span>;
 <span class="kw">use</span> <span class="ident">serde_repr</span>::{<span class="ident">Deserialize_repr</span>, <span class="ident">Serialize_repr</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
+<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(
     <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize_repr</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">Ord</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Serialize_repr</span>,
@@ -205,28 +205,28 @@
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MessageType</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">ConversionError</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">message_type</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">Regular</span>,
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">RecipientAdd</span>,
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">RecipientRemove</span>,
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">Call</span>,
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">ChannelNameChange</span>,
-            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">ChannelIconChange</span>,
-            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">ChannelMessagePinned</span>,
-            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">GuildMemberJoin</span>,
-            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">UserPremiumSub</span>,
-            <span class="number">9</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">UserPremiumSubTier1</span>,
-            <span class="number">10</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">UserPremiumSubTier2</span>,
-            <span class="number">11</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">UserPremiumSubTier3</span>,
-            <span class="number">12</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">ChannelFollowAdd</span>,
-            <span class="number">14</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryDisqualified</span>,
-            <span class="number">15</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryRequalified</span>,
-            <span class="number">16</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryGracePeriodInitialWarning</span>,
-            <span class="number">17</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryGracePeriodFinalWarning</span>,
-            <span class="number">19</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">Reply</span>,
-            <span class="number">22</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType</span>::<span class="ident">GuildInviteReminder</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ConversionError</span>::<span class="ident">MessageType</span>(<span class="ident">value</span>)),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::Regular</span>,
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::RecipientAdd</span>,
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::RecipientRemove</span>,
+            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::Call</span>,
+            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::ChannelNameChange</span>,
+            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::ChannelIconChange</span>,
+            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::ChannelMessagePinned</span>,
+            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::GuildMemberJoin</span>,
+            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::UserPremiumSub</span>,
+            <span class="number">9</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::UserPremiumSubTier1</span>,
+            <span class="number">10</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::UserPremiumSubTier2</span>,
+            <span class="number">11</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::UserPremiumSubTier3</span>,
+            <span class="number">12</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::ChannelFollowAdd</span>,
+            <span class="number">14</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::GuildDiscoveryDisqualified</span>,
+            <span class="number">15</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::GuildDiscoveryRequalified</span>,
+            <span class="number">16</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::GuildDiscoveryGracePeriodInitialWarning</span>,
+            <span class="number">17</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::GuildDiscoveryGracePeriodFinalWarning</span>,
+            <span class="number">19</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::Reply</span>,
+            <span class="number">22</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MessageType::GuildInviteReminder</span>,
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ConversionError::MessageType</span>(<span class="ident">value</span>)),
         };
 
         <span class="prelude-val">Ok</span>(<span class="ident">message_type</span>)
@@ -236,107 +236,107 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ConversionError</span>, <span class="ident">MessageType</span>};
-    <span class="kw">use</span> <span class="ident">serde_test</span>::<span class="ident">Token</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
+    <span class="kw">use</span> <span class="ident">serde_test::Token</span>;
+    <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_variants</span>() {
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">Regular</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">0</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">RecipientAdd</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">1</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">RecipientRemove</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">2</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">Call</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">3</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">ChannelNameChange</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">4</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">ChannelIconChange</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">5</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">ChannelMessagePinned</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">6</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">GuildMemberJoin</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">7</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">UserPremiumSub</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">8</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">UserPremiumSubTier1</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">9</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">UserPremiumSubTier2</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">10</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">UserPremiumSubTier3</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">11</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">ChannelFollowAdd</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">12</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryDisqualified</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">14</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryRequalified</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">15</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
-            <span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryGracePeriodInitialWarning</span>,
-            <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">16</span>)],
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::Regular</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">0</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::RecipientAdd</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">1</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::RecipientRemove</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">2</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::Call</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">3</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::ChannelNameChange</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">4</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::ChannelIconChange</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">5</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::ChannelMessagePinned</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">6</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::GuildMemberJoin</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">7</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::UserPremiumSub</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">8</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::UserPremiumSubTier1</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">9</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::UserPremiumSubTier2</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">10</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::UserPremiumSubTier3</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">11</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::ChannelFollowAdd</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">12</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::GuildDiscoveryDisqualified</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">14</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::GuildDiscoveryRequalified</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">15</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(
+            <span class="kw-2">&amp;</span><span class="ident">MessageType::GuildDiscoveryGracePeriodInitialWarning</span>,
+            <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">16</span>)],
         );
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(
-            <span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryGracePeriodFinalWarning</span>,
-            <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">17</span>)],
+        <span class="ident">serde_test::assert_tokens</span>(
+            <span class="kw-2">&amp;</span><span class="ident">MessageType::GuildDiscoveryGracePeriodFinalWarning</span>,
+            <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">17</span>)],
         );
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">Reply</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">19</span>)]);
-        <span class="ident">serde_test</span>::<span class="ident">assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType</span>::<span class="ident">GuildInviteReminder</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token</span>::<span class="ident">U8</span>(<span class="number">22</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::Reply</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">19</span>)]);
+        <span class="ident">serde_test::assert_tokens</span>(<span class="kw-2">&amp;</span><span class="ident">MessageType::GuildInviteReminder</span>, <span class="kw-2">&amp;</span>[<span class="ident">Token::U8</span>(<span class="number">22</span>)]);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_conversions</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">0</span>).<span class="ident">unwrap</span>(), <span class="ident">MessageType</span>::<span class="ident">Regular</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">1</span>).<span class="ident">unwrap</span>(), <span class="ident">MessageType</span>::<span class="ident">RecipientAdd</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">MessageType::try_from</span>(<span class="number">0</span>).<span class="ident">unwrap</span>(), <span class="ident">MessageType::Regular</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">MessageType::try_from</span>(<span class="number">1</span>).<span class="ident">unwrap</span>(), <span class="ident">MessageType::RecipientAdd</span>);
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">2</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">RecipientRemove</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">2</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::RecipientRemove</span>
         );
-        <span class="macro">assert_eq!</span>(<span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">3</span>).<span class="ident">unwrap</span>(), <span class="ident">MessageType</span>::<span class="ident">Call</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">MessageType::try_from</span>(<span class="number">3</span>).<span class="ident">unwrap</span>(), <span class="ident">MessageType::Call</span>);
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">4</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">ChannelNameChange</span>
-        );
-        <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">5</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">ChannelIconChange</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">4</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::ChannelNameChange</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">6</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">ChannelMessagePinned</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">5</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::ChannelIconChange</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">7</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">GuildMemberJoin</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">6</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::ChannelMessagePinned</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">8</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">UserPremiumSub</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">7</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::GuildMemberJoin</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">9</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">UserPremiumSubTier1</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">8</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::UserPremiumSub</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">10</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">UserPremiumSubTier2</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">9</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::UserPremiumSubTier1</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">11</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">UserPremiumSubTier3</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">10</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::UserPremiumSubTier2</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">12</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">ChannelFollowAdd</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">11</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::UserPremiumSubTier3</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">14</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryDisqualified</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">12</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::ChannelFollowAdd</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">15</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryRequalified</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">14</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::GuildDiscoveryDisqualified</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">16</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryGracePeriodInitialWarning</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">15</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::GuildDiscoveryRequalified</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">17</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">GuildDiscoveryGracePeriodFinalWarning</span>
-        );
-        <span class="macro">assert_eq!</span>(<span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">19</span>).<span class="ident">unwrap</span>(), <span class="ident">MessageType</span>::<span class="ident">Reply</span>);
-        <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">22</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">MessageType</span>::<span class="ident">GuildInviteReminder</span>
+            <span class="ident">MessageType::try_from</span>(<span class="number">16</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::GuildDiscoveryGracePeriodInitialWarning</span>
         );
         <span class="macro">assert_eq!</span>(
-            <span class="ident">MessageType</span>::<span class="ident">try_from</span>(<span class="number">250</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">ConversionError</span>::<span class="ident">MessageType</span>(<span class="number">250</span>)
+            <span class="ident">MessageType::try_from</span>(<span class="number">17</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::GuildDiscoveryGracePeriodFinalWarning</span>
+        );
+        <span class="macro">assert_eq!</span>(<span class="ident">MessageType::try_from</span>(<span class="number">19</span>).<span class="ident">unwrap</span>(), <span class="ident">MessageType::Reply</span>);
+        <span class="macro">assert_eq!</span>(
+            <span class="ident">MessageType::try_from</span>(<span class="number">22</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">MessageType::GuildInviteReminder</span>
+        );
+        <span class="macro">assert_eq!</span>(
+            <span class="ident">MessageType::try_from</span>(<span class="number">250</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">ConversionError::MessageType</span>(<span class="number">250</span>)
         );
     }
 }
