@@ -85,11 +85,6 @@
 <span id="82">82</span>
 <span id="83">83</span>
 <span id="84">84</span>
-<span id="85">85</span>
-<span id="86">86</span>
-<span id="87">87</span>
-<span id="88">88</span>
-<span id="89">89</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Message stickers.</span>
 <span class="doccomment">//!</span>
@@ -122,8 +117,6 @@
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Unique ID of the pack the sticker is in.</span>
     <span class="kw">pub</span> <span class="ident">pack_id</span>: <span class="ident">StickerPackId</span>,
-    <span class="doccomment">/// Hash of the preview asset, if it has one.</span>
-    <span class="kw">pub</span> <span class="ident">preview_asset</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="doccomment">/// CSV list of tags the sticker is assigned to, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">tags</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -143,7 +136,6 @@
             <span class="ident">id</span>: <span class="ident">StickerId</span>(<span class="number">1</span>),
             <span class="ident">name</span>: <span class="string">&quot;sticker name&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">pack_id</span>: <span class="ident">StickerPackId</span>(<span class="number">2</span>),
-            <span class="ident">preview_asset</span>: <span class="prelude-val">None</span>,
             <span class="ident">tags</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;foo,bar,baz&quot;</span>.<span class="ident">to_owned</span>()),
         };
 
@@ -152,7 +144,7 @@
             <span class="kw-2">&amp;</span>[
                 <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Sticker&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">8</span>,
+                    <span class="ident">len</span>: <span class="number">7</span>,
                 },
                 <span class="ident">Token::Str</span>(<span class="string">&quot;asset&quot;</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;foo1&quot;</span>),
@@ -170,8 +162,6 @@
                     <span class="ident">name</span>: <span class="string">&quot;StickerPackId&quot;</span>,
                 },
                 <span class="ident">Token::Str</span>(<span class="string">&quot;2&quot;</span>),
-                <span class="ident">Token::Str</span>(<span class="string">&quot;preview_asset&quot;</span>),
-                <span class="ident">Token::None</span>,
                 <span class="ident">Token::Str</span>(<span class="string">&quot;tags&quot;</span>),
                 <span class="ident">Token::Some</span>,
                 <span class="ident">Token::Str</span>(<span class="string">&quot;foo,bar,baz&quot;</span>),
