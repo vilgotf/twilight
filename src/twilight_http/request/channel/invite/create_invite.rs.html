@@ -148,6 +148,14 @@
 <span id="145">145</span>
 <span id="146">146</span>
 <span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
@@ -166,7 +174,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">unique</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">target_user</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="ident">target_user_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">target_user_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetUserType</span><span class="op">&gt;</span>,
 }
@@ -248,10 +256,18 @@
     }
 
     <span class="doccomment">/// Set the target user for this invite.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_user</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">target_user</span>.<span class="ident">replace</span>(<span class="ident">target_user</span>.<span class="number">0</span>.<span class="ident">to_string</span>());
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user_id</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>
+            .<span class="ident">target_user_id</span>
+            .<span class="ident">replace</span>(<span class="ident">target_user_id</span>.<span class="number">0</span>.<span class="ident">to_string</span>());
 
         <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Set the target user for this invite.</span>
+    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.3.7&quot;</span>, <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Use `target_user_id` instead&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user</span>(<span class="self">self</span>, <span class="ident">target_user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">target_user_id</span>(<span class="ident">target_user_id</span>)
     }
 
     <span class="doccomment">/// Set the target user type for this invite.</span>
