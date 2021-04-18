@@ -144,6 +144,16 @@
 <span id="141">141</span>
 <span id="142">142</span>
 <span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">channel</span>::{<span class="ident">permission_overwrite::PermissionOverwrite</span>, <span class="ident">ChannelType</span>, <span class="ident">VideoQualityMode</span>},
@@ -164,6 +174,11 @@
     <span class="kw">pub</span> <span class="ident">parent_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">permission_overwrites</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PermissionOverwrite</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">position</span>: <span class="ident">i64</span>,
+    <span class="doccomment">/// ID of the voice channel&#39;s region.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Automatic when not present.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">rtc_region</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">user_limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -186,6 +201,7 @@
             <span class="ident">permission_overwrites</span>: <span class="ident">Vec::new</span>(),
             <span class="ident">parent_id</span>: <span class="prelude-val">None</span>,
             <span class="ident">position</span>: <span class="number">3</span>,
+            <span class="ident">rtc_region</span>: <span class="prelude-val">None</span>,
             <span class="ident">user_limit</span>: <span class="prelude-val">Some</span>(<span class="number">7</span>),
             <span class="ident">video_quality_mode</span>: <span class="prelude-val">None</span>,
         };
@@ -235,6 +251,7 @@
                 <span class="ident">permission_overwrites</span>: <span class="ident">Vec::new</span>(),
                 <span class="ident">parent_id</span>: <span class="prelude-val">Some</span>(<span class="ident">ChannelId</span>(<span class="number">3</span>)),
                 <span class="ident">position</span>: <span class="number">3</span>,
+                <span class="ident">rtc_region</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">to_owned</span>()),
                 <span class="ident">user_limit</span>: <span class="prelude-val">Some</span>(<span class="number">7</span>),
                 <span class="ident">video_quality_mode</span>: <span class="prelude-val">Some</span>(<span class="ident">VideoQualityMode::Auto</span>),
             }
@@ -268,6 +285,9 @@
                 <span class="ident">Token::SeqEnd</span>,
                 <span class="ident">Token::Str</span>(<span class="string">&quot;position&quot;</span>),
                 <span class="ident">Token::I64</span>(<span class="number">3</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;rtc_region&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;a&quot;</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;user_limit&quot;</span>),
                 <span class="ident">Token::Some</span>,
                 <span class="ident">Token::U64</span>(<span class="number">7</span>),
