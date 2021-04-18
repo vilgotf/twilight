@@ -1268,6 +1268,9 @@
 <span id="1265">1265</span>
 <span id="1266">1266</span>
 <span id="1267">1267</span>
+<span id="1268">1268</span>
+<span id="1269">1269</span>
+<span id="1270">1270</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">config::ResourceType</span>, <span class="ident">InMemoryCache</span>};
 <span class="kw">use</span> <span class="ident">dashmap::DashMap</span>;
@@ -1540,6 +1543,7 @@
             <span class="ident">guild</span>.<span class="ident">max_presences</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">max_presences</span>.<span class="ident">unwrap_or</span>(<span class="number">25000</span>));
             <span class="ident">guild</span>.<span class="ident">mfa_level</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">mfa_level</span>;
             <span class="ident">guild</span>.<span class="ident">name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">clone</span>();
+            <span class="ident">guild</span>.<span class="ident">nsfw</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">nsfw</span>;
             <span class="ident">guild</span>.<span class="ident">owner</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">owner</span>;
             <span class="ident">guild</span>.<span class="ident">owner_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">owner_id</span>;
             <span class="ident">guild</span>.<span class="ident">permissions</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">permissions</span>;
@@ -2184,6 +2188,7 @@
             <span class="ident">members</span>: <span class="ident">Vec::new</span>(),
             <span class="ident">mfa_level</span>: <span class="ident">MfaLevel::None</span>,
             <span class="ident">name</span>: <span class="string">&quot;test&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">nsfw</span>: <span class="bool-val">false</span>,
             <span class="ident">owner_id</span>: <span class="ident">UserId</span>(<span class="number">1</span>),
             <span class="ident">owner</span>: <span class="prelude-val">None</span>,
             <span class="ident">permissions</span>: <span class="prelude-val">None</span>,
@@ -2225,6 +2230,7 @@
             <span class="ident">member_count</span>: <span class="ident">guild</span>.<span class="ident">member_count</span>,
             <span class="ident">mfa_level</span>: <span class="ident">guild</span>.<span class="ident">mfa_level</span>,
             <span class="ident">name</span>: <span class="string">&quot;test2222&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">nsfw</span>: <span class="ident">guild</span>.<span class="ident">nsfw</span>,
             <span class="ident">owner_id</span>: <span class="ident">UserId</span>(<span class="number">2</span>),
             <span class="ident">owner</span>: <span class="ident">guild</span>.<span class="ident">owner</span>,
             <span class="ident">permissions</span>: <span class="ident">guild</span>.<span class="ident">permissions</span>,

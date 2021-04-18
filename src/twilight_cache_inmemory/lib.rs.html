@@ -1617,6 +1617,8 @@
 <span id="1614">1614</span>
 <span id="1615">1615</span>
 <span id="1616">1616</span>
+<span id="1617">1617</span>
+<span id="1618">1618</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-cache-inmemory</span>
 <span class="doccomment">//!</span>
@@ -2287,6 +2289,7 @@
             <span class="ident">member_count</span>: <span class="ident">guild</span>.<span class="ident">member_count</span>,
             <span class="ident">mfa_level</span>: <span class="ident">guild</span>.<span class="ident">mfa_level</span>,
             <span class="ident">name</span>: <span class="ident">guild</span>.<span class="ident">name</span>,
+            <span class="ident">nsfw</span>: <span class="ident">guild</span>.<span class="ident">nsfw</span>,
             <span class="ident">owner</span>: <span class="ident">guild</span>.<span class="ident">owner</span>,
             <span class="ident">owner_id</span>: <span class="ident">guild</span>.<span class="ident">owner_id</span>,
             <span class="ident">permissions</span>: <span class="ident">guild</span>.<span class="ident">permissions</span>,
@@ -2747,6 +2750,7 @@
             <span class="ident">members</span>: <span class="ident">Vec::new</span>(),
             <span class="ident">mfa_level</span>: <span class="ident">MfaLevel::Elevated</span>,
             <span class="ident">name</span>: <span class="string">&quot;this is a guild&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">nsfw</span>: <span class="bool-val">false</span>,
             <span class="ident">owner</span>: <span class="prelude-val">Some</span>(<span class="bool-val">false</span>),
             <span class="ident">owner_id</span>: <span class="ident">UserId</span>(<span class="number">456</span>),
             <span class="ident">permissions</span>: <span class="prelude-val">Some</span>(<span class="ident">Permissions::SEND_MESSAGES</span>),
