@@ -10,7 +10,7 @@ conveniently using players to send events and retrieve information for each
 guild, and an HTTP module for creating requests using the <a href="https://crates.io/crates/http"><code>http</code></a> crate and
 providing models to deserialize their responses. It will automatically
 handle sending voice channel updates to Lavalink by processing events via
-the <a href="../twilight_lavalink/client/struct.Lavalink.html#method.process" title="Lavalink::process">client’s <code>process</code> method</a>, which you must call
+the <a href="client/struct.Lavalink.html#method.process" title="Lavalink::process">client’s <code>process</code> method</a>, which you must call
 with every Voice State Update and Voice Server Update you receive.</p>
 <h2 id="features" class="section-header"><a href="#features">Features</a></h2><h3 id="http-support" class="section-header"><a href="#http-support"><code>http-support</code></a></h3>
 <p>The <code>http-support</code> feature adds support for the <code>http</code> module to return
@@ -31,7 +31,7 @@ twilight-lavalink = { default-features = false, features = [&quot;native&quot;],
 use <a href="https://crates.io/crates/rustls"><code>rustls</code></a> as the TLS backend.</p>
 <p>This is enabled by default.</p>
 <h2 id="examples" class="section-header"><a href="#examples">Examples</a></h2>
-<p>Create a <a href="../twilight_lavalink/client/struct.Lavalink.html">client</a>, add a <a href="../twilight_lavalink/node/struct.Node.html">node</a>, and give events to the client to <a href="../twilight_lavalink/client/struct.Lavalink.html#method.process">process</a>
+<p>Create a <a href="client/struct.Lavalink.html">client</a>, add a <a href="node/struct.Node.html">node</a>, and give events to the client to <a href="client/struct.Lavalink.html#method.process">process</a>
 events:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -78,7 +78,7 @@ events:</p>
     <span class="prelude-val">Ok</span>(())
 }</pre></div>
 </div><h2 id="reexports" class="section-header"><a href="#reexports">Re-exports</a></h2>
-<table><tr><td><code>pub use self::client::<a class="struct" href="../twilight_lavalink/client/struct.Lavalink.html" title="struct twilight_lavalink::client::Lavalink">Lavalink</a>;</code></td></tr><tr><td><code>pub use self::node::<a class="struct" href="../twilight_lavalink/node/struct.Node.html" title="struct twilight_lavalink::node::Node">Node</a>;</code></td></tr><tr><td><code>pub use self::player::<a class="struct" href="../twilight_lavalink/player/struct.PlayerManager.html" title="struct twilight_lavalink::player::PlayerManager">PlayerManager</a>;</code></td></tr></table><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
+<table><tr><td><code>pub use self::client::<a class="struct" href="client/struct.Lavalink.html" title="struct twilight_lavalink::client::Lavalink">Lavalink</a>;</code></td></tr><tr><td><code>pub use self::node::<a class="struct" href="node/struct.Node.html" title="struct twilight_lavalink::node::Node">Node</a>;</code></td></tr><tr><td><code>pub use self::player::<a class="struct" href="player/struct.PlayerManager.html" title="struct twilight_lavalink::player::PlayerManager">PlayerManager</a>;</code></td></tr></table><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
 <table><tr class="module-item"><td><a class="mod" href="client/index.html" title="twilight_lavalink::client mod">client</a></td><td class="docblock-short"><p>Client to manage nodes and players.</p>
 </td></tr><tr class="module-item"><td><a class="mod" href="http/index.html" title="twilight_lavalink::http mod">http</a></td><td class="docblock-short"><p>Models to deserialize responses into and functions to create <code>http</code> crate
 requests.</p>
@@ -87,5 +87,5 @@ responses.</p>
 </td></tr><tr class="module-item"><td><a class="mod" href="node/index.html" title="twilight_lavalink::node mod">node</a></td><td class="docblock-short"><p>Nodes for communicating with a Lavalink server.</p>
 </td></tr><tr class="module-item"><td><a class="mod" href="player/index.html" title="twilight_lavalink::player mod">player</a></td><td class="docblock-short"><p>Players containing information about active playing state within guilds and
 allowing you to send events to connected nodes.</p>
-</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="twilight_lavalink" data-search-js="../search-index.js"></div>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="twilight_lavalink" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
     <script src="../main.js"></script></body></html>

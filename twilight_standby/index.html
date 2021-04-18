@@ -10,22 +10,22 @@ application-level state or event stream may not suit your use case. It may
 be cleaner to wait for a reaction inline to your function. This is where
 Twilight Standby comes in.</p>
 <p>Standby allows you to wait for things like an event in a certain guild
-(<a href="../twilight_standby/struct.Standby.html#method.wait_for" title="Standby::wait_for"><code>Standby::wait_for</code></a>), a new message in a channel
-(<a href="../twilight_standby/struct.Standby.html#method.wait_for_message" title="Standby::wait_for_message"><code>Standby::wait_for_message</code></a>), a new reaction on a message
-(<a href="../twilight_standby/struct.Standby.html#method.wait_for_reaction" title="Standby::wait_for_reaction"><code>Standby::wait_for_reaction</code></a>), and any event that might not take place in
-a guild, such as a new <code>Ready</code> event (<a href="../twilight_standby/struct.Standby.html#method.wait_for_event" title="Standby::wait_for_event"><code>Standby::wait_for_event</code></a>). Each
+(<a href="struct.Standby.html#method.wait_for" title="Standby::wait_for"><code>Standby::wait_for</code></a>), a new message in a channel
+(<a href="struct.Standby.html#method.wait_for_message" title="Standby::wait_for_message"><code>Standby::wait_for_message</code></a>), a new reaction on a message
+(<a href="struct.Standby.html#method.wait_for_reaction" title="Standby::wait_for_reaction"><code>Standby::wait_for_reaction</code></a>), and any event that might not take place in
+a guild, such as a new <code>Ready</code> event (<a href="struct.Standby.html#method.wait_for_event" title="Standby::wait_for_event"><code>Standby::wait_for_event</code></a>). Each
 method also has a stream variant.</p>
 <p>To use Standby, you must process events with it in your main event loop.
-Check out the <a href="../twilight_standby/struct.Standby.html#method.process" title="Standby::process"><code>Standby::process</code></a> method.</p>
+Check out the <a href="struct.Standby.html#method.process" title="Standby::process"><code>Standby::process</code></a> method.</p>
 <h2 id="when-to-use-futures-and-streams" class="section-header"><a href="#when-to-use-futures-and-streams">When to use futures and streams</a></h2>
 <p><code>Standby</code> has two variants of each method: a future variant and a stream
-variant. An example is <a href="../twilight_standby/struct.Standby.html#method.wait_for_message" title="Standby::wait_for_message"><code>Standby::wait_for_message</code></a>, which also has a
-<a href="../twilight_standby/struct.Standby.html#method.wait_for_message_stream" title="Standby::wait_for_message_stream"><code>Standby::wait_for_message_stream</code></a> variant. The future variant is useful
+variant. An example is <a href="struct.Standby.html#method.wait_for_message" title="Standby::wait_for_message"><code>Standby::wait_for_message</code></a>, which also has a
+<a href="struct.Standby.html#method.wait_for_message_stream" title="Standby::wait_for_message_stream"><code>Standby::wait_for_message_stream</code></a> variant. The future variant is useful
 when you want to oneshot an event that you need to wait for. This means that
 if you only need to wait for one message in a channel to come in, you’d use
 the future variant. If you need to wait for multiple messages, such as maybe
 all of the messages within a minute’s timespan, you’d use the
-<a href="../twilight_standby/struct.Standby.html#method.wait_for_message_stream" title="Standby::wait_for_message_stream"><code>Standby::wait_for_message_stream</code></a> method.</p>
+<a href="struct.Standby.html#method.wait_for_message_stream" title="Standby::wait_for_message_stream"><code>Standby::wait_for_message_stream</code></a> method.</p>
 <p>The difference is that if you use the futures variant in a loop then you may
 miss some events while processing a received event. By using a stream, you
 won’t miss any events.</p>
@@ -95,17 +95,17 @@ including a handler to wait for reactions:</p>
 
     <span class="prelude-val">Ok</span>(())
 }</pre></div>
-<p>For more examples, check out each of the methods on <a href="../twilight_standby/struct.Standby.html" title="Standby"><code>Standby</code></a>.</p>
+<p>For more examples, check out each of the methods on <a href="struct.Standby.html" title="Standby"><code>Standby</code></a>.</p>
 </div><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
 <table><tr class="module-item"><td><a class="struct" href="struct.Standby.html" title="twilight_standby::Standby struct">Standby</a></td><td class="docblock-short"><p>The <code>Standby</code> struct, used by the main event loop to process events and by
 tasks to wait for an event.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForEventFuture.html" title="twilight_standby::WaitForEventFuture struct">WaitForEventFuture</a></td><td class="docblock-short"><p>The future returned from <a href="../twilight_standby/struct.Standby.html#method.wait_for_event"><code>Standby::wait_for_event</code></a>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForEventStream.html" title="twilight_standby::WaitForEventStream struct">WaitForEventStream</a></td><td class="docblock-short"><p>The stream returned from <a href="../twilight_standby/struct.Standby.html#method.wait_for_event_stream"><code>Standby::wait_for_event_stream</code></a>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForGuildEventFuture.html" title="twilight_standby::WaitForGuildEventFuture struct">WaitForGuildEventFuture</a></td><td class="docblock-short"><p>The future returned from <a href="../twilight_standby/struct.Standby.html#method.wait_for"><code>Standby::wait_for</code></a>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForGuildEventStream.html" title="twilight_standby::WaitForGuildEventStream struct">WaitForGuildEventStream</a></td><td class="docblock-short"><p>The stream returned from <a href="../twilight_standby/struct.Standby.html#method.wait_for_stream"><code>Standby::wait_for_stream</code></a>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForMessageFuture.html" title="twilight_standby::WaitForMessageFuture struct">WaitForMessageFuture</a></td><td class="docblock-short"><p>The future returned from <a href="../twilight_standby/struct.Standby.html#method.wait_for_message"><code>Standby::wait_for_message</code></a>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForMessageStream.html" title="twilight_standby::WaitForMessageStream struct">WaitForMessageStream</a></td><td class="docblock-short"><p>The stream returned from <a href="../twilight_standby/struct.Standby.html#method.wait_for_message_stream"><code>Standby::wait_for_message_stream</code></a>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForReactionFuture.html" title="twilight_standby::WaitForReactionFuture struct">WaitForReactionFuture</a></td><td class="docblock-short"><p>The future returned from <a href="../twilight_standby/struct.Standby.html#method.wait_for_reaction"><code>Standby::wait_for_reaction</code></a>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForReactionStream.html" title="twilight_standby::WaitForReactionStream struct">WaitForReactionStream</a></td><td class="docblock-short"><p>The stream returned from <a href="../twilight_standby/struct.Standby.html#method.wait_for_reaction_stream"><code>Standby::wait_for_reaction_stream</code></a>.</p>
-</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="twilight_standby" data-search-js="../search-index.js"></div>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForEventFuture.html" title="twilight_standby::WaitForEventFuture struct">WaitForEventFuture</a></td><td class="docblock-short"><p>The future returned from <a href="struct.Standby.html#method.wait_for_event"><code>Standby::wait_for_event</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForEventStream.html" title="twilight_standby::WaitForEventStream struct">WaitForEventStream</a></td><td class="docblock-short"><p>The stream returned from <a href="struct.Standby.html#method.wait_for_event_stream"><code>Standby::wait_for_event_stream</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForGuildEventFuture.html" title="twilight_standby::WaitForGuildEventFuture struct">WaitForGuildEventFuture</a></td><td class="docblock-short"><p>The future returned from <a href="struct.Standby.html#method.wait_for"><code>Standby::wait_for</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForGuildEventStream.html" title="twilight_standby::WaitForGuildEventStream struct">WaitForGuildEventStream</a></td><td class="docblock-short"><p>The stream returned from <a href="struct.Standby.html#method.wait_for_stream"><code>Standby::wait_for_stream</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForMessageFuture.html" title="twilight_standby::WaitForMessageFuture struct">WaitForMessageFuture</a></td><td class="docblock-short"><p>The future returned from <a href="struct.Standby.html#method.wait_for_message"><code>Standby::wait_for_message</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForMessageStream.html" title="twilight_standby::WaitForMessageStream struct">WaitForMessageStream</a></td><td class="docblock-short"><p>The stream returned from <a href="struct.Standby.html#method.wait_for_message_stream"><code>Standby::wait_for_message_stream</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForReactionFuture.html" title="twilight_standby::WaitForReactionFuture struct">WaitForReactionFuture</a></td><td class="docblock-short"><p>The future returned from <a href="struct.Standby.html#method.wait_for_reaction"><code>Standby::wait_for_reaction</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.WaitForReactionStream.html" title="twilight_standby::WaitForReactionStream struct">WaitForReactionStream</a></td><td class="docblock-short"><p>The stream returned from <a href="struct.Standby.html#method.wait_for_reaction_stream"><code>Standby::wait_for_reaction_stream</code></a>.</p>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="twilight_standby" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
     <script src="../main.js"></script></body></html>

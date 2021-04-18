@@ -1566,6 +1566,20 @@
 <span id="1563">1563</span>
 <span id="1564">1564</span>
 <span id="1565">1565</span>
+<span id="1566">1566</span>
+<span id="1567">1567</span>
+<span id="1568">1568</span>
+<span id="1569">1569</span>
+<span id="1570">1570</span>
+<span id="1571">1571</span>
+<span id="1572">1572</span>
+<span id="1573">1573</span>
+<span id="1574">1574</span>
+<span id="1575">1575</span>
+<span id="1576">1576</span>
+<span id="1577">1577</span>
+<span id="1578">1578</span>
+<span id="1579">1579</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">hyper::Method</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1650,6 +1664,8 @@
     <span class="ident">ChannelsIdPins</span>(<span class="ident">u64</span>),
     <span class="doccomment">/// Operating on a channel&#39;s individual pinned message.</span>
     <span class="ident">ChannelsIdPinsMessageId</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Operating on a group DM&#39;s recipients.</span>
+    <span class="ident">ChannelsIdRecipients</span>(<span class="ident">u64</span>),
     <span class="doccomment">/// Operating on a channel&#39;s typing indicator.</span>
     <span class="ident">ChannelsIdTyping</span>(<span class="ident">u64</span>),
     <span class="doccomment">/// Operating on a channel&#39;s webhooks.</span>
@@ -1738,7 +1754,11 @@
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;followers&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdFollowers</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;invites&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdInvites</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdMessages</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+            [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>, <span class="string">&quot;bulk-delete&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">ChannelsIdMessagesBulkDelete</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>)
+            }
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="comment">// can not map to path without method since they have different ratelimits</span>
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">PathParseError::MessageIdWithoutMethod</span> {
                     <span class="ident">channel_id</span>: <span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>,
                 });
@@ -1746,7 +1766,8 @@
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;crosspost&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">ChannelsIdMessagesIdCrosspost</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>)
             }
-            [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;reactions&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> {
+            [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;reactions&quot;</span>]
+            <span class="op">|</span> [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;reactions&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">ChannelsIdMessagesIdReactions</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>)
             }
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;messages&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;reactions&quot;</span>, <span class="kw">_</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> {
@@ -1755,16 +1776,22 @@
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;permissions&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdPermissionsOverwriteId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;pins&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdPins</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;pins&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdPinsMessageId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+            [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;recipients&quot;</span>] <span class="op">|</span> [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;recipients&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">ChannelsIdRecipients</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>)
+            }
             [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;typing&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdTyping</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
-            [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;webhooks&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChannelsIdWebhooks</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+            [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;webhooks&quot;</span>] <span class="op">|</span> [<span class="string">&quot;channels&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;webhooks&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">ChannelsIdWebhooks</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>)
+            }
             [<span class="string">&quot;gateway&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Gateway</span>,
             [<span class="string">&quot;gateway&quot;</span>, <span class="string">&quot;bot&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GatewayBot</span>,
             [<span class="string">&quot;guilds&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Guilds</span>,
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+            [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;audit-logs&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdAuditLogs</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;bans&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdBans</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;bans&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdBansUserId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;channels&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdChannels</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
-            [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;widget&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdWidget</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+            [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;widget&quot;</span>] <span class="op">|</span> [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;widget.json&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdWidget</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;emojis&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdEmojis</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;emojis&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdEmojisId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;integrations&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdIntegrations</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
@@ -1791,6 +1818,7 @@
             [<span class="string">&quot;users&quot;</span>, <span class="kw">_</span>, <span class="string">&quot;guilds&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UsersIdGuildsId</span>,
             [<span class="string">&quot;voice&quot;</span>, <span class="string">&quot;regions&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">VoiceRegions</span>,
             [<span class="string">&quot;webhooks&quot;</span>, <span class="ident">id</span>] <span class="op">|</span> [<span class="string">&quot;webhooks&quot;</span>, <span class="ident">id</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">WebhooksId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+            [<span class="string">&quot;webhooks&quot;</span>, <span class="ident">id</span>, <span class="kw">_</span>, <span class="string">&quot;messages&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">WebhooksIdTokenMessageId</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">PathParseError::NoMatch</span>),
         })
     }
@@ -3133,5 +3161,5 @@
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="twilight_http" data-search-js="../../search-index.js"></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="twilight_http" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>

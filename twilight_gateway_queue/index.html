@@ -12,26 +12,26 @@ is, if you for example have two clusters in two different processes, then
 the two processes must use some unified form of ratelimiting: this can
 either mean using IPC to communicate ratelimiting or a broker.</p>
 <h1 id="provided-queues" class="section-header"><a href="#provided-queues">Provided queues</a></h1>
-<p>Most users only need the <a href="../twilight_gateway_queue/struct.LocalQueue.html" title="LocalQueue"><code>LocalQueue</code></a>: it’s a single-process queue for
-smaller bots. Larger bots need the <a href="../twilight_gateway_queue/struct.LargeBotQueue.html" title="LargeBotQueue"><code>LargeBotQueue</code></a>, which supports
+<p>Most users only need the <a href="struct.LocalQueue.html" title="LocalQueue"><code>LocalQueue</code></a>: it’s a single-process queue for
+smaller bots. Larger bots need the <a href="struct.LargeBotQueue.html" title="LargeBotQueue"><code>LargeBotQueue</code></a>, which supports
 single-process <a href="https://discord.com/developers/docs/topics/gateway#sharding-for-very-large-bots">Sharding for Very Large Bots</a> through the use of bucket
 releasing.</p>
-<p>By default, the gateway’s <code>Cluster</code> and <code>Shard</code>s use the <a href="../twilight_gateway_queue/struct.LocalQueue.html" title="LocalQueue"><code>LocalQueue</code></a>. You
+<p>By default, the gateway’s <code>Cluster</code> and <code>Shard</code>s use the <a href="struct.LocalQueue.html" title="LocalQueue"><code>LocalQueue</code></a>. You
 can override this in the <code>ClusterBuilder::queue</code> and <code>ShardBuilder::queue</code>
 configuration methods.</p>
 <h1 id="advanced-use-cases" class="section-header"><a href="#advanced-use-cases">Advanced use cases</a></h1>
 <p>Large bots, and smaller bots out of design, may need to implement their own
 queue. The most common reason to need this is if you have clusters in
 multiple processes. You’ll need a broker to manage ratelimiting across them
-all so a <a href="../twilight_gateway_queue/trait.Queue.html" title="Queue"><code>Queue</code></a> trait is provided that shards can use to make requests to
+all so a <a href="trait.Queue.html" title="Queue"><code>Queue</code></a> trait is provided that shards can use to make requests to
 create sessions.</p>
 </div><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
 <table><tr class="module-item"><td><a class="struct" href="struct.LargeBotQueue.html" title="twilight_gateway_queue::LargeBotQueue struct">LargeBotQueue</a></td><td class="docblock-short"><p>Queue built for single-process clusters that require identifying via
 <a href="https://discord.com/developers/docs/topics/gateway#sharding-for-very-large-bots">Sharding for Very Large Bots</a>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.LocalQueue.html" title="twilight_gateway_queue::LocalQueue struct">LocalQueue</a></td><td class="docblock-short"><p>A local, in-process implementation of a <a href="../twilight_gateway_queue/trait.Queue.html" title="Queue"><code>Queue</code></a> which manages the
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.LocalQueue.html" title="twilight_gateway_queue::LocalQueue struct">LocalQueue</a></td><td class="docblock-short"><p>A local, in-process implementation of a <a href="trait.Queue.html" title="Queue"><code>Queue</code></a> which manages the
 connection attempts of one or more shards.</p>
 </td></tr></table><h2 id="traits" class="section-header"><a href="#traits">Traits</a></h2>
 <table><tr class="module-item"><td><a class="trait" href="trait.Queue.html" title="twilight_gateway_queue::Queue trait">Queue</a></td><td class="docblock-short"><p>Queue for shards to request the ability to initialize new sessions with the
 gateway.</p>
-</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="twilight_gateway_queue" data-search-js="../search-index.js"></div>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="twilight_gateway_queue" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
     <script src="../main.js"></script></body></html>
