@@ -661,6 +661,11 @@
 <span id="658">658</span>
 <span id="659">659</span>
 <span id="660">660</span>
+<span id="661">661</span>
+<span id="662">662</span>
+<span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">DeError</span>, <span class="ident">Visitor</span>},
@@ -720,6 +725,8 @@
     <span class="ident">UnknownBranch</span>,
     <span class="doccomment">/// Unknown redistributable</span>
     <span class="ident">UnknownRedistributable</span>,
+    <span class="doccomment">/// Unknown interaction</span>
+    <span class="ident">UnknownInteraction</span>,
     <span class="doccomment">/// Bots cannot use this endpoint</span>
     <span class="ident">BotsCannotUseEndpoint</span>,
     <span class="doccomment">/// Only bots can use this endpoint</span>
@@ -852,6 +859,7 @@
             <span class="self">Self</span><span class="ident">::UnknownLobby</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10031</span>,
             <span class="self">Self</span><span class="ident">::UnknownBranch</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10032</span>,
             <span class="self">Self</span><span class="ident">::UnknownRedistributable</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10036</span>,
+            <span class="self">Self</span><span class="ident">::UnknownInteraction</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">10062</span>,
             <span class="self">Self</span><span class="ident">::BotsCannotUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">20001</span>,
             <span class="self">Self</span><span class="ident">::OnlyBotsCanUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">20002</span>,
             <span class="self">Self</span><span class="ident">::AnnouncementRateLimitReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">20022</span>,
@@ -933,6 +941,7 @@
             <span class="number">10031</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::UnknownLobby</span>,
             <span class="number">10032</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::UnknownBranch</span>,
             <span class="number">10036</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::UnknownRedistributable</span>,
+            <span class="number">10062</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::UnknownInteraction</span>,
             <span class="number">20001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::BotsCannotUseEndpoint</span>,
             <span class="number">20002</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::OnlyBotsCanUseEndpoint</span>,
             <span class="number">20022</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::AnnouncementRateLimitReached</span>,
@@ -1014,6 +1023,7 @@
             <span class="self">Self</span><span class="ident">::UnknownLobby</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown lobby&quot;</span>),
             <span class="self">Self</span><span class="ident">::UnknownBranch</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown branch&quot;</span>),
             <span class="self">Self</span><span class="ident">::UnknownRedistributable</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown redistributable&quot;</span>),
+            <span class="self">Self</span><span class="ident">::UnknownInteraction</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Unknown interaction&quot;</span>),
             <span class="self">Self</span><span class="ident">::BotsCannotUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Bots cannot use this endpoint&quot;</span>),
             <span class="self">Self</span><span class="ident">::OnlyBotsCanUseEndpoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Only bots can use this endpoint&quot;</span>),
             <span class="self">Self</span><span class="ident">::AnnouncementRateLimitReached</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Message cannot be edited due to announcement rate limits&quot;</span>),
