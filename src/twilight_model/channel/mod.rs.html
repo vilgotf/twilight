@@ -685,6 +685,18 @@
 <span id="682">682</span>
 <span id="683">683</span>
 <span id="684">684</span>
+<span id="685">685</span>
+<span id="686">686</span>
+<span id="687">687</span>
+<span id="688">688</span>
+<span id="689">689</span>
+<span id="690">690</span>
+<span id="691">691</span>
+<span id="692">692</span>
+<span id="693">693</span>
+<span id="694">694</span>
+<span id="695">695</span>
+<span id="696">696</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">embed</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">message</span>;
@@ -700,6 +712,7 @@
 <span class="kw">mod</span> <span class="ident">reaction</span>;
 <span class="kw">mod</span> <span class="ident">reaction_type</span>;
 <span class="kw">mod</span> <span class="ident">text_channel</span>;
+<span class="kw">mod</span> <span class="ident">video_quality_mode</span>;
 <span class="kw">mod</span> <span class="ident">voice_channel</span>;
 <span class="kw">mod</span> <span class="ident">webhook</span>;
 <span class="kw">mod</span> <span class="ident">webhook_type</span>;
@@ -708,8 +721,8 @@
     <span class="ident">attachment::Attachment</span>, <span class="ident">category_channel::CategoryChannel</span>, <span class="ident">channel_mention::ChannelMention</span>,
     <span class="ident">channel_type::ChannelType</span>, <span class="ident">followed_channel::FollowedChannel</span>, <span class="ident">group::Group</span>, <span class="ident">message::Message</span>,
     <span class="ident">private_channel::PrivateChannel</span>, <span class="ident">reaction::Reaction</span>, <span class="ident">reaction_type::ReactionType</span>,
-    <span class="ident">text_channel::TextChannel</span>, <span class="ident">voice_channel::VoiceChannel</span>, <span class="ident">webhook::Webhook</span>,
-    <span class="ident">webhook_type::WebhookType</span>,
+    <span class="ident">text_channel::TextChannel</span>, <span class="ident">video_quality_mode::VideoQualityMode</span>, <span class="ident">voice_channel::VoiceChannel</span>,
+    <span class="ident">webhook::Webhook</span>, <span class="ident">webhook_type::WebhookType</span>,
 };
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">MessageId</span>};
@@ -820,6 +833,7 @@
     <span class="ident">Topic</span>,
     <span class="ident">Type</span>,
     <span class="ident">UserLimit</span>,
+    <span class="ident">VideoQualityMode</span>,
 }
 
 <span class="kw">struct</span> <span class="ident">GuildChannelVisitor</span>;
@@ -855,6 +869,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rate_limit_per_user</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">topic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user_limit</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">video_quality_mode</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
         <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="macro">tracing::trace_span!</span>(<span class="string">&quot;deserializing guild channel&quot;</span>);
         <span class="kw">let</span> <span class="ident">_span_enter</span> <span class="op">=</span> <span class="ident">span</span>.<span class="ident">enter</span>();
@@ -979,6 +994,13 @@
 
                     <span class="ident">user_limit</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
                 }
+                <span class="ident">GuildChannelField::VideoQualityMode</span> <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="kw">if</span> <span class="ident">video_quality_mode</span>.<span class="ident">is_some</span>() {
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">DeError::duplicate_field</span>(<span class="string">&quot;video_quality_mode&quot;</span>));
+                    }
+
+                    <span class="ident">video_quality_mode</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">map</span>.<span class="ident">next_value</span>()<span class="question-mark">?</span>);
+                }
             }
         }
 
@@ -1034,6 +1056,7 @@
                     <span class="ident">permission_overwrites</span>,
                     <span class="ident">position</span>,
                     <span class="ident">user_limit</span>,
+                    <span class="ident">video_quality_mode</span>,
                 })
             }
             <span class="ident">ChannelType::GuildNews</span> <span class="op">|</span> <span class="ident">ChannelType::GuildStore</span> <span class="op">|</span> <span class="ident">ChannelType::GuildText</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -1138,6 +1161,7 @@
             <span class="ident">parent_id</span>: <span class="prelude-val">None</span>,
             <span class="ident">position</span>: <span class="number">2</span>,
             <span class="ident">user_limit</span>: <span class="prelude-val">None</span>,
+            <span class="ident">video_quality_mode</span>: <span class="prelude-val">None</span>,
         }
     }
 

@@ -288,6 +288,15 @@
 <span id="285">285</span>
 <span id="286">286</span>
 <span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -295,7 +304,7 @@
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
-    <span class="ident">channel</span>::{<span class="ident">permission_overwrite::PermissionOverwrite</span>, <span class="ident">Channel</span>, <span class="ident">ChannelType</span>},
+    <span class="ident">channel</span>::{<span class="ident">permission_overwrite::PermissionOverwrite</span>, <span class="ident">Channel</span>, <span class="ident">ChannelType</span>, <span class="ident">VideoQualityMode</span>},
     <span class="ident">id::ChannelId</span>,
 };
 
@@ -358,6 +367,8 @@
     <span class="ident">topic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">user_limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="ident">video_quality_mode</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">VideoQualityMode</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">kind</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelType</span><span class="op">&gt;</span>,
@@ -524,6 +535,13 @@
     <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/resources/channel#modify-channel-json-params</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_limit</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">user_limit</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">user_limit</span>.<span class="ident">replace</span>(<span class="ident">user_limit</span>);
+
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Set the [`VideoQualityMode`] for the voice channel.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">video_quality_mode</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">video_quality_mode</span>: <span class="ident">VideoQualityMode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">video_quality_mode</span>.<span class="ident">replace</span>(<span class="ident">video_quality_mode</span>);
 
         <span class="self">self</span>
     }
