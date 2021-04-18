@@ -656,6 +656,11 @@
 <span id="653">653</span>
 <span id="654">654</span>
 <span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
+<span id="660">660</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">DeError</span>, <span class="ident">Visitor</span>},
@@ -808,6 +813,8 @@
     <span class="ident">InvalidApiVersion</span>,
     <span class="doccomment">/// Invalid sticker sent</span>
     <span class="ident">InvalidStickerSent</span>,
+    <span class="doccomment">/// Two factor is required for this operation.</span>
+    <span class="ident">TwoFactorRequired</span>,
     <span class="doccomment">/// Reaction was blocked</span>
     <span class="ident">ReactionBlocked</span>,
     <span class="doccomment">/// API resource is currently overloaded. Try again a little later</span>
@@ -891,6 +898,7 @@
             <span class="self">Self</span><span class="ident">::InviteAcceptedToGuildBotNotIn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50036</span>,
             <span class="self">Self</span><span class="ident">::InvalidApiVersion</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50041</span>,
             <span class="self">Self</span><span class="ident">::InvalidStickerSent</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">50081</span>,
+            <span class="self">Self</span><span class="ident">::TwoFactorRequired</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">60003</span>,
             <span class="self">Self</span><span class="ident">::ReactionBlocked</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">90001</span>,
             <span class="self">Self</span><span class="ident">::ApiResourceOverloaded</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">130_000</span>,
             <span class="self">Self</span><span class="ident">::Other</span>(<span class="ident">other</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">other</span>,
@@ -971,6 +979,7 @@
             <span class="number">50036</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::InviteAcceptedToGuildBotNotIn</span>,
             <span class="number">50041</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::InvalidApiVersion</span>,
             <span class="number">50081</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::InvalidStickerSent</span>,
+            <span class="number">60003</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::TwoFactorRequired</span>,
             <span class="number">90001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::ReactionBlocked</span>,
             <span class="number">130_000</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::ApiResourceOverloaded</span>,
             <span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Other</span>(<span class="ident">other</span>),
@@ -1051,6 +1060,7 @@
             <span class="self">Self</span><span class="ident">::InviteAcceptedToGuildBotNotIn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;An invite was accepted to a guild the application&#39;s bot is not in&quot;</span>),
             <span class="self">Self</span><span class="ident">::InvalidApiVersion</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid API version provided&quot;</span>),
             <span class="self">Self</span><span class="ident">::InvalidStickerSent</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Invalid sticker sent&quot;</span>),
+            <span class="self">Self</span><span class="ident">::TwoFactorRequired</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Two factor is required for this operation&quot;</span>),
             <span class="self">Self</span><span class="ident">::ReactionBlocked</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Reaction was blocked&quot;</span>),
             <span class="self">Self</span><span class="ident">::ApiResourceOverloaded</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;API resource is currently overloaded. Try again a little later&quot;</span>),
             <span class="self">Self</span><span class="ident">::Other</span>(<span class="ident">number</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;An error code Twilight doesn&#39;t have registered: {}&quot;</span>, <span class="ident">number</span>),
