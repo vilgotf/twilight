@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["UpdateTemplateError",""]],"struct":[["UpdateTemplate","Update the template’s metadata, by ID and code."]]});

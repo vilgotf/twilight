@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["create_guild_from_template",""],["create_template",""],["update_template",""]],"struct":[["DeleteTemplate","Delete a template by ID and code."],["GetTemplate","Get a template by its code."],["GetTemplates","Get a list of templates in a guild, by ID."],["SyncTemplate","Sync a template to the current state of the guild, by ID and code."]]});
