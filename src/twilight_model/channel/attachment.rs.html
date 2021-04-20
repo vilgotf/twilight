@@ -66,12 +66,24 @@
 <span id="63">63</span>
 <span id="64">64</span>
 <span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::id::AttachmentId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Attachment</span> {
+    <span class="doccomment">/// Attachment&#39;s [media type].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [media type]: https://en.wikipedia.org/wiki/Media_type</span>
+    <span class="kw">pub</span> <span class="ident">content_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">filename</span>: <span class="ident">String</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
@@ -92,6 +104,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_attachment</span>() {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">Attachment</span> {
+            <span class="ident">content_type</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;image/png&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">filename</span>: <span class="string">&quot;a.png&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">height</span>: <span class="prelude-val">Some</span>(<span class="number">184</span>),
             <span class="ident">id</span>: <span class="ident">AttachmentId</span>(<span class="number">700_000_000_000_000_000</span>),
@@ -106,8 +119,11 @@
             <span class="kw-2">&amp;</span>[
                 <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Attachment&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">7</span>,
+                    <span class="ident">len</span>: <span class="number">8</span>,
                 },
+                <span class="ident">Token::Str</span>(<span class="string">&quot;content_type&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;image/png&quot;</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;filename&quot;</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;a.png&quot;</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;height&quot;</span>),
