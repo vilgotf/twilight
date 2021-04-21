@@ -1754,6 +1754,41 @@
 <span id="1751">1751</span>
 <span id="1752">1752</span>
 <span id="1753">1753</span>
+<span id="1754">1754</span>
+<span id="1755">1755</span>
+<span id="1756">1756</span>
+<span id="1757">1757</span>
+<span id="1758">1758</span>
+<span id="1759">1759</span>
+<span id="1760">1760</span>
+<span id="1761">1761</span>
+<span id="1762">1762</span>
+<span id="1763">1763</span>
+<span id="1764">1764</span>
+<span id="1765">1765</span>
+<span id="1766">1766</span>
+<span id="1767">1767</span>
+<span id="1768">1768</span>
+<span id="1769">1769</span>
+<span id="1770">1770</span>
+<span id="1771">1771</span>
+<span id="1772">1772</span>
+<span id="1773">1773</span>
+<span id="1774">1774</span>
+<span id="1775">1775</span>
+<span id="1776">1776</span>
+<span id="1777">1777</span>
+<span id="1778">1778</span>
+<span id="1779">1779</span>
+<span id="1780">1780</span>
+<span id="1781">1781</span>
+<span id="1782">1782</span>
+<span id="1783">1783</span>
+<span id="1784">1784</span>
+<span id="1785">1785</span>
+<span id="1786">1786</span>
+<span id="1787">1787</span>
+<span id="1788">1788</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -2564,6 +2599,41 @@
     <span class="doccomment">/// [`GetGuildMembersError::LimitInvalid`]: crate::request::guild::member::get_guild_members::GetGuildMembersError::LimitInvalid</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_members</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetGuildMembers</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetGuildMembers::new</span>(<span class="self">self</span>, <span class="ident">guild_id</span>)
+    }
+
+    <span class="doccomment">/// Search the members of a specific guild by a query.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The upper limit to this request is 1000. Discord defaults the limit to 1.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Get the first 10 members of guild `100` matching `Wumpus`:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```rust,no_run</span>
+    <span class="doccomment">/// use twilight_http::Client;</span>
+    <span class="doccomment">/// use twilight_model::id::GuildId;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # #[tokio::main]</span>
+    <span class="doccomment">/// # async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error + Send + Sync&gt;&gt; {</span>
+    <span class="doccomment">/// let client = Client::new(&quot;my token&quot;);</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let guild_id = GuildId(100);</span>
+    <span class="doccomment">/// let members = client.search_guild_members(guild_id, String::from(&quot;Wumpus&quot;)).limit(10)?.await?;</span>
+    <span class="doccomment">/// # Ok(()) }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Errors</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns [`SearchGuildMembersError::LimitInvalid`] if the limit is invalid.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`GUILD_MEMBERS`]: ../../twilight_model/gateway/struct.Intents.html#associatedconstant.GUILD_MEMBERS</span>
+    <span class="doccomment">/// [`SearchGuildMembersError::LimitInvalid`]: ../request/guild/member/search_guild_members/enum.SearchGuildMembersError.html#variant.LimitInvalid</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">search_guild_members</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
+        <span class="ident">query</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SearchGuildMembers</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="ident">SearchGuildMembers::new</span>(<span class="self">self</span>, <span class="ident">guild_id</span>, <span class="ident">query</span>)
     }
 
     <span class="doccomment">/// Get a member of a guild, by their id.</span>
