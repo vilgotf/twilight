@@ -1271,6 +1271,8 @@
 <span id="1268">1268</span>
 <span id="1269">1269</span>
 <span id="1270">1270</span>
+<span id="1271">1271</span>
+<span id="1272">1272</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">config::ResourceType</span>, <span class="ident">InMemoryCache</span>};
 <span class="kw">use</span> <span class="ident">dashmap::DashMap</span>;
@@ -1639,6 +1641,8 @@
         };
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">member</span> <span class="op">=</span> <span class="ident">Arc::make_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">member</span>);
 
+        <span class="ident">member</span>.<span class="ident">deaf</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">deaf</span>.<span class="ident">unwrap_or</span>(<span class="ident">member</span>.<span class="ident">deaf</span>);
+        <span class="ident">member</span>.<span class="ident">mute</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">mute</span>.<span class="ident">unwrap_or</span>(<span class="ident">member</span>.<span class="ident">mute</span>);
         <span class="ident">member</span>.<span class="ident">nick</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">nick</span>.<span class="ident">clone</span>();
         <span class="ident">member</span>.<span class="ident">roles</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">roles</span>.<span class="ident">clone</span>();
         <span class="ident">member</span>.<span class="ident">joined_at</span>.<span class="ident">replace</span>(<span class="self">self</span>.<span class="ident">joined_at</span>.<span class="ident">clone</span>());
