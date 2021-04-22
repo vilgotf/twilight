@@ -1709,7 +1709,7 @@
                         <span class="ident">GuildChannel::Text</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="ident">c</span>.<span class="ident">guild_id</span>.<span class="ident">replace</span>(<span class="ident">id</span>);
                         }
-                        <span class="ident">GuildChannel::Voice</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                        <span class="ident">GuildChannel::Voice</span>(<span class="ident">c</span>) <span class="op">|</span> <span class="ident">GuildChannel::Stage</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="ident">c</span>.<span class="ident">guild_id</span>.<span class="ident">replace</span>(<span class="ident">id</span>);
                         }
                     }

@@ -277,6 +277,13 @@
 <span id="274">274</span>
 <span id="275">275</span>
 <span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::voice::VoiceState</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -335,6 +342,7 @@
             <span class="ident">suppress</span>: <span class="bool-val">false</span>,
             <span class="ident">token</span>: <span class="prelude-val">None</span>,
             <span class="ident">user_id</span>: <span class="ident">UserId</span>(<span class="number">1</span>),
+            <span class="ident">request_to_speak_timestamp</span>: <span class="prelude-val">None</span>,
         });
 
         <span class="ident">serde_test::assert_tokens</span>(
@@ -345,7 +353,7 @@
                 },
                 <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;VoiceState&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">11</span>,
+                    <span class="ident">len</span>: <span class="number">12</span>,
                 },
                 <span class="ident">Token::Str</span>(<span class="string">&quot;channel_id&quot;</span>),
                 <span class="ident">Token::None</span>,
@@ -416,6 +424,8 @@
                 <span class="ident">Token::Str</span>(<span class="string">&quot;user_id&quot;</span>),
                 <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
                 <span class="ident">Token::Str</span>(<span class="string">&quot;1&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;request_to_speak_timestamp&quot;</span>),
+                <span class="ident">Token::None</span>,
                 <span class="ident">Token::StructEnd</span>,
             ],
         );
@@ -462,6 +472,7 @@
             <span class="ident">suppress</span>: <span class="bool-val">false</span>,
             <span class="ident">token</span>: <span class="prelude-val">None</span>,
             <span class="ident">user_id</span>: <span class="ident">UserId</span>(<span class="number">123_213</span>),
+            <span class="ident">request_to_speak_timestamp</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2021-04-21T22:16:50+0000&quot;</span>.<span class="ident">to_owned</span>()),
         });
 
         <span class="comment">// Token stream here&#39;s `Member` has no `guild_id`, which deserialiser</span>
@@ -549,6 +560,9 @@
                 <span class="ident">Token::Str</span>(<span class="string">&quot;user_id&quot;</span>),
                 <span class="ident">Token::NewtypeStruct</span> { <span class="ident">name</span>: <span class="string">&quot;UserId&quot;</span> },
                 <span class="ident">Token::Str</span>(<span class="string">&quot;123213&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;request_to_speak_timestamp&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;2021-04-21T22:16:50+0000&quot;</span>),
                 <span class="ident">Token::StructEnd</span>,
             ],
         );

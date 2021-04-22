@@ -1619,6 +1619,10 @@
 <span id="1616">1616</span>
 <span id="1617">1617</span>
 <span id="1618">1618</span>
+<span id="1619">1619</span>
+<span id="1620">1620</span>
+<span id="1621">1621</span>
+<span id="1622">1622</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # twilight-cache-inmemory</span>
 <span class="doccomment">//!</span>
@@ -2156,6 +2160,9 @@
                 <span class="ident">c</span>.<span class="ident">guild_id</span>.<span class="ident">replace</span>(<span class="ident">guild_id</span>);
             }
             <span class="ident">GuildChannel::Voice</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">c</span>.<span class="ident">guild_id</span>.<span class="ident">replace</span>(<span class="ident">guild_id</span>);
+            }
+            <span class="ident">GuildChannel::Stage</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">c</span>.<span class="ident">guild_id</span>.<span class="ident">replace</span>(<span class="ident">guild_id</span>);
             }
         }
@@ -2696,6 +2703,7 @@
             <span class="ident">suppress</span>: <span class="bool-val">false</span>,
             <span class="ident">token</span>: <span class="prelude-val">None</span>,
             <span class="ident">user_id</span>,
+            <span class="ident">request_to_speak_timestamp</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2021-04-21T22:16:50+0000&quot;</span>.<span class="ident">to_owned</span>()),
         }
     }
 
