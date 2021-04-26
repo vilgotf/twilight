@@ -1697,6 +1697,28 @@
 <span id="1694">1694</span>
 <span id="1695">1695</span>
 <span id="1696">1696</span>
+<span id="1697">1697</span>
+<span id="1698">1698</span>
+<span id="1699">1699</span>
+<span id="1700">1700</span>
+<span id="1701">1701</span>
+<span id="1702">1702</span>
+<span id="1703">1703</span>
+<span id="1704">1704</span>
+<span id="1705">1705</span>
+<span id="1706">1706</span>
+<span id="1707">1707</span>
+<span id="1708">1708</span>
+<span id="1709">1709</span>
+<span id="1710">1710</span>
+<span id="1711">1711</span>
+<span id="1712">1712</span>
+<span id="1713">1713</span>
+<span id="1714">1714</span>
+<span id="1715">1715</span>
+<span id="1716">1716</span>
+<span id="1717">1717</span>
+<span id="1718">1718</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">hyper::Method</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1822,6 +1844,7 @@
     <span class="ident">GuildsIdTemplates</span>(<span class="ident">u64</span>),
     <span class="ident">GuildsIdTemplatesCode</span>(<span class="ident">u64</span>),
     <span class="ident">GuildsIdVanityUrl</span>(<span class="ident">u64</span>),
+    <span class="ident">GuildsIdWelcomeScreen</span>(<span class="ident">u64</span>),
     <span class="ident">GuildsIdWebhooks</span>(<span class="ident">u64</span>),
     <span class="ident">InvitesCode</span>,
     <span class="ident">UsersId</span>,
@@ -1931,6 +1954,7 @@
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;templates&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdTemplates</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;templates&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdTemplatesCode</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;vanity-url&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdVanityUrl</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+            [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;welcome-screen&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdWelcomeScreen</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;webhooks&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdWebhooks</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;invites&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">InvitesCode</span>,
             [<span class="string">&quot;oauth2&quot;</span>, <span class="string">&quot;applications&quot;</span>, <span class="string">&quot;@me&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OauthApplicationsMe</span>,
@@ -2329,6 +2353,11 @@
         <span class="doccomment">/// The ID of the guild.</span>
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
     },
+    <span class="doccomment">/// Route information to get a guild&#39;s welcome screen.</span>
+    <span class="ident">GetGuildWelcomeScreen</span> {
+        <span class="doccomment">/// ID of the guild.</span>
+        <span class="ident">guild_id</span>: <span class="ident">u64</span>,
+    },
     <span class="doccomment">/// Route information to get a guild&#39;s webhooks.</span>
     <span class="ident">GetGuildWebhooks</span> {
         <span class="doccomment">/// The ID of the guild.</span>
@@ -2521,6 +2550,11 @@
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
         <span class="doccomment">/// The ID of the integration.</span>
         <span class="ident">integration_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="doccomment">/// Route information to update a guild&#39;s welcome screen.</span>
+    <span class="ident">UpdateGuildWelcomeScreen</span> {
+        <span class="doccomment">/// ID of the guild.</span>
+        <span class="ident">guild_id</span>: <span class="ident">u64</span>,
     },
     <span class="doccomment">/// Route information to update a member.</span>
     <span class="ident">UpdateMember</span> {
@@ -3041,6 +3075,11 @@
                 <span class="ident">Path::GuildsIdRegions</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/regions&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
+            <span class="self">Self</span><span class="ident">::GetGuildWelcomeScreen</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::GET</span>,
+                <span class="ident">Path::GuildsIdWelcomeScreen</span>(<span class="ident">guild_id</span>),
+                <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/welcome-screen&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
+            ),
             <span class="self">Self</span><span class="ident">::GetGuildWebhooks</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
                 <span class="ident">Method::GET</span>,
                 <span class="ident">Path::GuildsIdWebhooks</span>(<span class="ident">guild_id</span>),
@@ -3289,6 +3328,11 @@
                 <span class="ident">Method::PATCH</span>,
                 <span class="ident">Path::GuildsIdIntegrationsId</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/integrations/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">integration_id</span>,).<span class="ident">into</span>(),
+            ),
+            <span class="self">Self</span><span class="ident">::UpdateGuildWelcomeScreen</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdWelcomeScreen</span>(<span class="ident">guild_id</span>),
+                <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/welcome-screen&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
             ),
             <span class="self">Self</span><span class="ident">::UpdateMember</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
                 <span class="ident">Method::PATCH</span>,
