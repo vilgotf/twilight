@@ -1721,6 +1721,30 @@
 <span id="1718">1718</span>
 <span id="1719">1719</span>
 <span id="1720">1720</span>
+<span id="1721">1721</span>
+<span id="1722">1722</span>
+<span id="1723">1723</span>
+<span id="1724">1724</span>
+<span id="1725">1725</span>
+<span id="1726">1726</span>
+<span id="1727">1727</span>
+<span id="1728">1728</span>
+<span id="1729">1729</span>
+<span id="1730">1730</span>
+<span id="1731">1731</span>
+<span id="1732">1732</span>
+<span id="1733">1733</span>
+<span id="1734">1734</span>
+<span id="1735">1735</span>
+<span id="1736">1736</span>
+<span id="1737">1737</span>
+<span id="1738">1738</span>
+<span id="1739">1739</span>
+<span id="1740">1740</span>
+<span id="1741">1741</span>
+<span id="1742">1742</span>
+<span id="1743">1743</span>
+<span id="1744">1744</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">hyper::Method</span>;
 <span class="kw">use</span> <span class="ident">percent_encoding</span>::{<span class="ident">utf8_percent_encode</span>, <span class="ident">NON_ALPHANUMERIC</span>};
@@ -1847,6 +1871,7 @@
     <span class="ident">GuildsIdTemplates</span>(<span class="ident">u64</span>),
     <span class="ident">GuildsIdTemplatesCode</span>(<span class="ident">u64</span>),
     <span class="ident">GuildsIdVanityUrl</span>(<span class="ident">u64</span>),
+    <span class="ident">GuildsIdVoiceStates</span>(<span class="ident">u64</span>),
     <span class="ident">GuildsIdWelcomeScreen</span>(<span class="ident">u64</span>),
     <span class="ident">GuildsIdWebhooks</span>(<span class="ident">u64</span>),
     <span class="ident">InvitesCode</span>,
@@ -1957,6 +1982,7 @@
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;templates&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdTemplates</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;templates&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdTemplatesCode</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;vanity-url&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdVanityUrl</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+            [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;voice-states&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdVoiceStates</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;welcome-screen&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdWelcomeScreen</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;guilds&quot;</span>, <span class="ident">id</span>, <span class="string">&quot;webhooks&quot;</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GuildsIdWebhooks</span>(<span class="ident">id</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
             [<span class="string">&quot;invites&quot;</span>, <span class="kw">_</span>] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">InvitesCode</span>,
@@ -2525,6 +2551,11 @@
     },
     <span class="doccomment">/// Route information to update the current user.</span>
     <span class="ident">UpdateCurrentUser</span>,
+    <span class="doccomment">/// Route information to update the current user&#39;s voice state.</span>
+    <span class="ident">UpdateCurrentUserVoiceState</span> {
+        <span class="doccomment">/// ID of the guild.</span>
+        <span class="ident">guild_id</span>: <span class="ident">u64</span>,
+    },
     <span class="doccomment">/// Route information to update an emoji.</span>
     <span class="ident">UpdateEmoji</span> {
         <span class="doccomment">/// The ID of the emoji.</span>
@@ -2604,6 +2635,13 @@
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
         <span class="doccomment">/// The template code.</span>
         <span class="ident">template_code</span>: <span class="ident">String</span>,
+    },
+    <span class="doccomment">/// Route information to update a user&#39;s voice state.</span>
+    <span class="ident">UpdateUserVoiceState</span> {
+        <span class="doccomment">/// ID of the guild.</span>
+        <span class="ident">guild_id</span>: <span class="ident">u64</span>,
+        <span class="doccomment">/// ID of the user.</span>
+        <span class="ident">user_id</span>: <span class="ident">u64</span>,
     },
     <span class="doccomment">/// Route information to update a message created by a webhook.</span>
     <span class="ident">UpdateWebhookMessage</span> {
@@ -3305,6 +3343,11 @@
                 <span class="macro">format!</span>(<span class="string">&quot;channels/{}&quot;</span>, <span class="ident">channel_id</span>).<span class="ident">into</span>(),
             ),
             <span class="self">Self</span><span class="ident">::UpdateCurrentUser</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Method::PATCH</span>, <span class="ident">Path::UsersId</span>, <span class="string">&quot;users/@me&quot;</span>.<span class="ident">into</span>()),
+            <span class="self">Self</span><span class="ident">::UpdateCurrentUserVoiceState</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdVoiceStates</span>(<span class="ident">guild_id</span>),
+                <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/voice-states/@me&quot;</span>, <span class="ident">guild_id</span>).<span class="ident">into</span>(),
+            ),
             <span class="self">Self</span><span class="ident">::UpdateEmoji</span> { <span class="ident">emoji_id</span>, <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
                 <span class="ident">Method::PATCH</span>,
                 <span class="ident">Path::GuildsIdEmojisId</span>(<span class="ident">guild_id</span>),
@@ -3381,6 +3424,11 @@
                 <span class="ident">Method::PATCH</span>,
                 <span class="ident">Path::GuildsIdTemplatesCode</span>(<span class="ident">guild_id</span>),
                 <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/templates/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">template_code</span>).<span class="ident">into</span>(),
+            ),
+            <span class="self">Self</span><span class="ident">::UpdateUserVoiceState</span> { <span class="ident">guild_id</span>, <span class="ident">user_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::PATCH</span>,
+                <span class="ident">Path::GuildsIdVoiceStates</span>(<span class="ident">guild_id</span>),
+                <span class="macro">format!</span>(<span class="string">&quot;guilds/{}/voice-states/{}&quot;</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>).<span class="ident">into</span>(),
             ),
             <span class="self">Self</span><span class="ident">::UpdateWebhookMessage</span> {
                 <span class="ident">message_id</span>,

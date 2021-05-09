@@ -1803,6 +1803,37 @@
 <span id="1800">1800</span>
 <span id="1801">1801</span>
 <span id="1802">1802</span>
+<span id="1803">1803</span>
+<span id="1804">1804</span>
+<span id="1805">1805</span>
+<span id="1806">1806</span>
+<span id="1807">1807</span>
+<span id="1808">1808</span>
+<span id="1809">1809</span>
+<span id="1810">1810</span>
+<span id="1811">1811</span>
+<span id="1812">1812</span>
+<span id="1813">1813</span>
+<span id="1814">1814</span>
+<span id="1815">1815</span>
+<span id="1816">1816</span>
+<span id="1817">1817</span>
+<span id="1818">1818</span>
+<span id="1819">1819</span>
+<span id="1820">1820</span>
+<span id="1821">1821</span>
+<span id="1822">1822</span>
+<span id="1823">1823</span>
+<span id="1824">1824</span>
+<span id="1825">1825</span>
+<span id="1826">1826</span>
+<span id="1827">1827</span>
+<span id="1828">1828</span>
+<span id="1829">1829</span>
+<span id="1830">1830</span>
+<span id="1831">1831</span>
+<span id="1832">1832</span>
+<span id="1833">1833</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -2260,6 +2291,22 @@
     <span class="doccomment">/// be randomized.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_current_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UpdateCurrentUser</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">UpdateCurrentUser::new</span>(<span class="self">self</span>)
+    }
+
+    <span class="doccomment">/// Update the current user&#39;s voice state.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// All paramaters are optional.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Caveats</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// - `channel_id` must currently point to a stage channel.</span>
+    <span class="doccomment">/// - Current user must have already joined `channel_id`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_current_user_voice_state</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
+        <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UpdateCurrentUserVoiceState</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="ident">UpdateCurrentUserVoiceState::new</span>(<span class="self">self</span>, <span class="ident">guild_id</span>, <span class="ident">channel_id</span>)
     }
 
     <span class="doccomment">/// Get the current user&#39;s connections.</span>
@@ -3206,6 +3253,21 @@
     <span class="doccomment">/// Get a user&#39;s information by id.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetUser</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetUser::new</span>(<span class="self">self</span>, <span class="ident">user_id</span>.<span class="ident">to_string</span>())
+    }
+
+    <span class="doccomment">/// Update another user&#39;s voice state.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Caveats</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// - `channel_id` must currently point to a stage channel.</span>
+    <span class="doccomment">/// - User must already have joined `channel_id`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_user_voice_state</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,
+        <span class="ident">user_id</span>: <span class="ident">UserId</span>,
+        <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UpdateUserVoiceState</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="ident">UpdateUserVoiceState::new</span>(<span class="self">self</span>, <span class="ident">guild_id</span>, <span class="ident">user_id</span>, <span class="ident">channel_id</span>)
     }
 
     <span class="doccomment">/// Get a list of voice regions that can be used when creating a guild.</span>
