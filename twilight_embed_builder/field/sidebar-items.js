@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["EmbedFieldError","Error creating an embed field."]],"struct":[["EmbedFieldBuilder","Create an embed field with a builder."]]});

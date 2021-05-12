@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `http/src/request/guild/member/get_guild_members.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>get_guild_members.rs - source</title><link rel="stylesheet" type="text/css" href="../../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../../../storage.js"></script><script src="../../../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../../../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../../../twilight_http/index.html'><div class='logo-container rust-logo'><img src='../../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../../../../../settings.html"><img src="../../../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+                <a id="settings-menu" href="../../../../../settings.html"><img src="../../../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -168,7 +168,42 @@
 <span id="165">165</span>
 <span id="166">166</span>
 <span id="167">167</span>
-</pre><div class="example-wrap"><pre class="rust ">
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+</pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">bytes::Bytes</span>;
 <span class="kw">use</span> <span class="ident">serde::de::DeserializeSeed</span>;
@@ -190,25 +225,57 @@
 <span class="kw">use</span> <span class="ident">simd_json::value::OwnedValue</span> <span class="kw">as</span> <span class="ident">Value</span>;
 
 <span class="doccomment">/// The error created when the members can not be fetched as configured.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GetGuildMembersError</span> {
+    <span class="ident">kind</span>: <span class="ident">GetGuildMembersErrorType</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">GetGuildMembersError</span> {
+    <span class="doccomment">/// Immutable reference to the type of error that occurred.</span>
+    <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;retrieving the type has no effect if left unused&quot;</span>]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">GetGuildMembersErrorType</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">kind</span>
+    }
+
+    <span class="doccomment">/// Consume the error, returning the source error if there is any.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::unused_self</span>)]</span>
+    <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;consuming the error and retrieving the source has no effect if left unused&quot;</span>]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_source</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="prelude-val">None</span>
+    }
+
+    <span class="doccomment">/// Consume the error, returning the owned error type and the source error.</span>
+    <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;consuming the error into its parts has no effect if left unused&quot;</span>]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_parts</span>(
+        <span class="self">self</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> (
+        <span class="ident">GetGuildMembersErrorType</span>,
+        <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    ) {
+        (<span class="self">self</span>.<span class="ident">kind</span>, <span class="prelude-val">None</span>)
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">GetGuildMembersError</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
+        <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">kind</span> {
+            <span class="ident">GetGuildMembersErrorType::LimitInvalid</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the limit is invalid&quot;</span>),
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">GetGuildMembersError</span> {}
+
+<span class="doccomment">/// Type of [`GetGuildMembersError`] that occurred.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">GetGuildMembersError</span> {
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">GetGuildMembersErrorType</span> {
     <span class="doccomment">/// The limit is either 0 or more than 1000.</span>
     <span class="ident">LimitInvalid</span> {
         <span class="doccomment">/// Provided limit.</span>
         <span class="ident">limit</span>: <span class="ident">u64</span>,
     },
 }
-
-<span class="kw">impl</span> <span class="ident">Display</span> <span class="kw">for</span> <span class="ident">GetGuildMembersError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span><span class="ident">::LimitInvalid</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;the limit is invalid&quot;</span>),
-        }
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">GetGuildMembersError</span> {}
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
 <span class="kw">struct</span> <span class="ident">GetGuildMembersFields</span> {
@@ -239,10 +306,6 @@
 <span class="doccomment">/// let members = client.guild_members(guild_id).after(user_id).await?;</span>
 <span class="doccomment">/// # Ok(()) }</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Errors</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Returns [`GetGuildMembersError::LimitInvalid`] if the limit is invalid.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GetGuildMembers</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">fields</span>: <span class="ident">GetGuildMembersFields</span>,
     <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Bytes</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -273,11 +336,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns [`GetGuildMembersError::LimitInvalid`] if the limit is 0 or</span>
-    <span class="doccomment">/// greater than 1000.</span>
+    <span class="doccomment">/// Returns a [`GetGuildMembersErrorType::LimitInvalid`] error type if the</span>
+    <span class="doccomment">/// limit is 0 or greater than 1000.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">limit</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">GetGuildMembersError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">validate::get_guild_members_limit</span>(<span class="ident">limit</span>) {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GetGuildMembersError::LimitInvalid</span> { <span class="ident">limit</span> });
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GetGuildMembersError</span> {
+                <span class="ident">kind</span>: <span class="ident">GetGuildMembersErrorType::LimitInvalid</span> { <span class="ident">limit</span> },
+            });
         }
 
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">limit</span>.<span class="ident">replace</span>(<span class="ident">limit</span>);
@@ -323,11 +388,16 @@
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">members</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
 
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">bytes</span>.<span class="ident">as_ref</span>().<span class="ident">to_vec</span>();
-                <span class="kw">let</span> <span class="ident">values</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json_from_slice</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>)<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">values</span> <span class="op">=</span>
+                    <span class="kw">crate</span><span class="ident">::json_from_slice</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>).<span class="ident">map_err</span>(<span class="ident">HttpError::json</span>)<span class="question-mark">?</span>;
 
                 <span class="kw">for</span> <span class="ident">value</span> <span class="kw">in</span> <span class="ident">values</span> {
                     <span class="kw">let</span> <span class="ident">member_deserializer</span> <span class="op">=</span> <span class="ident">MemberDeserializer::new</span>(<span class="self">self</span>.<span class="ident">guild_id</span>);
-                    <span class="ident">members</span>.<span class="ident">push</span>(<span class="ident">member_deserializer</span>.<span class="ident">deserialize</span>(<span class="ident">value</span>)<span class="question-mark">?</span>);
+                    <span class="ident">members</span>.<span class="ident">push</span>(
+                        <span class="ident">member_deserializer</span>
+                            .<span class="ident">deserialize</span>(<span class="ident">value</span>)
+                            .<span class="ident">map_err</span>(<span class="ident">HttpError::json</span>)<span class="question-mark">?</span>,
+                    );
                 }
 
                 <span class="ident">Poll::Ready</span>(<span class="prelude-val">Ok</span>(<span class="ident">members</span>))

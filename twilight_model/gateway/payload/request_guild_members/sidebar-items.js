@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["RequestGuildMemberId","One or a list of IDs in a request."],["UserIdsError","Provided IDs is invalid for the request."]],"struct":[["RequestGuildMembers",""],["RequestGuildMembersBuilder",""],["RequestGuildMembersInfo",""]]});
+initSidebarItems({"enum":[["RequestGuildMemberId","One or a list of IDs in a request."],["UserIdsErrorType","Type of [`UserIdsError`] that occurred."]],"struct":[["RequestGuildMembers",""],["RequestGuildMembersBuilder",""],["RequestGuildMembersInfo",""],["UserIdsError","Provided IDs is invalid for the request."]]});

@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["ClientError","An error that can occur while interacting with the client."]],"struct":[["Lavalink","The lavalink client that manages nodes, players, and processes events from Discord to tie it all together."]]});
+initSidebarItems({"enum":[["ClientErrorType","Type of [`ClientError`] that occurred."]],"struct":[["ClientError","An error that can occur while interacting with the client."],["Lavalink","The lavalink client that manages nodes, players, and processes events from Discord to tie it all together."]]});

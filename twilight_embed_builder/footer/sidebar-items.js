@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["EmbedFooterTextError","Error creating an embed footer."]],"struct":[["EmbedFooterBuilder","Create an embed footer with a builder."]]});

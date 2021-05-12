@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["EmbedBuildError","Error building an embed."],["EmbedColorError","Error working with an embed builder."],["EmbedDescriptionError","Error adding a description to an embed builder."],["EmbedTitleError","Error adding a title to an embed builder."]],"struct":[["EmbedBuilder","Create an embed with a builder."]]});

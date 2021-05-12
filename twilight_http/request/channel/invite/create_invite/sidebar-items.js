@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CreateInviteErrorType","Type of [`CreateInviteError`] that occurred."]],"struct":[["CreateInvite","Create an invite, with options."],["CreateInviteError","Error created when an invite can not be created as configured."]]});

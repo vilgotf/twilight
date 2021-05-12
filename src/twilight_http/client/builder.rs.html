@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `http/src/client/builder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>builder.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../twilight_http/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+                <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -154,38 +154,15 @@
 <span id="151">151</span>
 <span id="152">152</span>
 <span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
-<span id="161">161</span>
-<span id="162">162</span>
-<span id="163">163</span>
-<span id="164">164</span>
-<span id="165">165</span>
-<span id="166">166</span>
-<span id="167">167</span>
-<span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
-</pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Client</span>, <span class="ident">HttpsConnector</span>, <span class="ident">State</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">ratelimiting::Ratelimiter</span>, <span class="ident">request::channel::allowed_mentions::AllowedMentions</span>};
-<span class="kw">use</span> <span class="ident">hyper</span>::{
-    <span class="ident">client</span>::{<span class="ident">Client</span> <span class="kw">as</span> <span class="ident">HyperClient</span>, <span class="ident">HttpConnector</span>},
-    <span class="ident">header::HeaderMap</span>,
-};
+</pre><pre class="rust">
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Client</span>, <span class="ident">State</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ratelimiting::Ratelimiter</span>;
+<span class="kw">use</span> <span class="ident">hyper::header::HeaderMap</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">sync</span>::{<span class="ident">atomic::AtomicBool</span>, <span class="ident">Arc</span>},
     <span class="ident">time::Duration</span>,
 };
+<span class="kw">use</span> <span class="ident">twilight_model::channel::message::allowed_mentions::AllowedMentions</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="doccomment">/// A builder for [`Client`].</span>
@@ -193,7 +170,6 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">default_allowed_mentions</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AllowedMentions</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">proxy</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">ratelimiter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Ratelimiter</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">hyper_client</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HyperClient</span><span class="op">&lt;</span><span class="ident">HttpsConnector</span><span class="op">&lt;</span><span class="ident">HttpConnector</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">default_headers</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HeaderMap</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">timeout</span>: <span class="ident">Duration</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -208,23 +184,18 @@
 
     <span class="doccomment">/// Build the [`Client`].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Client</span> {
-        <span class="kw">let</span> <span class="ident">http</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">hyper_client</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-rustls&quot;</span>)]</span>
-            <span class="kw">let</span> <span class="ident">connector</span> <span class="op">=</span> <span class="ident">hyper_rustls::HttpsConnector::with_native_roots</span>();
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-tls&quot;</span>, <span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-rustls&quot;</span>)))]</span>
-            <span class="kw">let</span> <span class="ident">connector</span> <span class="op">=</span> {
-                <span class="comment">// Workaround for https://github.com/hyperium/hyper-tls/pull/85</span>
-                <span class="kw">let</span> <span class="ident">tls</span> <span class="op">=</span> <span class="ident">native_tls::TlsConnector::builder</span>()
-                    .<span class="ident">request_alpns</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;h2&quot;</span>, <span class="string">&quot;http/1.1&quot;</span>])
-                    .<span class="ident">build</span>()
-                    .<span class="ident">expect</span>(<span class="string">&quot;TlsConnector::new() failure&quot;</span>);
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">http_conn</span> <span class="op">=</span> <span class="ident">HttpConnector::new</span>();
-                <span class="ident">http_conn</span>.<span class="ident">enforce_http</span>(<span class="bool-val">false</span>);
-                <span class="ident">hyper_tls::HttpsConnector::from</span>((<span class="ident">http_conn</span>, <span class="ident">tls</span>.<span class="ident">into</span>()))
-            };
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustls-native-roots&quot;</span>)]</span>
+        <span class="kw">let</span> <span class="ident">connector</span> <span class="op">=</span> <span class="ident">hyper_rustls::HttpsConnector::with_native_roots</span>();
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustls-webpki-roots&quot;</span>, <span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustls-native-roots&quot;</span>)))]</span>
+        <span class="kw">let</span> <span class="ident">connector</span> <span class="op">=</span> <span class="ident">hyper_rustls::HttpsConnector::with_webpki_roots</span>();
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(
+            <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-tls&quot;</span>,
+            <span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustls-native-roots&quot;</span>),
+            <span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustls-webpki-roots&quot;</span>)
+        ))]</span>
+        <span class="kw">let</span> <span class="ident">connector</span> <span class="op">=</span> <span class="ident">hyper_tls::HttpsConnector::new</span>();
 
-            <span class="ident">hyper::client::Builder::default</span>().<span class="ident">build</span>(<span class="ident">connector</span>)
-        });
+        <span class="kw">let</span> <span class="ident">http</span> <span class="op">=</span> <span class="ident">hyper::client::Builder::default</span>().<span class="ident">build</span>(<span class="ident">connector</span>);
 
         <span class="ident">Client</span> {
             <span class="ident">state</span>: <span class="ident">Arc::new</span>(<span class="ident">State</span> {
@@ -245,18 +216,6 @@
     <span class="doccomment">/// client.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_allowed_mentions</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">allowed_mentions</span>: <span class="ident">AllowedMentions</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">default_allowed_mentions</span>.<span class="ident">replace</span>(<span class="ident">allowed_mentions</span>);
-
-        <span class="self">self</span>
-    }
-
-    <span class="doccomment">/// Set a pre-configured Hyper client builder to build off of.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The proxy and timeout settings in the Hyper client will be overridden by</span>
-    <span class="doccomment">/// those in this builder.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The default client uses Rustls as its TLS backend.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hyper_client</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">client</span>: <span class="ident">HyperClient</span><span class="op">&lt;</span><span class="ident">HttpsConnector</span><span class="op">&lt;</span><span class="ident">HttpConnector</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">hyper_client</span>.<span class="ident">replace</span>(<span class="ident">client</span>);
 
         <span class="self">self</span>
     }
@@ -340,7 +299,6 @@
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">default_allowed_mentions</span>: <span class="prelude-val">None</span>,
-            <span class="ident">hyper_client</span>: <span class="prelude-val">None</span>,
             <span class="ident">default_headers</span>: <span class="prelude-val">None</span>,
             <span class="ident">proxy</span>: <span class="prelude-val">None</span>,
             <span class="ident">ratelimiter</span>: <span class="prelude-val">Some</span>(<span class="ident">Ratelimiter::new</span>()),

@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["AddGuildMemberError","Member cannot be added as configured."]],"struct":[["AddGuildMember",""]]});
+initSidebarItems({"enum":[["AddGuildMemberErrorType",""]],"struct":[["AddGuildMember",""],["AddGuildMemberError","Member cannot be added as configured."]]});
