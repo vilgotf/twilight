@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ActivityButton","Button used in an activity."]],"struct":[["ActivityButtonLink","Button used in an activity with a URL."],["ActivityButtonText","Button used in an activity without a URL."]]});

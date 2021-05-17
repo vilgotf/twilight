@@ -1464,7 +1464,7 @@
     <span class="doccomment">/// use twilight_embed_builder::{EmbedBuilder, EmbedFooterBuilder, ImageSource};</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {</span>
-    <span class="doccomment">/// let source = ImageSource::url(&quot;https://raw.githubusercontent.com/twilight-rs/twilight/trunk/logo.png&quot;)?;</span>
+    <span class="doccomment">/// let source = ImageSource::url(&quot;https://raw.githubusercontent.com/twilight-rs/twilight/main/logo.png&quot;)?;</span>
     <span class="doccomment">/// let embed = EmbedBuilder::new()</span>
     <span class="doccomment">///     .footer(EmbedFooterBuilder::new(&quot;twilight&quot;))</span>
     <span class="doccomment">///     .image(source)</span>
@@ -1697,7 +1697,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_builder</span>() {
         <span class="kw">let</span> <span class="ident">footer_image</span> <span class="op">=</span> <span class="ident">ImageSource::url</span>(
-            <span class="string">&quot;https://raw.githubusercontent.com/twilight-rs/twilight/trunk/logo.png&quot;</span>,
+            <span class="string">&quot;https://raw.githubusercontent.com/twilight-rs/twilight/main/logo.png&quot;</span>,
         )
         .<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">embed</span> <span class="op">=</span> <span class="ident">EmbedBuilder::new</span>()
@@ -1721,7 +1721,7 @@
             .<span class="ident">to_vec</span>(),
             <span class="ident">footer</span>: <span class="prelude-val">Some</span>(<span class="ident">EmbedFooter</span> {
                 <span class="ident">icon_url</span>: <span class="prelude-val">Some</span>(
-                    <span class="string">&quot;https://raw.githubusercontent.com/twilight-rs/twilight/trunk/logo.png&quot;</span>
+                    <span class="string">&quot;https://raw.githubusercontent.com/twilight-rs/twilight/main/logo.png&quot;</span>
                         .<span class="ident">to_string</span>(),
                 ),
                 <span class="ident">proxy_icon_url</span>: <span class="prelude-val">None</span>,

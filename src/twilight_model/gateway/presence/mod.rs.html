@@ -296,7 +296,12 @@
 <span id="293">293</span>
 <span id="294">294</span>
 <span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
 </pre><pre class="rust">
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">activity_button</span>;
+
 <span class="kw">mod</span> <span class="ident">activity</span>;
 <span class="kw">mod</span> <span class="ident">activity_assets</span>;
 <span class="kw">mod</span> <span class="ident">activity_emoji</span>;
@@ -309,8 +314,8 @@
 <span class="kw">mod</span> <span class="ident">status</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
-    <span class="ident">activity::Activity</span>, <span class="ident">activity_assets::ActivityAssets</span>, <span class="ident">activity_emoji::ActivityEmoji</span>,
-    <span class="ident">activity_flags::ActivityFlags</span>, <span class="ident">activity_party::ActivityParty</span>,
+    <span class="ident">activity::Activity</span>, <span class="ident">activity_assets::ActivityAssets</span>, <span class="ident">activity_button::ActivityButton</span>,
+    <span class="ident">activity_emoji::ActivityEmoji</span>, <span class="ident">activity_flags::ActivityFlags</span>, <span class="ident">activity_party::ActivityParty</span>,
     <span class="ident">activity_secrets::ActivitySecrets</span>, <span class="ident">activity_timestamps::ActivityTimestamps</span>,
     <span class="ident">activity_type::ActivityType</span>, <span class="ident">client_status::ClientStatus</span>, <span class="ident">status::Status</span>,
 };
@@ -453,6 +458,7 @@
         <span class="kw">let</span> <span class="ident">activity</span> <span class="op">=</span> <span class="ident">Activity</span> {
             <span class="ident">application_id</span>: <span class="prelude-val">None</span>,
             <span class="ident">assets</span>: <span class="prelude-val">None</span>,
+            <span class="ident">buttons</span>: <span class="ident">Vec::new</span>(),
             <span class="ident">created_at</span>: <span class="prelude-val">Some</span>(<span class="number">1_571_048_061_237</span>),
             <span class="ident">details</span>: <span class="prelude-val">None</span>,
             <span class="ident">flags</span>: <span class="prelude-val">None</span>,

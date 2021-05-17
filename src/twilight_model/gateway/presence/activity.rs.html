@@ -48,11 +48,13 @@
 <span id="45">45</span>
 <span id="46">46</span>
 <span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">gateway::presence</span>::{
-        <span class="ident">ActivityAssets</span>, <span class="ident">ActivityEmoji</span>, <span class="ident">ActivityFlags</span>, <span class="ident">ActivityParty</span>, <span class="ident">ActivitySecrets</span>,
-        <span class="ident">ActivityTimestamps</span>, <span class="ident">ActivityType</span>,
+        <span class="ident">ActivityAssets</span>, <span class="ident">ActivityButton</span>, <span class="ident">ActivityEmoji</span>, <span class="ident">ActivityFlags</span>, <span class="ident">ActivityParty</span>,
+        <span class="ident">ActivitySecrets</span>, <span class="ident">ActivityTimestamps</span>, <span class="ident">ActivityType</span>,
     },
     <span class="ident">id::ApplicationId</span>,
 };
@@ -64,6 +66,8 @@
     <span class="kw">pub</span> <span class="ident">application_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ApplicationId</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">assets</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ActivityAssets</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">buttons</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ActivityButton</span><span class="op">&gt;</span>,
     <span class="comment">// Introduced with custom statuses.</span>
     <span class="kw">pub</span> <span class="ident">created_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
