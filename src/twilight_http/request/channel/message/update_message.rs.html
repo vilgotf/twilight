@@ -254,6 +254,30 @@
 <span id="251">251</span>
 <span id="252">252</span>
 <span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -264,7 +288,7 @@
     <span class="ident">channel</span>::{
         <span class="ident">embed::Embed</span>,
         <span class="ident">message</span>::{<span class="ident">AllowedMentions</span>, <span class="ident">MessageFlags</span>},
-        <span class="ident">Message</span>,
+        <span class="ident">Attachment</span>, <span class="ident">Message</span>,
     },
     <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">MessageId</span>},
 };
@@ -337,6 +361,8 @@
 <span class="kw">struct</span> <span class="ident">UpdateMessageFields</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">allowed_mentions</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AllowedMentions</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">attachments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Attachment</span><span class="op">&gt;</span>,
     <span class="comment">// We don&#39;t serialize if this is Option::None, to avoid overwriting the</span>
     <span class="comment">// field without meaning to.</span>
     <span class="comment">//</span>
@@ -410,6 +436,28 @@
             <span class="ident">http</span>,
             <span class="ident">message_id</span>,
         }
+    }
+
+    <span class="doccomment">/// Specify an attachment already present in the target message to keep.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If called, all unspecified attachments will be removed from the message.</span>
+    <span class="doccomment">/// If not called, all attachments will be kept.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachment</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">attachment</span>: <span class="ident">Attachment</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">attachments</span>.<span class="ident">push</span>(<span class="ident">attachment</span>);
+
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Specify multiple attachments already present in the target message to keep.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If called, all unspecified attachments will be removed from the message.</span>
+    <span class="doccomment">/// If not called, all attachments will be kept.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attachments</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">attachments</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Attachment</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>
+            .<span class="ident">attachments</span>
+            .<span class="ident">extend</span>(<span class="ident">attachments</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Attachment</span><span class="op">&gt;</span><span class="op">&gt;</span>());
+
+        <span class="self">self</span>
     }
 
     <span class="doccomment">/// Set the content of the message.</span>
