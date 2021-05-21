@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["create_stage_instance",""],["update_stage_instance",""]],"struct":[["DeleteStageInstance","Delete the stage instance of a stage channel."],["GetStageInstance","Gets the stage instance associated with a stage channel, if it exists."]]});

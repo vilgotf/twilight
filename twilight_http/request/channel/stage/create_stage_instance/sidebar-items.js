@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CreateStageInstanceErrorType",""]],"struct":[["CreateStageInstance","Create a new stage instance associated with a stage channel."],["CreateStageInstanceError","The request can not be created as configured."]]});
