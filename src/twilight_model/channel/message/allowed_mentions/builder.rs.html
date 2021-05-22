@@ -144,6 +144,11 @@
 <span id="141">141</span>
 <span id="142">142</span>
 <span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">channel::message::allowed_mentions</span>::{<span class="ident">AllowedMentions</span>, <span class="ident">ParseTypes</span>},
@@ -155,8 +160,13 @@
 
 <span class="kw">impl</span> <span class="ident">AllowedMentionsBuilder</span> {
     <span class="doccomment">/// Create a new [`AllowedMentionsBuilder`].</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">AllowedMentions</span> {
+            <span class="ident">parse</span>: <span class="ident">Vec::new</span>(),
+            <span class="ident">users</span>: <span class="ident">Vec::new</span>(),
+            <span class="ident">roles</span>: <span class="ident">Vec::new</span>(),
+            <span class="ident">replied_user</span>: <span class="bool-val">false</span>,
+        })
     }
 
     <span class="doccomment">/// Allow parsing of `@everyone`.</span>
@@ -167,7 +177,7 @@
     }
 
     <span class="doccomment">/// When replying, whether to mention the target user.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">replied_user</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">replied_user</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">replied_user</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
         <span class="self">self</span>

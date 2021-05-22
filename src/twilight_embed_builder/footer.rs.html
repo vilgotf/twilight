@@ -118,6 +118,7 @@
 <span id="115">115</span>
 <span id="116">116</span>
 <span id="117">117</span>
+<span id="118">118</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Create embed footers.</span>
 
@@ -144,7 +145,7 @@
         <span class="self">Self</span><span class="ident">::_new</span>(<span class="ident">text</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">text</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">text</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>(<span class="ident">EmbedFooter</span> {
             <span class="ident">icon_url</span>: <span class="prelude-val">None</span>,
             <span class="ident">proxy_icon_url</span>: <span class="prelude-val">None</span>,
@@ -153,6 +154,7 @@
     }
 
     <span class="doccomment">/// Build into an embed footer.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;should be used as part of an embed builder&quot;</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EmbedFooter</span> {
         <span class="self">self</span>.<span class="number">0</span>

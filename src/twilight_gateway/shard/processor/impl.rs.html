@@ -1124,7 +1124,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ProcessError</span> {
-    <span class="kw">fn</span> <span class="ident">fatal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">fatal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="macro">matches!</span>(
             <span class="self">self</span>.<span class="ident">kind</span>,
             <span class="ident">ProcessErrorType::SendingClose</span> { .. } <span class="op">|</span> <span class="ident">ProcessErrorType::SessionSend</span> { .. }
@@ -1190,7 +1190,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ReceivingEventError</span> {
-    <span class="kw">fn</span> <span class="ident">fatal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">fatal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="macro">matches!</span>(
             <span class="self">self</span>.<span class="ident">kind</span>,
             <span class="ident">ReceivingEventErrorType::AuthorizationInvalid</span> { .. }
@@ -1199,7 +1199,7 @@
         )
     }
 
-    <span class="kw">fn</span> <span class="ident">reconnectable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">reconnectable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compression&quot;</span>)]</span>
         {
             <span class="macro">matches!</span>(<span class="self">self</span>.<span class="ident">kind</span>, <span class="ident">ReceivingEventErrorType::Decompressing</span>)
@@ -1210,7 +1210,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">resumable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">resumable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="macro">matches!</span>(<span class="self">self</span>.<span class="ident">kind</span>, <span class="ident">ReceivingEventErrorType::EventStreamEnded</span>)
     }
 }

@@ -81,7 +81,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ChannelType</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span><span class="ident">::Group</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Group&quot;</span>,
             <span class="self">Self</span><span class="ident">::GuildCategory</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GuildCategory&quot;</span>,

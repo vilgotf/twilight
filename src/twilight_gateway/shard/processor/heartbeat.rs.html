@@ -306,29 +306,29 @@
     <span class="doccomment">/// # Note</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If this is None, the shard has not received a heartbeat yet.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">average</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">average</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">average</span>
     }
 
     <span class="doccomment">/// The total number of heartbeats that have been sent during this session.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">heartbeats</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">heartbeats</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="self">self</span>.<span class="ident">heartbeats</span>
     }
 
     <span class="doccomment">/// The 5 most recent latency times.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Index 0 is the oldest, 4 is the most recent.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">VecDeque</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">recent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">VecDeque</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">recent</span>
     }
 
     <span class="doccomment">/// When the last heartbeat acknowledgement was received.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">received</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Instant</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">received</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Instant</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">received</span>
     }
 
     <span class="doccomment">/// When the last heartbeat was sent.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Instant</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">sent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Instant</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">sent</span>
     }
 }

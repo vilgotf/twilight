@@ -74,7 +74,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Identify</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">info</span>: <span class="ident">IdentifyInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">info</span>: <span class="ident">IdentifyInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">d</span>: <span class="ident">info</span>,
             <span class="ident">op</span>: <span class="ident">OpCode::Identify</span>,

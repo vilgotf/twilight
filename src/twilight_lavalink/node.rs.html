@@ -785,7 +785,7 @@
 <span class="kw">impl</span> <span class="ident">NodeError</span> {
     <span class="doccomment">/// Immutable reference to the type of error that occurred.</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;retrieving the type has no effect if left unused&quot;</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">NodeErrorType</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">NodeErrorType</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">kind</span>
     }
 
@@ -860,7 +860,7 @@
 
 <span class="kw">impl</span> <span class="ident">NodeSenderError</span> {
     <span class="doccomment">/// Immutable reference to the type of error that occurred.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">NodeSenderErrorType</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">NodeSenderErrorType</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">kind</span>
     }
 
@@ -981,7 +981,7 @@
 <span class="kw">impl</span> <span class="ident">Resume</span> {
     <span class="doccomment">/// Configure resume capability, providing the number of seconds that the</span>
     <span class="doccomment">/// Lavalink server should queue events for when the connection is resumed.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">seconds</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">seconds</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">timeout</span>: <span class="ident">seconds</span> }
     }
 }
@@ -1016,7 +1016,7 @@
         )
     }
 
-    <span class="kw">fn</span> <span class="ident">_new</span>(
+    <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">_new</span>(
         <span class="ident">user_id</span>: <span class="ident">UserId</span>,
         <span class="ident">shard_count</span>: <span class="ident">u64</span>,
         <span class="ident">address</span>: <span class="ident">SocketAddr</span>,

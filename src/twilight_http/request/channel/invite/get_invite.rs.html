@@ -131,14 +131,14 @@
     }
 
     <span class="doccomment">/// Whether the invite returned should contain approximate member counts.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_counts</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">with_counts</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">with_counts</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Whether the invite returned should contain its expiration date.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_expiration</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">with_expiration</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">with_expiration</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
         <span class="self">self</span>

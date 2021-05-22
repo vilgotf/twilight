@@ -355,6 +355,9 @@
 <span id="352">352</span>
 <span id="353">353</span>
 <span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">config::Config</span>, <span class="ident">Shard</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -377,7 +380,7 @@
 <span class="kw">impl</span> <span class="ident">LargeThresholdError</span> {
     <span class="doccomment">/// Immutable reference to the type of error that occurred.</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;retrieving the type has no effect if left unused&quot;</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">LargeThresholdErrorType</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">LargeThresholdErrorType</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">kind</span>
     }
 
@@ -442,7 +445,7 @@
 <span class="kw">impl</span> <span class="ident">ShardIdError</span> {
     <span class="doccomment">/// Immutable reference to the type of error that occurred.</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;retrieving the type has no effect if left unused&quot;</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ShardIdErrorType</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ShardIdErrorType</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">kind</span>
     }
 
@@ -557,6 +560,7 @@
     <span class="doccomment">/// information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Default is a new, unconfigured instance of an HTTP client.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">http_client</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">http_client</span>: <span class="ident">HttpClient</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">http_client</span> <span class="op">=</span> <span class="ident">http_client</span>;
 
@@ -581,6 +585,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns a [`LargeThresholdErrorType::TooMany`] error type if the</span>
     <span class="doccomment">/// provided value is above 250.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">large_threshold</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">large_threshold</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">LargeThresholdError</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">large_threshold</span> {
             <span class="number">0</span>..<span class="op">=</span><span class="number">49</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -664,6 +669,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns a [`ShardIdErrorType::IdTooLarge`] error type if the shard ID to</span>
     <span class="doccomment">/// connect as is larger than the total.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>, <span class="ident">shard_total</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ShardIdError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">shard_id</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">shard_total</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ShardIdError</span> {

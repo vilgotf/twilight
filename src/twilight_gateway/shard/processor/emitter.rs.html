@@ -240,6 +240,7 @@
 <span id="237">237</span>
 <span id="238">238</span>
 <span id="239">239</span>
+<span id="240">240</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span><span class="ident">::json</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">listener::Listeners</span>, <span class="ident">EventTypeFlags</span>};
@@ -307,11 +308,12 @@
 
 <span class="kw">impl</span> <span class="ident">Emitter</span> {
     <span class="doccomment">/// Create a new emitter for events and bytes.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">listeners</span>: <span class="ident">Listeners</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">listeners</span>: <span class="ident">Listeners</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">listeners</span> }
     }
 
     <span class="doccomment">/// Consume the emitter, returning the inner listeners.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_listeners</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Listeners</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">listeners</span>
     }

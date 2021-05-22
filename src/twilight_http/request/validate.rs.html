@@ -757,6 +757,7 @@
 <span id="754">754</span>
 <span id="755">755</span>
 <span id="756">756</span>
+<span id="757">757</span>
 </pre><pre class="rust">
 <span class="doccomment">/// Contains all of the input validation functions for requests.</span>
 <span class="doccomment">///</span>
@@ -806,7 +807,7 @@
 
     <span class="doccomment">/// Immutable reference to the type of error that occurred.</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;retrieving the type has no effect if left unused&quot;</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">EmbedValidationErrorType</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">EmbedValidationErrorType</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">kind</span>
     }
 
@@ -953,7 +954,7 @@
     },
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ban_delete_message_days</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">ban_delete_message_days</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/guild#create-guild-ban-query-string-params&gt;</span>
     <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">7</span>
 }
@@ -1070,33 +1071,33 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_audit_log_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">get_audit_log_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/audit-log#get-guild-audit-log-query-string-parameters&gt;</span>
-    (<span class="number">1</span>..<span class="op">=</span><span class="number">100</span>).<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>)
+    <span class="ident">value</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_channel_messages_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">get_channel_messages_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/channel#get-channel-messages-query-string-params&gt;</span>
-    (<span class="number">1</span>..<span class="op">=</span><span class="number">100</span>).<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>)
+    <span class="ident">value</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_current_user_guilds_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">get_current_user_guilds_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/user#get-current-user-guilds-query-string-params&gt;</span>
-    (<span class="number">1</span>..<span class="op">=</span><span class="number">100</span>).<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>)
+    <span class="ident">value</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_guild_members_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">get_guild_members_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/guild#list-guild-members-query-string-params&gt;</span>
-    (<span class="number">1</span>..<span class="op">=</span><span class="number">1000</span>).<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>)
+    <span class="ident">value</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">1000</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">search_guild_members_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">search_guild_members_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">1000</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_reactions_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">get_reactions_limit</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/channel#get-reactions-query-string-params&gt;</span>
-    (<span class="number">1</span>..<span class="op">=</span><span class="number">100</span>).<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>)
+    <span class="ident">value</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_name</span>(<span class="ident">value</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
@@ -1110,17 +1111,17 @@
     (<span class="number">2</span>..<span class="op">=</span><span class="number">100</span>).<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">len</span>)
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_prune_days</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">guild_prune_days</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/guild#get-guild-prune-count-query-string-params&gt;</span>
     <span class="ident">value</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">30</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">invite_max_age</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">invite_max_age</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discord.com/developers/docs/resources/channel#create-channel-invite-json-params&gt;</span>
     <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">604_800</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">invite_max_uses</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">invite_max_uses</span>(<span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="comment">// &lt;https://discord.com/developers/docs/resources/channel#create-channel-invite-json-params&gt;</span>
     <span class="ident">value</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span>
 }
@@ -1144,6 +1145,7 @@
 <span class="kw">fn</span> <span class="ident">_username</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">value</span>.<span class="ident">chars</span>().<span class="ident">count</span>();
 
+    <span class="comment">// &lt;https://discordapp.com/developers/docs/resources/user#usernames-and-nicknames&gt;</span>
     (<span class="number">2</span>..<span class="op">=</span><span class="number">32</span>).<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">len</span>)
 }
 

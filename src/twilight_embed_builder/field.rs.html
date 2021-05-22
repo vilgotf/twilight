@@ -134,6 +134,7 @@
 <span id="131">131</span>
 <span id="132">132</span>
 <span id="133">133</span>
+<span id="134">134</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Create embed fields.</span>
 
@@ -166,7 +167,7 @@
         <span class="self">Self</span><span class="ident">::_new</span>(<span class="ident">name</span>.<span class="ident">into</span>(), <span class="ident">value</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">name</span>: <span class="ident">String</span>, <span class="ident">value</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">_new</span>(<span class="ident">name</span>: <span class="ident">String</span>, <span class="ident">value</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>(<span class="ident">EmbedField</span> {
             <span class="ident">inline</span>: <span class="bool-val">false</span>,
             <span class="ident">name</span>,
@@ -175,6 +176,7 @@
     }
 
     <span class="doccomment">/// Build into an embed field.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;should be used as part of an embed builder&quot;</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EmbedField</span> {
         <span class="self">self</span>.<span class="number">0</span>
@@ -193,7 +195,7 @@
     <span class="doccomment">///     .inline()</span>
     <span class="doccomment">///     .build();</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inline</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">inline</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">inline</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
         <span class="self">self</span>

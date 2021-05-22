@@ -335,7 +335,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">EventType</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span><span class="ident">::BanAdd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="string">&quot;GUILD_BAN_ADD&quot;</span>),
             <span class="self">Self</span><span class="ident">::BanRemove</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="string">&quot;GUILD_BAN_REMOVE&quot;</span>),

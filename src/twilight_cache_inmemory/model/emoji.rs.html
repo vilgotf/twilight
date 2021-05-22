@@ -77,12 +77,6 @@
 <span id="74">74</span>
 <span id="75">75</span>
 <span id="76">76</span>
-<span id="77">77</span>
-<span id="78">78</span>
-<span id="79">79</span>
-<span id="80">80</span>
-<span id="81">81</span>
-<span id="82">82</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 <span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
@@ -119,8 +113,20 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span><span class="ident">::CachedEmoji</span>;
+    <span class="kw">use</span> <span class="ident">static_assertions</span>::{<span class="ident">assert_fields</span>, <span class="ident">assert_impl_all</span>};
     <span class="kw">use</span> <span class="ident">std::fmt::Debug</span>;
     <span class="kw">use</span> <span class="ident">twilight_model</span>::{<span class="ident">guild::Emoji</span>, <span class="ident">id::EmojiId</span>};
+
+    <span class="macro">assert_fields!</span>(
+        <span class="ident">CachedEmoji</span>: <span class="ident">id</span>,
+        <span class="ident">animated</span>,
+        <span class="ident">name</span>,
+        <span class="ident">managed</span>,
+        <span class="ident">require_colons</span>,
+        <span class="ident">roles</span>,
+        <span class="ident">user</span>
+    );
+    <span class="macro">assert_impl_all!</span>(<span class="ident">CachedEmoji</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_eq_emoji</span>() {
@@ -146,24 +152,6 @@
         };
 
         <span class="macro">assert_eq!</span>(<span class="ident">cached</span>, <span class="ident">emoji</span>);
-    }
-
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_fields</span>() {
-        <span class="macro">static_assertions::assert_fields!</span>(
-            <span class="ident">CachedEmoji</span>: <span class="ident">id</span>,
-            <span class="ident">animated</span>,
-            <span class="ident">name</span>,
-            <span class="ident">managed</span>,
-            <span class="ident">require_colons</span>,
-            <span class="ident">roles</span>,
-            <span class="ident">user</span>
-        );
-    }
-
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_impls</span>() {
-        <span class="macro">static_assertions::assert_impl_all!</span>(<span class="ident">CachedEmoji</span>: <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>);
     }
 }
 </pre></div>

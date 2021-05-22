@@ -155,6 +155,7 @@
 <span id="152">152</span>
 <span id="153">153</span>
 <span id="154">154</span>
+<span id="155">155</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Create embed authors.</span>
 
@@ -172,11 +173,17 @@
 
 <span class="kw">impl</span> <span class="ident">EmbedAuthorBuilder</span> {
     <span class="doccomment">/// Create a new default embed author builder.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">EmbedAuthor</span> {
+            <span class="ident">icon_url</span>: <span class="prelude-val">None</span>,
+            <span class="ident">name</span>: <span class="prelude-val">None</span>,
+            <span class="ident">proxy_icon_url</span>: <span class="prelude-val">None</span>,
+            <span class="ident">url</span>: <span class="prelude-val">None</span>,
+        })
     }
 
     <span class="doccomment">/// Build into an embed author.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;should be used as part of an embed builder&quot;</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EmbedAuthor</span> {
         <span class="self">self</span>.<span class="number">0</span>
@@ -219,12 +226,7 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">EmbedAuthorBuilder</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>(<span class="ident">EmbedAuthor</span> {
-            <span class="ident">icon_url</span>: <span class="prelude-val">None</span>,
-            <span class="ident">name</span>: <span class="prelude-val">None</span>,
-            <span class="ident">proxy_icon_url</span>: <span class="prelude-val">None</span>,
-            <span class="ident">url</span>: <span class="prelude-val">None</span>,
-        })
+        <span class="self">Self</span><span class="ident">::new</span>()
     }
 }
 

@@ -245,7 +245,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">RatelimitHeaders</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">global</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">global</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="self">Self</span><span class="ident">::GlobalLimited</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
             <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,

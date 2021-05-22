@@ -29,7 +29,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Heartbeat</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">seq</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">seq</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">d</span>: <span class="ident">seq</span>,
             <span class="ident">op</span>: <span class="ident">OpCode::Heartbeat</span>,

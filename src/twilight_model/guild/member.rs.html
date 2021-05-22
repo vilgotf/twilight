@@ -325,7 +325,7 @@
 <span class="kw">impl</span> <span class="ident">MemberDeserializer</span> {
     <span class="doccomment">/// Create a new deserializer for a member when you know the ID but the</span>
     <span class="doccomment">/// payload probably doesn&#39;t contain it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>(<span class="ident">guild_id</span>)
     }
 }
@@ -372,7 +372,7 @@
 <span class="kw">impl</span> <span class="ident">OptionalMemberDeserializer</span> {
     <span class="doccomment">/// Create a new deserializer for a member when you know the ID but the</span>
     <span class="doccomment">/// payload probably doesn&#39;t contain it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>(<span class="ident">guild_id</span>)
     }
 }
@@ -409,7 +409,7 @@
 <span class="kw">impl</span> <span class="ident">MemberListDeserializer</span> {
     <span class="doccomment">/// Create a new deserializer for a map of members when you know the</span>
     <span class="doccomment">/// Guild ID but the payload probably doesn&#39;t contain it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>(<span class="ident">guild_id</span>)
     }
 }

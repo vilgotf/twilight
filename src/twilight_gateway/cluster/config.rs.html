@@ -90,7 +90,7 @@
     <span class="doccomment">/// Refer to [`ClusterBuilder::http_client`] for the default value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClusterBuilder::http_client`]: super::ClusterBuilder::http_client</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">http_client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Client</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">http_client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Client</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">http_client</span>
     }
 
@@ -100,7 +100,7 @@
     <span class="doccomment">/// Refer to [`ShardBuilder`]&#39;s methods for the default values.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ShardBuilder`]: crate::shard::ShardBuilder#impl</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ShardConfig</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">shard_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ShardConfig</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">shard_config</span>
     }
 
@@ -109,7 +109,7 @@
     <span class="doccomment">/// Refer to [`ClusterBuilder::shard_scheme`] for the default value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ClusterBuilder::shard_scheme`]: super::ClusterBuilder::shard_scheme</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard_scheme</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ShardScheme</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">shard_scheme</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ShardScheme</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">shard_scheme</span>
     }
 

@@ -60,8 +60,8 @@
 
 <span class="kw">impl</span> <span class="ident">InMemoryCacheBuilder</span> {
     <span class="doccomment">/// Creates a builder to configure and construct an [`InMemoryCache`].</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">Config::new</span>())
     }
 
     <span class="doccomment">/// Consume the builder, returning a configured cache.</span>
@@ -72,7 +72,7 @@
     <span class="doccomment">/// Sets the list of resource types for the cache to handle.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Defaults to all types.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">resource_types</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">resource_types</span>: <span class="ident">ResourceType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">resource_types</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">resource_types</span>: <span class="ident">ResourceType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">resource_types</span> <span class="op">=</span> <span class="ident">resource_types</span>;
 
         <span class="self">self</span>
@@ -81,7 +81,7 @@
     <span class="doccomment">/// Sets the number of messages to cache per channel.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Defaults to 100.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message_cache_size</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">message_cache_size</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">message_cache_size</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">message_cache_size</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">message_cache_size</span> <span class="op">=</span> <span class="ident">message_cache_size</span>;
 
         <span class="self">self</span>

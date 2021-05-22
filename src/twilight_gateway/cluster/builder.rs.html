@@ -225,6 +225,8 @@
 <span id="222">222</span>
 <span id="223">223</span>
 <span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">config::Config</span> <span class="kw">as</span> <span class="ident">ClusterConfig</span>,
@@ -400,6 +402,7 @@
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shard_scheme</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">scheme</span>: <span class="ident">ShardScheme</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">shard_scheme</span> <span class="op">=</span> <span class="ident">scheme</span>;
 
@@ -429,6 +432,7 @@
     <span class="doccomment">/// Note that this does not guarantee all or any of the shards will be able</span>
     <span class="doccomment">/// to resume. If their sessions are invalid they will have to re-identify</span>
     <span class="doccomment">/// to initialize a new session.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">resume_sessions</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">resume_sessions</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">ResumeSession</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">resume_sessions</span> <span class="op">=</span> <span class="ident">resume_sessions</span>;
         <span class="self">self</span>

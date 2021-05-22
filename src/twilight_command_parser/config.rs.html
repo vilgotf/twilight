@@ -276,6 +276,9 @@
 <span id="273">273</span>
 <span id="274">274</span>
 <span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Configuration for a [`Parser`].</span>
 <span class="doccomment">//!</span>
@@ -307,8 +310,11 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">CommandParserConfig</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a fresh default configuration with no commands or prefixes.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">commands</span>: <span class="ident">Vec::new</span>(),
+            <span class="ident">prefixes</span>: <span class="ident">Vec::new</span>(),
+        }
     }
 
     <span class="doccomment">/// Returns an iterator of immutable references to the commands.</span>

@@ -308,6 +308,7 @@
 <span id="305">305</span>
 <span id="306">306</span>
 <span id="307">307</span>
+<span id="308">308</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Form</span>, <span class="ident">Method</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -346,6 +347,7 @@
     }
 
     <span class="doccomment">/// Consume the builder, returning the built request.</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_const_for_fn</span>)]</span>
     <span class="attribute">#[<span class="ident">must_use</span> <span class="op">=</span> <span class="string">&quot;request information is not useful on its own and must be acted on&quot;</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Request</span> {
         <span class="self">self</span>.<span class="number">0</span>
@@ -394,7 +396,7 @@
     <span class="doccomment">/// is set.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is primarily useful for executing webhooks.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">use_authorization_token</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">use_authorization_token</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">use_authorization_token</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">use_authorization_token</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">use_authorization_token</span> <span class="op">=</span> <span class="ident">use_authorization_token</span>;
 
         <span class="self">self</span>

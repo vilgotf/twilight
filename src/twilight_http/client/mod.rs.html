@@ -1907,6 +1907,9 @@
 <span id="1904">1904</span>
 <span id="1905">1905</span>
 <span id="1906">1906</span>
+<span id="1907">1907</span>
+<span id="1908">1908</span>
+<span id="1909">1909</span>
 </pre><pre class="rust">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -2295,7 +2298,10 @@
         <span class="ident">GetChannelMessages::new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_channel_permission</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeleteChannelPermission</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">delete_channel_permission</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeleteChannelPermission</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">DeleteChannelPermission::new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }
 
@@ -2324,7 +2330,7 @@
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_channel_permission</span>(
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">update_channel_permission</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
         <span class="ident">allow</span>: <span class="ident">Permissions</span>,

@@ -263,7 +263,7 @@
     <span class="doccomment">/// Set the timeout for HTTP requests.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default is 10 seconds.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">timeout</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">duration</span>: <span class="ident">Duration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">timeout</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">duration</span>: <span class="ident">Duration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">timeout</span> <span class="op">=</span> <span class="ident">duration</span>;
 
         <span class="self">self</span>

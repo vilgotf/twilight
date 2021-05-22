@@ -77,7 +77,7 @@
 
     <span class="doccomment">/// Sets if you want to receive `approximate_member_count` and `approximate_presence_count` in</span>
     <span class="doccomment">/// the guild structure.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_counts</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">with</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">with_counts</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">with</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">with_counts</span> <span class="op">=</span> <span class="ident">with</span>;
 
         <span class="self">self</span>
