@@ -416,7 +416,7 @@
                     <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>));
                 }
 
-                <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="kw">crate</span><span class="ident">::json_from_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>).<span class="ident">map</span>(<span class="prelude-val">Some</span>).<span class="ident">map_err</span>(
+                <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="kw">crate</span><span class="ident">::json::from_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>).<span class="ident">map</span>(<span class="prelude-val">Some</span>).<span class="ident">map_err</span>(
                     <span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">HttpError</span> {
                         <span class="ident">kind</span>: <span class="ident">ErrorType::Parsing</span> { <span class="ident">body</span>: <span class="ident">bytes</span> },
                         <span class="ident">source</span>: <span class="prelude-val">Some</span>(<span class="ident">Box::new</span>(<span class="ident">source</span>)),

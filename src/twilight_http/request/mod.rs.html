@@ -164,7 +164,6 @@
 <span id="161">161</span>
 <span id="162">162</span>
 <span id="163">163</span>
-<span id="164">164</span>
 </pre><pre class="rust">
 <span class="macro">macro_rules!</span> <span class="ident">poll_req</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>: <span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ret</span>: <span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -196,7 +195,6 @@
                 <span class="kw-2">mut</span> <span class="self">self</span>: <span class="ident">std::pin::Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span><span class="op">&gt;</span>,
                 <span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">std::task::Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
             ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::std::task::Poll</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Output</span><span class="op">&gt;</span> {
-                <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::json_from_slice</span>;
                 <span class="kw">use</span> <span class="ident">std::task::Poll</span>;
 
                 <span class="kw">loop</span> {
@@ -213,7 +211,7 @@
                         };
 
                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">bytes</span>.<span class="ident">as_ref</span>().<span class="ident">to_vec</span>();
-                        <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="ident">json_from_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>).<span class="ident">map</span>(<span class="prelude-val">Some</span>).<span class="ident">map_err</span>(
+                        <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="kw">crate</span><span class="ident">::json::from_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>).<span class="ident">map</span>(<span class="prelude-val">Some</span>).<span class="ident">map_err</span>(
                             <span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="kw">crate</span><span class="ident">::Error</span> {
                                 <span class="ident">kind</span>: <span class="kw">crate</span><span class="ident">::error::ErrorType::Parsing</span> {
                                     <span class="ident">body</span>: <span class="ident">bytes</span>.<span class="ident">to_vec</span>(),

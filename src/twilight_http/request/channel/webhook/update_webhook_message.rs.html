@@ -829,7 +829,7 @@
                 <span class="ident">form</span>.<span class="ident">file</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">index</span>).<span class="ident">as_bytes</span>(), <span class="ident">name</span>.<span class="ident">as_bytes</span>(), <span class="kw-2">&amp;</span><span class="ident">file</span>);
             }
 
-            <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json_to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>).<span class="ident">map_err</span>(<span class="ident">HttpError::json</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json::to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span>).<span class="ident">map_err</span>(<span class="ident">HttpError::json</span>)<span class="question-mark">?</span>;
             <span class="ident">form</span>.<span class="ident">payload_json</span>(<span class="kw-2">&amp;</span><span class="ident">body</span>);
 
             <span class="ident">request</span> <span class="op">=</span> <span class="ident">request</span>.<span class="ident">form</span>(<span class="ident">form</span>);

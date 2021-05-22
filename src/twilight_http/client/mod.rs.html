@@ -3729,7 +3729,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="ident">buf</span>.<span class="ident">remaining</span>()];
         <span class="ident">buf</span>.<span class="ident">copy_to_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>);
 
-        <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json_from_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>);
+        <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json::from_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>);
 
         <span class="ident">result</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span> {
             <span class="ident">kind</span>: <span class="ident">ErrorType::Parsing</span> {
@@ -3797,7 +3797,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="ident">buf</span>.<span class="ident">remaining</span>()];
         <span class="ident">buf</span>.<span class="ident">copy_to_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>);
 
-        <span class="kw">let</span> <span class="ident">error</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json_from_slice</span>::<span class="op">&lt;</span><span class="ident">ApiError</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span> {
+        <span class="kw">let</span> <span class="ident">error</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::json::from_slice</span>::<span class="op">&lt;</span><span class="ident">ApiError</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">Error</span> {
             <span class="ident">kind</span>: <span class="ident">ErrorType::Parsing</span> {
                 <span class="ident">body</span>: <span class="ident">bytes</span>.<span class="ident">clone</span>(),
             },
