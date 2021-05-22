@@ -1873,6 +1873,27 @@
 <span id="1870">1870</span>
 <span id="1871">1871</span>
 <span id="1872">1872</span>
+<span id="1873">1873</span>
+<span id="1874">1874</span>
+<span id="1875">1875</span>
+<span id="1876">1876</span>
+<span id="1877">1877</span>
+<span id="1878">1878</span>
+<span id="1879">1879</span>
+<span id="1880">1880</span>
+<span id="1881">1881</span>
+<span id="1882">1882</span>
+<span id="1883">1883</span>
+<span id="1884">1884</span>
+<span id="1885">1885</span>
+<span id="1886">1886</span>
+<span id="1887">1887</span>
+<span id="1888">1888</span>
+<span id="1889">1889</span>
+<span id="1890">1890</span>
+<span id="1891">1891</span>
+<span id="1892">1892</span>
+<span id="1893">1893</span>
 </pre><pre class="rust">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -2208,7 +2229,11 @@
 
     <span class="doccomment">/// Get the invites for a guild channel.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This method only works if the channel is of type `GuildChannel`.</span>
+    <span class="doccomment">/// Requires the [`MANAGE_CHANNELS`] permission. This method only works if</span>
+    <span class="doccomment">/// the channel is of type [`GuildChannel`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`MANAGE_CHANNELS`]: twilight_model::guild::Permissions::MANAGE_CHANNELS</span>
+    <span class="doccomment">/// [`GuildChannel`]: twilight_model::channel::GuildChannel</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_invites</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetChannelInvites</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetChannelInvites::new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }
@@ -2603,6 +2628,10 @@
     }
 
     <span class="doccomment">/// Get information about the invites of a guild.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Requires the [`MANAGE_GUILD`] permission.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`MANAGE_GUILD`]: twilight_model::guild::Permissions::MANAGE_GUILD</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_invites</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">guild_id</span>: <span class="ident">GuildId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetGuildInvites</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetGuildInvites::new</span>(<span class="self">self</span>, <span class="ident">guild_id</span>)
     }
@@ -2838,7 +2867,9 @@
 
     <span class="doccomment">/// Get information about an invite by its code.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`with_counts`] is called, the returned invite will contain approximate member counts.</span>
+    <span class="doccomment">/// If [`with_counts`] is called, the returned invite will contain</span>
+    <span class="doccomment">/// approximate member counts.  If [`with_expiration`] is called, it will</span>
+    <span class="doccomment">/// contain the expiration date.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
@@ -2857,11 +2888,14 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`with_counts`]: crate::request::channel::invite::GetInvite::with_counts</span>
+    <span class="doccomment">/// [`with_expiration`]: crate::request::channel::invite::GetInvite::with_expiration</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">invite</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">code</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetInvite</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">GetInvite::new</span>(<span class="self">self</span>, <span class="ident">code</span>)
     }
 
     <span class="doccomment">/// Create an invite, with options.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Requires the [`CREATE_INVITE`] permission.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
@@ -2880,11 +2914,19 @@
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// # Ok(()) }</span>
     <span class="doccomment">/// ```</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`CREATE_INVITE`]: twilight_model::guild::Permissions::CREATE_INVITE</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_invite</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CreateInvite</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">CreateInvite::new</span>(<span class="self">self</span>, <span class="ident">channel_id</span>)
     }
 
     <span class="doccomment">/// Delete an invite by its code.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Requires the [`MANAGE_CHANNELS`] permission on the channel this invite</span>
+    <span class="doccomment">/// belongs to, or [`MANAGE_GUILD`] to remove any invite across the guild.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`MANAGE_CHANNELS`]: twilight_model::guild::Permissions::MANAGE_CHANNELS</span>
+    <span class="doccomment">/// [`MANAGE_GUILD`]: twilight_model::guild::Permissions::MANAGE_GUILD</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_invite</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">code</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeleteInvite</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">DeleteInvite::new</span>(<span class="self">self</span>, <span class="ident">code</span>)
     }

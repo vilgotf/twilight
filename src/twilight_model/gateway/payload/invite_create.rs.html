@@ -36,7 +36,7 @@
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">GuildId</span>, <span class="ident">UserId</span>},
-    <span class="ident">invite::TargetUserType</span>,
+    <span class="ident">invite::TargetType</span>,
     <span class="ident">user::User</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -52,7 +52,7 @@
     <span class="kw">pub</span> <span class="ident">max_age</span>: <span class="ident">u64</span>,
     <span class="kw">pub</span> <span class="ident">max_uses</span>: <span class="ident">u64</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">target_user_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetUserType</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">target_user_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetType</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">target_user</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PartialUser</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">temporary</span>: <span class="ident">bool</span>,

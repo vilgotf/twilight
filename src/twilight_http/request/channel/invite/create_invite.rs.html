@@ -287,6 +287,33 @@
 <span id="284">284</span>
 <span id="285">285</span>
 <span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -294,8 +321,8 @@
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{
-    <span class="ident">id</span>::{<span class="ident">ChannelId</span>, <span class="ident">UserId</span>},
-    <span class="ident">invite</span>::{<span class="ident">Invite</span>, <span class="ident">TargetUserType</span>},
+    <span class="ident">id</span>::{<span class="ident">ApplicationId</span>, <span class="ident">ChannelId</span>, <span class="ident">UserId</span>},
+    <span class="ident">invite</span>::{<span class="ident">Invite</span>, <span class="ident">TargetType</span>},
 };
 
 <span class="doccomment">/// Error created when an invite can not be created as configured.</span>
@@ -361,14 +388,18 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">temporary</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">unique</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
+    <span class="ident">target_application_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ApplicationId</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">target_user_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">target_user_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetUserType</span><span class="op">&gt;</span>,
+    <span class="ident">target_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetType</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="ident">unique</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Create an invite, with options.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Requires the [`CREATE_INVITE`] permission.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
@@ -387,6 +418,8 @@
 <span class="doccomment">///     .await?;</span>
 <span class="doccomment">/// # Ok(()) }</span>
 <span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`CREATE_INVITE`]: twilight_model::guild::Permissions::CREATE_INVITE</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CreateInvite</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
     <span class="ident">fields</span>: <span class="ident">CreateInviteFields</span>,
@@ -474,26 +507,20 @@
         <span class="prelude-val">Ok</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Specify true if the invite should grant temporary membership. Defaults to false.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">temporary</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">temporary</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">temporary</span>.<span class="ident">replace</span>(<span class="ident">temporary</span>);
+    <span class="doccomment">/// Set the target application ID for this invite.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This only works if [`target_type`] is set to [`TargetType::EmbeddedApplication`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`target_type`]: Self::target_type</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_application_id</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_application_id</span>: <span class="ident">ApplicationId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>
+            .<span class="ident">target_application_id</span>
+            .<span class="ident">replace</span>(<span class="ident">target_application_id</span>);
 
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Specify true if the invite should be unique. Defaults to false.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If true, don&#39;t try to reuse a similar invite (useful for creating many unique one time use</span>
-    <span class="doccomment">/// invites). Refer to [the discord docs] for more information.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/resources/channel#create-channel-invite</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unique</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">unique</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">unique</span>.<span class="ident">replace</span>(<span class="ident">unique</span>);
-
-        <span class="self">self</span>
-    }
-
-    <span class="doccomment">/// Set the target user for this invite.</span>
+    <span class="doccomment">/// Set the target user id for this invite.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user_id</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_user_id</span>: <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>
             .<span class="ident">target_user_id</span>
@@ -508,9 +535,36 @@
         <span class="self">self</span>.<span class="ident">target_user_id</span>(<span class="ident">target_user_id</span>)
     }
 
+    <span class="doccomment">/// Set the target type for this invite.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_type</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_type</span>: <span class="ident">TargetType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">target_type</span>.<span class="ident">replace</span>(<span class="ident">target_type</span>);
+
+        <span class="self">self</span>
+    }
+
     <span class="doccomment">/// Set the target user type for this invite.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user_type</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target_user_type</span>: <span class="ident">TargetUserType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">target_user_type</span>.<span class="ident">replace</span>(<span class="ident">target_user_type</span>);
+    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.4.2&quot;</span>, <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Use `target_type` instead&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_user_type</span>(<span class="self">self</span>, <span class="ident">target_user_type</span>: <span class="ident">TargetType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span><span class="ident">::target_type</span>(<span class="self">self</span>, <span class="ident">target_user_type</span>)
+    }
+
+    <span class="doccomment">/// Specify true if the invite should grant temporary membership.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Defaults to false.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">temporary</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">temporary</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">temporary</span>.<span class="ident">replace</span>(<span class="ident">temporary</span>);
+
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Specify true if the invite should be unique. Defaults to false.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If true, don&#39;t try to reuse a similar invite (useful for creating many unique one time use</span>
+    <span class="doccomment">/// invites). Refer to [the discord docs] for more information.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [the discord docs]: https://discord.com/developers/docs/resources/channel#create-channel-invite</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unique</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">unique</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">unique</span>.<span class="ident">replace</span>(<span class="ident">unique</span>);
 
         <span class="self">self</span>
     }

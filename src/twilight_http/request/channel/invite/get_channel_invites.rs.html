@@ -34,13 +34,21 @@
 <span id="31">31</span>
 <span id="32">32</span>
 <span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{<span class="ident">id::ChannelId</span>, <span class="ident">invite::Invite</span>};
 
 <span class="doccomment">/// Get the invites for a guild channel.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This method only works if the channel is of type `GuildChannel`.</span>
+<span class="doccomment">/// Requires the [`MANAGE_CHANNELS`] permission. This method only works if the</span>
+<span class="doccomment">/// channel is of type [`GuildChannel`].</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`MANAGE_CHANNELS`]: twilight_model::guild::Permissions::MANAGE_CHANNELS</span>
+<span class="doccomment">/// [`GuildChannel`]: twilight_model::channel::GuildChannel</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GetChannelInvites</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">channel_id</span>: <span class="ident">ChannelId</span>,
     <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Invite</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,

@@ -67,6 +67,18 @@
 <span id="64">64</span>
 <span id="65">65</span>
 <span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">twilight_model::invite::Invite</span>;
@@ -74,11 +86,14 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
 <span class="kw">struct</span> <span class="ident">GetInviteFields</span> {
     <span class="ident">with_counts</span>: <span class="ident">bool</span>,
+    <span class="ident">with_expiration</span>: <span class="ident">bool</span>,
 }
 
 <span class="doccomment">/// Get information about an invite by its code.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// If [`with_counts`] is called, the returned invite will contain approximate member counts.</span>
+<span class="doccomment">/// If [`with_counts`] is called, the returned invite will contain approximate</span>
+<span class="doccomment">/// member counts. If [`with_expiration`] is called, it will contain the</span>
+<span class="doccomment">/// expiration date.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
@@ -97,6 +112,7 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`with_counts`]: Self::with_counts</span>
+<span class="doccomment">/// [`with_expiration`]: Self::with_expiration</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GetInvite</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">code</span>: <span class="ident">String</span>,
     <span class="ident">fields</span>: <span class="ident">GetInviteFields</span>,
@@ -121,10 +137,18 @@
         <span class="self">self</span>
     }
 
+    <span class="doccomment">/// Whether the invite returned should contain its expiration date.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_expiration</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">with_expiration</span> <span class="op">=</span> <span class="bool-val">true</span>;
+
+        <span class="self">self</span>
+    }
+
     <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">request</span> <span class="op">=</span> <span class="ident">Request::from_route</span>(<span class="ident">Route::GetInvite</span> {
+        <span class="kw">let</span> <span class="ident">request</span> <span class="op">=</span> <span class="ident">Request::from_route</span>(<span class="ident">Route::GetInviteWithExpiration</span> {
             <span class="ident">code</span>: <span class="self">self</span>.<span class="ident">code</span>.<span class="ident">clone</span>(),
             <span class="ident">with_counts</span>: <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">with_counts</span>,
+            <span class="ident">with_expiration</span>: <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">with_expiration</span>,
         });
 
         <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box::pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request_bytes</span>(<span class="ident">request</span>)));

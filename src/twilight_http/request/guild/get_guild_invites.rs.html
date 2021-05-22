@@ -32,11 +32,19 @@
 <span id="29">29</span>
 <span id="30">30</span>
 <span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{<span class="ident">id::GuildId</span>, <span class="ident">invite::Invite</span>};
 
 <span class="doccomment">/// Get information about the invites of a guild.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Requires the [`MANAGE_GUILD`] permission.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`MANAGE_GUILD`]: twilight_model::guild::Permissions::MANAGE_GUILD</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GetGuildInvites</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">fut</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pending</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Invite</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">guild_id</span>: <span class="ident">GuildId</span>,

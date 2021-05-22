@@ -321,18 +321,27 @@
 <span id="318">318</span>
 <span id="319">319</span>
 <span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
 </pre><pre class="rust">
 <span class="kw">mod</span> <span class="ident">channel</span>;
 <span class="kw">mod</span> <span class="ident">guild</span>;
 <span class="kw">mod</span> <span class="ident">metadata</span>;
-<span class="kw">mod</span> <span class="ident">target_user_type</span>;
+<span class="kw">mod</span> <span class="ident">target_type</span>;
 <span class="kw">mod</span> <span class="ident">welcome_screen</span>;
 
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
     <span class="ident">channel::InviteChannel</span>,
     <span class="ident">guild::InviteGuild</span>,
     <span class="ident">metadata::InviteMetadata</span>,
-    <span class="ident">target_user_type::TargetUserType</span>,
+    <span class="ident">target_type</span>::{<span class="ident">TargetType</span>, <span class="ident">TargetUserType</span>},
     <span class="ident">welcome_screen</span>::{<span class="ident">WelcomeScreen</span>, <span class="ident">WelcomeScreenChannel</span>},
 };
 
@@ -348,11 +357,13 @@
     <span class="kw">pub</span> <span class="ident">channel</span>: <span class="ident">InviteChannel</span>,
     <span class="kw">pub</span> <span class="ident">code</span>: <span class="ident">String</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">expires_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">guild</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">InviteGuild</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">inviter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">target_user_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetUserType</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">target_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetType</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">target_user</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">User</span><span class="op">&gt;</span>,
 }
@@ -360,8 +371,8 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::{
-        <span class="ident">welcome_screen::WelcomeScreenChannel</span>, <span class="ident">Invite</span>, <span class="ident">InviteChannel</span>, <span class="ident">InviteGuild</span>, <span class="ident">TargetUserType</span>,
-        <span class="ident">User</span>, <span class="ident">WelcomeScreen</span>,
+        <span class="ident">welcome_screen::WelcomeScreenChannel</span>, <span class="ident">Invite</span>, <span class="ident">InviteChannel</span>, <span class="ident">InviteGuild</span>, <span class="ident">TargetType</span>, <span class="ident">User</span>,
+        <span class="ident">WelcomeScreen</span>,
     };
     <span class="kw">use</span> <span class="kw">crate</span>::{
         <span class="ident">channel::ChannelType</span>,
@@ -381,9 +392,10 @@
                 <span class="ident">name</span>: <span class="prelude-val">None</span>,
             },
             <span class="ident">code</span>: <span class="string">&quot;uniquecode&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">expires_at</span>: <span class="prelude-val">None</span>,
             <span class="ident">guild</span>: <span class="prelude-val">None</span>,
             <span class="ident">inviter</span>: <span class="prelude-val">None</span>,
-            <span class="ident">target_user_type</span>: <span class="prelude-val">Some</span>(<span class="ident">TargetUserType::Stream</span>),
+            <span class="ident">target_type</span>: <span class="prelude-val">Some</span>(<span class="ident">TargetType::Stream</span>),
             <span class="ident">target_user</span>: <span class="prelude-val">None</span>,
         };
 
@@ -413,7 +425,7 @@
                 <span class="ident">Token::StructEnd</span>,
                 <span class="ident">Token::Str</span>(<span class="string">&quot;code&quot;</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;uniquecode&quot;</span>),
-                <span class="ident">Token::Str</span>(<span class="string">&quot;target_user_type&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;target_type&quot;</span>),
                 <span class="ident">Token::Some</span>,
                 <span class="ident">Token::U8</span>(<span class="number">1</span>),
                 <span class="ident">Token::StructEnd</span>,
@@ -461,6 +473,7 @@
                     ],
                 }),
             }),
+            <span class="ident">expires_at</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;expires at timestamp&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">inviter</span>: <span class="prelude-val">Some</span>(<span class="ident">User</span> {
                 <span class="ident">avatar</span>: <span class="prelude-val">None</span>,
                 <span class="ident">bot</span>: <span class="bool-val">false</span>,
@@ -476,7 +489,7 @@
                 <span class="ident">system</span>: <span class="prelude-val">None</span>,
                 <span class="ident">verified</span>: <span class="prelude-val">None</span>,
             }),
-            <span class="ident">target_user_type</span>: <span class="prelude-val">Some</span>(<span class="ident">TargetUserType::Stream</span>),
+            <span class="ident">target_type</span>: <span class="prelude-val">Some</span>(<span class="ident">TargetType::Stream</span>),
             <span class="ident">target_user</span>: <span class="prelude-val">Some</span>(<span class="ident">User</span> {
                 <span class="ident">avatar</span>: <span class="prelude-val">None</span>,
                 <span class="ident">bot</span>: <span class="bool-val">false</span>,
@@ -499,7 +512,7 @@
             <span class="kw-2">&amp;</span>[
                 <span class="ident">Token::Struct</span> {
                     <span class="ident">name</span>: <span class="string">&quot;Invite&quot;</span>,
-                    <span class="ident">len</span>: <span class="number">8</span>,
+                    <span class="ident">len</span>: <span class="number">9</span>,
                 },
                 <span class="ident">Token::Str</span>(<span class="string">&quot;approximate_member_count&quot;</span>),
                 <span class="ident">Token::Some</span>,
@@ -520,6 +533,9 @@
                 <span class="ident">Token::StructEnd</span>,
                 <span class="ident">Token::Str</span>(<span class="string">&quot;code&quot;</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;uniquecode&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;expires_at&quot;</span>),
+                <span class="ident">Token::Some</span>,
+                <span class="ident">Token::Str</span>(<span class="string">&quot;expires at timestamp&quot;</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;guild&quot;</span>),
                 <span class="ident">Token::Some</span>,
                 <span class="ident">Token::Struct</span> {
@@ -616,7 +632,7 @@
                 <span class="ident">Token::Str</span>(<span class="string">&quot;username&quot;</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;test&quot;</span>),
                 <span class="ident">Token::StructEnd</span>,
-                <span class="ident">Token::Str</span>(<span class="string">&quot;target_user_type&quot;</span>),
+                <span class="ident">Token::Str</span>(<span class="string">&quot;target_type&quot;</span>),
                 <span class="ident">Token::Some</span>,
                 <span class="ident">Token::U8</span>(<span class="number">1</span>),
                 <span class="ident">Token::Str</span>(<span class="string">&quot;target_user&quot;</span>),
