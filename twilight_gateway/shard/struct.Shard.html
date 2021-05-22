@@ -23,7 +23,7 @@ can be cloned and passed around tasks and threads cheaply.</p>
 <span class="comment">// Use the value of the &quot;DISCORD_TOKEN&quot; environment variable as the bot&#39;s</span>
 <span class="comment">// token. Of course, you may pass this into your program however you want.</span>
 <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILD_MESSAGES</span>);
+<span class="kw">let</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILD_MESSAGES</span>);
 
 <span class="comment">// Start the shard.</span>
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
@@ -57,7 +57,7 @@ current connection stage:</p>
 <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
 
 <span class="kw">let</span> <span class="ident">intents</span> <span class="op">=</span> <span class="ident">Intents::GUILD_MESSAGES</span> <span class="op">|</span> <span class="ident">Intents::GUILD_MESSAGE_TYPING</span>;
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">intents</span>);
+<span class="kw">let</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">intents</span>);
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
 <span class="ident">tokio_time::sleep</span>(<span class="ident">Duration::from_secs</span>(<span class="number">1</span>)).<span class="kw">await</span>;
@@ -67,7 +67,7 @@ current connection stage:</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.builder" class="method"><code>pub fn <a href="#method.builder" class="fnname">builder</a>(token: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, intents: <a class="struct" href="../struct.Intents.html" title="struct twilight_gateway::Intents">Intents</a>) -&gt; <a class="struct" href="struct.ShardBuilder.html" title="struct twilight_gateway::shard::ShardBuilder">ShardBuilder</a></code><a href="#method.builder" class="anchor"></a><a class="srclink" href="../../src/twilight_gateway/shard/impl.rs.html#414-416" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Create a builder to configure and construct a shard.</p>
 <p>Refer to the builder for more information.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.config" class="method"><code>pub fn <a href="#method.config" class="fnname">config</a>(&amp;self) -&gt; &amp;<a class="struct" href="struct.Config.html" title="struct twilight_gateway::shard::Config">Config</a></code><a href="#method.config" class="anchor"></a><a class="srclink" href="../../src/twilight_gateway/shard/impl.rs.html#419-421" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Return an immutable reference to the configuration used for this client.</p>
-</div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.start" class="method"><code>pub async fn <a href="#method.start" class="fnname">start</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="struct.ShardStartError.html" title="struct twilight_gateway::shard::ShardStartError">ShardStartError</a>&gt;</code><a href="#method.start" class="anchor"></a><a class="srclink" href="../../src/twilight_gateway/shard/impl.rs.html#436-485" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Start the shard, connecting it to the gateway and starting the process
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.start" class="method"><code>pub async fn <a href="#method.start" class="fnname">start</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="struct.ShardStartError.html" title="struct twilight_gateway::shard::ShardStartError">ShardStartError</a>&gt;</code><a href="#method.start" class="anchor"></a><a class="srclink" href="../../src/twilight_gateway/shard/impl.rs.html#436-485" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Start the shard, connecting it to the gateway and starting the process
 of receiving and processing events.</p>
 <h1 id="errors" class="section-header"><a href="#errors">Errors</a></h1>
 <p>Returns a <a href="enum.ShardStartErrorType.html#variant.Establishing" title="ShardStartErrorType::Establishing"><code>ShardStartErrorType::Establishing</code></a> error type if
@@ -100,7 +100,7 @@ and <a href="../../twilight_model/gateway/event/enum.Event.html#variant.ShardDis
 <span class="kw">use</span> <span class="ident">futures::StreamExt</span>;
 <span class="kw">use</span> <span class="ident">std::env</span>;
 
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>, <span class="ident">Intents::empty</span>());
+<span class="kw">let</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>, <span class="ident">Intents::empty</span>());
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
 <span class="kw">let</span> <span class="ident">event_types</span> <span class="op">=</span> <span class="ident">EventTypeFlags::SHARD_CONNECTED</span> <span class="op">|</span> <span class="ident">EventTypeFlags::SHARD_DISCONNECTED</span>;
@@ -136,7 +136,7 @@ has not been started.</p>
 <span class="kw">use</span> <span class="ident">twilight_gateway</span>::{<span class="ident">shard</span>::{<span class="ident">raw_message::Message</span>, <span class="ident">Shard</span>}, <span class="ident">Intents</span>};
 
 <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILDS</span>);
+<span class="kw">let</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILDS</span>);
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
 <span class="ident">shard</span>.<span class="ident">send</span>(<span class="ident">Message::Ping</span>(<span class="ident">Vec::new</span>())).<span class="kw">await</span><span class="question-mark">?</span>;</pre></div>
@@ -153,7 +153,7 @@ has not been started.</p>
 };
 
 <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="ident">env::var</span>(<span class="string">&quot;DISCORD_TOKEN&quot;</span>)<span class="question-mark">?</span>;
-<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILDS</span>);
+<span class="kw">let</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">Shard::new</span>(<span class="ident">token</span>, <span class="ident">Intents::GUILDS</span>);
 <span class="ident">shard</span>.<span class="ident">start</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
 <span class="kw">let</span> <span class="ident">close</span> <span class="op">=</span> <span class="ident">CloseFrame::from</span>((<span class="number">1000</span>, <span class="string">&quot;&quot;</span>));

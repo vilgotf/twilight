@@ -1258,7 +1258,7 @@
     <span class="doccomment">/// time the future is polled the cluster may have already dropped, bringing</span>
     <span class="doccomment">/// down the queue and shards with it.</span>
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">start</span>(<span class="ident">cluster</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ClusterRef</span><span class="op">&gt;</span>, <span class="ident">shard_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shard</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">cluster</span>
+        <span class="kw">let</span> <span class="ident">shard</span> <span class="op">=</span> <span class="ident">cluster</span>
             .<span class="ident">shards</span>
             .<span class="ident">lock</span>()
             .<span class="ident">expect</span>(<span class="string">&quot;shards poisoned&quot;</span>)
