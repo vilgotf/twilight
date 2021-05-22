@@ -1894,6 +1894,19 @@
 <span id="1891">1891</span>
 <span id="1892">1892</span>
 <span id="1893">1893</span>
+<span id="1894">1894</span>
+<span id="1895">1895</span>
+<span id="1896">1896</span>
+<span id="1897">1897</span>
+<span id="1898">1898</span>
+<span id="1899">1899</span>
+<span id="1900">1900</span>
+<span id="1901">1901</span>
+<span id="1902">1902</span>
+<span id="1903">1903</span>
+<span id="1904">1904</span>
+<span id="1905">1905</span>
+<span id="1906">1906</span>
 </pre><pre class="rust">
 <span class="kw">mod</span> <span class="ident">builder</span>;
 
@@ -3446,6 +3459,19 @@
         <span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecuteWebhook</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">ExecuteWebhook::new</span>(<span class="self">self</span>, <span class="ident">webhook_id</span>, <span class="ident">token</span>)
+    }
+
+    <span class="doccomment">/// Get a webhook message by [`WebhookId`], token, and [`MessageId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`WebhookId`]: twilight_model::id::WebhookId</span>
+    <span class="doccomment">/// [`MessageId`]: twilight_model::id::MessageId</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">webhook_message</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">webhook_id</span>: <span class="ident">WebhookId</span>,
+        <span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+        <span class="ident">message_id</span>: <span class="ident">MessageId</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetWebhookMessage</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="ident">GetWebhookMessage::new</span>(<span class="self">self</span>, <span class="ident">webhook_id</span>, <span class="ident">token</span>, <span class="ident">message_id</span>)
     }
 
     <span class="doccomment">/// Update a message executed by a webhook.</span>

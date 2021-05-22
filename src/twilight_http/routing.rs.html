@@ -1851,6 +1851,24 @@
 <span id="1848">1848</span>
 <span id="1849">1849</span>
 <span id="1850">1850</span>
+<span id="1851">1851</span>
+<span id="1852">1852</span>
+<span id="1853">1853</span>
+<span id="1854">1854</span>
+<span id="1855">1855</span>
+<span id="1856">1856</span>
+<span id="1857">1857</span>
+<span id="1858">1858</span>
+<span id="1859">1859</span>
+<span id="1860">1860</span>
+<span id="1861">1861</span>
+<span id="1862">1862</span>
+<span id="1863">1863</span>
+<span id="1864">1864</span>
+<span id="1865">1865</span>
+<span id="1866">1866</span>
+<span id="1867">1867</span>
+<span id="1868">1868</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::Method</span>;
 <span class="kw">use</span> <span class="ident">percent_encoding</span>::{<span class="ident">utf8_percent_encode</span>, <span class="ident">NON_ALPHANUMERIC</span>};
@@ -2655,6 +2673,15 @@
         <span class="doccomment">/// The token of the webhook.</span>
         <span class="ident">token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="doccomment">/// The ID of the webhook.</span>
+        <span class="ident">webhook_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="doccomment">/// Route information to get a previously-sent webhook message.</span>
+    <span class="ident">GetWebhookMessage</span> {
+        <span class="doccomment">/// ID of the message.</span>
+        <span class="ident">message_id</span>: <span class="ident">u64</span>,
+        <span class="doccomment">/// Token of the webhook.</span>
+        <span class="ident">token</span>: <span class="ident">String</span>,
+        <span class="doccomment">/// ID of the webhook.</span>
         <span class="ident">webhook_id</span>: <span class="ident">u64</span>,
     },
     <span class="doccomment">/// Route information to leave the guild.</span>
@@ -3474,6 +3501,15 @@
 
                 (<span class="ident">Method::Get</span>, <span class="ident">Path::WebhooksId</span>(<span class="ident">webhook_id</span>), <span class="ident">path</span>.<span class="ident">into</span>())
             }
+            <span class="self">Self</span><span class="ident">::GetWebhookMessage</span> {
+                <span class="ident">message_id</span>,
+                <span class="ident">token</span>,
+                <span class="ident">webhook_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">Method::Get</span>,
+                <span class="ident">Path::WebhooksIdTokenMessagesId</span>(<span class="ident">webhook_id</span>),
+                <span class="macro">format!</span>(<span class="string">&quot;webhooks/{}/{}/messages/{}&quot;</span>, <span class="ident">webhook_id</span>, <span class="ident">token</span>, <span class="ident">message_id</span>).<span class="ident">into</span>(),
+            ),
             <span class="self">Self</span><span class="ident">::LeaveGuild</span> { <span class="ident">guild_id</span> } <span class="op">=</span><span class="op">&gt;</span> (
                 <span class="ident">Method::Delete</span>,
                 <span class="ident">Path::UsersIdGuildsId</span>,
