@@ -247,6 +247,10 @@
 <span id="244">244</span>
 <span id="245">245</span>
 <span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request</span>::{<span class="ident">prelude</span>::<span class="kw-2">*</span>, <span class="ident">Form</span>};
 <span class="kw">use</span> <span class="ident">futures_util::future::TryFutureExt</span>;
@@ -458,6 +462,10 @@
             <span class="ident">wait</span>: <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">wait</span>,
             <span class="ident">webhook_id</span>: <span class="self">self</span>.<span class="ident">webhook_id</span>.<span class="number">0</span>,
         });
+
+        <span class="comment">// Webhook executions don&#39;t need the authorization token, only the</span>
+        <span class="comment">// webhook token.</span>
+        <span class="ident">request</span> <span class="op">=</span> <span class="ident">request</span>.<span class="ident">use_authorization_token</span>(<span class="bool-val">false</span>);
 
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">files</span>.<span class="ident">is_empty</span>() <span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">payload_json</span>.<span class="ident">is_some</span>() {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">form</span> <span class="op">=</span> <span class="ident">Form::new</span>();

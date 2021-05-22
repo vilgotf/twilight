@@ -282,6 +282,32 @@
 <span id="279">279</span>
 <span id="280">280</span>
 <span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Form</span>, <span class="ident">Method</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -363,6 +389,16 @@
 
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">body</span>(<span class="ident">bytes</span>))
     }
+
+    <span class="doccomment">/// Whether to use the client&#39;s authorization token in the request, if one</span>
+    <span class="doccomment">/// is set.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is primarily useful for executing webhooks.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">use_authorization_token</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">use_authorization_token</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">use_authorization_token</span> <span class="op">=</span> <span class="ident">use_authorization_token</span>;
+
+        <span class="self">self</span>
+    }
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
@@ -379,6 +415,8 @@
     <span class="kw">pub</span> <span class="ident">path</span>: <span class="ident">Path</span>,
     <span class="doccomment">/// The URI path to request.</span>
     <span class="kw">pub</span> <span class="ident">path_str</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Whether to use the client&#39;s authorization token in the request.</span>
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">use_authorization_token</span>: <span class="ident">bool</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Request</span> {
@@ -401,6 +439,7 @@
             <span class="ident">method</span>,
             <span class="ident">path</span>,
             <span class="ident">path_str</span>,
+            <span class="ident">use_authorization_token</span>: <span class="bool-val">true</span>,
         }
     }
 
@@ -456,7 +495,13 @@
             <span class="ident">method</span>,
             <span class="ident">path</span>,
             <span class="ident">path_str</span>,
+            <span class="ident">use_authorization_token</span>: <span class="bool-val">true</span>,
         }
+    }
+
+    <span class="doccomment">/// Whether to use the client&#39;s authorization token in the request.</span>
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">use_authorization_token</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">use_authorization_token</span>
     }
 }
 
@@ -471,6 +516,7 @@
             <span class="ident">method</span>,
             <span class="ident">path</span>,
             <span class="ident">path_str</span>,
+            <span class="ident">use_authorization_token</span>: <span class="bool-val">true</span>,
         }
     }
 }
@@ -486,6 +532,7 @@
             <span class="ident">method</span>,
             <span class="ident">path</span>,
             <span class="ident">path_str</span>,
+            <span class="ident">use_authorization_token</span>: <span class="bool-val">true</span>,
         }
     }
 }
@@ -501,6 +548,7 @@
             <span class="ident">method</span>,
             <span class="ident">path</span>,
             <span class="ident">path_str</span>,
+            <span class="ident">use_authorization_token</span>: <span class="bool-val">true</span>,
         }
     }
 }
@@ -516,6 +564,7 @@
             <span class="ident">method</span>,
             <span class="ident">path</span>,
             <span class="ident">path_str</span>,
+            <span class="ident">use_authorization_token</span>: <span class="bool-val">true</span>,
         }
     }
 }
@@ -531,6 +580,7 @@
             <span class="ident">method</span>,
             <span class="ident">path</span>,
             <span class="ident">path_str</span>,
+            <span class="ident">use_authorization_token</span>: <span class="bool-val">true</span>,
         }
     }
 }
@@ -546,6 +596,7 @@
             <span class="ident">method</span>,
             <span class="ident">path</span>,
             <span class="ident">path_str</span>,
+            <span class="ident">use_authorization_token</span>: <span class="bool-val">true</span>,
         }
     }
 }
@@ -561,6 +612,7 @@
             <span class="ident">method</span>,
             <span class="ident">path</span>,
             <span class="ident">path_str</span>,
+            <span class="ident">use_authorization_token</span>: <span class="bool-val">true</span>,
         }
     }
 }

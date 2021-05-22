@@ -108,6 +108,7 @@
 <span id="105">105</span>
 <span id="106">106</span>
 <span id="107">107</span>
+<span id="108">108</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">client::Client</span>,
@@ -166,7 +167,8 @@
             <span class="ident">message_id</span>: <span class="self">self</span>.<span class="ident">message_id</span>.<span class="number">0</span>,
             <span class="ident">token</span>: <span class="self">self</span>.<span class="ident">token</span>.<span class="ident">clone</span>(),
             <span class="ident">webhook_id</span>: <span class="self">self</span>.<span class="ident">webhook_id</span>.<span class="number">0</span>,
-        });
+        })
+        .<span class="ident">use_authorization_token</span>(<span class="bool-val">false</span>);
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">reason</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">reason</span>.<span class="ident">as_ref</span>() {
             <span class="ident">request</span> <span class="op">=</span> <span class="ident">request</span>.<span class="ident">headers</span>(<span class="ident">request::audit_header</span>(<span class="ident">reason</span>)<span class="question-mark">?</span>);

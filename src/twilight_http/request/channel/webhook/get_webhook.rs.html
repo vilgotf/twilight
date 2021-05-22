@@ -47,6 +47,14 @@
 <span id="44">44</span>
 <span id="45">45</span>
 <span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::request::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">twilight_model</span>::{<span class="ident">channel::Webhook</span>, <span class="ident">id::WebhookId</span>};
@@ -74,7 +82,8 @@
         }
     }
 
-    <span class="doccomment">/// Specify the token for auth, if not already authenticated with a Bot token.</span>
+    <span class="doccomment">/// Specify the token for auth, if not already authenticated with a Bot</span>
+    <span class="doccomment">/// token.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">token</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">token</span>.<span class="ident">replace</span>(<span class="ident">token</span>.<span class="ident">into</span>());
 
@@ -82,12 +91,19 @@
     }
 
     <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">request</span> <span class="op">=</span> <span class="ident">Request::from_route</span>(<span class="ident">Route::GetWebhook</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">request</span> <span class="op">=</span> <span class="ident">Request::builder</span>(<span class="ident">Route::GetWebhook</span> {
             <span class="ident">token</span>: <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">token</span>.<span class="ident">clone</span>(),
             <span class="ident">webhook_id</span>: <span class="self">self</span>.<span class="ident">id</span>.<span class="number">0</span>,
         });
 
-        <span class="self">self</span>.<span class="ident">fut</span>.<span class="ident">replace</span>(<span class="ident">Box::pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request_bytes</span>(<span class="ident">request</span>)));
+        <span class="comment">// If a webhook token has been configured, then we don&#39;t need to use</span>
+        <span class="comment">// the client&#39;s authorization token.</span>
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">token</span>.<span class="ident">is_some</span>() {
+            <span class="ident">request</span> <span class="op">=</span> <span class="ident">request</span>.<span class="ident">use_authorization_token</span>(<span class="bool-val">false</span>);
+        }
+
+        <span class="self">self</span>.<span class="ident">fut</span>
+            .<span class="ident">replace</span>(<span class="ident">Box::pin</span>(<span class="self">self</span>.<span class="ident">http</span>.<span class="ident">request_bytes</span>(<span class="ident">request</span>.<span class="ident">build</span>())));
 
         <span class="prelude-val">Ok</span>(())
     }
