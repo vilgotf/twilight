@@ -12,7 +12,8 @@ use twilight_model::id::{ChannelId, MessageId};
 /// The reaction must be a variant of [`RequestReactionType`].
 ///
 /// # Examples
-/// ```rust,no_run
+/// ```no_run
+/// use std::num::NonZeroU64;
 /// use twilight_http::{Client, request::channel::reaction::RequestReactionType};
 /// use twilight_model::{
 ///     id::{ChannelId, MessageId},
@@ -22,8 +23,8 @@ use twilight_model::id::{ChannelId, MessageId};
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let channel_id = ChannelId(123);
-/// let message_id = MessageId(456);
+/// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
+/// let message_id = MessageId(NonZeroU64::new(456).expect("non zero"));
 /// let emoji = RequestReactionType::Unicode { name: "🌃" };
 ///
 /// let reaction = client
@@ -56,9 +57,9 @@ impl<'a> CreateReaction<'a> {
 
     const fn request(&self) -> Request<'a> {
         Request::from_route(Route::CreateReaction {
-            channel_id: self.channel_id.0,
+            channel_id: self.channel_id.0.get(),
             emoji: self.emoji,
-            message_id: self.message_id.0,
+            message_id: self.message_id.0.get(),
         })
     }
 
@@ -80,6 +81,7 @@ mod tests {
         routing::Route,
         Client,
     };
+    use std::num::NonZeroU64;
     use twilight_model::id::{ChannelId, MessageId};
 
     #[test]
@@ -88,7 +90,12 @@ mod tests {
 
         let emoji = RequestReactionType::Unicode { name: "🌃" };
 
-        let builder = CreateReaction::new(&client, ChannelId(123), MessageId(456), &emoji);
+        let builder = CreateReaction::new(
+            &client,
+            ChannelId(NonZeroU64::new(123).expect("non zero")),
+            MessageId(NonZeroU64::new(456).expect("non zero")),
+            &emoji,
+        );
         let actual = builder.request();
 
         let expected = Request::from_route(Route::CreateReaction {

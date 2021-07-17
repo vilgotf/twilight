@@ -608,6 +608,7 @@ impl UpdateCache for Event {
 #[cfg(test)]
 mod tests {
     use crate::{test, InMemoryCache};
+    use std::num::NonZeroU64;
     use twilight_model::{
         gateway::payload::RoleDelete,
         id::{EmojiId, GuildId, RoleId, UserId},
@@ -617,16 +618,25 @@ mod tests {
     fn test_syntax_update() {
         let cache = InMemoryCache::new();
         cache.update(&RoleDelete {
-            guild_id: GuildId(0),
-            role_id: RoleId(1),
+            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            role_id: RoleId(NonZeroU64::new(1).expect("non zero")),
         });
     }
 
     #[test]
     fn test_clear() {
         let cache = InMemoryCache::new();
-        cache.cache_emoji(GuildId(1), test::emoji(EmojiId(3), None));
-        cache.cache_member(GuildId(2), test::member(UserId(4), GuildId(2)));
+        cache.cache_emoji(
+            GuildId(NonZeroU64::new(1).expect("non zero")),
+            test::emoji(EmojiId(NonZeroU64::new(3).expect("non zero")), None),
+        );
+        cache.cache_member(
+            GuildId(NonZeroU64::new(2).expect("non zero")),
+            test::member(
+                UserId(NonZeroU64::new(4).expect("non zero")),
+                GuildId(NonZeroU64::new(2).expect("non zero")),
+            ),
+        );
         cache.clear();
         assert!(cache.0.emojis.is_empty());
         assert!(cache.0.members.is_empty());

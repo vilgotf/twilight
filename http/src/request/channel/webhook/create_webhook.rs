@@ -18,14 +18,15 @@ struct CreateWebhookFields<'a> {
 ///
 /// # Examples
 ///
-/// ```rust,no_run
+/// ```no_run
+/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::ChannelId;
 ///
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
-/// let channel_id = ChannelId(123);
+/// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
 ///
 /// let webhook = client
 ///     .create_webhook(channel_id, "Twily Bot")
@@ -68,7 +69,7 @@ impl<'a> CreateWebhook<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<Webhook> {
         let mut request = Request::builder(Route::CreateWebhook {
-            channel_id: self.channel_id.0,
+            channel_id: self.channel_id.0.get(),
         });
 
         request = match request.json(&self.fields) {

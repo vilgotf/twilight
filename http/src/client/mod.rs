@@ -36,6 +36,7 @@ use hyper::{
 use std::{
     convert::TryFrom,
     fmt::{Debug, Formatter, Result as FmtResult},
+    num::NonZeroU64,
     sync::{
         atomic::{AtomicBool, AtomicU64, Ordering},
         Arc,
@@ -185,7 +186,7 @@ impl Client {
         let id = self.state.application_id.load(Ordering::Relaxed);
 
         if id != 0 {
-            return Some(ApplicationId(id));
+            return Some(ApplicationId(NonZeroU64::new(id).expect("non zero")));
         }
 
         None
@@ -198,10 +199,10 @@ impl Client {
         let prev = self
             .state
             .application_id
-            .swap(application_id.0, Ordering::Relaxed);
+            .swap(application_id.0.get(), Ordering::Relaxed);
 
         if prev != 0 {
-            return Some(ApplicationId(prev));
+            return Some(ApplicationId(NonZeroU64::new(prev).expect("non zero")));
         }
 
         None
@@ -224,14 +225,15 @@ impl Client {
     ///
     /// # Examples
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::id::GuildId;
     ///
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("token".to_owned());
-    /// let guild_id = GuildId(101);
+    /// let guild_id = GuildId(NonZeroU64::new(101).expect("non zero"));
     /// let audit_log = client
     /// // not done
     ///     .audit_log(guild_id)
@@ -249,7 +251,8 @@ impl Client {
     ///
     /// Retrieve the bans for guild `1`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::id::GuildId;
     /// #
@@ -257,7 +260,7 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let guild_id = GuildId(1);
+    /// let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
     ///
     /// let bans = client.bans(guild_id).exec().await?;
     /// # Ok(()) }
@@ -281,7 +284,8 @@ impl Client {
     /// Ban user `200` from guild `100`, deleting
     /// 1 day's worth of messages, for the reason `"memes"`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::{request::AuditLogReason, Client};
     /// use twilight_model::id::{GuildId, UserId};
     /// #
@@ -289,8 +293,8 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let guild_id = GuildId(100);
-    /// let user_id = UserId(200);
+    /// let guild_id = GuildId(NonZeroU64::new(100).expect("non zero"));
+    /// let user_id = UserId(NonZeroU64::new(200).expect("non zero"));
     /// client.create_ban(guild_id, user_id)
     ///     .delete_message_days(1)?
     ///     .reason("memes")?
@@ -308,7 +312,8 @@ impl Client {
     ///
     /// Unban user `200` from guild `100`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::id::{GuildId, UserId};
     /// #
@@ -316,8 +321,8 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let guild_id = GuildId(100);
-    /// let user_id = UserId(200);
+    /// let guild_id = GuildId(NonZeroU64::new(100).expect("non zero"));
+    /// let user_id = UserId(NonZeroU64::new(200).expect("non zero"));
     ///
     /// client.delete_ban(guild_id, user_id).exec().await?;
     /// # Ok(()) }
@@ -332,7 +337,8 @@ impl Client {
     ///
     /// Get channel `100`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// # use twilight_model::id::ChannelId;
     /// #
@@ -340,7 +346,7 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let channel_id = ChannelId(100);
+    /// let channel_id = ChannelId(NonZeroU64::new(100).expect("non zero"));
     /// #
     /// let channel = client.channel(channel_id).exec().await?;
     /// # Ok(()) }
@@ -395,15 +401,16 @@ impl Client {
     ///
     /// # Examples
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// use twilight_http::Client;
     /// use twilight_model::id::{ChannelId, MessageId};
     ///
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Client::new("my token".to_owned());
-    /// let channel_id = ChannelId(123);
-    /// let message_id = MessageId(234);
+    /// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
+    /// let message_id = MessageId(NonZeroU64::new(234).expect("non zero"));
     /// let limit: u64 = 6;
     ///
     /// let messages = client
@@ -444,7 +451,8 @@ impl Client {
     ///
     /// Create permission overrides for a role to view the channel, but not send messages:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::guild::Permissions;
     /// use twilight_model::id::{ChannelId, RoleId};
@@ -453,10 +461,10 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     ///
-    /// let channel_id = ChannelId(123);
+    /// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
     /// let allow = Permissions::VIEW_CHANNEL;
     /// let deny = Permissions::SEND_MESSAGES;
-    /// let role_id = RoleId(432);
+    /// let role_id = RoleId(NonZeroU64::new(432).expect("non zero"));
     ///
     /// client.update_channel_permission(channel_id, allow, deny)
     ///     .role(role_id)
@@ -526,7 +534,8 @@ impl Client {
     /// Get the first 25 guilds with an ID after `300` and before
     /// `400`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::id::GuildId;
     ///
@@ -534,8 +543,8 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let after = GuildId(300);
-    /// let before = GuildId(400);
+    /// let after = GuildId(NonZeroU64::new(300).expect("non zero"));
+    /// let before = GuildId(NonZeroU64::new(400).expect("non zero"));
     /// let guilds = client.current_user_guilds()
     ///     .after(after)
     ///     .before(before)
@@ -563,7 +572,8 @@ impl Client {
     ///
     /// Get the emojis for guild `100`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// # use twilight_model::id::GuildId;
     /// #
@@ -571,7 +581,7 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let guild_id = GuildId(100);
+    /// let guild_id = GuildId(NonZeroU64::new(100).expect("non zero"));
     ///
     /// client.emojis(guild_id).exec().await?;
     /// # Ok(()) }
@@ -586,7 +596,8 @@ impl Client {
     ///
     /// Get emoji `100` from guild `50`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// # use twilight_model::id::{EmojiId, GuildId};
     /// #
@@ -594,8 +605,8 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let guild_id = GuildId(50);
-    /// let emoji_id = EmojiId(100);
+    /// let guild_id = GuildId(NonZeroU64::new(50).expect("non zero"));
+    /// let emoji_id = EmojiId(NonZeroU64::new(100).expect("non zero"));
     ///
     /// client.emoji(guild_id, emoji_id).exec().await?;
     /// # Ok(()) }
@@ -637,7 +648,7 @@ impl Client {
     ///
     /// Get the gateway connection URL without bot information:
     ///
-    /// ```rust,no_run
+    /// ```no_run
     /// # use twilight_http::Client;
     /// #
     /// # #[tokio::main]
@@ -651,7 +662,7 @@ impl Client {
     /// Get the gateway connection URL with additional shard and session information, which
     /// requires specifying a bot token:
     ///
-    /// ```rust,no_run
+    /// ```no_run
     /// # use twilight_http::Client;
     /// #
     /// # #[tokio::main]
@@ -799,7 +810,8 @@ impl Client {
     ///
     /// Get the first 500 members of guild `100` after user ID `3000`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::id::{GuildId, UserId};
     /// #
@@ -807,8 +819,8 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let guild_id = GuildId(100);
-    /// let user_id = UserId(3000);
+    /// let guild_id = GuildId(NonZeroU64::new(100).expect("non zero"));
+    /// let user_id = UserId(NonZeroU64::new(3000).expect("non zero"));
     /// let members = client.guild_members(guild_id).after(user_id).exec().await?;
     /// # Ok(()) }
     /// ```
@@ -831,7 +843,8 @@ impl Client {
     ///
     /// Get the first 10 members of guild `100` matching `Wumpus`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// use twilight_http::Client;
     /// use twilight_model::id::GuildId;
     ///
@@ -839,7 +852,7 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Client::new("my token".to_owned());
     ///
-    /// let guild_id = GuildId(100);
+    /// let guild_id = GuildId(NonZeroU64::new(100).expect("non zero"));
     /// let members = client.search_guild_members(guild_id, "Wumpus")
     ///     .limit(10)?
     ///     .exec()
@@ -907,14 +920,14 @@ impl Client {
     ///
     /// Update a member's nickname to "pinky pie" and server mute them:
     ///
-    /// ```rust,no_run
-    /// use std::env;
+    /// ```no_run
+    /// use std::{env, num::NonZeroU64};
     /// use twilight_http::Client;
     /// use twilight_model::id::{GuildId, UserId};
     ///
     /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Client::new(env::var("DISCORD_TOKEN")?);
-    /// let member = client.update_guild_member(GuildId(1), UserId(2))
+    /// let member = client.update_guild_member(GuildId(NonZeroU64::new(1).expect("non zero")), UserId(NonZeroU64::new(2).expect("non zero")))
     ///     .mute(true)
     ///     .nick(Some("pinkie pie"))?
     ///     .exec()
@@ -948,7 +961,8 @@ impl Client {
     ///
     /// In guild `1`, add role `2` to user `3`, for the reason `"test"`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::{request::AuditLogReason, Client};
     /// use twilight_model::id::{GuildId, RoleId, UserId};
     /// #
@@ -956,9 +970,9 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let guild_id = GuildId(1);
-    /// let role_id = RoleId(2);
-    /// let user_id = UserId(3);
+    /// let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
+    /// let role_id = RoleId(NonZeroU64::new(2).expect("non zero"));
+    /// let user_id = UserId(NonZeroU64::new(3).expect("non zero"));
     ///
     /// client.add_guild_member_role(guild_id, user_id, role_id)
     ///     .reason("test")?
@@ -1048,7 +1062,7 @@ impl Client {
     ///
     /// # Examples
     ///
-    /// ```rust,no_run
+    /// ```no_run
     /// # use twilight_http::Client;
     /// #
     /// # #[tokio::main]
@@ -1075,7 +1089,8 @@ impl Client {
     ///
     /// # Examples
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// # use twilight_model::id::ChannelId;
     /// #
@@ -1083,7 +1098,7 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let channel_id = ChannelId(123);
+    /// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
     /// let invite = client
     ///     .create_invite(channel_id)
     ///     .max_uses(3)?
@@ -1117,7 +1132,8 @@ impl Client {
     ///
     /// # Example
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// # use twilight_model::id::ChannelId;
     /// #
@@ -1125,7 +1141,7 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let channel_id = ChannelId(123);
+    /// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
     /// let message = client
     ///     .create_message(channel_id)
     ///     .content("Twilight is best pony")?
@@ -1189,14 +1205,15 @@ impl Client {
     ///
     /// Replace the content with `"test update"`:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// use twilight_http::Client;
     /// use twilight_model::id::{ChannelId, MessageId};
     ///
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Client::new("my token".to_owned());
-    /// client.update_message(ChannelId(1), MessageId(2))
+    /// client.update_message(ChannelId(NonZeroU64::new(1).expect("non zero")), MessageId(NonZeroU64::new(2).expect("non zero")))
     ///     .content(Some("test update"))?
     ///     .exec()
     ///     .await?;
@@ -1205,14 +1222,15 @@ impl Client {
     ///
     /// Remove the message's content:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// # use twilight_model::id::{ChannelId, MessageId};
     /// #
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
-    /// client.update_message(ChannelId(1), MessageId(2))
+    /// client.update_message(ChannelId(NonZeroU64::new(1).expect("non zero")), MessageId(NonZeroU64::new(2).expect("non zero")))
     ///     .content(None)?
     ///     .exec()
     ///     .await?;
@@ -1270,7 +1288,8 @@ impl Client {
     /// The reaction must be a variant of [`RequestReactionType`].
     ///
     /// # Examples
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::{Client, request::channel::reaction::RequestReactionType};
     /// # use twilight_model::{
     /// #     id::{ChannelId, MessageId},
@@ -1280,8 +1299,8 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
     /// #
-    /// let channel_id = ChannelId(123);
-    /// let message_id = MessageId(456);
+    /// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
+    /// let message_id = MessageId(NonZeroU64::new(456).expect("non zero"));
     /// let emoji = RequestReactionType::Unicode { name: "🌃" };
     ///
     /// let reaction = client
@@ -1360,14 +1379,15 @@ impl Client {
     ///
     /// # Examples
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::id::GuildId;
     ///
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
-    /// let guild_id = GuildId(234);
+    /// let guild_id = GuildId(NonZeroU64::new(234).expect("non zero"));
     ///
     /// client.create_role(guild_id)
     ///     .color(0xd90083)
@@ -1546,14 +1566,15 @@ impl Client {
     ///
     /// # Examples
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// # use twilight_model::id::ChannelId;
     /// #
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
-    /// let channel_id = ChannelId(123);
+    /// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
     ///
     /// let webhook = client
     ///     .create_webhook(channel_id, "Twily Bot")
@@ -1594,14 +1615,15 @@ impl Client {
     ///
     /// # Examples
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// # use twilight_model::id::WebhookId;
     /// #
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("my token".to_owned());
-    /// let id = WebhookId(432);
+    /// let id = WebhookId(NonZeroU64::new(432).expect("non zero"));
     /// #
     /// let webhook = client
     ///     .execute_webhook(id, "webhook token")
@@ -1640,13 +1662,14 @@ impl Client {
     /// # Examples
     ///
     /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::id::{MessageId, WebhookId};
     ///
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("token".to_owned());
-    /// client.update_webhook_message(WebhookId(1), "token here", MessageId(2))
+    /// client.update_webhook_message(WebhookId(NonZeroU64::new(1).expect("non zero")), "token here", MessageId(NonZeroU64::new(2).expect("non zero")))
     ///     .content(Some("new message content"))?
     ///     .exec()
     ///     .await?;
@@ -1666,6 +1689,7 @@ impl Client {
     /// # Examples
     ///
     /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::id::{MessageId, WebhookId};
     ///
@@ -1673,7 +1697,7 @@ impl Client {
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("token".to_owned());
     /// client
-    ///     .delete_webhook_message(WebhookId(1), "token here", MessageId(2))
+    ///     .delete_webhook_message(WebhookId(NonZeroU64::new(1).expect("non zero")), "token here", MessageId(NonZeroU64::new(2).expect("non zero")))
     ///     .exec()
     ///     .await?;
     /// # Ok(()) }

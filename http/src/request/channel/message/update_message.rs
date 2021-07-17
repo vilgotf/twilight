@@ -117,14 +117,15 @@ struct UpdateMessageFields<'a> {
 ///
 /// Replace the content with `"test update"`:
 ///
-/// ```rust,no_run
+/// ```no_run
+/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::{ChannelId, MessageId};
 ///
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
-/// client.update_message(ChannelId(1), MessageId(2))
+/// client.update_message(ChannelId(NonZeroU64::new(1).expect("non zero")), MessageId(NonZeroU64::new(2).expect("non zero")))
 ///     .content(Some("test update"))?
 ///     .exec()
 ///     .await?;
@@ -133,14 +134,15 @@ struct UpdateMessageFields<'a> {
 ///
 /// Remove the message's content:
 ///
-/// ```rust,no_run
+/// ```no_run
+/// use std::num::NonZeroU64;
 /// # use twilight_http::Client;
 /// # use twilight_model::id::{ChannelId, MessageId};
 /// #
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// # let client = Client::new("my token".to_owned());
-/// client.update_message(ChannelId(1), MessageId(2))
+/// client.update_message(ChannelId(NonZeroU64::new(1).expect("non zero")), MessageId(NonZeroU64::new(2).expect("non zero")))
 ///     .content(None)?
 ///     .exec()
 ///     .await?;
@@ -275,8 +277,8 @@ impl<'a> UpdateMessage<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<Message> {
         let mut request = Request::builder(Route::UpdateMessage {
-            channel_id: self.channel_id.0,
-            message_id: self.message_id.0,
+            channel_id: self.channel_id.0.get(),
+            message_id: self.message_id.0.get(),
         });
 
         request = match request.json(&self.fields) {

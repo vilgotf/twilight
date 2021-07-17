@@ -279,7 +279,7 @@ impl<'a> UpdateChannel<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<Channel> {
         let mut request = Request::builder(Route::UpdateChannel {
-            channel_id: self.channel_id.0,
+            channel_id: self.channel_id.0.get(),
         });
 
         if let Some(reason) = &self.reason {

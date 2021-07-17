@@ -38,8 +38,8 @@ impl<'a> SetGuildCommands<'a> {
 
     fn request(&self) -> Result<Request<'a>, Error> {
         Request::builder(Route::SetGuildCommands {
-            application_id: self.application_id.0,
-            guild_id: self.guild_id.0,
+            application_id: self.application_id.0.get(),
+            guild_id: self.guild_id.0.get(),
         })
         .json(&self.commands)
         .map(RequestBuilder::build)

@@ -138,13 +138,14 @@ impl RequestGuildMembersBuilder {
     /// their presences:
     ///
     /// ```
+    /// use std::num::NonZeroU64;
     /// use twilight_model::{gateway::payload::RequestGuildMembers, id::GuildId};
     ///
-    /// let request = RequestGuildMembers::builder(GuildId(1))
+    /// let request = RequestGuildMembers::builder(GuildId(NonZeroU64::new(1).expect("non zero")))
     ///     .presences(true)
     ///     .query("a", None);
     ///
-    /// assert_eq!(GuildId(1), request.d.guild_id);
+    /// assert_eq!(GuildId(NonZeroU64::new(1).expect("non zero")), request.d.guild_id);
     /// assert_eq!(Some(0), request.d.limit);
     /// assert_eq!(Some("a"), request.d.query.as_deref());
     /// assert_eq!(Some(true), request.d.presences);
@@ -175,16 +176,17 @@ impl RequestGuildMembersBuilder {
     /// Request a member within a guild and specify a nonce of "test":
     ///
     /// ```
+    /// use std::num::NonZeroU64;
     /// use twilight_model::{
     ///     gateway::payload::request_guild_members::{RequestGuildMemberId, RequestGuildMembers},
     ///     id::{GuildId, UserId},
     /// };
     ///
-    /// let request = RequestGuildMembers::builder(GuildId(1))
+    /// let request = RequestGuildMembers::builder(GuildId(NonZeroU64::new(1).expect("non zero")))
     ///     .nonce("test")
-    ///     .user_id(UserId(2));
+    ///     .user_id(UserId(NonZeroU64::new(2).expect("non zero")));
     ///
-    /// assert_eq!(Some(RequestGuildMemberId::One(UserId(2))), request.d.user_ids);
+    /// assert_eq!(Some(RequestGuildMemberId::One(UserId(NonZeroU64::new(2).expect("non zero")))), request.d.user_ids);
     /// ```
     #[allow(clippy::missing_const_for_fn)]
     pub fn user_id(self, user_id: UserId) -> RequestGuildMembers {
@@ -211,15 +213,16 @@ impl RequestGuildMembersBuilder {
     /// Request two members within one guild and specify a nonce of "test":
     ///
     /// ```
+    /// use std::num::NonZeroU64;
     /// use twilight_model::{
     ///     gateway::payload::request_guild_members::{RequestGuildMemberId, RequestGuildMembers},
     ///     id::{GuildId, UserId},
     /// };
     ///
     /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// let request = RequestGuildMembers::builder(GuildId(1))
+    /// let request = RequestGuildMembers::builder(GuildId(NonZeroU64::new(1).expect("non zero")))
     ///     .nonce("test")
-    ///     .user_ids(vec![UserId(2), UserId(3)])?;
+    ///     .user_ids(vec![UserId(NonZeroU64::new(2).expect("non zero")), UserId(NonZeroU64::new(2).expect("non zero"))])?;
     ///
     /// assert!(matches!(request.d.user_ids, Some(RequestGuildMemberId::Multiple(ids)) if ids.len() == 2));
     /// # Ok(()) }

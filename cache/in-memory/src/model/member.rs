@@ -94,6 +94,7 @@ impl PartialEq<&InteractionMember> for CachedMember {
 mod tests {
     use super::CachedMember;
     use static_assertions::assert_fields;
+    use std::num::NonZeroU64;
     use twilight_model::{
         guild::{Member, PartialMember},
         id::{GuildId, RoleId, UserId},
@@ -115,7 +116,7 @@ mod tests {
     fn cached_member() -> CachedMember {
         CachedMember {
             deaf: Some(false),
-            guild_id: GuildId(3),
+            guild_id: GuildId(NonZeroU64::new(3).expect("non zero")),
             joined_at: None,
             mute: Some(true),
             nick: Some("member nick".to_owned()),
@@ -133,7 +134,7 @@ mod tests {
             discriminator: "0001".to_owned(),
             email: None,
             flags: None,
-            id: UserId(1),
+            id: UserId(NonZeroU64::new(1).expect("non zero")),
             locale: None,
             mfa_enabled: None,
             name: "bar".to_owned(),
@@ -148,8 +149,8 @@ mod tests {
     fn test_eq_member() {
         let member = Member {
             deaf: false,
-            guild_id: GuildId(3),
-            hoisted_role: Some(RoleId(4)),
+            guild_id: GuildId(NonZeroU64::new(3).expect("non zero")),
+            hoisted_role: Some(RoleId(NonZeroU64::new(4).expect("non zero"))),
             joined_at: None,
             mute: true,
             nick: Some("member nick".to_owned()),

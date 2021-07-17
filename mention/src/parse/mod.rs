@@ -15,12 +15,13 @@
 //! Parse IDs out of strings that you know is just a mention:
 //!
 //! ```
+//! use std::num::NonZeroU64;
 //! use twilight_mention::ParseMention;
 //! use twilight_model::id::{ChannelId, EmojiId, RoleId};
 //!
 //! # fn main() -> Result<(), Box<dyn std::error::Error>> {
-//! assert_eq!(EmojiId(123), EmojiId::parse("<:name:123>")?);
-//! assert_eq!(RoleId(456), RoleId::parse("<@&456>")?);
+//! assert_eq!(EmojiId(NonZeroU64::new(123).expect("non zero")), EmojiId::parse("<:name:123>")?);
+//! assert_eq!(RoleId(NonZeroU64::new(456).expect("non zero")), RoleId::parse("<@&456>")?);
 //! assert!(ChannelId::parse("<#notamention>").is_err());
 //! # Ok(()) }
 //! ```
@@ -32,8 +33,8 @@
 //! use twilight_model::id::UserId;
 //!
 //! let mut iter = UserId::iter("these <@123> are <#456> mentions <@789>");
-//! assert!(matches!(iter.next(), Some((UserId(123), _, _))));
-//! assert!(matches!(iter.next(), Some((UserId(789), _, _))));
+//! assert!(matches!(iter.next(), Some((user, _, _)) if user.0.get() == 123));
+//! assert!(matches!(iter.next(), Some((user, _, _)) if user.0.get() == 789));
 //! assert!(iter.next().is_none());
 //! ```
 //!
@@ -81,6 +82,7 @@ use twilight_model::id::{ChannelId, EmojiId, RoleId, UserId};
 /// Parse any type of mention out of a string:
 ///
 /// ```
+/// use std::num::NonZeroU64;
 /// use twilight_mention::{
 ///     parse::{MentionType, ParseMention},
 ///     timestamp::Timestamp,
@@ -88,9 +90,9 @@ use twilight_model::id::{ChannelId, EmojiId, RoleId, UserId};
 /// use twilight_model::id::{ChannelId, RoleId, UserId};
 ///
 /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// assert_eq!(MentionType::Channel(ChannelId(123)), MentionType::parse("<#123>")?);
-/// assert_eq!(MentionType::Role(RoleId(123)), MentionType::parse("<@&123>")?);
-/// assert_eq!(MentionType::User(UserId(123)), MentionType::parse("<@!123>")?);
+/// assert_eq!(MentionType::Channel(ChannelId(NonZeroU64::new(123).expect("non zero"))), MentionType::parse("<#123>")?);
+/// assert_eq!(MentionType::Role(RoleId(NonZeroU64::new(123).expect("non zero"))), MentionType::parse("<@&123>")?);
+/// assert_eq!(MentionType::User(UserId(NonZeroU64::new(123).expect("non zero"))), MentionType::parse("<@!123>")?);
 ///
 /// let timestamp = Timestamp::new(123, None);
 /// assert_eq!(MentionType::Timestamp(timestamp), MentionType::parse("<t:123>")?);
@@ -109,15 +111,15 @@ use twilight_model::id::{ChannelId, EmojiId, RoleId, UserId};
 /// let buf = "channel <#12> emoji <:name:34> role <@&56> timestamp <t:1624047978> user <@78>";
 ///
 /// let mut iter = MentionType::iter(buf);
-/// assert!(matches!(iter.next(), Some((MentionType::Channel(ChannelId(12)), _, _))));
-/// assert!(matches!(iter.next(), Some((MentionType::Emoji(EmojiId(34)), _, _))));
-/// assert!(matches!(iter.next(), Some((MentionType::Role(RoleId(56)), _, _))));
+/// assert!(matches!(iter.next(), Some((MentionType::Channel(channel), _, _)) if channel.0.get() == 12));
+/// assert!(matches!(iter.next(), Some((MentionType::Emoji(emoji), _, _)) if emoji.0.get() == 34));
+/// assert!(matches!(iter.next(), Some((MentionType::Role(role), _, _)) if role.0.get() == 56));
 /// assert!(matches!(
 ///     iter.next(),
 ///     Some((MentionType::Timestamp(timestamp), _, _))
 ///     if timestamp.unix() == 1_624_047_978 && timestamp.style().is_none()
 /// ));
-/// assert!(matches!(iter.next(), Some((MentionType::User(UserId(78)), _, _))));
+/// assert!(matches!(iter.next(), Some((MentionType::User(user), _, _)) if user.0.get() == 78));
 /// assert!(iter.next().is_none());
 /// ```
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

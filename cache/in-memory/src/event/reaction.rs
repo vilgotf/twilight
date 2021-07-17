@@ -123,6 +123,7 @@ impl UpdateCache for ReactionRemoveEmoji {
 mod tests {
     use super::*;
     use crate::test;
+    use std::num::NonZeroU64;
     use twilight_model::{
         channel::{Reaction, ReactionType},
         id::{ChannelId, GuildId, MessageId, UserId},
@@ -131,7 +132,12 @@ mod tests {
     #[test]
     fn test_reaction_add() {
         let cache = test::cache_with_message_and_reactions();
-        let msg = cache.message(ChannelId(2), MessageId(4)).unwrap();
+        let msg = cache
+            .message(
+                ChannelId(NonZeroU64::new(2).expect("non zero")),
+                MessageId(NonZeroU64::new(4).expect("non zero")),
+            )
+            .unwrap();
 
         assert_eq!(msg.reactions.len(), 2);
 
@@ -154,17 +160,22 @@ mod tests {
     fn test_reaction_remove() {
         let cache = test::cache_with_message_and_reactions();
         cache.update(&ReactionRemove(Reaction {
-            channel_id: ChannelId(2),
+            channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
             emoji: ReactionType::Unicode {
                 name: "😀".to_owned(),
             },
-            guild_id: Some(GuildId(1)),
+            guild_id: Some(GuildId(NonZeroU64::new(1).expect("non zero"))),
             member: None,
-            message_id: MessageId(4),
-            user_id: UserId(5),
+            message_id: MessageId(NonZeroU64::new(4).expect("non zero")),
+            user_id: UserId(NonZeroU64::new(5).expect("non zero")),
         }));
 
-        let msg = cache.message(ChannelId(2), MessageId(4)).unwrap();
+        let msg = cache
+            .message(
+                ChannelId(NonZeroU64::new(2).expect("non zero")),
+                MessageId(NonZeroU64::new(4).expect("non zero")),
+            )
+            .unwrap();
 
         assert_eq!(msg.reactions.len(), 2);
 
@@ -187,12 +198,17 @@ mod tests {
     fn test_reaction_remove_all() {
         let cache = test::cache_with_message_and_reactions();
         cache.update(&ReactionRemoveAll {
-            channel_id: ChannelId(2),
-            message_id: MessageId(4),
-            guild_id: Some(GuildId(1)),
+            channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+            message_id: MessageId(NonZeroU64::new(4).expect("non zero")),
+            guild_id: Some(GuildId(NonZeroU64::new(1).expect("non zero"))),
         });
 
-        let msg = cache.message(ChannelId(2), MessageId(4)).unwrap();
+        let msg = cache
+            .message(
+                ChannelId(NonZeroU64::new(2).expect("non zero")),
+                MessageId(NonZeroU64::new(4).expect("non zero")),
+            )
+            .unwrap();
 
         assert_eq!(msg.reactions.len(), 0);
     }
@@ -201,15 +217,20 @@ mod tests {
     fn test_reaction_remove_emoji() {
         let cache = test::cache_with_message_and_reactions();
         cache.update(&ReactionRemoveEmoji {
-            channel_id: ChannelId(2),
+            channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
             emoji: ReactionType::Unicode {
                 name: "😀".to_owned(),
             },
-            guild_id: GuildId(1),
-            message_id: MessageId(4),
+            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            message_id: MessageId(NonZeroU64::new(4).expect("non zero")),
         });
 
-        let msg = cache.message(ChannelId(2), MessageId(4)).unwrap();
+        let msg = cache
+            .message(
+                ChannelId(NonZeroU64::new(2).expect("non zero")),
+                MessageId(NonZeroU64::new(4).expect("non zero")),
+            )
+            .unwrap();
 
         assert_eq!(msg.reactions.len(), 1);
 

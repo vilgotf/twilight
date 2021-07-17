@@ -161,8 +161,8 @@ impl<'a> UpdateGuildMember<'a> {
 
     fn request(&self) -> Result<Request<'a>, HttpError> {
         let mut request = Request::builder(Route::UpdateMember {
-            guild_id: self.guild_id.0,
-            user_id: self.user_id.0,
+            guild_id: self.guild_id.0.get(),
+            user_id: self.user_id.0.get(),
         })
         .json(&self.fields)?;
 
@@ -205,11 +205,13 @@ mod tests {
         routing::Route,
         Client,
     };
-    use std::error::Error;
+    use std::{error::Error, num::NonZeroU64};
     use twilight_model::id::{GuildId, UserId};
 
-    const GUILD_ID: GuildId = GuildId(1);
-    const USER_ID: UserId = UserId(1);
+    // SAFETY: never zero
+    const GUILD_ID: GuildId = GuildId(unsafe { NonZeroU64::new_unchecked(1) });
+    // SAFETY: never zero
+    const USER_ID: UserId = UserId(unsafe { NonZeroU64::new_unchecked(1) });
 
     #[test]
     fn test_request() -> Result<(), Box<dyn Error>> {
@@ -227,8 +229,8 @@ mod tests {
             roles: None,
         };
         let route = Route::UpdateMember {
-            guild_id: GUILD_ID.0,
-            user_id: USER_ID.0,
+            guild_id: GUILD_ID.0.get(),
+            user_id: USER_ID.0.get(),
         };
         let expected = Request::builder(route).json(&body)?.build();
 
@@ -252,8 +254,8 @@ mod tests {
             roles: None,
         };
         let route = Route::UpdateMember {
-            guild_id: GUILD_ID.0,
-            user_id: USER_ID.0,
+            guild_id: GUILD_ID.0.get(),
+            user_id: USER_ID.0.get(),
         };
         let expected = Request::builder(route).json(&body)?.build();
 
@@ -276,8 +278,8 @@ mod tests {
             roles: None,
         };
         let route = Route::UpdateMember {
-            guild_id: GUILD_ID.0,
-            user_id: USER_ID.0,
+            guild_id: GUILD_ID.0.get(),
+            user_id: USER_ID.0.get(),
         };
         let expected = Request::builder(route).json(&body)?.build();
 

@@ -107,8 +107,8 @@ impl<'a> CreateGuildCommand<'a> {
 
     fn request(&self) -> Result<Request<'a>, HttpError> {
         Request::builder(Route::CreateGuildCommand {
-            application_id: self.application_id.0,
-            guild_id: self.guild_id.0,
+            application_id: self.application_id.0.get(),
+            guild_id: self.guild_id.0.get(),
         })
         .json(&CommandBorrowed {
             application_id: Some(self.application_id),

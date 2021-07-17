@@ -39,10 +39,10 @@ impl<'a> UpdateChannelPermissionConfigured<'a> {
     ) -> Self {
         let (name, target_id) = match target {
             PermissionOverwriteType::Member(user_id) => {
-                (PermissionOverwriteTargetType::Member, user_id.0)
+                (PermissionOverwriteTargetType::Member, user_id.0.get())
             }
             PermissionOverwriteType::Role(role_id) => {
-                (PermissionOverwriteTargetType::Role, role_id.0)
+                (PermissionOverwriteTargetType::Role, role_id.0.get())
             }
         };
 
@@ -61,7 +61,7 @@ impl<'a> UpdateChannelPermissionConfigured<'a> {
 
     fn request(&self) -> Result<Request<'a>, Error> {
         let mut request = Request::builder(Route::UpdatePermissionOverwrite {
-            channel_id: self.channel_id.0,
+            channel_id: self.channel_id.0.get(),
             target_id: self.target_id,
         })
         .json(&self.fields)?;
@@ -96,6 +96,7 @@ impl<'a> AuditLogReason<'a> for UpdateChannelPermissionConfigured<'a> {
 mod tests {
     use super::{UpdateChannelPermissionConfigured, UpdateChannelPermissionConfiguredFields};
     use crate::{request::Request, routing::Route, Client};
+    use std::num::NonZeroU64;
     use twilight_model::{
         channel::permission_overwrite::{PermissionOverwriteTargetType, PermissionOverwriteType},
         guild::Permissions,
@@ -107,10 +108,10 @@ mod tests {
         let client = Client::new("foo".to_owned());
         let builder = UpdateChannelPermissionConfigured::new(
             &client,
-            ChannelId(1),
+            ChannelId(NonZeroU64::new(1).expect("non zero")),
             Permissions::empty(),
             Permissions::SEND_MESSAGES,
-            PermissionOverwriteType::Member(UserId(2)),
+            PermissionOverwriteType::Member(UserId(NonZeroU64::new(2).expect("non zero"))),
         );
         let actual = builder.request().expect("failed to create request");
 

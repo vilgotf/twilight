@@ -75,8 +75,8 @@ impl<'a> UpdateGlobalCommand<'a> {
 
     fn request(&self) -> Result<Request<'a>, Error> {
         Request::builder(Route::UpdateGlobalCommand {
-            application_id: self.application_id.0,
-            command_id: self.command_id.0,
+            application_id: self.application_id.0.get(),
+            command_id: self.command_id.0.get(),
         })
         .json(&self.fields)
         .map(RequestBuilder::build)

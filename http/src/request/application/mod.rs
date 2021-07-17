@@ -162,6 +162,7 @@ struct CommandBorrowed<'a> {
 #[cfg(test)]
 mod tests {
     use super::CommandBorrowed;
+    use std::num::NonZeroU64;
     use twilight_model::{
         application::command::{BaseCommandOptionData, Command, CommandOption},
         id::{ApplicationId, CommandId, GuildId},
@@ -175,12 +176,12 @@ mod tests {
     #[test]
     fn test_command_borrowed_from_command() {
         let command = Command {
-            application_id: Some(ApplicationId(1)),
+            application_id: Some(ApplicationId(NonZeroU64::new(1).expect("non zero"))),
             default_permission: Some(true),
             description: "command description".to_owned(),
-            guild_id: Some(GuildId(2)),
+            guild_id: Some(GuildId(NonZeroU64::new(2).expect("non zero"))),
             name: "command name".to_owned(),
-            id: Some(CommandId(3)),
+            id: Some(CommandId(NonZeroU64::new(3).expect("non zero"))),
             options: Vec::from([CommandOption::Boolean(BaseCommandOptionData {
                 description: "command description".to_owned(),
                 name: "command name".to_owned(),

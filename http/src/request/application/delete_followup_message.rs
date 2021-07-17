@@ -12,13 +12,13 @@ use twilight_model::id::{ApplicationId, MessageId};
 ///
 /// ```no_run
 /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// use std::env;
+/// use std::{env, num::NonZeroU64};
 /// use twilight_http::Client;
 /// use twilight_model::id::{MessageId, ApplicationId};
 ///
 /// let client = Client::new(env::var("DISCORD_TOKEN")?);
 /// client
-///     .delete_followup_message("token here", MessageId(2))?
+///     .delete_followup_message("token here", MessageId(NonZeroU64::new(2).expect("non zero")))?
 ///     .exec()
 ///     .await?;
 /// # Ok(()) }
@@ -47,9 +47,9 @@ impl<'a> DeleteFollowupMessage<'a> {
 
     const fn request(self) -> Request<'a> {
         Request::from_route(Route::DeleteWebhookMessage {
-            message_id: self.message_id.0,
+            message_id: self.message_id.0.get(),
             token: self.token,
-            webhook_id: self.application_id.0,
+            webhook_id: self.application_id.0.get(),
         })
     }
 
@@ -65,13 +65,19 @@ impl<'a> DeleteFollowupMessage<'a> {
 mod tests {
     use super::DeleteFollowupMessage;
     use crate::{client::Client, request::Request, routing::Route};
+    use std::num::NonZeroU64;
     use twilight_model::id::{ApplicationId, MessageId};
 
     #[test]
     fn test_request() {
         let client = Client::new("token".to_owned());
 
-        let builder = DeleteFollowupMessage::new(&client, ApplicationId(1), "token", MessageId(2));
+        let builder = DeleteFollowupMessage::new(
+            &client,
+            ApplicationId(NonZeroU64::new(1).expect("non zero")),
+            "token",
+            MessageId(NonZeroU64::new(2).expect("non zero")),
+        );
         let actual = builder.request();
 
         let expected = Request::from_route(Route::DeleteWebhookMessage {

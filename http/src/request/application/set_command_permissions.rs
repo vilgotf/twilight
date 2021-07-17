@@ -9,6 +9,7 @@ use crate::{
     routing::Route,
 };
 use serde::{Serialize, Serializer};
+use std::num::NonZeroU64;
 use twilight_model::{
     application::command::permissions::CommandPermissions,
     id::{ApplicationId, CommandId, GuildId},
@@ -53,8 +54,8 @@ impl<'a> SetCommandPermissions<'a> {
         guild_id: GuildId,
         permissions: &'a [(CommandId, CommandPermissions)],
     ) -> Result<Self, InteractionError> {
-        let mut sorted_permissions =
-            [(CommandId(u64::MAX), 0); InteractionError::GUILD_COMMAND_LIMIT];
+        let mut sorted_permissions = [(CommandId(NonZeroU64::new(u64::MAX).expect("non zero")), 0);
+            InteractionError::GUILD_COMMAND_LIMIT];
 
         'outer: for (permission_id, _) in permissions {
             for (ref mut sorted_id, ref mut count) in &mut sorted_permissions {
@@ -68,7 +69,7 @@ impl<'a> SetCommandPermissions<'a> {
                     }
 
                     continue 'outer;
-                } else if sorted_id.0 == u64::MAX {
+                } else if sorted_id.0 == NonZeroU64::new(u64::MAX).expect("non zero") {
                     *count += 1;
                     *sorted_id = *permission_id;
 
@@ -93,8 +94,8 @@ impl<'a> SetCommandPermissions<'a> {
 
     fn request(&self) -> Result<Request<'a>, Error> {
         Request::builder(Route::SetCommandPermissions {
-            application_id: self.application_id.0,
-            guild_id: self.guild_id.0,
+            application_id: self.application_id.0.get(),
+            guild_id: self.guild_id.0.get(),
         })
         .json(&PermissionListSerializer {
             inner: self.permissions,
@@ -120,20 +121,22 @@ mod tests {
         SetCommandPermissions,
     };
     use crate::Client;
-    use std::iter;
+    use std::{iter, num::NonZeroU64};
     use twilight_model::{
         application::command::permissions::{CommandPermissions, CommandPermissionsType},
         id::{ApplicationId, CommandId, GuildId, RoleId},
     };
 
-    const APPLICATION_ID: ApplicationId = ApplicationId(1);
-    const GUILD_ID: GuildId = GuildId(2);
+    // SAFETY: never zero
+    const APPLICATION_ID: ApplicationId = ApplicationId(unsafe { NonZeroU64::new_unchecked(1) });
+    // SAFETY: never zero
+    const GUILD_ID: GuildId = GuildId(unsafe { NonZeroU64::new_unchecked(2) });
 
     fn command_permissions(id: CommandId) -> impl Iterator<Item = (CommandId, CommandPermissions)> {
         iter::repeat((
             id,
             CommandPermissions {
-                id: CommandPermissionsType::Role(RoleId(4)),
+                id: CommandPermissionsType::Role(RoleId(NonZeroU64::new(4).expect("non zero"))),
                 permission: true,
             },
         ))
@@ -142,9 +145,10 @@ mod tests {
     #[test]
     fn test_correct_validation() {
         let http = Client::new("token".to_owned());
-        let command_permissions = command_permissions(CommandId(1))
-            .take(4)
-            .collect::<Vec<_>>();
+        let command_permissions =
+            command_permissions(CommandId(NonZeroU64::new(1).expect("non zero")))
+                .take(4)
+                .collect::<Vec<_>>();
 
         let request =
             SetCommandPermissions::new(&http, APPLICATION_ID, GUILD_ID, &command_permissions);
@@ -155,9 +159,10 @@ mod tests {
     #[test]
     fn test_incorrect_validation() {
         let http = Client::new("token".to_owned());
-        let command_permissions = command_permissions(CommandId(2))
-            .take(InteractionError::GUILD_COMMAND_PERMISSION_LIMIT + 1)
-            .collect::<Vec<_>>();
+        let command_permissions =
+            command_permissions(CommandId(NonZeroU64::new(2).expect("non zero")))
+                .take(InteractionError::GUILD_COMMAND_PERMISSION_LIMIT + 1)
+                .collect::<Vec<_>>();
 
         let request =
             SetCommandPermissions::new(&http, APPLICATION_ID, GUILD_ID, &command_permissions);
@@ -174,7 +179,7 @@ mod tests {
         let http = Client::new("token".to_owned());
         let command_permissions = (1..=SIZE)
             .flat_map(|id| {
-                command_permissions(CommandId(id as u64))
+                command_permissions(CommandId(NonZeroU64::new(id as u64).expect("non zero")))
                     .take(InteractionError::GUILD_COMMAND_PERMISSION_LIMIT)
             })
             .collect::<Vec<_>>();
@@ -191,7 +196,10 @@ mod tests {
 
         let http = Client::new("token".to_owned());
         let command_permissions = (1..=SIZE)
-            .flat_map(|id| command_permissions(CommandId(id as u64)).take(3))
+            .flat_map(|id| {
+                command_permissions(CommandId(NonZeroU64::new(id as u64).expect("non zero")))
+                    .take(3)
+            })
             .collect::<Vec<_>>();
 
         let request =

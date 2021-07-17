@@ -51,13 +51,14 @@ This is enabled by default.
 Wait for a message in channel 123 by user 456 with the content "test":
 
 ```rust,no_run
+use std::num::NonZeroU64;
 use twilight_model::{gateway::payload::MessageCreate, id::{ChannelId, UserId}};
 use twilight_standby::Standby;
 
 let standby = Standby::new();
 
-let message = standby.wait_for_message(ChannelId(123), |event: &MessageCreate| {
-    event.author.id == UserId(456) && event.content == "test"
+let message = standby.wait_for_message(ChannelId(NonZeroU64::new(123).expect("non zero")), |event: &MessageCreate| {
+    event.author.id == UserId(NonZeroU64::new(456).expect("non zero")) && event.content == "test"
 }).await?;
 ```
 

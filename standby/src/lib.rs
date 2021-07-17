@@ -50,13 +50,14 @@
 //!
 //! ```rust,no_run
 //! # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
+//! use std::num::NonZeroU64;
 //! use twilight_model::{gateway::payload::MessageCreate, id::{ChannelId, UserId}};
 //! use twilight_standby::Standby;
 //!
 //! let standby = Standby::new();
 //!
-//! let message = standby.wait_for_message(ChannelId(123), |event: &MessageCreate| {
-//!     event.author.id == UserId(456) && event.content == "test"
+//! let message = standby.wait_for_message(ChannelId(NonZeroU64::new(123).expect("non zero")), |event: &MessageCreate| {
+//!     event.author.id == UserId(NonZeroU64::new(456).expect("non zero")) && event.content == "test"
 //! }).await?;
 //! # Ok(()) }
 //! ```
@@ -258,6 +259,7 @@ impl Standby {
     /// ```no_run
     /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// use futures_util::future;
+    /// use std::num::NonZeroU64;
     /// use twilight_model::{
     ///     gateway::event::{EventType, Event},
     ///     id::GuildId,
@@ -266,7 +268,7 @@ impl Standby {
     ///
     /// let standby = Standby::new();
     ///
-    /// let reaction = standby.wait_for(GuildId(123), |event: &Event| {
+    /// let reaction = standby.wait_for(GuildId(NonZeroU64::new(123).expect("non zero")), |event: &Event| {
     ///     event.kind() == EventType::BanAdd
     /// }).await?;
     /// # Ok(()) }
@@ -308,6 +310,7 @@ impl Standby {
     /// ```no_run
     /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// use futures_util::stream::StreamExt;
+    /// use std::num::NonZeroU64;
     /// use twilight_model::{
     ///     gateway::event::{EventType, Event},
     ///     id::GuildId,
@@ -316,7 +319,7 @@ impl Standby {
     ///
     /// let standby = Standby::new();
     ///
-    /// let mut stream = standby.wait_for_stream(GuildId(123), |event: &Event| {
+    /// let mut stream = standby.wait_for_stream(GuildId(NonZeroU64::new(123).expect("non zero")), |event: &Event| {
     ///     event.kind() == EventType::BanAdd
     /// });
     ///
@@ -474,13 +477,14 @@ impl Standby {
     /// ```no_run
     /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// use futures_util::future;
+    /// use std::num::NonZeroU64;
     /// use twilight_model::{gateway::payload::MessageCreate, id::{ChannelId, UserId}};
     /// use twilight_standby::Standby;
     ///
     /// let standby = Standby::new();
     ///
-    /// let message = standby.wait_for_message(ChannelId(123), |event: &MessageCreate| {
-    ///     event.author.id == UserId(456) && event.content == "test"
+    /// let message = standby.wait_for_message(ChannelId(NonZeroU64::new(123).expect("non zero")), |event: &MessageCreate| {
+    ///     event.author.id == UserId(NonZeroU64::new(456).expect("non zero")) && event.content == "test"
     /// }).await?;
     /// # Ok(()) }
     /// ```
@@ -522,13 +526,14 @@ impl Standby {
     /// ```no_run
     /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// use futures_util::stream::StreamExt;
+    /// use std::num::NonZeroU64;
     /// use twilight_model::{gateway::payload::MessageCreate, id::{ChannelId, UserId}};
     /// use twilight_standby::Standby;
     ///
     /// let standby = Standby::new();
     ///
-    /// let mut messages = standby.wait_for_message_stream(ChannelId(123), |event: &MessageCreate| {
-    ///     event.author.id == UserId(456) && event.content == "test"
+    /// let mut messages = standby.wait_for_message_stream(ChannelId(NonZeroU64::new(123).expect("non zero")), |event: &MessageCreate| {
+    ///     event.author.id == UserId(NonZeroU64::new(456).expect("non zero")) && event.content == "test"
     /// });
     ///
     /// while let Some(message) = messages.next().await {
@@ -573,13 +578,14 @@ impl Standby {
     /// ```no_run
     /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// use futures_util::future;
+    /// use std::num::NonZeroU64;
     /// use twilight_model::{gateway::payload::ReactionAdd, id::{MessageId, UserId}};
     /// use twilight_standby::Standby;
     ///
     /// let standby = Standby::new();
     ///
-    /// let reaction = standby.wait_for_reaction(MessageId(123), |event: &ReactionAdd| {
-    ///     event.user_id == UserId(456)
+    /// let reaction = standby.wait_for_reaction(MessageId(NonZeroU64::new(123).expect("non zero")), |event: &ReactionAdd| {
+    ///     event.user_id == UserId(NonZeroU64::new(456).expect("non zero"))
     /// }).await?;
     /// # Ok(()) }
     /// ```
@@ -620,6 +626,7 @@ impl Standby {
     /// ```no_run
     /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// use futures_util::stream::StreamExt;
+    /// use std::num::NonZeroU64;
     /// use twilight_model::{
     ///     channel::ReactionType,
     ///     gateway::payload::ReactionAdd,
@@ -629,7 +636,7 @@ impl Standby {
     ///
     /// let standby = Standby::new();
     ///
-    /// let mut reactions = standby.wait_for_reaction_stream(MessageId(123), |event: &ReactionAdd| {
+    /// let mut reactions = standby.wait_for_reaction_stream(MessageId(NonZeroU64::new(123).expect("non zero")), |event: &ReactionAdd| {
     ///     matches!(&event.emoji, ReactionType::Unicode { name } if name == "🤠")
     /// });
     ///
@@ -921,7 +928,7 @@ mod tests {
     use super::Standby;
     use futures_util::StreamExt;
     use static_assertions::assert_impl_all;
-    use std::fmt::Debug;
+    use std::{fmt::Debug, num::NonZeroU64};
     use twilight_model::{
         channel::{
             message::{Message, MessageType},
@@ -940,7 +947,7 @@ mod tests {
 
     fn message() -> Message {
         Message {
-            id: MessageId(3),
+            id: MessageId(NonZeroU64::new(3).expect("non zero")),
             activity: None,
             application: None,
             application_id: None,
@@ -951,7 +958,7 @@ mod tests {
                 discriminator: "0001".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(2),
+                id: UserId(NonZeroU64::new(2).expect("non zero")),
                 locale: None,
                 mfa_enabled: None,
                 name: "twilight".to_owned(),
@@ -960,12 +967,12 @@ mod tests {
                 system: None,
                 verified: None,
             },
-            channel_id: ChannelId(1),
+            channel_id: ChannelId(NonZeroU64::new(1).expect("non zero")),
             content: "test".to_owned(),
             edited_timestamp: None,
             embeds: Vec::new(),
             flags: None,
-            guild_id: Some(GuildId(4)),
+            guild_id: Some(GuildId(NonZeroU64::new(4).expect("non zero"))),
             interaction: None,
             kind: MessageType::Regular,
             member: None,
@@ -986,36 +993,41 @@ mod tests {
 
     fn reaction() -> Reaction {
         Reaction {
-            channel_id: ChannelId(2),
+            channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
             emoji: ReactionType::Unicode {
                 name: "🍎".to_owned(),
             },
-            guild_id: Some(GuildId(1)),
+            guild_id: Some(GuildId(NonZeroU64::new(1).expect("non zero"))),
             member: None,
-            message_id: MessageId(4),
-            user_id: UserId(3),
+            message_id: MessageId(NonZeroU64::new(4).expect("non zero")),
+            user_id: UserId(NonZeroU64::new(3).expect("non zero")),
         }
     }
 
     #[tokio::test]
     async fn test_wait_for() {
         let standby = Standby::new();
-        let wait = standby.wait_for(GuildId(1), |event: &Event| match event {
-            Event::RoleDelete(e) => e.guild_id == GuildId(1),
-            _ => false,
-        });
+        let wait = standby.wait_for(
+            GuildId(NonZeroU64::new(1).expect("non zero")),
+            |event: &Event| match event {
+                Event::RoleDelete(e) => {
+                    e.guild_id == GuildId(NonZeroU64::new(1).expect("non zero"))
+                }
+                _ => false,
+            },
+        );
         standby.process(&Event::RoleDelete(RoleDelete {
-            guild_id: GuildId(1),
-            role_id: RoleId(2),
+            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            role_id: RoleId(NonZeroU64::new(2).expect("non zero")),
         }));
 
-        assert!(matches!(
-            wait.await,
-            Ok(Event::RoleDelete(RoleDelete {
-                guild_id: GuildId(1),
-                role_id: RoleId(2),
-            }))
-        ));
+        assert!(
+            wait.await.unwrap()
+                == Event::RoleDelete(RoleDelete {
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+                    role_id: RoleId(NonZeroU64::new(2).expect("non zero"))
+                })
+        );
         assert!(standby.0.guilds.is_empty());
     }
 
@@ -1023,37 +1035,37 @@ mod tests {
     async fn test_wait_for_stream() {
         let standby = Standby::new();
         let mut stream = standby.wait_for_stream(
-            GuildId(1),
-            |event: &Event| matches!(event, Event::RoleDelete(e) if e.guild_id.0 == 1),
+            GuildId(NonZeroU64::new(1).expect("non zero")),
+            |event: &Event| matches!(event, Event::RoleDelete(e) if e.guild_id.0.get() == 1),
         );
         standby.process(&Event::RoleDelete(RoleDelete {
-            guild_id: GuildId(1),
-            role_id: RoleId(2),
+            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            role_id: RoleId(NonZeroU64::new(2).expect("non zero")),
         }));
         standby.process(&Event::RoleDelete(RoleDelete {
-            guild_id: GuildId(1),
-            role_id: RoleId(3),
+            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            role_id: RoleId(NonZeroU64::new(3).expect("non zero")),
         }));
 
-        assert!(matches!(
-            stream.next().await,
-            Some(Event::RoleDelete(RoleDelete {
-                guild_id: GuildId(1),
-                role_id: RoleId(2),
-            }))
-        ));
-        assert!(matches!(
-            stream.next().await,
-            Some(Event::RoleDelete(RoleDelete {
-                guild_id: GuildId(1),
-                role_id: RoleId(3),
-            }))
-        ));
+        assert!(
+            stream.next().await.unwrap()
+                == Event::RoleDelete(RoleDelete {
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+                    role_id: RoleId(NonZeroU64::new(2).expect("non zero"))
+                })
+        );
+        assert!(
+            stream.next().await.unwrap()
+                == Event::RoleDelete(RoleDelete {
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+                    role_id: RoleId(NonZeroU64::new(3).expect("non zero"))
+                })
+        );
         assert!(!standby.0.guilds.is_empty());
         drop(stream);
         standby.process(&Event::RoleDelete(RoleDelete {
-            guild_id: GuildId(1),
-            role_id: RoleId(4),
+            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            role_id: RoleId(NonZeroU64::new(4).expect("non zero")),
         }));
         assert!(standby.0.guilds.is_empty());
     }
@@ -1063,7 +1075,7 @@ mod tests {
         let ready = Ready {
             application: PartialApplication {
                 flags: UserFlags::empty(),
-                id: ApplicationId(0),
+                id: ApplicationId(NonZeroU64::new(1).expect("non zero")),
             },
             guilds: Vec::new(),
             session_id: String::new(),
@@ -1073,7 +1085,7 @@ mod tests {
                 bot: false,
                 discriminator: "0001".to_owned(),
                 email: None,
-                id: UserId(1),
+                id: UserId(NonZeroU64::new(1).expect("non zero")),
                 mfa_enabled: true,
                 name: "twilight".to_owned(),
                 verified: Some(false),
@@ -1117,19 +1129,28 @@ mod tests {
         let event = Event::MessageCreate(Box::new(MessageCreate(message)));
 
         let standby = Standby::new();
-        let wait = standby.wait_for_message(ChannelId(1), |message: &MessageCreate| {
-            message.author.id == UserId(2)
-        });
+        let wait = standby.wait_for_message(
+            ChannelId(NonZeroU64::new(1).expect("non zero")),
+            |message: &MessageCreate| {
+                message.author.id == UserId(NonZeroU64::new(2).expect("non zero"))
+            },
+        );
         standby.process(&event);
 
-        assert_eq!(MessageId(3), wait.await.map(|msg| msg.id).unwrap());
+        assert_eq!(
+            MessageId(NonZeroU64::new(3).expect("non zero")),
+            wait.await.map(|msg| msg.id).unwrap()
+        );
         assert!(standby.0.messages.is_empty());
     }
 
     #[tokio::test]
     async fn test_wait_for_message_stream() {
         let standby = Standby::new();
-        let mut stream = standby.wait_for_message_stream(ChannelId(1), |_: &MessageCreate| true);
+        let mut stream = standby.wait_for_message_stream(
+            ChannelId(NonZeroU64::new(1).expect("non zero")),
+            |_: &MessageCreate| true,
+        );
         standby.process(&Event::MessageCreate(Box::new(MessageCreate(message()))));
         standby.process(&Event::MessageCreate(Box::new(MessageCreate(message()))));
 
@@ -1146,14 +1167,17 @@ mod tests {
         let event = Event::ReactionAdd(Box::new(ReactionAdd(reaction())));
 
         let standby = Standby::new();
-        let wait = standby.wait_for_reaction(MessageId(4), |reaction: &ReactionAdd| {
-            reaction.user_id == UserId(3)
-        });
+        let wait = standby.wait_for_reaction(
+            MessageId(NonZeroU64::new(4).expect("non zero")),
+            |reaction: &ReactionAdd| {
+                reaction.user_id == UserId(NonZeroU64::new(3).expect("non zero"))
+            },
+        );
 
         standby.process(&event);
 
         assert_eq!(
-            UserId(3),
+            UserId(NonZeroU64::new(3).expect("non zero")),
             wait.await.map(|reaction| reaction.user_id).unwrap()
         );
         assert!(standby.0.reactions.is_empty());
@@ -1162,7 +1186,10 @@ mod tests {
     #[tokio::test]
     async fn test_wait_for_reaction_stream() {
         let standby = Standby::new();
-        let mut stream = standby.wait_for_reaction_stream(MessageId(4), |_: &ReactionAdd| true);
+        let mut stream = standby.wait_for_reaction_stream(
+            MessageId(NonZeroU64::new(4).expect("non zero")),
+            |_: &ReactionAdd| true,
+        );
         standby.process(&Event::ReactionAdd(Box::new(ReactionAdd(reaction()))));
         standby.process(&Event::ReactionAdd(Box::new(ReactionAdd(reaction()))));
 
@@ -1207,15 +1234,16 @@ mod tests {
         // generic event handler gets other guild events
         let wait = standby.wait_for_event(|event: &Event| event.kind() == EventType::RoleDelete);
         standby.process(&Event::RoleDelete(RoleDelete {
-            guild_id: GuildId(1),
-            role_id: RoleId(2),
+            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            role_id: RoleId(NonZeroU64::new(2).expect("non zero")),
         }));
         assert!(matches!(wait.await, Ok(Event::RoleDelete(_))));
 
         // guild event handler gets message creates or reaction events
-        let wait = standby.wait_for(GuildId(1), |event: &Event| {
-            event.kind() == EventType::ReactionAdd
-        });
+        let wait = standby.wait_for(
+            GuildId(NonZeroU64::new(1).expect("non zero")),
+            |event: &Event| event.kind() == EventType::ReactionAdd,
+        );
         standby.process(&Event::ReactionAdd(Box::new(ReactionAdd(reaction()))));
         assert!(matches!(wait.await, Ok(Event::ReactionAdd(_))));
     }

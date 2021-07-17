@@ -46,7 +46,7 @@ impl PartialEq<Emoji> for CachedEmoji {
 mod tests {
     use super::CachedEmoji;
     use static_assertions::{assert_fields, assert_impl_all};
-    use std::fmt::Debug;
+    use std::{fmt::Debug, num::NonZeroU64};
     use twilight_model::{guild::Emoji, id::EmojiId};
 
     assert_fields!(
@@ -63,7 +63,7 @@ mod tests {
     #[test]
     fn test_eq_emoji() {
         let emoji = Emoji {
-            id: EmojiId(123),
+            id: EmojiId(NonZeroU64::new(123).expect("non zero")),
             animated: true,
             name: "foo".to_owned(),
             managed: false,
@@ -73,7 +73,7 @@ mod tests {
             available: true,
         };
         let cached = CachedEmoji {
-            id: EmojiId(123),
+            id: EmojiId(NonZeroU64::new(123).expect("non zero")),
             animated: true,
             name: "foo".to_owned(),
             managed: false,

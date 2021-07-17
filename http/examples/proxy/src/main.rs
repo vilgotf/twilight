@@ -1,5 +1,5 @@
 use futures::future;
-use std::error::Error;
+use std::{error::Error, num::NonZeroU64};
 use twilight_http::Client;
 use twilight_model::id::ChannelId;
 
@@ -12,7 +12,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
         .proxy("localhost:3000".to_owned(), true)
         .ratelimiter(None)
         .build();
-    let channel_id = ChannelId(620_980_184_606_048_278);
+    let channel_id = ChannelId(NonZeroU64::new(620_980_184_606_048_278).expect("non zero"));
 
     future::join_all((1u8..=10).map(|x| {
         client

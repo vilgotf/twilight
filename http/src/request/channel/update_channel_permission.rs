@@ -12,7 +12,8 @@ use twilight_model::{
 ///
 /// Create permission overrides for a role to view the channel, but not send messages:
 ///
-/// ```rust,no_run
+/// ```no_run
+/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::guild::Permissions;
 /// use twilight_model::id::{ChannelId, RoleId};
@@ -21,10 +22,10 @@ use twilight_model::{
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let channel_id = ChannelId(123);
+/// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
 /// let allow = Permissions::VIEW_CHANNEL;
 /// let deny = Permissions::SEND_MESSAGES;
-/// let role_id = RoleId(432);
+/// let role_id = RoleId(NonZeroU64::new(432).expect("non zero"));
 ///
 /// client.update_channel_permission(channel_id, allow, deny)
 ///     .role(role_id)

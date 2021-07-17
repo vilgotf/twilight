@@ -4,6 +4,7 @@ use crate::{
 };
 use serde::{de::Deserializer, ser::SerializeStruct, Deserialize, Serialize, Serializer};
 use serde_repr::{Deserialize_repr, Serialize_repr};
+use std::num::NonZeroU64;
 
 pub(crate) mod integer {
     use serde::de::{Deserializer, Error as DeError, Visitor};
@@ -78,13 +79,13 @@ impl<'de> Deserialize<'de> for PermissionOverwrite {
 
         let kind = match data.kind {
             PermissionOverwriteTargetType::Member => {
-                let id = UserId(data.id);
+                let id = UserId(NonZeroU64::new(data.id).expect("non zero"));
                 tracing::trace!(id = %id.0, kind = ?data.kind);
 
                 PermissionOverwriteType::Member(id)
             }
             PermissionOverwriteTargetType::Role => {
-                let id = RoleId(data.id);
+                let id = RoleId(NonZeroU64::new(data.id).expect("non zero"));
                 tracing::trace!(id = %id.0, kind = ?data.kind);
 
                 PermissionOverwriteType::Role(id)
@@ -130,7 +131,7 @@ mod tests {
     use serde::{Deserialize, Serialize};
     use serde_test::Token;
     use static_assertions::{assert_fields, assert_impl_all, const_assert_eq};
-    use std::{fmt::Debug, hash::Hash};
+    use std::{fmt::Debug, hash::Hash, num::NonZeroU64};
 
     assert_fields!(PermissionOverwrite: allow, deny, kind);
     assert_impl_all!(
@@ -173,7 +174,9 @@ mod tests {
         let overwrite = PermissionOverwrite {
             allow: Permissions::CREATE_INVITE,
             deny: Permissions::KICK_MEMBERS,
-            kind: PermissionOverwriteType::Member(UserId(12_345_678)),
+            kind: PermissionOverwriteType::Member(UserId(
+                NonZeroU64::new(12_345_678).expect("non zero"),
+            )),
         };
 
         // We can't use serde_test because it doesn't support 128 bit integers.
@@ -199,14 +202,14 @@ mod tests {
         let raw = r#"{
   "allow": "1",
   "deny": "2",
-  "id": 0,
+  "id": 1,
   "type": 1
 }"#;
 
         let value = PermissionOverwrite {
             allow: Permissions::CREATE_INVITE,
             deny: Permissions::KICK_MEMBERS,
-            kind: PermissionOverwriteType::Member(UserId(0)),
+            kind: PermissionOverwriteType::Member(UserId(NonZeroU64::new(1).expect("non zero"))),
         };
 
         let deserialized = serde_json::from_str::<PermissionOverwrite>(raw).unwrap();
@@ -225,7 +228,7 @@ mod tests {
                 Token::Str("deny"),
                 Token::Str("2"),
                 Token::Str("id"),
-                Token::Str("0"),
+                Token::Str("1"),
                 Token::Str("type"),
                 Token::U8(1),
                 Token::StructEnd,

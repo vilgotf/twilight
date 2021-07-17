@@ -7,14 +7,15 @@ use twilight_model::channel::Message;
 ///
 /// # Examples
 ///
-/// ```rust,no_run
+/// ```no_run
+/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::WebhookId;
 ///
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
-/// let id = WebhookId(432);
+/// let id = WebhookId(NonZeroU64::new(432).expect("non zero"));
 ///
 /// let message = client
 ///     .execute_webhook(id, "webhook token")

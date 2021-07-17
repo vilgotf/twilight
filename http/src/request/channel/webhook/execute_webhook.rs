@@ -36,14 +36,15 @@ pub(crate) struct ExecuteWebhookFields<'a> {
 ///
 /// # Examples
 ///
-/// ```rust,no_run
+/// ```no_run
+/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::WebhookId;
 ///
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
-/// let id = WebhookId(432);
+/// let id = WebhookId(NonZeroU64::new(432).expect("non zero"));
 ///
 /// client
 ///     .execute_webhook(id, "webhook token")
@@ -129,7 +130,8 @@ impl<'a> ExecuteWebhook<'a> {
     ///
     /// Without [`payload_json`]:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// use twilight_embed_builder::EmbedBuilder;
     /// # use twilight_http::Client;
     /// use twilight_model::id::{MessageId, WebhookId};
@@ -137,7 +139,7 @@ impl<'a> ExecuteWebhook<'a> {
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("token".to_owned());
-    /// let message = client.execute_webhook(WebhookId(1), "token here")
+    /// let message = client.execute_webhook(WebhookId(NonZeroU64::new(1).expect("non zero")), "token here")
     ///     .content("some content")
     ///     .embeds(&[EmbedBuilder::new().title("title").build()?])
     ///     .wait()
@@ -152,14 +154,15 @@ impl<'a> ExecuteWebhook<'a> {
     ///
     /// With [`payload_json`]:
     ///
-    /// ```rust,no_run
+    /// ```no_run
+    /// use std::num::NonZeroU64;
     /// # use twilight_http::Client;
     /// use twilight_model::id::{MessageId, WebhookId};
     ///
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = Client::new("token".to_owned());
-    /// let message = client.execute_webhook(WebhookId(1), "token here")
+    /// let message = client.execute_webhook(WebhookId(NonZeroU64::new(1).expect("non zero")), "token here")
     ///     .content("some content")
     ///     .payload_json(br#"{ "content": "other content", "embeds": [ { "title": "title" } ] }"#)
     ///     .wait()
@@ -211,7 +214,7 @@ impl<'a> ExecuteWebhook<'a> {
         let mut request = Request::builder(Route::ExecuteWebhook {
             token: self.token,
             wait: Some(wait),
-            webhook_id: self.webhook_id.0,
+            webhook_id: self.webhook_id.0.get(),
         });
 
         // Webhook executions don't need the authorization token, only the

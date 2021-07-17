@@ -7,7 +7,10 @@ use serde::{
     de::{Deserializer, Error as DeError, IgnoredAny, MapAccess, Visitor},
     Deserialize, Serialize,
 };
-use std::fmt::{Formatter, Result as FmtResult};
+use std::{
+    fmt::{Formatter, Result as FmtResult},
+    num::NonZeroU64,
+};
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct MemberChunk {
@@ -107,7 +110,10 @@ impl<'de> Visitor<'de> for MemberChunkVisitor {
                     // Since the guild ID may not be deserialised yet we'll use
                     // a temporary placeholder value and update it with the real
                     // guild ID after all the fields have been deserialised.
-                    let deserializer = MemberListDeserializer::new(GuildId(0));
+                    // SAFETY: never zero
+                    let deserializer = MemberListDeserializer::new(GuildId(unsafe {
+                        NonZeroU64::new_unchecked(1)
+                    }));
 
                     members = Some(map.next_value_seed(deserializer)?);
                 }
@@ -130,7 +136,10 @@ impl<'de> Visitor<'de> for MemberChunkVisitor {
                         return Err(DeError::duplicate_field("presences"));
                     }
 
-                    let deserializer = PresenceListDeserializer::new(GuildId(0));
+                    // SAFETY: never zero
+                    let deserializer = PresenceListDeserializer::new(GuildId(unsafe {
+                        NonZeroU64::new_unchecked(1)
+                    }));
 
                     presences = Some(map.next_value_seed(deserializer)?);
                 }
@@ -198,6 +207,7 @@ mod tests {
         id::{GuildId, RoleId, UserId},
         user::{User, UserFlags},
     };
+    use std::num::NonZeroU64;
 
     #[allow(clippy::too_many_lines)]
     #[test]
@@ -302,20 +312,23 @@ mod tests {
         let expected = MemberChunk {
             chunk_count: 1,
             chunk_index: 0,
-            guild_id: GuildId(1),
+            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
             members: Vec::from([
                 Member {
                     deaf: false,
-                    guild_id: GuildId(1),
-                    hoisted_role: Some(RoleId(6)),
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+                    hoisted_role: Some(RoleId(NonZeroU64::new(6).expect("non zero"))),
                     joined_at: Some("2020-04-04T04:04:04.000000+00:00".to_owned()),
                     mute: false,
                     nick: Some("chunk".to_owned()),
                     pending: false,
                     premium_since: None,
-                    roles: vec![RoleId(6), RoleId(7)],
+                    roles: vec![
+                        RoleId(NonZeroU64::new(6).expect("non zero")),
+                        RoleId(NonZeroU64::new(7).expect("non zero")),
+                    ],
                     user: User {
-                        id: UserId(2),
+                        id: UserId(NonZeroU64::new(2).expect("non zero")),
                         avatar: Some("dddddddddddddddddddddddddddddddd".to_owned()),
                         bot: true,
                         discriminator: "0001".to_owned(),
@@ -332,16 +345,16 @@ mod tests {
                 },
                 Member {
                     deaf: false,
-                    guild_id: GuildId(1),
-                    hoisted_role: Some(RoleId(6)),
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+                    hoisted_role: Some(RoleId(NonZeroU64::new(6).expect("non zero"))),
                     joined_at: Some("2020-04-04T04:04:04.000000+00:00".to_owned()),
                     mute: false,
                     nick: Some("chunk".to_owned()),
                     pending: false,
                     premium_since: None,
-                    roles: vec![RoleId(6)],
+                    roles: vec![RoleId(NonZeroU64::new(6).expect("non zero"))],
                     user: User {
-                        id: UserId(3),
+                        id: UserId(NonZeroU64::new(3).expect("non zero")),
                         avatar: Some("cccccccccccccccccccccccccccccccc".to_owned()),
                         bot: true,
                         discriminator: "0001".to_owned(),
@@ -358,16 +371,16 @@ mod tests {
                 },
                 Member {
                     deaf: false,
-                    guild_id: GuildId(1),
-                    hoisted_role: Some(RoleId(6)),
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+                    hoisted_role: Some(RoleId(NonZeroU64::new(6).expect("non zero"))),
                     joined_at: Some("2020-04-04T04:04:04.000000+00:00".to_owned()),
                     mute: false,
                     nick: Some("chunk".to_owned()),
                     pending: true,
                     premium_since: None,
-                    roles: vec![RoleId(6)],
+                    roles: vec![RoleId(NonZeroU64::new(6).expect("non zero"))],
                     user: User {
-                        id: UserId(5),
+                        id: UserId(NonZeroU64::new(5).expect("non zero")),
                         avatar: Some("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".to_owned()),
                         bot: false,
                         discriminator: "0001".to_owned(),
@@ -384,16 +397,16 @@ mod tests {
                 },
                 Member {
                     deaf: false,
-                    guild_id: GuildId(1),
-                    hoisted_role: Some(RoleId(6)),
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+                    hoisted_role: Some(RoleId(NonZeroU64::new(6).expect("non zero"))),
                     joined_at: Some("2020-04-04T04:04:04.000000+00:00".to_owned()),
                     mute: false,
                     nick: Some("chunk".to_owned()),
                     pending: false,
                     premium_since: None,
-                    roles: vec![RoleId(6)],
+                    roles: vec![RoleId(NonZeroU64::new(6).expect("non zero"))],
                     user: User {
-                        id: UserId(6),
+                        id: UserId(NonZeroU64::new(6).expect("non zero")),
                         avatar: Some("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb".to_owned()),
                         bot: false,
                         discriminator: "0001".to_owned(),
@@ -419,9 +432,11 @@ mod tests {
                         mobile: None,
                         web: Some(Status::Online),
                     },
-                    guild_id: GuildId(1),
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
                     status: Status::Online,
-                    user: UserOrId::UserId { id: UserId(2) },
+                    user: UserOrId::UserId {
+                        id: UserId(NonZeroU64::new(2).expect("non zero")),
+                    },
                 },
                 Presence {
                     activities: Vec::new(),
@@ -430,9 +445,11 @@ mod tests {
                         mobile: None,
                         web: Some(Status::Online),
                     },
-                    guild_id: GuildId(1),
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
                     status: Status::Online,
-                    user: UserOrId::UserId { id: UserId(3) },
+                    user: UserOrId::UserId {
+                        id: UserId(NonZeroU64::new(3).expect("non zero")),
+                    },
                 },
                 Presence {
                     activities: Vec::new(),
@@ -441,9 +458,11 @@ mod tests {
                         mobile: None,
                         web: None,
                     },
-                    guild_id: GuildId(1),
+                    guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
                     status: Status::DoNotDisturb,
-                    user: UserOrId::UserId { id: UserId(5) },
+                    user: UserOrId::UserId {
+                        id: UserId(NonZeroU64::new(5).expect("non zero")),
+                    },
                 },
             ]),
         };

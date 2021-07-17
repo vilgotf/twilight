@@ -18,10 +18,11 @@ use twilight_model::{
 /// Mention a `UserId`:
 ///
 /// ```rust
+/// use std::num::NonZeroU64;
 /// use twilight_mention::Mention;
 /// use twilight_model::id::UserId;
 ///
-/// assert_eq!("<@123>", UserId(123).mention().to_string());
+/// assert_eq!("<@123>", UserId(NonZeroU64::new(123).expect("non zero")).mention().to_string());
 /// ```
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct MentionFormat<T>(T);
@@ -93,10 +94,11 @@ impl Display for MentionFormat<UserId> {
 /// Mention a `ChannelId`:
 ///
 /// ```rust
+/// use std::num::NonZeroU64;
 /// use twilight_mention::Mention;
 /// use twilight_model::id::ChannelId;
 ///
-/// assert_eq!("<#123>", ChannelId(123).mention().to_string());
+/// assert_eq!("<#123>", ChannelId(NonZeroU64::new(123).expect("non zero")).mention().to_string());
 /// ```
 pub trait Mention<T> {
     /// Mention a resource by using its ID.
@@ -235,7 +237,10 @@ mod tests {
 
     use super::{Mention, MentionFormat};
     use static_assertions::assert_impl_all;
-    use std::fmt::{Debug, Display};
+    use std::{
+        fmt::{Debug, Display},
+        num::NonZeroU64,
+    };
     use twilight_model::{
         channel::{
             CategoryChannel, Channel, Group, GuildChannel, PrivateChannel, TextChannel,
@@ -286,17 +291,32 @@ mod tests {
 
     #[test]
     fn test_mention_format_channel_id() {
-        assert_eq!("<#123>", ChannelId(123).mention().to_string());
+        assert_eq!(
+            "<#123>",
+            ChannelId(NonZeroU64::new(123).expect("non zero"))
+                .mention()
+                .to_string()
+        );
     }
 
     #[test]
     fn test_mention_format_emoji_id() {
-        assert_eq!("<:emoji:123>", EmojiId(123).mention().to_string());
+        assert_eq!(
+            "<:emoji:123>",
+            EmojiId(NonZeroU64::new(123).expect("non zero"))
+                .mention()
+                .to_string()
+        );
     }
 
     #[test]
     fn test_mention_format_role_id() {
-        assert_eq!("<@&123>", RoleId(123).mention().to_string());
+        assert_eq!(
+            "<@&123>",
+            RoleId(NonZeroU64::new(123).expect("non zero"))
+                .mention()
+                .to_string()
+        );
     }
 
     /// Test that a timestamp with a style displays correctly.
@@ -317,6 +337,11 @@ mod tests {
 
     #[test]
     fn test_mention_format_user_id() {
-        assert_eq!("<@123>", UserId(123).mention().to_string());
+        assert_eq!(
+            "<@123>",
+            UserId(NonZeroU64::new(123).expect("non zero"))
+                .mention()
+                .to_string()
+        );
     }
 }
