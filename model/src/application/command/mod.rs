@@ -55,6 +55,7 @@ impl CommandBuilder {
     }
 
     /// Consume the builder, returning a [`Command`].
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> Command {
         self.0
     }
