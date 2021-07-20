@@ -122,6 +122,7 @@ impl BooleanBuilder {
         })
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> CommandOption {
         CommandOption::Boolean(self.0)
     }
@@ -154,6 +155,7 @@ impl ChannelBuilder {
         })
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> CommandOption {
         CommandOption::Channel(self.0)
     }
@@ -186,6 +188,7 @@ impl IntegerBuilder {
         })
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> CommandOption {
         CommandOption::Integer(self.0)
     }
@@ -224,6 +227,7 @@ impl MentionableBuilder {
         })
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> CommandOption {
         CommandOption::Mentionable(self.0)
     }
@@ -256,6 +260,7 @@ impl RoleBuilder {
         })
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> CommandOption {
         CommandOption::Role(self.0)
     }
@@ -289,6 +294,7 @@ impl StringBuilder {
         })
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> CommandOption {
         CommandOption::String(self.0)
     }
@@ -328,6 +334,7 @@ impl SubCommandBuilder {
         })
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> CommandOption {
         CommandOption::SubCommand(self.0)
     }
@@ -368,6 +375,7 @@ impl SubCommandGroupBuilder {
         })
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> CommandOption {
         CommandOption::SubCommandGroup(self.0)
     }
@@ -407,6 +415,7 @@ impl UserBuilder {
         })
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> CommandOption {
         CommandOption::User(self.0)
     }
@@ -429,6 +438,7 @@ mod tests {
     use super::*;
 
     #[test]
+    #[allow(clippy::too_many_lines)]
     fn construct_command_with_builder() {
         // command from <https://discord.com/developers/docs/interactions/slash-commands#example-walkthrough>
         let command = CommandBuilder::new("permissions","Get or edit permissions for a user or a role")
