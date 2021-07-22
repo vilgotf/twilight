@@ -185,7 +185,7 @@ impl<'a> PermissionCalculator<'a> {
         // If the user is the owner, then we can just return all of the
         // permissions.
         match self.owner_id {
-            Some(id) if id.0.get() == self.user_id.0.get() => return Permissions::all(),
+            Some(id) if id.get() == self.user_id.get() => return Permissions::all(),
             _ => (),
         }
 
@@ -414,7 +414,7 @@ const fn has_role(roles: &[(RoleId, Permissions)], role_id: RoleId) -> bool {
     while idx < len {
         let (iter_role_id, _) = roles[idx];
 
-        if iter_role_id.0.get() == role_id.0.get() {
+        if iter_role_id.get() == role_id.get() {
             return true;
         }
 
@@ -449,7 +449,7 @@ const fn process_permission_overwrites(
                 // We need to process the @everyone role first, so apply it
                 // straight to the permissions. The other roles' permissions
                 // will be applied later.
-                if role.0.get() == configured_guild_id.0.get() {
+                if role.get() == configured_guild_id.get() {
                     permissions = bitops::remove(permissions, overwrite.deny);
                     permissions = bitops::insert(permissions, overwrite.allow);
 
@@ -468,7 +468,7 @@ const fn process_permission_overwrites(
                 roles_deny = bitops::insert(roles_deny, overwrite.deny);
             }
             PermissionOverwriteType::Member(user_id)
-                if user_id.0.get() == configured_user_id.0.get() =>
+                if user_id.get() == configured_user_id.get() =>
             {
                 member_allow = bitops::insert(member_allow, overwrite.allow);
                 member_deny = bitops::insert(member_deny, overwrite.deny);

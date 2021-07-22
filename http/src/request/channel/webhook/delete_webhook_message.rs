@@ -54,9 +54,9 @@ impl<'a> DeleteWebhookMessage<'a> {
     // being consumed in request construction.
     fn request(&self) -> Result<Request<'a>, Error> {
         let mut request = Request::builder(Route::DeleteWebhookMessage {
-            message_id: self.message_id.0.get(),
+            message_id: self.message_id.get(),
             token: self.token,
-            webhook_id: self.webhook_id.0.get(),
+            webhook_id: self.webhook_id.get(),
         })
         .use_authorization_token(false);
 

@@ -78,9 +78,9 @@ impl<'a> UpdateGuildCommand<'a> {
 
     fn request(&self) -> Result<Request<'a>, Error> {
         Request::builder(Route::UpdateGuildCommand {
-            application_id: self.application_id.0.get(),
-            command_id: self.command_id.0.get(),
-            guild_id: self.guild_id.0.get(),
+            application_id: self.application_id.get(),
+            command_id: self.command_id.get(),
+            guild_id: self.guild_id.get(),
         })
         .json(&self.fields)
         .map(RequestBuilder::build)

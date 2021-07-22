@@ -33,8 +33,8 @@ impl<'a> DeleteGuildIntegration<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<EmptyBody> {
         let mut request = Request::builder(Route::DeleteGuildIntegration {
-            guild_id: self.guild_id.0.get(),
-            integration_id: self.integration_id.0.get(),
+            guild_id: self.guild_id.get(),
+            integration_id: self.integration_id.get(),
         });
 
         if let Some(reason) = self.reason.as_ref() {

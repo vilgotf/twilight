@@ -178,7 +178,7 @@ impl<'a> GetChannelMessages<'a> {
             after: None,
             around: None,
             before: None,
-            channel_id: self.channel_id.0.get(),
+            channel_id: self.channel_id.get(),
             limit: self.fields.limit,
         });
 

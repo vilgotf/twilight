@@ -68,7 +68,7 @@ impl<'a> CreateWebhook<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<Webhook> {
         let mut request = Request::builder(Route::CreateWebhook {
-            channel_id: self.channel_id.0.get(),
+            channel_id: self.channel_id.get(),
         });
 
         request = match request.json(&self.fields) {

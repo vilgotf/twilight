@@ -161,8 +161,8 @@ impl<'a> UpdateGuildMember<'a> {
 
     fn request(&self) -> Result<Request<'a>, HttpError> {
         let mut request = Request::builder(Route::UpdateMember {
-            guild_id: self.guild_id.0.get(),
-            user_id: self.user_id.0.get(),
+            guild_id: self.guild_id.get(),
+            user_id: self.user_id.get(),
         })
         .json(&self.fields)?;
 
@@ -229,8 +229,8 @@ mod tests {
             roles: None,
         };
         let route = Route::UpdateMember {
-            guild_id: GUILD_ID.0.get(),
-            user_id: USER_ID.0.get(),
+            guild_id: GUILD_ID.get(),
+            user_id: USER_ID.get(),
         };
         let expected = Request::builder(route).json(&body)?.build();
 
@@ -254,8 +254,8 @@ mod tests {
             roles: None,
         };
         let route = Route::UpdateMember {
-            guild_id: GUILD_ID.0.get(),
-            user_id: USER_ID.0.get(),
+            guild_id: GUILD_ID.get(),
+            user_id: USER_ID.get(),
         };
         let expected = Request::builder(route).json(&body)?.build();
 
@@ -278,8 +278,8 @@ mod tests {
             roles: None,
         };
         let route = Route::UpdateMember {
-            guild_id: GUILD_ID.0.get(),
-            user_id: USER_ID.0.get(),
+            guild_id: GUILD_ID.get(),
+            user_id: USER_ID.get(),
         };
         let expected = Request::builder(route).json(&body)?.build();
 

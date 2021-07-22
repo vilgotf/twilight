@@ -166,9 +166,9 @@ impl<'a> GetAuditLog<'a> {
         let request = Request::from_route(Route::GetAuditLogs {
             action_type: self.fields.action_type.map(|x| x as u64),
             before: self.fields.before,
-            guild_id: self.guild_id.0.get(),
+            guild_id: self.guild_id.get(),
             limit: self.fields.limit,
-            user_id: self.fields.user_id.map(|x| x.0.get()),
+            user_id: self.fields.user_id.map(|x| x.get()),
         });
 
         self.http.request(request)

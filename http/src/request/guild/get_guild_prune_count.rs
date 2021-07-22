@@ -123,7 +123,7 @@ impl<'a> GetGuildPruneCount<'a> {
     pub fn exec(self) -> ResponseFuture<GuildPrune> {
         let request = Request::from_route(Route::GetGuildPruneCount {
             days: self.fields.days,
-            guild_id: self.guild_id.0.get(),
+            guild_id: self.guild_id.get(),
             include_roles: self.fields.include_roles,
         });
 

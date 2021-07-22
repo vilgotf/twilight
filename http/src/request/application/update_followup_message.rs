@@ -326,9 +326,9 @@ impl<'a> UpdateFollowupMessage<'a> {
     // being consumed in request construction.
     fn request(&mut self) -> Result<Request<'a>, HttpError> {
         let mut request = Request::builder(Route::UpdateWebhookMessage {
-            message_id: self.message_id.0.get(),
+            message_id: self.message_id.get(),
             token: self.token,
-            webhook_id: self.application_id.0.get(),
+            webhook_id: self.application_id.get(),
         });
 
         if !self.files.is_empty() || self.fields.payload_json.is_some() {

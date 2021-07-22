@@ -56,9 +56,9 @@ impl<'a> CreateReaction<'a> {
 
     const fn request(&self) -> Request<'a> {
         Request::from_route(Route::CreateReaction {
-            channel_id: self.channel_id.0.get(),
+            channel_id: self.channel_id.get(),
             emoji: self.emoji,
-            message_id: self.message_id.0.get(),
+            message_id: self.message_id.get(),
         })
     }
 

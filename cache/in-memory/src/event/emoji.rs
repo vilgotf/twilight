@@ -92,7 +92,7 @@ mod tests {
 
         // The user to do some of the inserts
         fn user_mod(id: EmojiId) -> Option<User> {
-            if id.0.get() % 2 == 0 {
+            if id.get() % 2 == 0 {
                 // Only use user for half
                 Some(test::user(UserId::new(1).expect("non zero")))
             } else {

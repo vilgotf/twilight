@@ -198,7 +198,7 @@ impl Client {
         let prev = self
             .state
             .application_id
-            .swap(application_id.0.get(), Ordering::Relaxed);
+            .swap(application_id.get(), Ordering::Relaxed);
 
         if prev != 0 {
             return Some(ApplicationId::new(prev).expect("non zero"));

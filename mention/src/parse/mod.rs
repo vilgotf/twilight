@@ -32,8 +32,8 @@
 //! use twilight_model::id::UserId;
 //!
 //! let mut iter = UserId::iter("these <@123> are <#456> mentions <@789>");
-//! assert!(matches!(iter.next(), Some((user, _, _)) if user.0.get() == 123));
-//! assert!(matches!(iter.next(), Some((user, _, _)) if user.0.get() == 789));
+//! assert!(matches!(iter.next(), Some((user, _, _)) if user.get() == 123));
+//! assert!(matches!(iter.next(), Some((user, _, _)) if user.get() == 789));
 //! assert!(iter.next().is_none());
 //! ```
 //!
@@ -109,15 +109,15 @@ use twilight_model::id::{ChannelId, EmojiId, RoleId, UserId};
 /// let buf = "channel <#12> emoji <:name:34> role <@&56> timestamp <t:1624047978> user <@78>";
 ///
 /// let mut iter = MentionType::iter(buf);
-/// assert!(matches!(iter.next(), Some((MentionType::Channel(channel), _, _)) if channel.0.get() == 12));
-/// assert!(matches!(iter.next(), Some((MentionType::Emoji(emoji), _, _)) if emoji.0.get() == 34));
-/// assert!(matches!(iter.next(), Some((MentionType::Role(role), _, _)) if role.0.get() == 56));
+/// assert!(matches!(iter.next(), Some((MentionType::Channel(channel), _, _)) if channel.get() == 12));
+/// assert!(matches!(iter.next(), Some((MentionType::Emoji(emoji), _, _)) if emoji.get() == 34));
+/// assert!(matches!(iter.next(), Some((MentionType::Role(role), _, _)) if role.get() == 56));
 /// assert!(matches!(
 ///     iter.next(),
 ///     Some((MentionType::Timestamp(timestamp), _, _))
 ///     if timestamp.unix() == 1_624_047_978 && timestamp.style().is_none()
 /// ));
-/// assert!(matches!(iter.next(), Some((MentionType::User(user), _, _)) if user.0.get() == 78));
+/// assert!(matches!(iter.next(), Some((MentionType::User(user), _, _)) if user.get() == 78));
 /// assert!(iter.next().is_none());
 /// ```
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

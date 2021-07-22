@@ -51,7 +51,7 @@ impl<'a> DeleteOriginalResponse<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<EmptyBody> {
         let request = Request::from_route(Route::DeleteInteractionOriginal {
-            application_id: self.application_id.0.get(),
+            application_id: self.application_id.get(),
             interaction_token: self.token,
         });
 

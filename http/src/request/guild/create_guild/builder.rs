@@ -715,7 +715,7 @@ impl GuildChannelFieldsBuilder {
             .find(|c| matches!(c, GuildChannelFields::Category(_)))
             .map_or(ChannelId::new(1).expect("non zero"), GuildChannelFields::id);
 
-        let mut channels = channel.build(ChannelId::new(last_id.0.get() + 1).expect("non zero"));
+        let mut channels = channel.build(ChannelId::new(last_id.get() + 1).expect("non zero"));
 
         self.0.append(&mut channels);
 

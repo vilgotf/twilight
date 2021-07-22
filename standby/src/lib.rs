@@ -1027,7 +1027,7 @@ mod tests {
         let standby = Standby::new();
         let mut stream = standby.wait_for_stream(
             GuildId::new(1).expect("non zero"),
-            |event: &Event| matches!(event, Event::RoleDelete(e) if e.guild_id.0.get() == 1),
+            |event: &Event| matches!(event, Event::RoleDelete(e) if e.guild_id.get() == 1),
         );
         standby.process(&Event::RoleDelete(RoleDelete {
             guild_id: GuildId::new(1).expect("non zero"),

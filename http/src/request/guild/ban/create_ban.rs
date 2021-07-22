@@ -133,9 +133,9 @@ impl<'a> CreateBan<'a> {
     pub fn exec(self) -> ResponseFuture<EmptyBody> {
         let request = Request::from_route(Route::CreateBan {
             delete_message_days: self.fields.delete_message_days,
-            guild_id: self.guild_id.0.get(),
+            guild_id: self.guild_id.get(),
             reason: self.fields.reason,
-            user_id: self.user_id.0.get(),
+            user_id: self.user_id.get(),
         });
 
         self.http.request(request)

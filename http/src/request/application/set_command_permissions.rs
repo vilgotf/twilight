@@ -94,8 +94,8 @@ impl<'a> SetCommandPermissions<'a> {
 
     fn request(&self) -> Result<Request<'a>, Error> {
         Request::builder(Route::SetCommandPermissions {
-            application_id: self.application_id.0.get(),
-            guild_id: self.guild_id.0.get(),
+            application_id: self.application_id.get(),
+            guild_id: self.guild_id.get(),
         })
         .json(&PermissionListSerializer {
             inner: self.permissions,

@@ -40,7 +40,7 @@ impl<'a> GetEmojis<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<ListBody<Emoji>> {
         let request = Request::from_route(Route::GetEmojis {
-            guild_id: self.guild_id.0.get(),
+            guild_id: self.guild_id.get(),
         });
 
         self.http.request(request)

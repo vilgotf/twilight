@@ -224,7 +224,7 @@ impl<'a> CreateFollowupMessage<'a> {
         let mut request = Request::builder(Route::ExecuteWebhook {
             token: self.token,
             wait: None,
-            webhook_id: self.application_id.0.get(),
+            webhook_id: self.application_id.get(),
         });
 
         if !self.files.is_empty() || self.fields.payload_json.is_some() {

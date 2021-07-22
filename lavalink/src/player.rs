@@ -179,7 +179,7 @@ impl Player {
     /// Sets the channel ID the player is currently connected to.
     pub(crate) fn set_channel_id(&self, channel_id: Option<ChannelId>) {
         self.0.channel_id.store(
-            channel_id.map(|id| id.0.get()).unwrap_or(0_u64),
+            channel_id.map(|id| id.get()).unwrap_or(0_u64),
             Ordering::Release,
         );
     }

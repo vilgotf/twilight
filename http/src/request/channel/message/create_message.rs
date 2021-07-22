@@ -297,7 +297,7 @@ impl<'a> CreateMessage<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<Message> {
         let mut request = Request::builder(Route::CreateMessage {
-            channel_id: self.channel_id.0.get(),
+            channel_id: self.channel_id.get(),
         });
 
         if !self.files.is_empty() || self.fields.payload_json.is_some() {

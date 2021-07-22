@@ -140,7 +140,7 @@ impl<'a> SearchGuildMembers<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<MemberListBody> {
         let request = Request::from_route(Route::SearchGuildMembers {
-            guild_id: self.guild_id.0.get(),
+            guild_id: self.guild_id.get(),
             limit: self.fields.limit,
             query: self.fields.query,
         });

@@ -21,9 +21,9 @@ use std::{iter::Iterator, marker::PhantomData, str::CharIndices};
 ///
 /// let buf = "<@123> some <@456> users <@789>!";
 /// let mut iter = UserId::iter(buf);
-/// assert!(matches!(iter.next(), Some((user, _, _)) if user.0.get() == 123));
-/// assert!(matches!(iter.next(), Some((user, _, _)) if user.0.get() == 456));
-/// assert!(matches!(iter.next(), Some((user, _, _)) if user.0.get() == 789));
+/// assert!(matches!(iter.next(), Some((user, _, _)) if user.get() == 123));
+/// assert!(matches!(iter.next(), Some((user, _, _)) if user.get() == 456));
+/// assert!(matches!(iter.next(), Some((user, _, _)) if user.get() == 789));
 /// ```
 #[derive(Clone, Debug)]
 pub struct MentionIter<'a, T> {

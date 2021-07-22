@@ -211,7 +211,7 @@ impl<'a> ExecuteWebhook<'a> {
         let mut request = Request::builder(Route::ExecuteWebhook {
             token: self.token,
             wait: Some(wait),
-            webhook_id: self.webhook_id.0.get(),
+            webhook_id: self.webhook_id.get(),
         });
 
         // Webhook executions don't need the authorization token, only the

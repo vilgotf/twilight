@@ -35,7 +35,7 @@ impl<'a> GetChannel<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<Channel> {
         let request = Request::from_route(Route::GetChannel {
-            channel_id: self.channel_id.0.get(),
+            channel_id: self.channel_id.get(),
         });
 
         self.http.request(request)

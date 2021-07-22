@@ -83,91 +83,91 @@ pub trait Snowflake {
 
 impl Snowflake for ApplicationId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for AttachmentId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for AuditLogEntryId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for ChannelId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for CommandId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for EmojiId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for GenericId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for GuildId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for IntegrationId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for InteractionId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for MessageId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for RoleId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for StageId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for UserId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 
 impl Snowflake for WebhookId {
     fn id(&self) -> u64 {
-        self.0.get()
+        self.get()
     }
 }
 

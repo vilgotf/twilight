@@ -39,10 +39,10 @@ impl<'a> UpdateChannelPermissionConfigured<'a> {
     ) -> Self {
         let (name, target_id) = match target {
             PermissionOverwriteType::Member(user_id) => {
-                (PermissionOverwriteTargetType::Member, user_id.0.get())
+                (PermissionOverwriteTargetType::Member, user_id.get())
             }
             PermissionOverwriteType::Role(role_id) => {
-                (PermissionOverwriteTargetType::Role, role_id.0.get())
+                (PermissionOverwriteTargetType::Role, role_id.get())
             }
         };
 
@@ -61,7 +61,7 @@ impl<'a> UpdateChannelPermissionConfigured<'a> {
 
     fn request(&self) -> Result<Request<'a>, Error> {
         let mut request = Request::builder(Route::UpdatePermissionOverwrite {
-            channel_id: self.channel_id.0.get(),
+            channel_id: self.channel_id.get(),
             target_id: self.target_id,
         })
         .json(&self.fields)?;

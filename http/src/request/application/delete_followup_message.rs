@@ -47,9 +47,9 @@ impl<'a> DeleteFollowupMessage<'a> {
 
     const fn request(self) -> Request<'a> {
         Request::from_route(Route::DeleteWebhookMessage {
-            message_id: self.message_id.0.get(),
+            message_id: self.message_id.get(),
             token: self.token,
-            webhook_id: self.application_id.0.get(),
+            webhook_id: self.application_id.get(),
         })
     }
 
