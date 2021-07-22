@@ -151,7 +151,6 @@ mod tests {
     use serde::de::DeserializeSeed;
     use serde_json::Deserializer;
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     #[allow(clippy::too_many_lines)]
@@ -185,10 +184,10 @@ mod tests {
                 mobile: None,
                 web: None,
             },
-            guild_id: GuildId(NonZeroU64::new(2).expect("non zero")),
+            guild_id: GuildId::new(2).expect("non zero"),
             status: Status::Online,
             user: UserOrId::UserId {
-                id: UserId(NonZeroU64::new(1).expect("non zero")),
+                id: UserId::new(1).expect("non zero"),
             },
         };
 
@@ -289,16 +288,15 @@ mod tests {
                 mobile: None,
                 web: None,
             },
-            guild_id: GuildId(NonZeroU64::new(2).expect("non zero")),
+            guild_id: GuildId::new(2).expect("non zero"),
             status: Status::Online,
             user: UserOrId::UserId {
-                id: UserId(NonZeroU64::new(1).expect("non zero")),
+                id: UserId::new(1).expect("non zero"),
             },
         }]);
 
         let mut json_deserializer = Deserializer::from_str(input);
-        let deserializer =
-            PresenceListDeserializer::new(GuildId(NonZeroU64::new(2).expect("non zero")));
+        let deserializer = PresenceListDeserializer::new(GuildId::new(2).expect("non zero"));
         let actual = deserializer.deserialize(&mut json_deserializer).unwrap();
 
         assert_eq!(actual, expected);

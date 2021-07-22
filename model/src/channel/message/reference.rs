@@ -17,12 +17,11 @@ pub struct MessageReference {
 mod tests {
     use super::{ChannelId, GuildId, MessageId, MessageReference};
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     fn test_minimal() {
         let value = MessageReference {
-            channel_id: Some(ChannelId(NonZeroU64::new(1).expect("non zero"))),
+            channel_id: Some(ChannelId::new(1).expect("non zero")),
             guild_id: None,
             message_id: None,
             fail_if_not_exists: None,
@@ -47,9 +46,9 @@ mod tests {
     #[test]
     fn test_complete() {
         let value = MessageReference {
-            channel_id: Some(ChannelId(NonZeroU64::new(1).expect("non zero"))),
-            guild_id: Some(GuildId(NonZeroU64::new(2).expect("non zero"))),
-            message_id: Some(MessageId(NonZeroU64::new(3).expect("non zero"))),
+            channel_id: Some(ChannelId::new(1).expect("non zero")),
+            guild_id: Some(GuildId::new(2).expect("non zero")),
+            message_id: Some(MessageId::new(3).expect("non zero")),
             fail_if_not_exists: Some(false),
         };
 

@@ -96,7 +96,6 @@ impl<'a> AuditLogReason<'a> for UpdateChannelPermissionConfigured<'a> {
 mod tests {
     use super::{UpdateChannelPermissionConfigured, UpdateChannelPermissionConfiguredFields};
     use crate::{request::Request, routing::Route, Client};
-    use std::num::NonZeroU64;
     use twilight_model::{
         channel::permission_overwrite::{PermissionOverwriteTargetType, PermissionOverwriteType},
         guild::Permissions,
@@ -108,10 +107,10 @@ mod tests {
         let client = Client::new("foo".to_owned());
         let builder = UpdateChannelPermissionConfigured::new(
             &client,
-            ChannelId(NonZeroU64::new(1).expect("non zero")),
+            ChannelId::new(1).expect("non zero"),
             Permissions::empty(),
             Permissions::SEND_MESSAGES,
-            PermissionOverwriteType::Member(UserId(NonZeroU64::new(2).expect("non zero"))),
+            PermissionOverwriteType::Member(UserId::new(2).expect("non zero")),
         );
         let actual = builder.request().expect("failed to create request");
 

@@ -78,15 +78,14 @@ struct GetChannelMessagesFields {
 /// # Examples
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::{ChannelId, MessageId};
 ///
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
-/// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
-/// let message_id = MessageId(NonZeroU64::new(234).expect("non zero"));
+/// let channel_id = ChannelId::new(123).expect("non zero");
+/// let message_id = MessageId::new(234).expect("non zero");
 ///
 /// let messages = client
 ///     .channel_messages(channel_id)

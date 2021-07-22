@@ -121,7 +121,6 @@ struct UpdateWebhookMessageFields<'a> {
 ///
 /// ```no_run
 /// # use twilight_http::Client;
-/// use std::num::NonZeroU64;
 /// use twilight_model::{
 ///     channel::message::AllowedMentions,
 ///     id::{MessageId, WebhookId}
@@ -130,7 +129,7 @@ struct UpdateWebhookMessageFields<'a> {
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// # let client = Client::new("token".to_owned());
-/// client.update_webhook_message(WebhookId(NonZeroU64::new(1).expect("non zero")), "token here", MessageId(NonZeroU64::new(2).expect("non zero")))
+/// client.update_webhook_message(WebhookId::new(1).expect("non zero"), "token here", MessageId::new(2).expect("non zero"))
 ///     // By creating a default set of allowed mentions, no entity can be
 ///     // mentioned.
 ///     .allowed_mentions(AllowedMentions::default())
@@ -242,7 +241,6 @@ impl<'a> UpdateWebhookMessage<'a> {
     ///
     /// ```no_run
     /// # use twilight_http::Client;
-    /// use std::num::NonZeroU64;
     /// use twilight_embed_builder::EmbedBuilder;
     /// use twilight_model::id::{MessageId, WebhookId};
     ///
@@ -254,7 +252,7 @@ impl<'a> UpdateWebhookMessage<'a> {
     ///     .url("https://twilight.rs")
     ///     .build()?;
     ///
-    /// client.update_webhook_message(WebhookId(NonZeroU64::new(1).expect("non zero")), "token", MessageId(NonZeroU64::new(2).expect("non zero")))
+    /// client.update_webhook_message(WebhookId::new(1).expect("non zero"), "token", MessageId::new(2).expect("non zero"))
     ///     .embeds(Some(&[embed]))?
     ///     .exec()
     ///     .await?;
@@ -393,7 +391,6 @@ mod tests {
         request::{AuditLogReason, NullableField, Request},
         routing::Route,
     };
-    use std::num::NonZeroU64;
     use twilight_model::id::{MessageId, WebhookId};
 
     #[test]
@@ -401,9 +398,9 @@ mod tests {
         let client = Client::new("token".to_owned());
         let mut builder = UpdateWebhookMessage::new(
             &client,
-            WebhookId(NonZeroU64::new(1).expect("non zero")),
+            WebhookId::new(1).expect("non zero"),
             "token",
-            MessageId(NonZeroU64::new(2).expect("non zero")),
+            MessageId::new(2).expect("non zero"),
         )
         .content(Some("test"))
         .expect("'test' content couldn't be set")

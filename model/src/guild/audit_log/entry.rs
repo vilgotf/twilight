@@ -39,7 +39,7 @@ mod tests {
     use serde::{Deserialize, Serialize};
     use serde_test::Token;
     use static_assertions::{assert_fields, assert_impl_all};
-    use std::{fmt::Debug, hash::Hash, num::NonZeroU64};
+    use std::{fmt::Debug, hash::Hash};
 
     assert_fields!(
         AuditLogEntry: action_type,
@@ -73,11 +73,11 @@ mod tests {
                 new: None,
                 old: Some(OLD.to_owned()),
             }]),
-            id: AuditLogEntryId(NonZeroU64::new(3).expect("non zero")),
+            id: AuditLogEntryId::new(3).expect("non zero"),
             options: None,
             reason: Some("some reason".to_owned()),
-            target_id: Some(GenericId(NonZeroU64::new(2).expect("non zero"))),
-            user_id: Some(UserId(NonZeroU64::new(1).expect("non zero"))),
+            target_id: Some(GenericId::new(2).expect("non zero")),
+            user_id: Some(UserId::new(1).expect("non zero")),
         };
 
         serde_test::assert_tokens(

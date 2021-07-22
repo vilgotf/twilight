@@ -12,7 +12,6 @@ use twilight_model::id::{MessageId, WebhookId};
 /// # Examples
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// # use twilight_http::Client;
 /// use twilight_http::request::AuditLogReason;
 /// use twilight_model::id::{MessageId, WebhookId};
@@ -21,7 +20,7 @@ use twilight_model::id::{MessageId, WebhookId};
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// # let client = Client::new("token".to_owned());
 /// client
-///     .delete_webhook_message(WebhookId(NonZeroU64::new(1).expect("non zero")), "token here", MessageId(NonZeroU64::new(2).expect("non zero")))
+///     .delete_webhook_message(WebhookId::new(1).expect("non zero"), "token here", MessageId::new(2).expect("non zero"))
 ///     .reason("reason here")?
 ///     .exec()
 ///     .await?;
@@ -91,7 +90,6 @@ impl<'a> AuditLogReason<'a> for DeleteWebhookMessage<'a> {
 mod tests {
     use super::DeleteWebhookMessage;
     use crate::{client::Client, request::Request, routing::Route};
-    use std::num::NonZeroU64;
     use twilight_model::id::{MessageId, WebhookId};
 
     #[test]
@@ -99,9 +97,9 @@ mod tests {
         let client = Client::new("token".to_owned());
         let builder = DeleteWebhookMessage::new(
             &client,
-            WebhookId(NonZeroU64::new(1).expect("non zero")),
+            WebhookId::new(1).expect("non zero"),
             "token",
-            MessageId(NonZeroU64::new(2).expect("non zero")),
+            MessageId::new(2).expect("non zero"),
         );
         let actual = builder.request().expect("failed to create request");
 

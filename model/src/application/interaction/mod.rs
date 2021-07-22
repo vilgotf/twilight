@@ -242,16 +242,15 @@ mod test {
         user::User,
     };
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     #[allow(clippy::too_many_lines)]
     fn test_interaction_full() {
         let value = Interaction::ApplicationCommand(Box::new(ApplicationCommand {
-            application_id: ApplicationId(NonZeroU64::new(100).expect("non zero")),
-            channel_id: ChannelId(NonZeroU64::new(200).expect("non zero")),
+            application_id: ApplicationId::new(100).expect("non zero"),
+            channel_id: ChannelId::new(200).expect("non zero"),
             data: CommandData {
-                id: CommandId(NonZeroU64::new(300).expect("non zero")),
+                id: CommandId::new(300).expect("non zero"),
                 name: "command name".into(),
                 options: vec![CommandDataOption::String {
                     name: "member".into(),
@@ -267,7 +266,7 @@ mod test {
                         discriminator: "1111".into(),
                         email: None,
                         flags: None,
-                        id: UserId(NonZeroU64::new(600).expect("non zero")),
+                        id: UserId::new(600).expect("non zero"),
                         locale: None,
                         mfa_enabled: None,
                         name: "username".into(),
@@ -278,8 +277,8 @@ mod test {
                     }],
                 }),
             },
-            guild_id: Some(GuildId(NonZeroU64::new(400).expect("non zero"))),
-            id: InteractionId(NonZeroU64::new(500).expect("non zero")),
+            guild_id: Some(GuildId::new(400).expect("non zero")),
+            id: InteractionId::new(500).expect("non zero"),
             kind: InteractionType::ApplicationCommand,
             member: Some(PartialMember {
                 deaf: false,
@@ -295,7 +294,7 @@ mod test {
                     discriminator: "1111".into(),
                     email: None,
                     flags: None,
-                    id: UserId(NonZeroU64::new(600).expect("non zero")),
+                    id: UserId::new(600).expect("non zero"),
                     locale: None,
                     mfa_enabled: None,
                     name: "username".into(),

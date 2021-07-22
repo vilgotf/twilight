@@ -430,26 +430,25 @@ mod tests {
         channel::permission_overwrite::PermissionOverwrite,
         id::{ChannelId, GuildId, MessageId, UserId},
     };
-    use std::num::NonZeroU64;
 
     fn group() -> Group {
         Group {
             application_id: None,
             icon: None,
-            id: ChannelId(NonZeroU64::new(123).expect("non zero")),
+            id: ChannelId::new(123).expect("non zero"),
             kind: ChannelType::Group,
             last_message_id: None,
             last_pin_timestamp: None,
             name: Some("a group".to_owned()),
-            owner_id: UserId(NonZeroU64::new(456).expect("non zero")),
+            owner_id: UserId::new(456).expect("non zero"),
             recipients: Vec::new(),
         }
     }
 
     fn guild_category() -> CategoryChannel {
         CategoryChannel {
-            guild_id: Some(GuildId(NonZeroU64::new(321).expect("non zero"))),
-            id: ChannelId(NonZeroU64::new(123).expect("non zero")),
+            guild_id: Some(GuildId::new(321).expect("non zero")),
+            id: ChannelId::new(123).expect("non zero"),
             kind: ChannelType::GuildCategory,
             name: "category".to_owned(),
             permission_overwrites: Vec::new(),
@@ -459,8 +458,8 @@ mod tests {
 
     fn guild_text() -> TextChannel {
         TextChannel {
-            guild_id: Some(GuildId(NonZeroU64::new(321).expect("non zero"))),
-            id: ChannelId(NonZeroU64::new(456).expect("non zero")),
+            guild_id: Some(GuildId::new(321).expect("non zero")),
+            id: ChannelId::new(456).expect("non zero"),
             kind: ChannelType::GuildText,
             last_message_id: None,
             last_pin_timestamp: None,
@@ -477,8 +476,8 @@ mod tests {
     fn guild_voice() -> VoiceChannel {
         VoiceChannel {
             bitrate: 1000,
-            guild_id: Some(GuildId(NonZeroU64::new(321).expect("non zero"))),
-            id: ChannelId(NonZeroU64::new(789).expect("non zero")),
+            guild_id: Some(GuildId::new(321).expect("non zero")),
+            id: ChannelId::new(789).expect("non zero"),
             kind: ChannelType::GuildVoice,
             name: "voice".to_owned(),
             permission_overwrites: Vec::new(),
@@ -493,8 +492,8 @@ mod tests {
     fn guild_stage() -> VoiceChannel {
         VoiceChannel {
             bitrate: 1000,
-            guild_id: Some(GuildId(NonZeroU64::new(321).expect("non zero"))),
-            id: ChannelId(NonZeroU64::new(789).expect("non zero")),
+            guild_id: Some(GuildId::new(321).expect("non zero")),
+            id: ChannelId::new(789).expect("non zero"),
             kind: ChannelType::GuildStageVoice,
             name: "stage".to_owned(),
             permission_overwrites: Vec::new(),
@@ -508,7 +507,7 @@ mod tests {
 
     fn private() -> PrivateChannel {
         PrivateChannel {
-            id: ChannelId(NonZeroU64::new(234).expect("non zero")),
+            id: ChannelId::new(234).expect("non zero"),
             last_message_id: None,
             last_pin_timestamp: None,
             kind: ChannelType::Private,
@@ -520,27 +519,27 @@ mod tests {
     fn test_channel_helpers() {
         assert_eq!(
             Channel::Group(group()).id(),
-            ChannelId(NonZeroU64::new(123).expect("non zero"))
+            ChannelId::new(123).expect("non zero")
         );
         assert_eq!(
             Channel::Guild(GuildChannel::Category(guild_category())).id(),
-            ChannelId(NonZeroU64::new(123).expect("non zero"))
+            ChannelId::new(123).expect("non zero")
         );
         assert_eq!(
             Channel::Guild(GuildChannel::Text(guild_text())).id(),
-            ChannelId(NonZeroU64::new(456).expect("non zero"))
+            ChannelId::new(456).expect("non zero")
         );
         assert_eq!(
             Channel::Guild(GuildChannel::Voice(guild_voice())).id(),
-            ChannelId(NonZeroU64::new(789).expect("non zero"))
+            ChannelId::new(789).expect("non zero")
         );
         assert_eq!(
             Channel::Guild(GuildChannel::Stage(guild_stage())).id(),
-            ChannelId(NonZeroU64::new(789).expect("non zero"))
+            ChannelId::new(789).expect("non zero")
         );
         assert_eq!(
             Channel::Private(private()).id(),
-            ChannelId(NonZeroU64::new(234).expect("non zero"))
+            ChannelId::new(234).expect("non zero")
         );
     }
 
@@ -573,19 +572,19 @@ mod tests {
     fn test_guild_channel_guild_id() {
         assert_eq!(
             GuildChannel::Category(guild_category()).guild_id(),
-            Some(GuildId(NonZeroU64::new(321).expect("non zero")))
+            Some(GuildId::new(321).expect("non zero"))
         );
         assert_eq!(
             GuildChannel::Text(guild_text()).guild_id(),
-            Some(GuildId(NonZeroU64::new(321).expect("non zero")))
+            Some(GuildId::new(321).expect("non zero"))
         );
         assert_eq!(
             GuildChannel::Voice(guild_voice()).guild_id(),
-            Some(GuildId(NonZeroU64::new(321).expect("non zero")))
+            Some(GuildId::new(321).expect("non zero"))
         );
         assert_eq!(
             GuildChannel::Stage(guild_stage()).guild_id(),
-            Some(GuildId(NonZeroU64::new(321).expect("non zero")))
+            Some(GuildId::new(321).expect("non zero"))
         );
     }
 
@@ -593,19 +592,19 @@ mod tests {
     fn test_guild_channel_id() {
         assert_eq!(
             GuildChannel::Category(guild_category()).id(),
-            ChannelId(NonZeroU64::new(123).expect("non zero"))
+            ChannelId::new(123).expect("non zero")
         );
         assert_eq!(
             GuildChannel::Text(guild_text()).id(),
-            ChannelId(NonZeroU64::new(456).expect("non zero"))
+            ChannelId::new(456).expect("non zero")
         );
         assert_eq!(
             GuildChannel::Voice(guild_voice()).id(),
-            ChannelId(NonZeroU64::new(789).expect("non zero"))
+            ChannelId::new(789).expect("non zero")
         );
         assert_eq!(
             GuildChannel::Stage(guild_stage()).id(),
-            ChannelId(NonZeroU64::new(789).expect("non zero"))
+            ChannelId::new(789).expect("non zero")
         );
     }
 
@@ -649,10 +648,10 @@ mod tests {
         });
 
         let value = GuildChannel::Text(TextChannel {
-            guild_id: Some(GuildId(NonZeroU64::new(1).expect("non zero"))),
-            id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+            guild_id: Some(GuildId::new(1).expect("non zero")),
+            id: ChannelId::new(2).expect("non zero"),
             kind: ChannelType::GuildText,
-            last_message_id: Some(MessageId(NonZeroU64::new(3).expect("non zero"))),
+            last_message_id: Some(MessageId::new(3).expect("non zero")),
             last_pin_timestamp: None,
             name: "hey".to_owned(),
             nsfw: false,
@@ -669,8 +668,8 @@ mod tests {
     #[test]
     fn test_guild_category_channel_deserialization() {
         let value = GuildChannel::Category(CategoryChannel {
-            id: ChannelId(NonZeroU64::new(1).expect("non zero")),
-            guild_id: Some(GuildId(NonZeroU64::new(2).expect("non zero"))),
+            id: ChannelId::new(1).expect("non zero"),
+            guild_id: Some(GuildId::new(2).expect("non zero")),
             kind: ChannelType::GuildCategory,
             name: "foo".to_owned(),
             permission_overwrites: Vec::new(),
@@ -697,15 +696,15 @@ mod tests {
     #[test]
     fn test_guild_news_channel_deserialization() {
         let value = GuildChannel::Text(TextChannel {
-            id: ChannelId(NonZeroU64::new(1).expect("non zero")),
-            guild_id: Some(GuildId(NonZeroU64::new(2).expect("non zero"))),
+            id: ChannelId::new(1).expect("non zero"),
+            guild_id: Some(GuildId::new(2).expect("non zero")),
             kind: ChannelType::GuildNews,
-            last_message_id: Some(MessageId(NonZeroU64::new(4).expect("non zero"))),
+            last_message_id: Some(MessageId::new(4).expect("non zero")),
             last_pin_timestamp: None,
             name: "news".to_owned(),
             nsfw: true,
             permission_overwrites: Vec::new(),
-            parent_id: Some(ChannelId(NonZeroU64::new(5).expect("non zero"))),
+            parent_id: Some(ChannelId::new(5).expect("non zero")),
             position: 3,
             rate_limit_per_user: None,
             topic: Some("a news channel".to_owned()),
@@ -733,8 +732,8 @@ mod tests {
     #[test]
     fn test_guild_store_channel_deserialization() {
         let value = GuildChannel::Text(TextChannel {
-            id: ChannelId(NonZeroU64::new(1).expect("non zero")),
-            guild_id: Some(GuildId(NonZeroU64::new(2).expect("non zero"))),
+            id: ChannelId::new(1).expect("non zero"),
+            guild_id: Some(GuildId::new(2).expect("non zero")),
             kind: ChannelType::GuildStore,
             last_message_id: None,
             last_pin_timestamp: None,

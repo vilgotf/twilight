@@ -1,5 +1,4 @@
 use crate::InMemoryCache;
-use std::num::NonZeroU64;
 use twilight_model::{
     channel::{
         message::{Message, MessageFlags, MessageType},
@@ -26,7 +25,7 @@ pub fn cache_with_message_and_reactions() -> InMemoryCache {
             discriminator: "0001".to_owned(),
             email: None,
             flags: None,
-            id: UserId(NonZeroU64::new(3).expect("non zero")),
+            id: UserId::new(3).expect("non zero"),
             locale: None,
             mfa_enabled: None,
             name: "test".to_owned(),
@@ -35,13 +34,13 @@ pub fn cache_with_message_and_reactions() -> InMemoryCache {
             system: None,
             verified: None,
         },
-        channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+        channel_id: ChannelId::new(2).expect("non zero"),
         content: "ping".to_owned(),
         edited_timestamp: None,
         embeds: Vec::new(),
         flags: Some(MessageFlags::empty()),
-        guild_id: Some(GuildId(NonZeroU64::new(1).expect("non zero"))),
-        id: MessageId(NonZeroU64::new(4).expect("non zero")),
+        guild_id: Some(GuildId::new(1).expect("non zero")),
+        id: MessageId::new(4).expect("non zero"),
         interaction: None,
         kind: MessageType::Regular,
         member: Some(PartialMember {
@@ -71,14 +70,14 @@ pub fn cache_with_message_and_reactions() -> InMemoryCache {
     cache.update(&MessageCreate(msg));
 
     let mut reaction = ReactionAdd(Reaction {
-        channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+        channel_id: ChannelId::new(2).expect("non zero"),
         emoji: ReactionType::Unicode {
             name: "😀".to_owned(),
         },
-        guild_id: Some(GuildId(NonZeroU64::new(1).expect("non zero"))),
+        guild_id: Some(GuildId::new(1).expect("non zero")),
         member: Some(Member {
             deaf: false,
-            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            guild_id: GuildId::new(1).expect("non zero"),
             hoisted_role: None,
             joined_at: None,
             mute: false,
@@ -92,7 +91,7 @@ pub fn cache_with_message_and_reactions() -> InMemoryCache {
                 discriminator: "0001".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(NonZeroU64::new(3).expect("non zero")),
+                id: UserId::new(3).expect("non zero"),
                 locale: None,
                 mfa_enabled: None,
                 name: "test".to_owned(),
@@ -102,15 +101,15 @@ pub fn cache_with_message_and_reactions() -> InMemoryCache {
                 verified: None,
             },
         }),
-        message_id: MessageId(NonZeroU64::new(4).expect("non zero")),
-        user_id: UserId(NonZeroU64::new(3).expect("non zero")),
+        message_id: MessageId::new(4).expect("non zero"),
+        user_id: UserId::new(3).expect("non zero"),
     });
 
     cache.update(&reaction);
 
     reaction.member.replace(Member {
         deaf: false,
-        guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+        guild_id: GuildId::new(1).expect("non zero"),
         hoisted_role: None,
         joined_at: None,
         mute: false,
@@ -124,7 +123,7 @@ pub fn cache_with_message_and_reactions() -> InMemoryCache {
             discriminator: "0002".to_owned(),
             email: None,
             flags: None,
-            id: UserId(NonZeroU64::new(5).expect("non zero")),
+            id: UserId::new(5).expect("non zero"),
             locale: None,
             mfa_enabled: None,
             name: "test".to_owned(),
@@ -134,7 +133,7 @@ pub fn cache_with_message_and_reactions() -> InMemoryCache {
             verified: None,
         },
     });
-    reaction.user_id = UserId(NonZeroU64::new(5).expect("non zero"));
+    reaction.user_id = UserId::new(5).expect("non zero");
 
     cache.update(&reaction);
 
@@ -153,7 +152,7 @@ pub fn current_user(id: u64) -> CurrentUser {
         bot: true,
         discriminator: "9876".to_owned(),
         email: None,
-        id: UserId(NonZeroU64::new(id).expect("non zero")),
+        id: UserId::new(id).expect("non zero"),
         mfa_enabled: true,
         name: "test".to_owned(),
         verified: Some(true),
@@ -178,8 +177,8 @@ pub fn emoji(id: EmojiId, user: Option<User>) -> Emoji {
 }
 
 pub fn guild_channel_text() -> (GuildId, ChannelId, GuildChannel) {
-    let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
-    let channel_id = ChannelId(NonZeroU64::new(2).expect("non zero"));
+    let guild_id = GuildId::new(1).expect("non zero");
+    let channel_id = ChannelId::new(2).expect("non zero");
     let channel = GuildChannel::Text(TextChannel {
         guild_id: Some(guild_id),
         id: channel_id,

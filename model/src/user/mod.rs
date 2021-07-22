@@ -88,7 +88,6 @@ pub struct User {
 mod tests {
     use super::{PremiumType, User, UserFlags, UserId};
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     fn user_tokens(discriminator_token: Token) -> Vec<Token> {
         vec![
@@ -187,7 +186,7 @@ mod tests {
             discriminator: "0001".to_owned(),
             email: Some("address@example.com".to_owned()),
             flags: Some(UserFlags::EARLY_SUPPORTER | UserFlags::VERIFIED_BOT_DEVELOPER),
-            id: UserId(NonZeroU64::new(1).expect("non zero")),
+            id: UserId::new(1).expect("non zero"),
             locale: Some("en-us".to_owned()),
             mfa_enabled: Some(true),
             name: "test".to_owned(),
@@ -215,7 +214,7 @@ mod tests {
             discriminator: "0001".to_owned(),
             email: Some("address@example.com".to_owned()),
             flags: Some(UserFlags::EARLY_SUPPORTER | UserFlags::VERIFIED_BOT_DEVELOPER),
-            id: UserId(NonZeroU64::new(1).expect("non zero")),
+            id: UserId::new(1).expect("non zero"),
             locale: Some("en-us".to_owned()),
             mfa_enabled: Some(true),
             name: "test".to_owned(),

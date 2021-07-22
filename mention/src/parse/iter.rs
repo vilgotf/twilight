@@ -106,7 +106,7 @@ mod tests {
         MentionIter,
     };
     use static_assertions::{assert_impl_all, assert_obj_safe};
-    use std::{fmt::Debug, num::NonZeroU64};
+    use std::fmt::Debug;
     use twilight_model::id::{ChannelId, EmojiId, RoleId, UserId};
 
     assert_impl_all!(MentionIter<'_, ChannelId>: Clone, Debug, Iterator, Send, Sync);
@@ -126,7 +126,7 @@ mod tests {
     fn test_iter_channel_id() {
         let mut iter = ChannelId::iter("<#123>");
         assert_eq!(
-            ChannelId(NonZeroU64::new(123).expect("non zero")),
+            ChannelId::new(123).expect("non zero"),
             iter.next().unwrap().0
         );
         assert!(iter.next().is_none());
@@ -136,12 +136,9 @@ mod tests {
     fn test_iter_multiple_ids() {
         let buf = "one <@123>two<#456><@789> ----";
         let mut iter = UserId::iter(buf);
-        assert_eq!(
-            UserId(NonZeroU64::new(123).expect("non zero")),
-            iter.next().unwrap().0
-        );
+        assert_eq!(UserId::new(123).expect("non zero"), iter.next().unwrap().0);
         let (mention, start, end) = iter.next().unwrap();
-        assert_eq!(UserId(NonZeroU64::new(789).expect("non zero")), mention);
+        assert_eq!(UserId::new(789).expect("non zero"), mention);
         assert_eq!(19, start);
         assert_eq!(24, end);
         assert!(iter.next().is_none());
@@ -150,14 +147,8 @@ mod tests {
     #[test]
     fn test_iter_emoji_ids() {
         let mut iter = EmojiId::iter("some <:name:123> emojis <:emoji:456>");
-        assert_eq!(
-            EmojiId(NonZeroU64::new(123).expect("non zero")),
-            iter.next().unwrap().0
-        );
-        assert_eq!(
-            EmojiId(NonZeroU64::new(456).expect("non zero")),
-            iter.next().unwrap().0
-        );
+        assert_eq!(EmojiId::new(123).expect("non zero"), iter.next().unwrap().0);
+        assert_eq!(EmojiId::new(456).expect("non zero"), iter.next().unwrap().0);
         assert!(iter.next().is_none());
     }
 
@@ -165,23 +156,23 @@ mod tests {
     fn test_iter_mention_type() {
         let mut iter = MentionType::iter("<#12><:name:34><@&56><@!78><@90>");
         assert_eq!(
-            MentionType::Channel(ChannelId(NonZeroU64::new(12).expect("non zero"))),
+            MentionType::Channel(ChannelId::new(12).expect("non zero")),
             iter.next().unwrap().0
         );
         assert_eq!(
-            MentionType::Emoji(EmojiId(NonZeroU64::new(34).expect("non zero"))),
+            MentionType::Emoji(EmojiId::new(34).expect("non zero")),
             iter.next().unwrap().0
         );
         assert_eq!(
-            MentionType::Role(RoleId(NonZeroU64::new(56).expect("non zero"))),
+            MentionType::Role(RoleId::new(56).expect("non zero")),
             iter.next().unwrap().0
         );
         assert_eq!(
-            MentionType::User(UserId(NonZeroU64::new(78).expect("non zero"))),
+            MentionType::User(UserId::new(78).expect("non zero")),
             iter.next().unwrap().0
         );
         assert_eq!(
-            MentionType::User(UserId(NonZeroU64::new(90).expect("non zero"))),
+            MentionType::User(UserId::new(90).expect("non zero")),
             iter.next().unwrap().0
         );
         assert!(iter.next().is_none());
@@ -191,7 +182,7 @@ mod tests {
     fn test_iter_mention_type_with_timestamp() {
         let mut iter = MentionType::iter("<#12> <t:34> <t:56:d>");
         assert_eq!(
-            MentionType::Channel(ChannelId(NonZeroU64::new(12).expect("non zero"))),
+            MentionType::Channel(ChannelId::new(12).expect("non zero")),
             iter.next().unwrap().0
         );
         assert_eq!(
@@ -208,14 +199,8 @@ mod tests {
     #[test]
     fn test_iter_role_ids() {
         let mut iter = RoleId::iter("some <@&123> roles <@&456>");
-        assert_eq!(
-            RoleId(NonZeroU64::new(123).expect("non zero")),
-            iter.next().unwrap().0
-        );
-        assert_eq!(
-            RoleId(NonZeroU64::new(456).expect("non zero")),
-            iter.next().unwrap().0
-        );
+        assert_eq!(RoleId::new(123).expect("non zero"), iter.next().unwrap().0);
+        assert_eq!(RoleId::new(456).expect("non zero"), iter.next().unwrap().0);
         assert!(iter.next().is_none());
     }
 
@@ -233,14 +218,8 @@ mod tests {
     #[test]
     fn test_iter_user_ids() {
         let mut iter = UserId::iter("some <@123>users<@456>");
-        assert_eq!(
-            UserId(NonZeroU64::new(123).expect("non zero")),
-            iter.next().unwrap().0
-        );
-        assert_eq!(
-            UserId(NonZeroU64::new(456).expect("non zero")),
-            iter.next().unwrap().0
-        );
+        assert_eq!(UserId::new(123).expect("non zero"), iter.next().unwrap().0);
+        assert_eq!(UserId::new(456).expect("non zero"), iter.next().unwrap().0);
         assert!(iter.next().is_none());
     }
 

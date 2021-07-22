@@ -45,7 +45,6 @@ mod tests {
     };
     use crate::id::{ApplicationId, RoleId, UserId};
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[allow(clippy::too_many_lines)]
     #[test]
@@ -61,11 +60,11 @@ mod tests {
             expire_behavior: Some(IntegrationExpireBehavior::Kick),
             expire_grace_period: Some(3_600),
             guild_id: None,
-            id: IntegrationId(NonZeroU64::new(2).expect("non zero")),
+            id: IntegrationId::new(2).expect("non zero"),
             kind: "a".to_owned(),
             name: "integration name".to_owned(),
             revoked: Some(false),
-            role_id: Some(RoleId(NonZeroU64::new(3).expect("non zero"))),
+            role_id: Some(RoleId::new(3).expect("non zero")),
             subscriber_count: Some(1337),
             synced_at: Some("timestamp".to_owned()),
             syncing: Some(false),
@@ -75,7 +74,7 @@ mod tests {
                 discriminator: "1000".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(NonZeroU64::new(4).expect("non zero")),
+                id: UserId::new(4).expect("non zero"),
                 locale: None,
                 mfa_enabled: None,
                 name: "user".to_owned(),
@@ -175,7 +174,7 @@ mod tests {
                 bot: None,
                 description: "Friendship is Magic".to_string(),
                 icon: None,
-                id: ApplicationId(NonZeroU64::new(123).expect("non zero")),
+                id: ApplicationId::new(123).expect("non zero"),
                 name: "Twilight".to_string(),
                 summary: "A cool pony".to_string(),
             }),
@@ -184,11 +183,11 @@ mod tests {
             expire_behavior: Some(IntegrationExpireBehavior::Kick),
             expire_grace_period: Some(3_600),
             guild_id: None,
-            id: IntegrationId(NonZeroU64::new(2).expect("non zero")),
+            id: IntegrationId::new(2).expect("non zero"),
             kind: "a".to_owned(),
             name: "integration name".to_owned(),
             revoked: Some(false),
-            role_id: Some(RoleId(NonZeroU64::new(3).expect("non zero"))),
+            role_id: Some(RoleId::new(3).expect("non zero")),
             subscriber_count: Some(1337),
             synced_at: Some("timestamp".to_owned()),
             syncing: Some(false),
@@ -198,7 +197,7 @@ mod tests {
                 discriminator: "1000".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(NonZeroU64::new(4).expect("non zero")),
+                id: UserId::new(4).expect("non zero"),
                 locale: None,
                 mfa_enabled: None,
                 name: "user".to_owned(),

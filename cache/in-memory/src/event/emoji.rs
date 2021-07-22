@@ -82,8 +82,6 @@ impl UpdateCache for GuildEmojisUpdate {
 
 #[cfg(test)]
 mod tests {
-    use std::num::NonZeroU64;
-
     use super::*;
     use crate::test;
     use twilight_model::{id::UserId, user::User};
@@ -96,7 +94,7 @@ mod tests {
         fn user_mod(id: EmojiId) -> Option<User> {
             if id.0.get() % 2 == 0 {
                 // Only use user for half
-                Some(test::user(UserId(NonZeroU64::new(1).expect("non zero"))))
+                Some(test::user(UserId::new(1).expect("non zero")))
             } else {
                 None
             }
@@ -105,7 +103,7 @@ mod tests {
         // Single inserts
         {
             let guild_1_emoji_ids = (1..=10)
-                .map(|n| EmojiId(NonZeroU64::new(n).expect("non zero")))
+                .map(|n| EmojiId::new(n).expect("non zero"))
                 .collect::<Vec<_>>();
             let guild_1_emoji = guild_1_emoji_ids
                 .iter()
@@ -114,7 +112,7 @@ mod tests {
                 .collect::<Vec<_>>();
 
             for emoji in guild_1_emoji {
-                cache.cache_emoji(GuildId(NonZeroU64::new(1).expect("non zero")), emoji);
+                cache.cache_emoji(GuildId::new(1).expect("non zero"), emoji);
             }
 
             for id in guild_1_emoji_ids.iter().cloned() {
@@ -124,7 +122,7 @@ mod tests {
 
             // Ensure the emoji has been added to the per-guild lookup map to prevent
             // issues like #551 from returning
-            let guild_emojis = cache.guild_emojis(GuildId(NonZeroU64::new(1).expect("non zero")));
+            let guild_emojis = cache.guild_emojis(GuildId::new(1).expect("non zero"));
             assert!(guild_emojis.is_some());
             let guild_emojis = guild_emojis.unwrap();
 
@@ -135,24 +133,21 @@ mod tests {
         // Bulk inserts
         {
             let guild_2_emoji_ids = (11..=20)
-                .map(|n| EmojiId(NonZeroU64::new(n).expect("non zero")))
+                .map(|n| EmojiId::new(n).expect("non zero"))
                 .collect::<Vec<_>>();
             let guild_2_emojis = guild_2_emoji_ids
                 .iter()
                 .copied()
                 .map(|id| test::emoji(id, user_mod(id)))
                 .collect::<Vec<_>>();
-            cache.cache_emojis(
-                GuildId(NonZeroU64::new(2).expect("non zero")),
-                guild_2_emojis,
-            );
+            cache.cache_emojis(GuildId::new(2).expect("non zero"), guild_2_emojis);
 
             for id in guild_2_emoji_ids.iter().cloned() {
                 let global_emoji = cache.emoji(id);
                 assert!(global_emoji.is_some());
             }
 
-            let guild_emojis = cache.guild_emojis(GuildId(NonZeroU64::new(2).expect("non zero")));
+            let guild_emojis = cache.guild_emojis(GuildId::new(2).expect("non zero"));
 
             assert!(guild_emojis.is_some());
             let guild_emojis = guild_emojis.unwrap();
@@ -165,11 +160,11 @@ mod tests {
     fn test_emoji_removal() {
         let cache = InMemoryCache::new();
 
-        let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
+        let guild_id = GuildId::new(1).expect("non zero");
 
-        let emote = test::emoji(EmojiId(NonZeroU64::new(1).expect("non zero")), None);
-        let emote_2 = test::emoji(EmojiId(NonZeroU64::new(2).expect("non zero")), None);
-        let emote_3 = test::emoji(EmojiId(NonZeroU64::new(3).expect("non zero")), None);
+        let emote = test::emoji(EmojiId::new(1).expect("non zero"), None);
+        let emote_2 = test::emoji(EmojiId::new(2).expect("non zero"), None);
+        let emote_3 = test::emoji(EmojiId::new(3).expect("non zero"), None);
 
         cache.cache_emoji(guild_id, emote.clone());
         cache.cache_emoji(guild_id, emote_2.clone());
@@ -196,7 +191,7 @@ mod tests {
         assert!(cache.emoji(emote.id).is_some());
         assert!(cache.emoji(emote_2.id).is_none());
 
-        let emote_4 = test::emoji(EmojiId(NonZeroU64::new(4).expect("non zero")), None);
+        let emote_4 = test::emoji(EmojiId::new(4).expect("non zero"), None);
 
         cache.update(&GuildEmojisUpdate {
             emojis: vec![emote_4.clone()],

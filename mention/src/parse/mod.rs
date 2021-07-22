@@ -15,13 +15,12 @@
 //! Parse IDs out of strings that you know is just a mention:
 //!
 //! ```
-//! use std::num::NonZeroU64;
 //! use twilight_mention::ParseMention;
 //! use twilight_model::id::{ChannelId, EmojiId, RoleId};
 //!
 //! # fn main() -> Result<(), Box<dyn std::error::Error>> {
-//! assert_eq!(EmojiId(NonZeroU64::new(123).expect("non zero")), EmojiId::parse("<:name:123>")?);
-//! assert_eq!(RoleId(NonZeroU64::new(456).expect("non zero")), RoleId::parse("<@&456>")?);
+//! assert_eq!(EmojiId::new(123).expect("non zero"), EmojiId::parse("<:name:123>")?);
+//! assert_eq!(RoleId::new(456).expect("non zero"), RoleId::parse("<@&456>")?);
 //! assert!(ChannelId::parse("<#notamention>").is_err());
 //! # Ok(()) }
 //! ```
@@ -82,7 +81,6 @@ use twilight_model::id::{ChannelId, EmojiId, RoleId, UserId};
 /// Parse any type of mention out of a string:
 ///
 /// ```
-/// use std::num::NonZeroU64;
 /// use twilight_mention::{
 ///     parse::{MentionType, ParseMention},
 ///     timestamp::Timestamp,
@@ -90,9 +88,9 @@ use twilight_model::id::{ChannelId, EmojiId, RoleId, UserId};
 /// use twilight_model::id::{ChannelId, RoleId, UserId};
 ///
 /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// assert_eq!(MentionType::Channel(ChannelId(NonZeroU64::new(123).expect("non zero"))), MentionType::parse("<#123>")?);
-/// assert_eq!(MentionType::Role(RoleId(NonZeroU64::new(123).expect("non zero"))), MentionType::parse("<@&123>")?);
-/// assert_eq!(MentionType::User(UserId(NonZeroU64::new(123).expect("non zero"))), MentionType::parse("<@!123>")?);
+/// assert_eq!(MentionType::Channel(ChannelId::new(123).expect("non zero")), MentionType::parse("<#123>")?);
+/// assert_eq!(MentionType::Role(RoleId::new(123).expect("non zero")), MentionType::parse("<@&123>")?);
+/// assert_eq!(MentionType::User(UserId::new(123).expect("non zero")), MentionType::parse("<@!123>")?);
 ///
 /// let timestamp = Timestamp::new(123, None);
 /// assert_eq!(MentionType::Timestamp(timestamp), MentionType::parse("<t:123>")?);

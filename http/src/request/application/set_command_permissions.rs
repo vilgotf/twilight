@@ -54,7 +54,7 @@ impl<'a> SetCommandPermissions<'a> {
         guild_id: GuildId,
         permissions: &'a [(CommandId, CommandPermissions)],
     ) -> Result<Self, InteractionError> {
-        let mut sorted_permissions = [(CommandId(NonZeroU64::new(u64::MAX).expect("non zero")), 0);
+        let mut sorted_permissions = [(CommandId::new(u64::MAX).expect("non zero"), 0);
             InteractionError::GUILD_COMMAND_LIMIT];
 
         'outer: for (permission_id, _) in permissions {
@@ -121,22 +121,22 @@ mod tests {
         SetCommandPermissions,
     };
     use crate::Client;
-    use std::{iter, num::NonZeroU64};
+    use std::iter;
     use twilight_model::{
         application::command::permissions::{CommandPermissions, CommandPermissionsType},
         id::{ApplicationId, CommandId, GuildId, RoleId},
     };
 
     // SAFETY: never zero
-    const APPLICATION_ID: ApplicationId = ApplicationId(unsafe { NonZeroU64::new_unchecked(1) });
+    const APPLICATION_ID: ApplicationId = unsafe { ApplicationId::new_unchecked(1) };
     // SAFETY: never zero
-    const GUILD_ID: GuildId = GuildId(unsafe { NonZeroU64::new_unchecked(2) });
+    const GUILD_ID: GuildId = unsafe { GuildId::new_unchecked(2) };
 
     fn command_permissions(id: CommandId) -> impl Iterator<Item = (CommandId, CommandPermissions)> {
         iter::repeat((
             id,
             CommandPermissions {
-                id: CommandPermissionsType::Role(RoleId(NonZeroU64::new(4).expect("non zero"))),
+                id: CommandPermissionsType::Role(RoleId::new(4).expect("non zero")),
                 permission: true,
             },
         ))
@@ -145,10 +145,9 @@ mod tests {
     #[test]
     fn test_correct_validation() {
         let http = Client::new("token".to_owned());
-        let command_permissions =
-            command_permissions(CommandId(NonZeroU64::new(1).expect("non zero")))
-                .take(4)
-                .collect::<Vec<_>>();
+        let command_permissions = command_permissions(CommandId::new(1).expect("non zero"))
+            .take(4)
+            .collect::<Vec<_>>();
 
         let request =
             SetCommandPermissions::new(&http, APPLICATION_ID, GUILD_ID, &command_permissions);
@@ -159,10 +158,9 @@ mod tests {
     #[test]
     fn test_incorrect_validation() {
         let http = Client::new("token".to_owned());
-        let command_permissions =
-            command_permissions(CommandId(NonZeroU64::new(2).expect("non zero")))
-                .take(InteractionError::GUILD_COMMAND_PERMISSION_LIMIT + 1)
-                .collect::<Vec<_>>();
+        let command_permissions = command_permissions(CommandId::new(2).expect("non zero"))
+            .take(InteractionError::GUILD_COMMAND_PERMISSION_LIMIT + 1)
+            .collect::<Vec<_>>();
 
         let request =
             SetCommandPermissions::new(&http, APPLICATION_ID, GUILD_ID, &command_permissions);
@@ -179,7 +177,7 @@ mod tests {
         let http = Client::new("token".to_owned());
         let command_permissions = (1..=SIZE)
             .flat_map(|id| {
-                command_permissions(CommandId(NonZeroU64::new(id as u64).expect("non zero")))
+                command_permissions(CommandId::new(id as u64).expect("non zero"))
                     .take(InteractionError::GUILD_COMMAND_PERMISSION_LIMIT)
             })
             .collect::<Vec<_>>();
@@ -197,8 +195,7 @@ mod tests {
         let http = Client::new("token".to_owned());
         let command_permissions = (1..=SIZE)
             .flat_map(|id| {
-                command_permissions(CommandId(NonZeroU64::new(id as u64).expect("non zero")))
-                    .take(3)
+                command_permissions(CommandId::new(id as u64).expect("non zero")).take(3)
             })
             .collect::<Vec<_>>();
 

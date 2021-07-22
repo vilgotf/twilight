@@ -77,7 +77,6 @@ struct SearchGuildMembersFields<'a> {
 /// Get the first 10 members of guild `100` matching `Wumpus`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::GuildId;
 ///
@@ -85,7 +84,7 @@ struct SearchGuildMembersFields<'a> {
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let guild_id = GuildId(NonZeroU64::new(100).expect("non zero"));
+/// let guild_id = GuildId::new(100).expect("non zero");
 /// let members = client.search_guild_members(guild_id, "Wumpus")
 ///     .limit(10)?
 ///     .exec()

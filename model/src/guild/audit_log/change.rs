@@ -560,7 +560,7 @@ mod tests {
     use serde::{Deserialize, Serialize};
     use serde_test::Token;
     use static_assertions::{assert_fields, assert_impl_all};
-    use std::{fmt::Debug, hash::Hash, num::NonZeroU64};
+    use std::{fmt::Debug, hash::Hash};
 
     assert_fields!(AffectedRole: id, name);
     assert_fields!(AuditLogChange::AfkChannelId: new, old);
@@ -642,7 +642,7 @@ mod tests {
     #[test]
     fn test_afk_channel_id() {
         let value = AuditLogChange::AfkChannelId {
-            new: Some(ChannelId(NonZeroU64::new(1).expect("non zero"))),
+            new: Some(ChannelId::new(1).expect("non zero")),
             old: None,
         };
 

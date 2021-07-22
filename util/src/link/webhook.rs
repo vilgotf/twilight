@@ -79,7 +79,6 @@ pub enum WebhookParseErrorType {
 /// Parse a webhook URL with a token:
 ///
 /// ```
-/// use std::num::NonZeroU64;
 /// use twilight_model::id::WebhookId;
 /// use twilight_util::link::webhook;
 ///
@@ -87,7 +86,7 @@ pub enum WebhookParseErrorType {
 /// let url = "https://canary.discord.com/api/webhooks/794590023369752587/tjxHaPHLKp9aEdSwJuLeHhHHGEqIxt1aay4I67FOP9uzsYEWmj0eJmDn-2ZvCYLyOb_K";
 ///
 /// let (id, token) = webhook::parse(url)?;
-/// assert_eq!(WebhookId(NonZeroU64::new(794590023369752587).expect("non zero")), id);
+/// assert_eq!(WebhookId::new(794590023369752587).expect("non zero"), id);
 /// assert_eq!(
 ///     Some("tjxHaPHLKp9aEdSwJuLeHhHHGEqIxt1aay4I67FOP9uzsYEWmj0eJmDn-2ZvCYLyOb_K"),
 ///     token,
@@ -98,7 +97,6 @@ pub enum WebhookParseErrorType {
 /// Parse a webhook URL without a token:
 ///
 /// ```
-/// use std::num::NonZeroU64;
 /// use twilight_model::id::WebhookId;
 /// use twilight_util::link::webhook;
 ///
@@ -106,7 +104,7 @@ pub enum WebhookParseErrorType {
 /// let url = "https://canary.discord.com/api/webhooks/794590023369752587";
 ///
 /// let (id, token) = webhook::parse(url)?;
-/// assert_eq!(WebhookId(NonZeroU64::new(794590023369752587).expect("non zero")), id);
+/// assert_eq!(WebhookId::new(794590023369752587).expect("non zero"), id);
 /// assert!(token.is_none());
 /// # Ok(()) }
 /// ```
@@ -161,7 +159,7 @@ pub fn parse(url: &str) -> Result<(WebhookId, Option<&str>), WebhookParseError> 
 mod tests {
     use super::{WebhookId, WebhookParseError, WebhookParseErrorType};
     use static_assertions::assert_impl_all;
-    use std::{error::Error, fmt::Debug, num::NonZeroU64};
+    use std::{error::Error, fmt::Debug};
 
     assert_impl_all!(WebhookParseErrorType: Debug, Send, Sync);
     assert_impl_all!(WebhookParseError: Debug, Error, Send, Sync);
@@ -169,13 +167,13 @@ mod tests {
     #[test]
     fn test_parse_no_token() {
         assert_eq!(
-            (WebhookId(NonZeroU64::new(123).expect("non zero")), None),
+            (WebhookId::new(123).expect("non zero"), None),
             super::parse("https://discord.com/api/webhooks/123").unwrap(),
         );
         // There's a / after the ID signifying another segment, but the token
         // ends up being None.
         assert_eq!(
-            (WebhookId(NonZeroU64::new(123).expect("non zero")), None),
+            (WebhookId::new(123).expect("non zero"), None),
             super::parse("https://discord.com/api/webhooks/123").unwrap(),
         );
         assert!(super::parse("https://discord.com/api/webhooks/123/")
@@ -188,39 +186,24 @@ mod tests {
     fn test_parse_with_token() {
         assert_eq!(
             super::parse("https://discord.com/api/webhooks/456/token").unwrap(),
-            (
-                WebhookId(NonZeroU64::new(456).expect("non zero")),
-                Some("token")
-            ),
+            (WebhookId::new(456).expect("non zero"), Some("token")),
         );
         // The value of the segment(s) after the token are ignored.
         assert_eq!(
             super::parse("https://discord.com/api/webhooks/456/token/github").unwrap(),
-            (
-                WebhookId(NonZeroU64::new(456).expect("non zero")),
-                Some("token")
-            ),
+            (WebhookId::new(456).expect("non zero"), Some("token")),
         );
         assert_eq!(
             super::parse("https://discord.com/api/webhooks/456/token/slack").unwrap(),
-            (
-                WebhookId(NonZeroU64::new(456).expect("non zero")),
-                Some("token")
-            ),
+            (WebhookId::new(456).expect("non zero"), Some("token")),
         );
         assert_eq!(
             super::parse("https://discord.com/api/webhooks/456/token/randomsegment").unwrap(),
-            (
-                WebhookId(NonZeroU64::new(456).expect("non zero")),
-                Some("token")
-            ),
+            (WebhookId::new(456).expect("non zero"), Some("token")),
         );
         assert_eq!(
             super::parse("https://discord.com/api/webhooks/456/token/one/two/three").unwrap(),
-            (
-                WebhookId(NonZeroU64::new(456).expect("non zero")),
-                Some("token")
-            ),
+            (WebhookId::new(456).expect("non zero"), Some("token")),
         );
     }
 

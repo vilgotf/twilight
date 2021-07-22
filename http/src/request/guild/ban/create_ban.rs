@@ -71,7 +71,6 @@ struct CreateBanFields<'a> {
 /// 1 day's worth of messages, for the reason `"memes"`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::{request::AuditLogReason, Client};
 /// use twilight_model::id::{GuildId, UserId};
 ///
@@ -79,8 +78,8 @@ struct CreateBanFields<'a> {
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let guild_id = GuildId(NonZeroU64::new(100).expect("non zero"));
-/// let user_id = UserId(NonZeroU64::new(200).expect("non zero"));
+/// let guild_id = GuildId::new(100).expect("non zero");
+/// let user_id = UserId::new(200).expect("non zero");
 /// client.create_ban(guild_id, user_id)
 ///     .delete_message_days(1)?
 ///     .reason("memes")?

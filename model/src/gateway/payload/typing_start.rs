@@ -6,10 +6,7 @@ use serde::{
     de::{Deserializer, Error as DeError, IgnoredAny, MapAccess, Visitor},
     Deserialize, Serialize,
 };
-use std::{
-    fmt::{Formatter, Result as FmtResult},
-    num::NonZeroU64,
-};
+use std::fmt::{Formatter, Result as FmtResult};
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize)]
 pub struct TypingStart {
@@ -92,10 +89,9 @@ impl<'de> Visitor<'de> for TypingStartVisitor {
                         return Err(DeError::duplicate_field("member"));
                     }
 
-                    // SAFETY: never zero
-                    let deserializer = OptionalMemberDeserializer::new(GuildId(unsafe {
-                        NonZeroU64::new_unchecked(1)
-                    }));
+                    let deserializer =
+                        // SAFETY: never zero
+                        OptionalMemberDeserializer::new(unsafe { GuildId::new_unchecked(1) });
 
                     member = map.next_value_seed(deserializer)?;
                 }
@@ -161,26 +157,25 @@ mod tests {
         user::User,
     };
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[allow(clippy::too_many_lines)]
     #[test]
     fn test_typing_start_with_member() {
         let value = TypingStart {
-            channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
-            guild_id: Some(GuildId(NonZeroU64::new(1).expect("non zero"))),
+            channel_id: ChannelId::new(2).expect("non zero"),
+            guild_id: Some(GuildId::new(1).expect("non zero")),
             member: Some(Member {
                 deaf: false,
-                guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
-                hoisted_role: Some(RoleId(NonZeroU64::new(4).expect("non zero"))),
+                guild_id: GuildId::new(1).expect("non zero"),
+                hoisted_role: Some(RoleId::new(4).expect("non zero")),
                 joined_at: Some("2020-01-01T00:00:00.000000+00:00".to_owned()),
                 mute: false,
                 nick: Some("typing".to_owned()),
                 pending: false,
                 premium_since: None,
-                roles: vec![RoleId(NonZeroU64::new(4).expect("non zero"))],
+                roles: vec![RoleId::new(4).expect("non zero")],
                 user: User {
-                    id: UserId(NonZeroU64::new(3).expect("non zero")),
+                    id: UserId::new(3).expect("non zero"),
                     avatar: Some("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".to_owned()),
                     bot: false,
                     discriminator: "0001".to_owned(),
@@ -196,7 +191,7 @@ mod tests {
                 },
             }),
             timestamp: 1_500_000_000,
-            user_id: UserId(NonZeroU64::new(3).expect("non zero")),
+            user_id: UserId::new(3).expect("non zero"),
         };
 
         serde_test::assert_tokens(
@@ -275,11 +270,11 @@ mod tests {
     #[test]
     fn test_typing_start_without_member() {
         let value = TypingStart {
-            channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+            channel_id: ChannelId::new(2).expect("non zero"),
             guild_id: None,
             member: None,
             timestamp: 1_500_000_000,
-            user_id: UserId(NonZeroU64::new(3).expect("non zero")),
+            user_id: UserId::new(3).expect("non zero"),
         };
 
         serde_test::assert_tokens(

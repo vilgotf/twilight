@@ -79,7 +79,6 @@ struct GetGuildMembersFields {
 /// Get the first 500 members of guild `100` after user ID `3000`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::{GuildId, UserId};
 ///
@@ -87,8 +86,8 @@ struct GetGuildMembersFields {
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let guild_id = GuildId(NonZeroU64::new(100).expect("non zero"));
-/// let user_id = UserId(NonZeroU64::new(3000).expect("non zero"));
+/// let guild_id = GuildId::new(100).expect("non zero");
+/// let user_id = UserId::new(3000).expect("non zero");
 /// let members = client.guild_members(guild_id).after(user_id).exec().await?;
 /// # Ok(()) }
 /// ```

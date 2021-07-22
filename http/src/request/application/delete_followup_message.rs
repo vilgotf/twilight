@@ -12,13 +12,13 @@ use twilight_model::id::{ApplicationId, MessageId};
 ///
 /// ```no_run
 /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// use std::{env, num::NonZeroU64};
+/// use std::env;
 /// use twilight_http::Client;
 /// use twilight_model::id::{MessageId, ApplicationId};
 ///
 /// let client = Client::new(env::var("DISCORD_TOKEN")?);
 /// client
-///     .delete_followup_message("token here", MessageId(NonZeroU64::new(2).expect("non zero")))?
+///     .delete_followup_message("token here", MessageId::new(2).expect("non zero"))?
 ///     .exec()
 ///     .await?;
 /// # Ok(()) }
@@ -65,7 +65,6 @@ impl<'a> DeleteFollowupMessage<'a> {
 mod tests {
     use super::DeleteFollowupMessage;
     use crate::{client::Client, request::Request, routing::Route};
-    use std::num::NonZeroU64;
     use twilight_model::id::{ApplicationId, MessageId};
 
     #[test]
@@ -74,9 +73,9 @@ mod tests {
 
         let builder = DeleteFollowupMessage::new(
             &client,
-            ApplicationId(NonZeroU64::new(1).expect("non zero")),
+            ApplicationId::new(1).expect("non zero"),
             "token",
-            MessageId(NonZeroU64::new(2).expect("non zero")),
+            MessageId::new(2).expect("non zero"),
         );
         let actual = builder.request();
 

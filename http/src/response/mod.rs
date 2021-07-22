@@ -16,10 +16,9 @@
 //! name:
 //!
 //! ```no_run
-//! # use std::num::NonZeroU64;
 //! # #[tokio::main]
 //! # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-//! # let user_id = twilight_model::id::UserId(NonZeroU64::new(1).expect("non zero"));
+//! # let user_id = twilight_model::id::UserId::new(1).expect("non zero");
 //! use std::env;
 //! use twilight_http::Client;
 //!
@@ -156,10 +155,9 @@ pub enum DeserializeBodyErrorType {
 /// # Examples
 ///
 /// ```no_run
-/// # use std::num::NonZeroU64;
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// # let user_id = twilight_model::id::UserId(NonZeroU64::new(1).expect("non zero"));
+/// # let user_id = twilight_model::id::UserId::new(1).expect("non zero");
 /// use std::env;
 /// use twilight_http::Client;
 ///
@@ -213,10 +211,9 @@ impl<T> Response<T> {
     /// Count the number of bytes in a response body:
     ///
     /// ```no_run
-    /// # use std::num::NonZeroU64;
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// # let user_id = twilight_model::id::UserId(NonZeroU64::new(1).expect("non zero"));
+    /// # let user_id = twilight_model::id::UserId::new(1).expect("non zero");
     /// use std::env;
     /// use twilight_http::Client;
     ///
@@ -391,10 +388,9 @@ impl Response<MemberListBody> {
 /// creating a message:
 ///
 /// ```no_run
-/// # use std::num::NonZeroU64;
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// # let channel_id = twilight_model::id::ChannelId(NonZeroU64::new(1).expect("non zero"));
+/// # let channel_id = twilight_model::id::ChannelId::new(1).expect("non zero");
 /// use std::env;
 /// use twilight_http::Client;
 ///
@@ -445,11 +441,10 @@ impl<'a> Iterator for HeaderIter<'a> {
 /// Print the bytes of the body of the response from creating a message:
 ///
 /// ```no_run
-/// # use std::num::NonZeroU64;
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// # let channel_id = twilight_model::id::ChannelId(NonZeroU64::new(1).expect("non zero"));
-/// # let message_id = twilight_model::id::MessageId(NonZeroU64::new(2).expect("non zero"));
+/// # let channel_id = twilight_model::id::ChannelId::new(1).expect("non zero");
+/// # let message_id = twilight_model::id::MessageId::new(2).expect("non zero");
 /// use std::env;
 /// use twilight_http::Client;
 ///
@@ -496,11 +491,10 @@ impl Future for BytesFuture {
 /// Get an emoji by its ID and print its name:
 ///
 /// ```no_run
-/// # use std::num::NonZeroU64;
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// # let guild_id = twilight_model::id::GuildId(NonZeroU64::new(1).expect("non zero"));
-/// # let emoji_id = twilight_model::id::EmojiId(NonZeroU64::new(2).expect("non zero"));
+/// # let guild_id = twilight_model::id::GuildId::new(1).expect("non zero");
+/// # let emoji_id = twilight_model::id::EmojiId::new(2).expect("non zero");
 /// use std::env;
 /// use twilight_http::Client;
 ///
@@ -559,11 +553,10 @@ impl<T: DeserializeOwned + Unpin> Future for ModelFuture<T> {
 /// Get a member by guild and user ID and print whether the user is deafened:
 ///
 /// ```no_run
-/// # use std::num::NonZeroU64;
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// # let guild_id = twilight_model::id::GuildId(NonZeroU64::new(1).expect("non zero"));
-/// # let user_id = twilight_model::id::UserId(NonZeroU64::new(2).expect("non zero"));
+/// # let guild_id = twilight_model::id::GuildId::new(1).expect("non zero");
+/// # let user_id = twilight_model::id::UserId::new(2).expect("non zero");
 /// use std::env;
 /// use twilight_http::Client;
 ///
@@ -637,10 +630,9 @@ impl Future for MemberFuture {
 /// Get the first 100 members of a guild and print their names:
 ///
 /// ```no_run
-/// # use std::num::NonZeroU64;
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// # let guild_id = twilight_model::id::GuildId(NonZeroU64::new(1).expect("non zero"));
+/// # let guild_id = twilight_model::id::GuildId::new(1).expect("non zero");
 /// use std::env;
 /// use twilight_http::Client;
 ///
@@ -717,11 +709,10 @@ impl Future for MemberListFuture {
 /// Print the textual body of the response from creating a message:
 ///
 /// ```no_run
-/// # use std::num::NonZeroU64;
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// # let channel_id = twilight_model::id::ChannelId(NonZeroU64::new(1).expect("non zero"));
-/// # let message_id = twilight_model::id::MessageId(NonZeroU64::new(2).expect("non zero"));
+/// # let channel_id = twilight_model::id::ChannelId::new(1).expect("non zero");
+/// # let message_id = twilight_model::id::MessageId::new(2).expect("non zero");
 /// use std::env;
 /// use twilight_http::Client;
 ///

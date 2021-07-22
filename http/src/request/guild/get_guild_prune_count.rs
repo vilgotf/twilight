@@ -135,15 +135,13 @@ impl<'a> GetGuildPruneCount<'a> {
 mod test {
     use super::GetGuildPruneCount;
     use crate::Client;
-    use std::num::NonZeroU64;
     use twilight_model::id::GuildId;
 
     #[test]
     fn test_days() {
         fn days_valid(days: u64) -> bool {
             let client = Client::new("".to_owned());
-            let count =
-                GetGuildPruneCount::new(&client, GuildId(NonZeroU64::new(1).expect("non zero")));
+            let count = GetGuildPruneCount::new(&client, GuildId::new(1).expect("non zero"));
             let days_result = count.days(days);
             days_result.is_ok()
         }

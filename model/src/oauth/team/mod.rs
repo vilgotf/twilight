@@ -21,7 +21,7 @@ mod tests {
     use serde::{Deserialize, Serialize};
     use serde_test::Token;
     use static_assertions::{assert_fields, assert_impl_all};
-    use std::{fmt::Debug, hash::Hash, num::NonZeroU64};
+    use std::{fmt::Debug, hash::Hash};
 
     assert_fields!(Team: icon, id, members, name, owner_user_id);
 
@@ -39,10 +39,10 @@ mod tests {
     fn test_team() {
         let value = Team {
             icon: Some("hash".to_owned()),
-            id: TeamId(NonZeroU64::new(1).expect("non zero")),
+            id: TeamId::new(1).expect("non zero"),
             members: Vec::new(),
             name: "team name".into(),
-            owner_user_id: UserId(NonZeroU64::new(2).expect("non zero")),
+            owner_user_id: UserId::new(2).expect("non zero"),
         };
 
         serde_test::assert_tokens(

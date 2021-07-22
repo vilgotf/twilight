@@ -27,8 +27,7 @@
 //!
 //! Let's see that in code:
 //!
-//! ```rust
-//! use std::num::NonZeroU64;
+//! ```
 //! use twilight_util::permission_calculator::PermissionCalculator;
 //! use twilight_model::{
 //!     channel::{
@@ -42,8 +41,8 @@
 //!     id::{GuildId, RoleId, UserId},
 //! };
 //!
-//! let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
-//! let user_id = UserId(NonZeroU64::new(3).expect("non zero"));
+//! let guild_id = GuildId::new(1).expect("non zero");
+//! let user_id = UserId::new(3).expect("non zero");
 //!
 //! // Guild-level @everyone role that, by default, allows everyone to view
 //! // channels.
@@ -54,7 +53,7 @@
 //! let member_roles = &[
 //!     // Guild-level permission that grants members with the role the Send
 //!     // Messages permission.
-//!     (RoleId(NonZeroU64::new(2).expect("non zero")), Permissions::SEND_MESSAGES),
+//!     (RoleId::new(2).expect("non zero"), Permissions::SEND_MESSAGES),
 //! ];
 //!
 //! let channel_overwrites = &[
@@ -63,7 +62,7 @@
 //!     PermissionOverwrite {
 //!         allow: Permissions::ADD_REACTIONS | Permissions::EMBED_LINKS,
 //!         deny: Permissions::empty(),
-//!         kind: PermissionOverwriteType::Role(RoleId(NonZeroU64::new(1).expect("non zero"))),
+//!         kind: PermissionOverwriteType::Role(RoleId::new(1).expect("non zero")),
 //!     },
 //!     // Member is denied the Send Messages permission.
 //!     PermissionOverwrite {
@@ -519,7 +518,7 @@ const fn process_permission_overwrites(
 mod tests {
     use super::{preset::PERMISSIONS_ROOT_ONLY, GuildId, PermissionCalculator, RoleId, UserId};
     use static_assertions::assert_impl_all;
-    use std::{fmt::Debug, num::NonZeroU64};
+    use std::fmt::Debug;
     use twilight_model::{
         channel::{
             permission_overwrite::{PermissionOverwrite, PermissionOverwriteType},
@@ -532,8 +531,8 @@ mod tests {
 
     #[test]
     fn test_owner_is_admin() {
-        let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
-        let user_id = UserId(NonZeroU64::new(2).expect("non zero"));
+        let guild_id = GuildId::new(1).expect("non zero");
+        let user_id = UserId::new(2).expect("non zero");
         let everyone_role = Permissions::SEND_MESSAGES;
         let roles = &[];
 
@@ -547,13 +546,10 @@ mod tests {
     // implicitly denies all other permissions.
     #[test]
     fn test_view_channel_deny_implicit() {
-        let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
-        let user_id = UserId(NonZeroU64::new(2).expect("non zero"));
+        let guild_id = GuildId::new(1).expect("non zero");
+        let user_id = UserId::new(2).expect("non zero");
         let everyone_role = Permissions::MENTION_EVERYONE | Permissions::SEND_MESSAGES;
-        let roles = &[(
-            RoleId(NonZeroU64::new(3).expect("non zero")),
-            Permissions::empty(),
-        )];
+        let roles = &[(RoleId::new(3).expect("non zero"), Permissions::empty())];
 
         {
             // First, test when it's denied for an overwrite on a role the user
@@ -561,7 +557,7 @@ mod tests {
             let overwrites = &[PermissionOverwrite {
                 allow: Permissions::SEND_TTS_MESSAGES,
                 deny: Permissions::VIEW_CHANNEL,
-                kind: PermissionOverwriteType::Role(RoleId(NonZeroU64::new(3).expect("non zero"))),
+                kind: PermissionOverwriteType::Role(RoleId::new(3).expect("non zero")),
             }];
 
             let calculated = PermissionCalculator::new(guild_id, user_id, everyone_role, roles)
@@ -575,9 +571,7 @@ mod tests {
             let overwrites = &[PermissionOverwrite {
                 allow: Permissions::SEND_TTS_MESSAGES,
                 deny: Permissions::VIEW_CHANNEL,
-                kind: PermissionOverwriteType::Member(UserId(
-                    NonZeroU64::new(2).expect("non zero"),
-                )),
+                kind: PermissionOverwriteType::Member(UserId::new(2).expect("non zero")),
             }];
 
             let calculated = PermissionCalculator::new(guild_id, user_id, everyone_role, roles)
@@ -589,11 +583,11 @@ mod tests {
 
     #[test]
     fn test_remove_text_and_stage_perms_when_voice() {
-        let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
-        let user_id = UserId(NonZeroU64::new(2).expect("non zero"));
+        let guild_id = GuildId::new(1).expect("non zero");
+        let user_id = UserId::new(2).expect("non zero");
         let everyone_role = Permissions::CONNECT;
         let roles = &[(
-            RoleId(NonZeroU64::new(3).expect("non zero")),
+            RoleId::new(3).expect("non zero"),
             Permissions::SEND_MESSAGES,
         )];
 
@@ -605,11 +599,11 @@ mod tests {
 
     #[test]
     fn test_remove_audio_perms_when_text() {
-        let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
-        let user_id = UserId(NonZeroU64::new(2).expect("non zero"));
+        let guild_id = GuildId::new(1).expect("non zero");
+        let user_id = UserId::new(2).expect("non zero");
         let everyone_role = Permissions::CONNECT;
         let roles = &[(
-            RoleId(NonZeroU64::new(3).expect("non zero")),
+            RoleId::new(3).expect("non zero"),
             Permissions::SEND_MESSAGES,
         )];
 
@@ -625,20 +619,17 @@ mod tests {
     // send related permissions.
     #[test]
     fn test_deny_send_messages_removes_related() {
-        let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
-        let user_id = UserId(NonZeroU64::new(2).expect("non zero"));
+        let guild_id = GuildId::new(1).expect("non zero");
+        let user_id = UserId::new(2).expect("non zero");
         let everyone_role =
             Permissions::MANAGE_MESSAGES | Permissions::EMBED_LINKS | Permissions::MENTION_EVERYONE;
-        let roles = &[(
-            RoleId(NonZeroU64::new(3).expect("non zero")),
-            Permissions::empty(),
-        )];
+        let roles = &[(RoleId::new(3).expect("non zero"), Permissions::empty())];
 
         // First, test when it's denied for an overwrite on a role the user has.
         let overwrites = &[PermissionOverwrite {
             allow: Permissions::ATTACH_FILES,
             deny: Permissions::SEND_MESSAGES,
-            kind: PermissionOverwriteType::Role(RoleId(NonZeroU64::new(3).expect("non zero"))),
+            kind: PermissionOverwriteType::Role(RoleId::new(3).expect("non zero")),
         }];
 
         let calculated = PermissionCalculator::new(guild_id, user_id, everyone_role, roles)
@@ -652,12 +643,12 @@ mod tests {
     #[test]
     fn test_admin() {
         let member_roles = &[(
-            RoleId(NonZeroU64::new(3).expect("non zero")),
+            RoleId::new(3).expect("non zero"),
             Permissions::ADMINISTRATOR,
         )];
         let calc = PermissionCalculator::new(
-            GuildId(NonZeroU64::new(1).expect("non zero")),
-            UserId(NonZeroU64::new(2).expect("non zero")),
+            GuildId::new(1).expect("non zero"),
+            UserId::new(2).expect("non zero"),
             Permissions::empty(),
             member_roles,
         );
@@ -688,8 +679,8 @@ mod tests {
 
         for kind in CHANNEL_TYPES {
             let calc = PermissionCalculator::new(
-                GuildId(NonZeroU64::new(1).expect("non zero")),
-                UserId(NonZeroU64::new(2).expect("non zero")),
+                GuildId::new(1).expect("non zero"),
+                UserId::new(2).expect("non zero"),
                 everyone,
                 &[],
             );

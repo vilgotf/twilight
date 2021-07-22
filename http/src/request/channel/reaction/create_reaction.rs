@@ -13,7 +13,6 @@ use twilight_model::id::{ChannelId, MessageId};
 ///
 /// # Examples
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::{Client, request::channel::reaction::RequestReactionType};
 /// use twilight_model::{
 ///     id::{ChannelId, MessageId},
@@ -23,8 +22,8 @@ use twilight_model::id::{ChannelId, MessageId};
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let channel_id = ChannelId(NonZeroU64::new(123).expect("non zero"));
-/// let message_id = MessageId(NonZeroU64::new(456).expect("non zero"));
+/// let channel_id = ChannelId::new(123).expect("non zero");
+/// let message_id = MessageId::new(456).expect("non zero");
 /// let emoji = RequestReactionType::Unicode { name: "🌃" };
 ///
 /// let reaction = client
@@ -81,7 +80,6 @@ mod tests {
         routing::Route,
         Client,
     };
-    use std::num::NonZeroU64;
     use twilight_model::id::{ChannelId, MessageId};
 
     #[test]
@@ -92,8 +90,8 @@ mod tests {
 
         let builder = CreateReaction::new(
             &client,
-            ChannelId(NonZeroU64::new(123).expect("non zero")),
-            MessageId(NonZeroU64::new(456).expect("non zero")),
+            ChannelId::new(123).expect("non zero"),
+            MessageId::new(456).expect("non zero"),
             &emoji,
         );
         let actual = builder.request();

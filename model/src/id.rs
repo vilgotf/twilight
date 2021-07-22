@@ -55,8 +55,33 @@ use std::{
     num::NonZeroU64,
 };
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct ApplicationId(#[serde(with = "string")] pub NonZeroU64);
+
+impl ApplicationId {
+    /// Creates a non-zero application ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero application ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for ApplicationId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -70,8 +95,33 @@ impl From<NonZeroU64> for ApplicationId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct AttachmentId(#[serde(with = "string")] pub NonZeroU64);
+
+impl AttachmentId {
+    /// Creates a non-zero attachment ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero attachment ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for AttachmentId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -85,8 +135,33 @@ impl From<NonZeroU64> for AttachmentId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct AuditLogEntryId(#[serde(with = "string")] pub NonZeroU64);
+
+impl AuditLogEntryId {
+    /// Creates a non-zero audit log entry ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero audit log entry ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for AuditLogEntryId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -100,8 +175,33 @@ impl From<NonZeroU64> for AuditLogEntryId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct ChannelId(#[serde(with = "string")] pub NonZeroU64);
+
+impl ChannelId {
+    /// Creates a non-zero channel ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero channel ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for ChannelId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -116,8 +216,33 @@ impl From<NonZeroU64> for ChannelId {
 }
 
 /// Unique ID of a command used in slash commands.
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct CommandId(#[serde(with = "string")] pub NonZeroU64);
+
+impl CommandId {
+    /// Creates a non-zero command ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero command ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for CommandId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -131,8 +256,33 @@ impl From<NonZeroU64> for CommandId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct EmojiId(#[serde(with = "string")] pub NonZeroU64);
+
+impl EmojiId {
+    /// Creates a non-zero emoji ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero emoji ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for EmojiId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -146,8 +296,33 @@ impl From<NonZeroU64> for EmojiId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct GenericId(#[serde(with = "string")] pub NonZeroU64);
+
+impl GenericId {
+    /// Creates a non-zero generic ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero generic ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for GenericId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -161,8 +336,33 @@ impl From<NonZeroU64> for GenericId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct GuildId(#[serde(with = "string")] pub NonZeroU64);
+
+impl GuildId {
+    /// Creates a non-zero guild ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero guild ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for GuildId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -176,8 +376,33 @@ impl From<NonZeroU64> for GuildId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct IntegrationId(#[serde(with = "string")] pub NonZeroU64);
+
+impl IntegrationId {
+    /// Creates a non-zero integration ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero integration ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for IntegrationId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -192,8 +417,33 @@ impl From<NonZeroU64> for IntegrationId {
 }
 
 /// Unique ID of an interaction payload.
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct InteractionId(#[serde(with = "string")] pub NonZeroU64);
+
+impl InteractionId {
+    /// Creates a non-zero interaction ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero interaction ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for InteractionId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -207,8 +457,33 @@ impl From<NonZeroU64> for InteractionId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct MessageId(#[serde(with = "string")] pub NonZeroU64);
+
+impl MessageId {
+    /// Creates a non-zero message ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero message ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for MessageId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -222,8 +497,33 @@ impl From<NonZeroU64> for MessageId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct RoleId(#[serde(with = "string")] pub NonZeroU64);
+
+impl RoleId {
+    /// Creates a non-zero role ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero role ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for RoleId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -237,8 +537,33 @@ impl From<NonZeroU64> for RoleId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct StageId(#[serde(with = "string")] pub NonZeroU64);
+
+impl StageId {
+    /// Creates a non-zero stage ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero stage ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for StageId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -252,8 +577,33 @@ impl From<NonZeroU64> for StageId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct UserId(#[serde(with = "string")] pub NonZeroU64);
+
+impl UserId {
+    /// Creates a non-zero user ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero user ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for UserId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -267,8 +617,33 @@ impl From<NonZeroU64> for UserId {
     }
 }
 
+#[allow(clippy::unsafe_derive_deserialize)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub struct WebhookId(#[serde(with = "string")] pub NonZeroU64);
+
+impl WebhookId {
+    /// Creates a non-zero webhook ID without checking the value.
+    ///
+    /// # Safety
+    ///
+    /// The value must not be zero.
+    pub const unsafe fn new_unchecked(n: u64) -> Self {
+        Self(NonZeroU64::new_unchecked(n))
+    }
+
+    /// Creates a non-zero webhook ID if the given value is not zero.
+    pub const fn new(n: u64) -> Option<Self> {
+        match NonZeroU64::new(n) {
+            Some(n) => Some(Self(n)),
+            None => None,
+        }
+    }
+
+    /// Returns the inner primitive value.
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
 
 impl Display for WebhookId {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -289,13 +664,12 @@ mod tests {
         GuildId, IntegrationId, InteractionId, MessageId, RoleId, StageId, UserId, WebhookId,
     };
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[allow(clippy::too_many_lines)]
     #[test]
     fn test_id_deser() {
         serde_test::assert_tokens(
-            &ApplicationId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &ApplicationId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "ApplicationId",
@@ -304,7 +678,7 @@ mod tests {
             ],
         );
         serde_test::assert_de_tokens(
-            &ApplicationId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &ApplicationId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "ApplicationId",
@@ -313,7 +687,7 @@ mod tests {
             ],
         );
         serde_test::assert_tokens(
-            &AttachmentId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &AttachmentId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "AttachmentId",
@@ -322,7 +696,7 @@ mod tests {
             ],
         );
         serde_test::assert_de_tokens(
-            &AttachmentId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &AttachmentId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "AttachmentId",
@@ -331,7 +705,7 @@ mod tests {
             ],
         );
         serde_test::assert_tokens(
-            &AuditLogEntryId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &AuditLogEntryId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "AuditLogEntryId",
@@ -340,7 +714,7 @@ mod tests {
             ],
         );
         serde_test::assert_de_tokens(
-            &AuditLogEntryId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &AuditLogEntryId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "AuditLogEntryId",
@@ -349,77 +723,77 @@ mod tests {
             ],
         );
         serde_test::assert_tokens(
-            &ChannelId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &ChannelId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "ChannelId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &ChannelId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &ChannelId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "ChannelId" },
                 Token::U64(114_941_315_417_899_012),
             ],
         );
         serde_test::assert_tokens(
-            &CommandId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &CommandId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "CommandId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &CommandId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &CommandId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "CommandId" },
                 Token::U64(114_941_315_417_899_012),
             ],
         );
         serde_test::assert_tokens(
-            &EmojiId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &EmojiId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "EmojiId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &EmojiId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &EmojiId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "EmojiId" },
                 Token::U64(114_941_315_417_899_012),
             ],
         );
         serde_test::assert_tokens(
-            &GenericId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &GenericId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "GenericId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &GenericId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &GenericId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "GenericId" },
                 Token::U64(114_941_315_417_899_012),
             ],
         );
         serde_test::assert_tokens(
-            &GuildId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &GuildId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "GuildId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &GuildId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &GuildId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "GuildId" },
                 Token::U64(114_941_315_417_899_012),
             ],
         );
         serde_test::assert_tokens(
-            &IntegrationId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &IntegrationId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "IntegrationId",
@@ -428,7 +802,7 @@ mod tests {
             ],
         );
         serde_test::assert_de_tokens(
-            &IntegrationId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &IntegrationId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "IntegrationId",
@@ -437,7 +811,7 @@ mod tests {
             ],
         );
         serde_test::assert_tokens(
-            &InteractionId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &InteractionId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "InteractionId",
@@ -446,7 +820,7 @@ mod tests {
             ],
         );
         serde_test::assert_de_tokens(
-            &InteractionId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &InteractionId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct {
                     name: "InteractionId",
@@ -455,70 +829,70 @@ mod tests {
             ],
         );
         serde_test::assert_tokens(
-            &MessageId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &MessageId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "MessageId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &MessageId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &MessageId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "MessageId" },
                 Token::U64(114_941_315_417_899_012),
             ],
         );
         serde_test::assert_tokens(
-            &RoleId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &RoleId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "RoleId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &RoleId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &RoleId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "RoleId" },
                 Token::U64(114_941_315_417_899_012),
             ],
         );
         serde_test::assert_tokens(
-            &StageId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &StageId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "StageId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &StageId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &StageId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "StageId" },
                 Token::U64(114_941_315_417_899_012),
             ],
         );
         serde_test::assert_tokens(
-            &UserId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &UserId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "UserId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &UserId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &UserId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "UserId" },
                 Token::U64(114_941_315_417_899_012),
             ],
         );
         serde_test::assert_tokens(
-            &WebhookId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &WebhookId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "WebhookId" },
                 Token::Str("114941315417899012"),
             ],
         );
         serde_test::assert_de_tokens(
-            &WebhookId(NonZeroU64::new(114_941_315_417_899_012).expect("non zero")),
+            &WebhookId::new(114_941_315_417_899_012).expect("non zero"),
             &[
                 Token::NewtypeStruct { name: "WebhookId" },
                 Token::U64(114_941_315_417_899_012),

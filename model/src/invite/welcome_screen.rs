@@ -25,7 +25,6 @@ pub struct WelcomeScreenChannel {
 mod tests {
     use super::{ChannelId, EmojiId, WelcomeScreen, WelcomeScreenChannel};
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     fn test_welcome_screen() {
@@ -33,15 +32,15 @@ mod tests {
             description: Some("welcome description".to_owned()),
             welcome_channels: vec![
                 WelcomeScreenChannel {
-                    channel_id: ChannelId(NonZeroU64::new(123).expect("non zero")),
+                    channel_id: ChannelId::new(123).expect("non zero"),
                     description: "channel description".to_owned(),
                     emoji_id: None,
                     emoji_name: Some("\u{1f352}".to_owned()),
                 },
                 WelcomeScreenChannel {
-                    channel_id: ChannelId(NonZeroU64::new(456).expect("non zero")),
+                    channel_id: ChannelId::new(456).expect("non zero"),
                     description: "custom description".to_owned(),
-                    emoji_id: Some(EmojiId(NonZeroU64::new(789).expect("non zero"))),
+                    emoji_id: Some(EmojiId::new(789).expect("non zero")),
                     emoji_name: Some("custom_name".to_owned()),
                 },
             ],

@@ -19,13 +19,12 @@ pub trait Snowflake {
     ///
     /// See when a user was created using [`chrono`](https://docs.rs/chrono):
     ///
-    /// ```rust
+    /// ```
     /// use chrono::{Utc, TimeZone};
-    /// use std::num::NonZeroU64;
     /// use twilight_util::snowflake::Snowflake;
     /// use twilight_model::id::UserId;
     ///
-    /// let id = UserId(NonZeroU64::new(105484726235607040).expect("non zero"));
+    /// let id = UserId::new(105484726235607040).expect("non zero");
     ///
     /// assert_eq!(
     ///     "2015-10-19T01:58:38.546+00:00",
@@ -37,11 +36,11 @@ pub trait Snowflake {
     ///
     /// ```rust
     /// use time::{Duration, Format, OffsetDateTime};
-    /// use std::num::NonZeroU64;
+    ///
     /// use twilight_util::snowflake::Snowflake;
     /// use twilight_model::id::UserId;
     ///
-    /// let id = UserId(NonZeroU64::new(105484726235607040).expect("non zero"));
+    /// let id = UserId::new(105484726235607040).expect("non zero");
     /// let dur = Duration::milliseconds(id.timestamp());
     /// // Or use seconds, at the cost of lost precision.
     /// let ts = OffsetDateTime::from_unix_timestamp_nanos(dur.whole_nanoseconds());
@@ -176,7 +175,6 @@ impl Snowflake for WebhookId {
 mod tests {
     use super::Snowflake;
     use static_assertions::{assert_impl_all, assert_obj_safe};
-    use std::num::NonZeroU64;
     use twilight_model::id::{
         ApplicationId, AttachmentId, AuditLogEntryId, ChannelId, CommandId, EmojiId, GenericId,
         GuildId, IntegrationId, InteractionId, MessageId, RoleId, StageId, UserId, WebhookId,
@@ -202,7 +200,7 @@ mod tests {
     #[test]
     fn test_timestamp() {
         let expected: i64 = 1_445_219_918_546;
-        let id = GenericId(NonZeroU64::new(105_484_726_235_607_040).expect("non zero"));
+        let id = GenericId::new(105_484_726_235_607_040).expect("non zero");
 
         assert_eq!(expected, id.timestamp())
     }
@@ -210,7 +208,7 @@ mod tests {
     #[test]
     fn test_worker_id() {
         let expected: u8 = 8;
-        let id = GenericId(NonZeroU64::new(762_022_344_856_174_632).expect("non zero"));
+        let id = GenericId::new(762_022_344_856_174_632).expect("non zero");
 
         assert_eq!(expected, id.worker_id())
     }
@@ -218,7 +216,7 @@ mod tests {
     #[test]
     fn test_process_id() {
         let expected: u8 = 1;
-        let id = GenericId(NonZeroU64::new(61_189_081_970_774_016).expect("non zero"));
+        let id = GenericId::new(61_189_081_970_774_016).expect("non zero");
 
         assert_eq!(expected, id.process_id())
     }
@@ -226,7 +224,7 @@ mod tests {
     #[test]
     fn test_increment() {
         let expected: u16 = 40;
-        let id = GenericId(NonZeroU64::new(762_022_344_856_174_632).expect("non zero"));
+        let id = GenericId::new(762_022_344_856_174_632).expect("non zero");
 
         assert_eq!(expected, id.increment())
     }

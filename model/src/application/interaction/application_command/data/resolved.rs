@@ -230,21 +230,20 @@ mod tests {
         user::{PremiumType, User, UserFlags},
     };
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     #[allow(clippy::too_many_lines)]
     fn test_data_resolved() {
         let value = CommandInteractionDataResolved {
             channels: vec![InteractionChannel {
-                id: ChannelId(NonZeroU64::new(100).expect("non zero")),
+                id: ChannelId::new(100).expect("non zero"),
                 kind: ChannelType::GuildText,
                 name: "channel name".into(),
                 permissions: Permissions::empty(),
             }],
             members: vec![InteractionMember {
                 hoisted_role: None,
-                id: UserId(NonZeroU64::new(300).expect("non zero")),
+                id: UserId::new(300).expect("non zero"),
                 joined_at: Some("joined at".into()),
                 nick: None,
                 premium_since: None,
@@ -253,7 +252,7 @@ mod tests {
             roles: vec![Role {
                 color: 0,
                 hoist: true,
-                id: RoleId(NonZeroU64::new(400).expect("non zero")),
+                id: RoleId::new(400).expect("non zero"),
                 managed: false,
                 mentionable: true,
                 name: "test".to_owned(),
@@ -267,7 +266,7 @@ mod tests {
                 discriminator: "0001".to_owned(),
                 email: Some("address@example.com".to_owned()),
                 flags: Some(UserFlags::EARLY_SUPPORTER | UserFlags::VERIFIED_BOT_DEVELOPER),
-                id: UserId(NonZeroU64::new(300).expect("non zero")),
+                id: UserId::new(300).expect("non zero"),
                 locale: Some("en-us".to_owned()),
                 mfa_enabled: Some(true),
                 name: "test".to_owned(),

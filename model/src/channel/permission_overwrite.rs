@@ -4,7 +4,6 @@ use crate::{
 };
 use serde::{de::Deserializer, ser::SerializeStruct, Deserialize, Serialize, Serializer};
 use serde_repr::{Deserialize_repr, Serialize_repr};
-use std::num::NonZeroU64;
 
 pub(crate) mod integer {
     use serde::de::{Deserializer, Error as DeError, Visitor};
@@ -79,13 +78,13 @@ impl<'de> Deserialize<'de> for PermissionOverwrite {
 
         let kind = match data.kind {
             PermissionOverwriteTargetType::Member => {
-                let id = UserId(NonZeroU64::new(data.id).expect("non zero"));
+                let id = UserId::new(data.id).expect("non zero");
                 tracing::trace!(id = %id.0, kind = ?data.kind);
 
                 PermissionOverwriteType::Member(id)
             }
             PermissionOverwriteTargetType::Role => {
-                let id = RoleId(NonZeroU64::new(data.id).expect("non zero"));
+                let id = RoleId::new(data.id).expect("non zero");
                 tracing::trace!(id = %id.0, kind = ?data.kind);
 
                 PermissionOverwriteType::Role(id)
@@ -209,7 +208,7 @@ mod tests {
         let value = PermissionOverwrite {
             allow: Permissions::CREATE_INVITE,
             deny: Permissions::KICK_MEMBERS,
-            kind: PermissionOverwriteType::Member(UserId(NonZeroU64::new(1).expect("non zero"))),
+            kind: PermissionOverwriteType::Member(UserId::new(1).expect("non zero")),
         };
 
         let deserialized = serde_json::from_str::<PermissionOverwrite>(raw).unwrap();

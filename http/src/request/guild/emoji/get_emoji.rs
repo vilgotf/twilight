@@ -11,7 +11,6 @@ use twilight_model::{
 /// Get emoji `100` from guild `50`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::{EmojiId, GuildId};
 ///
@@ -19,8 +18,8 @@ use twilight_model::{
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let guild_id = GuildId(NonZeroU64::new(50).expect("non zero"));
-/// let emoji_id = EmojiId(NonZeroU64::new(100).expect("non zero"));
+/// let guild_id = GuildId::new(50).expect("non zero");
+/// let emoji_id = EmojiId::new(100).expect("non zero");
 ///
 /// client.emoji(guild_id, emoji_id).exec().await?;
 /// # Ok(()) }

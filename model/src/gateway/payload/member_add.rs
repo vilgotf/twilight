@@ -27,13 +27,12 @@ mod tests {
         user::User,
     };
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     fn test_member_add() {
         let value = MemberAdd(Member {
             deaf: false,
-            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            guild_id: GuildId::new(1).expect("non zero"),
             hoisted_role: None,
             joined_at: None,
             mute: false,
@@ -42,7 +41,7 @@ mod tests {
             premium_since: None,
             roles: vec![],
             user: User {
-                id: UserId(NonZeroU64::new(2).expect("non zero")),
+                id: UserId::new(2).expect("non zero"),
                 avatar: None,
                 bot: false,
                 discriminator: "0987".to_string(),

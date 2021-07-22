@@ -75,7 +75,6 @@ impl UpdateCache for StageInstanceUpdate {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::num::NonZeroU64;
     use twilight_model::{channel::stage_instance::PrivacyLevel, id::ChannelId};
 
     #[test]
@@ -83,10 +82,10 @@ mod tests {
         let cache = InMemoryCache::new();
 
         let stage_instance = StageInstance {
-            channel_id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+            channel_id: ChannelId::new(1).expect("non zero"),
             discoverable_disabled: true,
-            guild_id: GuildId(NonZeroU64::new(2).expect("non zero")),
-            id: StageId(NonZeroU64::new(3).expect("non zero")),
+            guild_id: GuildId::new(2).expect("non zero"),
+            id: StageId::new(3).expect("non zero"),
             privacy_level: PrivacyLevel::GuildOnly,
             topic: "topic".into(),
         };

@@ -93,7 +93,6 @@ mod tests {
         user::User,
     };
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[allow(clippy::too_many_lines)]
     #[test]
@@ -109,7 +108,7 @@ mod tests {
                 discriminator: "0001".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(NonZeroU64::new(3).expect("non zero")),
+                id: UserId::new(3).expect("non zero"),
                 locale: None,
                 mfa_enabled: None,
                 name: "test".to_owned(),
@@ -118,13 +117,13 @@ mod tests {
                 system: None,
                 verified: None,
             },
-            channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+            channel_id: ChannelId::new(2).expect("non zero"),
             content: "ping".to_owned(),
             edited_timestamp: None,
             embeds: Vec::new(),
             flags: Some(MessageFlags::empty()),
-            guild_id: Some(GuildId(NonZeroU64::new(1).expect("non zero"))),
-            id: MessageId(NonZeroU64::new(4).expect("non zero")),
+            guild_id: Some(GuildId::new(1).expect("non zero")),
+            id: MessageId::new(4).expect("non zero"),
             interaction: None,
             kind: MessageType::Regular,
             member: Some(PartialMember {
@@ -291,10 +290,10 @@ mod tests {
                 cover_image: Some("cover".to_owned()),
                 description: "a description".to_owned(),
                 icon: Some("an icon".to_owned()),
-                id: ApplicationId(NonZeroU64::new(1).expect("non zero")),
+                id: ApplicationId::new(1).expect("non zero"),
                 name: "application".to_owned(),
             }),
-            application_id: Some(ApplicationId(NonZeroU64::new(1).expect("non zero"))),
+            application_id: Some(ApplicationId::new(1).expect("non zero")),
             attachments: Vec::new(),
             author: User {
                 avatar: Some("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".to_owned()),
@@ -302,7 +301,7 @@ mod tests {
                 discriminator: "0001".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(NonZeroU64::new(3).expect("non zero")),
+                id: UserId::new(3).expect("non zero"),
                 locale: None,
                 mfa_enabled: None,
                 name: "test".to_owned(),
@@ -311,13 +310,13 @@ mod tests {
                 system: None,
                 verified: None,
             },
-            channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+            channel_id: ChannelId::new(2).expect("non zero"),
             content: "ping".to_owned(),
             edited_timestamp: Some("123".to_owned()),
             embeds: Vec::new(),
             flags: Some(MessageFlags::empty()),
-            guild_id: Some(GuildId(NonZeroU64::new(1).expect("non zero"))),
-            id: MessageId(NonZeroU64::new(4).expect("non zero")),
+            guild_id: Some(GuildId::new(1).expect("non zero")),
+            id: MessageId::new(4).expect("non zero"),
             interaction: None,
             kind: MessageType::Regular,
             member: Some(PartialMember {
@@ -331,8 +330,8 @@ mod tests {
                 user: None,
             }),
             mention_channels: vec![ChannelMention {
-                guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
-                id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+                guild_id: GuildId::new(1).expect("non zero"),
+                id: ChannelId::new(2).expect("non zero"),
                 kind: ChannelType::GuildText,
                 name: "channel".to_owned(),
             }],
@@ -348,7 +347,7 @@ mod tests {
                 me: true,
             }],
             reference: Some(MessageReference {
-                channel_id: Some(ChannelId(NonZeroU64::new(1).expect("non zero"))),
+                channel_id: Some(ChannelId::new(1).expect("non zero")),
                 guild_id: None,
                 message_id: None,
                 fail_if_not_exists: None,
@@ -365,7 +364,7 @@ mod tests {
             referenced_message: None,
             timestamp: "2020-02-02T02:02:02.020000+00:00".to_owned(),
             tts: false,
-            webhook_id: Some(WebhookId(NonZeroU64::new(1).expect("non zero"))),
+            webhook_id: Some(WebhookId::new(1).expect("non zero")),
         };
 
         serde_test::assert_tokens(

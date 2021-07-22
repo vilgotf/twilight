@@ -13,7 +13,6 @@ use twilight_model::id::{GuildId, UserId};
 /// Unban user `200` from guild `100`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::{GuildId, UserId};
 ///
@@ -21,8 +20,8 @@ use twilight_model::id::{GuildId, UserId};
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let guild_id = GuildId(NonZeroU64::new(100).expect("non zero"));
-/// let user_id = UserId(NonZeroU64::new(200).expect("non zero"));
+/// let guild_id = GuildId::new(100).expect("non zero");
+/// let user_id = UserId::new(200).expect("non zero");
 ///
 /// client.delete_ban(guild_id, user_id).exec().await?;
 /// # Ok(()) }

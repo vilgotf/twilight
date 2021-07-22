@@ -33,7 +33,6 @@ mod tests {
         invite::WelcomeScreenChannel,
     };
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     #[allow(clippy::too_many_lines)]
@@ -43,7 +42,7 @@ mod tests {
             description: Some("a description".to_owned()),
             features: vec!["a feature".to_owned()],
             icon: Some("icon hash".to_owned()),
-            id: GuildId(NonZeroU64::new(1).expect("non zero")),
+            id: GuildId::new(1).expect("non zero"),
             name: "guild name".to_owned(),
             splash: Some("splash hash".to_owned()),
             vanity_url_code: Some("twilight".to_owned()),
@@ -52,15 +51,15 @@ mod tests {
                 description: Some("welcome description".to_owned()),
                 welcome_channels: vec![
                     WelcomeScreenChannel {
-                        channel_id: ChannelId(NonZeroU64::new(123).expect("non zero")),
+                        channel_id: ChannelId::new(123).expect("non zero"),
                         description: "channel description".to_owned(),
                         emoji_id: None,
                         emoji_name: Some("\u{1f352}".to_owned()),
                     },
                     WelcomeScreenChannel {
-                        channel_id: ChannelId(NonZeroU64::new(456).expect("non zero")),
+                        channel_id: ChannelId::new(456).expect("non zero"),
                         description: "custom description".to_owned(),
-                        emoji_id: Some(EmojiId(NonZeroU64::new(789).expect("non zero"))),
+                        emoji_id: Some(EmojiId::new(789).expect("non zero")),
                         emoji_name: Some("custom_name".to_owned()),
                     },
                 ],

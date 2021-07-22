@@ -42,7 +42,6 @@ mod tests {
     use super::{AllowedMentions, ParseTypes};
     use crate::id::{RoleId, UserId};
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     fn test_minimal() {
@@ -72,8 +71,8 @@ mod tests {
     fn test_full() {
         let value = AllowedMentions {
             parse: vec![ParseTypes::Everyone],
-            users: vec![UserId(NonZeroU64::new(100).expect("non zero"))],
-            roles: vec![RoleId(NonZeroU64::new(200).expect("non zero"))],
+            users: vec![UserId::new(100).expect("non zero")],
+            roles: vec![RoleId::new(200).expect("non zero")],
             replied_user: true,
         };
 

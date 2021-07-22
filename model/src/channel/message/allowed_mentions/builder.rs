@@ -105,7 +105,6 @@ mod tests {
         AllowedMentionsBuilder,
     };
     use crate::id::{RoleId, UserId};
-    use std::num::NonZeroU64;
 
     #[test]
     fn test_max_mentioned() {
@@ -132,11 +131,11 @@ mod tests {
         let value = AllowedMentionsBuilder::new()
             .users()
             .user_ids(vec![
-                UserId(NonZeroU64::new(100).expect("non zero")),
-                UserId(NonZeroU64::new(200).expect("non zero")),
+                UserId::new(100).expect("non zero"),
+                UserId::new(200).expect("non zero"),
             ])
             .roles()
-            .role_ids(vec![RoleId(NonZeroU64::new(300).expect("non zero"))])
+            .role_ids(vec![RoleId::new(300).expect("non zero")])
             .build();
 
         assert_eq!(
@@ -144,10 +143,10 @@ mod tests {
             AllowedMentions {
                 parse: vec![],
                 users: vec![
-                    UserId(NonZeroU64::new(100).expect("non zero")),
-                    UserId(NonZeroU64::new(200).expect("non zero"))
+                    UserId::new(100).expect("non zero"),
+                    UserId::new(200).expect("non zero")
                 ],
-                roles: vec![RoleId(NonZeroU64::new(300).expect("non zero"))],
+                roles: vec![RoleId::new(300).expect("non zero")],
                 replied_user: false,
             },
         );

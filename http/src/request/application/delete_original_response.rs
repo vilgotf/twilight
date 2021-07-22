@@ -13,13 +13,13 @@ use twilight_model::id::ApplicationId;
 /// ```no_run
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// use std::{env, num::NonZeroU64};
+/// use std::env;
 /// use twilight_http::Client;
 /// use twilight_http::request::AuditLogReason;
 /// use twilight_model::id::ApplicationId;
 ///
 /// let client = Client::new(env::var("DISCORD_TOKEN")?);
-/// client.set_application_id(ApplicationId(NonZeroU64::new(1).expect("non zero")));
+/// client.set_application_id(ApplicationId::new(1).expect("non zero"));
 ///
 /// client
 ///     .delete_interaction_original("token here")?

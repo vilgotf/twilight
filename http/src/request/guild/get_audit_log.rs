@@ -70,7 +70,6 @@ struct GetAuditLogFields {
 /// # Examples
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::GuildId;
 ///
@@ -78,7 +77,7 @@ struct GetAuditLogFields {
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("token".to_owned());
 ///
-/// let guild_id = GuildId(NonZeroU64::new(101).expect("non zero"));
+/// let guild_id = GuildId::new(101).expect("non zero");
 /// let audit_log = client
 ///     .audit_log(guild_id)
 ///     .exec()

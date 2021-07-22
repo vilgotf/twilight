@@ -64,7 +64,6 @@ pub struct CurrentUser {
 mod tests {
     use super::{CurrentUser, PremiumType, UserFlags, UserId};
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     fn user_tokens(discriminator_token: Token) -> Vec<Token> {
         vec![
@@ -151,7 +150,7 @@ mod tests {
             bot: true,
             discriminator: "9999".to_owned(),
             email: None,
-            id: UserId(NonZeroU64::new(1).expect("non zero")),
+            id: UserId::new(1).expect("non zero"),
             mfa_enabled: true,
             name: "test name".to_owned(),
             verified: Some(true),
@@ -178,7 +177,7 @@ mod tests {
             bot: true,
             discriminator: "9999".to_owned(),
             email: Some("test@example.com".to_owned()),
-            id: UserId(NonZeroU64::new(1).expect("non zero")),
+            id: UserId::new(1).expect("non zero"),
             mfa_enabled: true,
             name: "test name".to_owned(),
             verified: Some(true),

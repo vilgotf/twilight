@@ -29,14 +29,13 @@ struct CreateRoleFields<'a> {
 /// # Examples
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::GuildId;
 ///
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
-/// let guild_id = GuildId(NonZeroU64::new(234).expect("non zero"));
+/// let guild_id = GuildId::new(234).expect("non zero");
 ///
 /// client.create_role(guild_id)
 ///     .color(0xd90083)

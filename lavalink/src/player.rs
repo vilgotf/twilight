@@ -16,7 +16,6 @@ use crate::{
 use dashmap::DashMap;
 use std::{
     fmt::Debug,
-    num::NonZeroU64,
     sync::{
         atomic::{AtomicBool, AtomicI64, AtomicU16, AtomicU64, Ordering},
         Arc,
@@ -116,10 +115,9 @@ impl Player {
     ///
     /// ```
     /// use twilight_lavalink::{model::{Play, Pause}, Lavalink};
-    /// # use std::num::NonZeroU64;
     /// # use twilight_model::id::{GuildId, UserId};
     /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// # let (guild_id, user_id) = (GuildId(NonZeroU64::new(1).expect("non zero")), UserId(NonZeroU64::new(2).expect("non zero")));
+    /// # let (guild_id, user_id) = (GuildId::new(1).expect("non zero"), UserId::new(2).expect("non zero"));
     /// # let track = String::new();
     ///
     /// let lavalink = Lavalink::new(user_id, 10);
@@ -174,7 +172,7 @@ impl Player {
         if channel_id == 0 {
             None
         } else {
-            Some(ChannelId(NonZeroU64::new(channel_id).expect("non zero")))
+            Some(ChannelId::new(channel_id).expect("non zero"))
         }
     }
 

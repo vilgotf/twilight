@@ -31,14 +31,13 @@ mod tests {
     use super::{Emoji, EmojiId, RoleId, User};
     use crate::id::UserId;
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     fn test_emoji() {
         let emoji = Emoji {
             animated: false,
             available: true,
-            id: EmojiId(NonZeroU64::new(100_000_000_000_000_000).expect("non zero")),
+            id: EmojiId::new(100_000_000_000_000_000).expect("non zero"),
             managed: false,
             name: "test".to_owned(),
             require_colons: true,
@@ -49,7 +48,7 @@ mod tests {
                 discriminator: "0001".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(NonZeroU64::new(1).expect("non zero")),
+                id: UserId::new(1).expect("non zero"),
                 locale: None,
                 mfa_enabled: None,
                 name: "test".to_owned(),
@@ -108,18 +107,18 @@ mod tests {
         let emoji = Emoji {
             animated: false,
             available: true,
-            id: EmojiId(NonZeroU64::new(100_000_000_000_000_000).expect("non zero")),
+            id: EmojiId::new(100_000_000_000_000_000).expect("non zero"),
             managed: false,
             name: "test".to_owned(),
             require_colons: true,
-            roles: vec![RoleId(NonZeroU64::new(1).expect("non zero"))],
+            roles: vec![RoleId::new(1).expect("non zero")],
             user: Some(User {
                 avatar: None,
                 bot: false,
                 discriminator: "0001".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(NonZeroU64::new(1).expect("non zero")),
+                id: UserId::new(1).expect("non zero"),
                 locale: None,
                 mfa_enabled: None,
                 name: "test".to_owned(),

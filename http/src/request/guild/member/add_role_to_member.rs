@@ -13,7 +13,6 @@ use twilight_model::id::{GuildId, RoleId, UserId};
 /// In guild `1`, add role `2` to user `3`, for the reason `"test"`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::{request::AuditLogReason, Client};
 /// use twilight_model::id::{GuildId, RoleId, UserId};
 ///
@@ -21,9 +20,9 @@ use twilight_model::id::{GuildId, RoleId, UserId};
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
-/// let role_id = RoleId(NonZeroU64::new(2).expect("non zero"));
-/// let user_id = UserId(NonZeroU64::new(3).expect("non zero"));
+/// let guild_id = GuildId::new(1).expect("non zero");
+/// let role_id = RoleId::new(2).expect("non zero");
+/// let user_id = UserId::new(3).expect("non zero");
 ///
 /// client.add_guild_member_role(guild_id, user_id, role_id)
 ///     .reason("test")?

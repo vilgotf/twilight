@@ -8,7 +8,6 @@ use twilight_model::{channel::Channel, id::ChannelId};
 /// Get channel `100`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::ChannelId;
 ///
@@ -16,7 +15,7 @@ use twilight_model::{channel::Channel, id::ChannelId};
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let channel_id = ChannelId(NonZeroU64::new(100).expect("non zero"));
+/// let channel_id = ChannelId::new(100).expect("non zero");
 ///
 /// let channel = client.channel(channel_id).exec().await?;
 /// # Ok(()) }

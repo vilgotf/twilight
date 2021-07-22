@@ -27,13 +27,12 @@ pub trait ParseMention: private::Sealed {
     /// # Examples
     ///
     /// ```
-    /// use std::num::NonZeroU64;
     /// use twilight_mention::ParseMention;
     /// use twilight_model::id::{ChannelId, UserId};
     ///
     /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// assert_eq!(ChannelId(NonZeroU64::new(123).expect("non zero")), ChannelId::parse("<#123>")?);
-    /// assert_eq!(UserId(NonZeroU64::new(456).expect("non zero")), UserId::parse("<@456>")?);
+    /// assert_eq!(ChannelId::new(123).expect("non zero"), ChannelId::parse("<#123>")?);
+    /// assert_eq!(UserId::new(456).expect("non zero"), UserId::parse("<@456>")?);
     /// assert!(ChannelId::parse("not a mention").is_err());
     /// # Ok(()) }
     /// ```
@@ -354,7 +353,6 @@ mod tests {
         timestamp::{Timestamp, TimestampStyle},
     };
     use static_assertions::assert_impl_all;
-    use std::num::NonZeroU64;
     use twilight_model::id::{ChannelId, EmojiId, RoleId, UserId};
 
     assert_impl_all!(ChannelId: ParseMention, Sealed);
@@ -375,7 +373,7 @@ mod tests {
     #[test]
     fn test_parse_channel_id() {
         assert_eq!(
-            ChannelId(NonZeroU64::new(123).expect("non zero")),
+            ChannelId::new(123).expect("non zero"),
             ChannelId::parse("<#123>").unwrap()
         );
         assert_eq!(
@@ -390,7 +388,7 @@ mod tests {
     #[test]
     fn test_parse_emoji_id() {
         assert_eq!(
-            EmojiId(NonZeroU64::new(123).expect("non zero")),
+            EmojiId::new(123).expect("non zero"),
             EmojiId::parse("<:name:123>").unwrap()
         );
         assert_eq!(
@@ -405,19 +403,19 @@ mod tests {
     #[test]
     fn test_parse_mention_type() {
         assert_eq!(
-            MentionType::Channel(ChannelId(NonZeroU64::new(123).expect("non zero"))),
+            MentionType::Channel(ChannelId::new(123).expect("non zero")),
             MentionType::parse("<#123>").unwrap()
         );
         assert_eq!(
-            MentionType::Emoji(EmojiId(NonZeroU64::new(123).expect("non zero"))),
+            MentionType::Emoji(EmojiId::new(123).expect("non zero")),
             MentionType::parse("<:name:123>").unwrap()
         );
         assert_eq!(
-            MentionType::Role(RoleId(NonZeroU64::new(123).expect("non zero"))),
+            MentionType::Role(RoleId::new(123).expect("non zero")),
             MentionType::parse("<@&123>").unwrap()
         );
         assert_eq!(
-            MentionType::User(UserId(NonZeroU64::new(123).expect("non zero"))),
+            MentionType::User(UserId::new(123).expect("non zero")),
             MentionType::parse("<@123>").unwrap()
         );
         assert_eq!(
@@ -432,7 +430,7 @@ mod tests {
     #[test]
     fn test_parse_role_id() {
         assert_eq!(
-            RoleId(NonZeroU64::new(123).expect("non zero")),
+            RoleId::new(123).expect("non zero"),
             RoleId::parse("<@&123>").unwrap()
         );
         assert_eq!(
@@ -462,7 +460,7 @@ mod tests {
     #[test]
     fn test_parse_user_id() {
         assert_eq!(
-            UserId(NonZeroU64::new(123).expect("non zero")),
+            UserId::new(123).expect("non zero"),
             UserId::parse("<@123>").unwrap()
         );
         assert_eq!(

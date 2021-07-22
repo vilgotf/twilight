@@ -71,12 +71,11 @@ impl<'a> RequestReactionType<'a> {
 /// Format a custom reaction for use in a URL:
 ///
 /// ```
-/// use std::num::NonZeroU64;
 /// use twilight_http::request::channel::reaction::RequestReactionType;
 /// use twilight_model::id::EmojiId;
 ///
 /// let reaction = RequestReactionType::Custom {
-///     id: EmojiId(NonZeroU64::new(123).expect("non zero")),
+///     id: EmojiId::new(123).expect("non zero"),
 ///     name: Some("rarity"),
 /// };
 ///
@@ -121,7 +120,6 @@ mod tests {
     use std::{
         fmt::{Debug, Display},
         hash::Hash,
-        num::NonZeroU64,
     };
     use twilight_model::id::EmojiId;
 
@@ -133,7 +131,7 @@ mod tests {
     #[test]
     fn test_display_custom_with_name() {
         let reaction = RequestReactionType::Custom {
-            id: EmojiId(NonZeroU64::new(123).expect("non zero")),
+            id: EmojiId::new(123).expect("non zero"),
             name: Some("foo"),
         };
 
@@ -143,7 +141,7 @@ mod tests {
     #[test]
     fn test_display_custom_without_name() {
         let reaction = RequestReactionType::Custom {
-            id: EmojiId(NonZeroU64::new(123).expect("non zero")),
+            id: EmojiId::new(123).expect("non zero"),
             name: None,
         };
 

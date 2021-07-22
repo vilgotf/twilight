@@ -13,7 +13,6 @@ use twilight_model::{guild::Ban, id::GuildId};
 /// Retrieve the bans for guild `1`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::GuildId;
 ///
@@ -21,7 +20,7 @@ use twilight_model::{guild::Ban, id::GuildId};
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let guild_id = GuildId(NonZeroU64::new(1).expect("non zero"));
+/// let guild_id = GuildId::new(1).expect("non zero");
 ///
 /// let bans = client.bans(guild_id).exec().await?;
 /// # Ok(()) }

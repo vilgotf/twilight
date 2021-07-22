@@ -420,18 +420,17 @@ mod tests {
     };
     use crate::id::{ApplicationId, CommandId, GuildId};
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     #[allow(clippy::too_many_lines)]
     fn test_command_option_full() {
         let value = Command {
-            application_id: Some(ApplicationId(NonZeroU64::new(100).expect("non zero"))),
-            guild_id: Some(GuildId(NonZeroU64::new(300).expect("non zero"))),
+            application_id: Some(ApplicationId::new(100).expect("non zero")),
+            guild_id: Some(GuildId::new(300).expect("non zero")),
             name: "test command".into(),
             default_permission: Some(true),
             description: "this command is a test".into(),
-            id: Some(CommandId(NonZeroU64::new(200).expect("non zero"))),
+            id: Some(CommandId::new(200).expect("non zero")),
             options: vec![CommandOption::SubCommandGroup(OptionsCommandOptionData {
                 description: "sub group desc".into(),
                 name: "sub group name".into(),

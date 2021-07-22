@@ -18,7 +18,6 @@ mod tests {
     use super::{IntegrationApplication, User};
     use crate::id::{ApplicationId, UserId};
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     fn test_integration_account() {
@@ -26,7 +25,7 @@ mod tests {
             bot: None,
             description: "Friendship is Magic".to_string(),
             icon: None,
-            id: ApplicationId(NonZeroU64::new(123).expect("non zero")),
+            id: ApplicationId::new(123).expect("non zero"),
             name: "Twilight".to_string(),
             summary: "A cool pony".to_string(),
         };
@@ -65,7 +64,7 @@ mod tests {
                 discriminator: "0001".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(NonZeroU64::new(2).expect("non zero")),
+                id: UserId::new(2).expect("non zero"),
                 locale: None,
                 mfa_enabled: None,
                 name: "test".to_owned(),
@@ -76,7 +75,7 @@ mod tests {
             }),
             description: "Friendship is Magic".to_string(),
             icon: None,
-            id: ApplicationId(NonZeroU64::new(123).expect("non zero")),
+            id: ApplicationId::new(123).expect("non zero"),
             name: "Twilight".to_string(),
             summary: "A cool pony".to_string(),
         };

@@ -118,14 +118,13 @@ struct UpdateMessageFields<'a> {
 /// Replace the content with `"test update"`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::{ChannelId, MessageId};
 ///
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
-/// client.update_message(ChannelId(NonZeroU64::new(1).expect("non zero")), MessageId(NonZeroU64::new(2).expect("non zero")))
+/// client.update_message(ChannelId::new(1).expect("non zero"), MessageId::new(2).expect("non zero"))
 ///     .content(Some("test update"))?
 ///     .exec()
 ///     .await?;
@@ -135,14 +134,13 @@ struct UpdateMessageFields<'a> {
 /// Remove the message's content:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// # use twilight_http::Client;
 /// # use twilight_model::id::{ChannelId, MessageId};
 /// #
 /// # #[tokio::main]
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// # let client = Client::new("my token".to_owned());
-/// client.update_message(ChannelId(NonZeroU64::new(1).expect("non zero")), MessageId(NonZeroU64::new(2).expect("non zero")))
+/// client.update_message(ChannelId::new(1).expect("non zero"), MessageId::new(2).expect("non zero"))
 ///     .content(None)?
 ///     .exec()
 ///     .await?;

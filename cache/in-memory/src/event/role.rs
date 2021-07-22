@@ -67,15 +67,14 @@ impl UpdateCache for RoleUpdate {
 mod tests {
     use super::*;
     use crate::test;
-    use std::num::NonZeroU64;
 
     #[test]
     fn test_insert_role_on_event() {
         let cache = InMemoryCache::new();
 
         cache.update(&RoleCreate {
-            guild_id: GuildId(NonZeroU64::new(1).expect("non zero")),
-            role: test::role(RoleId(NonZeroU64::new(2).expect("non zero"))),
+            guild_id: GuildId::new(1).expect("non zero"),
+            role: test::role(RoleId::new(2).expect("non zero")),
         });
 
         {
@@ -84,7 +83,7 @@ mod tests {
                 cache
                     .0
                     .guild_roles
-                    .get(&GuildId(NonZeroU64::new(1).expect("non zero")))
+                    .get(&GuildId::new(1).expect("non zero"))
                     .unwrap()
                     .len()
             );
@@ -92,10 +91,7 @@ mod tests {
 
             assert_eq!(
                 "test".to_string(),
-                cache
-                    .role(RoleId(NonZeroU64::new(2).expect("non zero")))
-                    .unwrap()
-                    .name
+                cache.role(RoleId::new(2).expect("non zero")).unwrap().name
             );
         }
     }
@@ -108,7 +104,7 @@ mod tests {
         {
             // The role ids for the guild with id 1
             let guild_1_role_ids = (1..=10)
-                .map(|n| RoleId(NonZeroU64::new(n).expect("non zero")))
+                .map(|n| RoleId::new(n).expect("non zero"))
                 .collect::<Vec<_>>();
             // Map the role ids to a test role
             let guild_1_roles = guild_1_role_ids
@@ -118,12 +114,12 @@ mod tests {
                 .collect::<Vec<_>>();
             // Cache all the roles using cache role
             for role in guild_1_roles.clone() {
-                cache.cache_role(GuildId(NonZeroU64::new(1).expect("non zero")), role);
+                cache.cache_role(GuildId::new(1).expect("non zero"), role);
             }
 
             // Check for the cached guild role ids
             let cached_roles = cache
-                .guild_roles(GuildId(NonZeroU64::new(1).expect("non zero")))
+                .guild_roles(GuildId::new(1).expect("non zero"))
                 .unwrap();
             assert_eq!(cached_roles.len(), guild_1_role_ids.len());
             assert!(guild_1_role_ids.iter().all(|id| cached_roles.contains(id)));
@@ -138,7 +134,7 @@ mod tests {
         {
             // The role ids for the guild with id 2
             let guild_2_role_ids = (101..=110)
-                .map(|n| RoleId(NonZeroU64::new(n).expect("non zero")))
+                .map(|n| RoleId::new(n).expect("non zero"))
                 .collect::<Vec<_>>();
             // Map the role ids to a test role
             let guild_2_roles = guild_2_role_ids
@@ -147,14 +143,11 @@ mod tests {
                 .map(test::role)
                 .collect::<Vec<_>>();
             // Cache all the roles using cache roles
-            cache.cache_roles(
-                GuildId(NonZeroU64::new(2).expect("non zero")),
-                guild_2_roles.clone(),
-            );
+            cache.cache_roles(GuildId::new(2).expect("non zero"), guild_2_roles.clone());
 
             // Check for the cached guild role ids
             let cached_roles = cache
-                .guild_roles(GuildId(NonZeroU64::new(2).expect("non zero")))
+                .guild_roles(GuildId::new(2).expect("non zero"))
                 .unwrap();
             assert_eq!(cached_roles.len(), guild_2_role_ids.len());
             assert!(guild_2_role_ids.iter().all(|id| cached_roles.contains(id)));

@@ -57,7 +57,6 @@ impl UpdateCache for InteractionCreate {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::num::NonZeroU64;
     use twilight_model::{
         application::interaction::{
             application_command::{CommandData, CommandInteractionDataResolved, InteractionMember},
@@ -73,26 +72,26 @@ mod tests {
         let cache = InMemoryCache::new();
         cache.update(&InteractionCreate(Interaction::ApplicationCommand(
             Box::new(ApplicationCommand {
-                application_id: ApplicationId(NonZeroU64::new(1).expect("non zero")),
-                channel_id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+                application_id: ApplicationId::new(1).expect("non zero"),
+                channel_id: ChannelId::new(2).expect("non zero"),
                 data: CommandData {
-                    id: CommandId(NonZeroU64::new(5).expect("non zero")),
+                    id: CommandId::new(5).expect("non zero"),
                     name: "command name".into(),
                     options: Vec::new(),
                     resolved: Some(CommandInteractionDataResolved {
                         channels: Vec::new(),
                         members: vec![InteractionMember {
                             hoisted_role: None,
-                            id: UserId(NonZeroU64::new(7).expect("non zero")),
+                            id: UserId::new(7).expect("non zero"),
                             joined_at: Some("joined at date".into()),
                             nick: None,
                             premium_since: None,
-                            roles: vec![RoleId(NonZeroU64::new(8).expect("non zero"))],
+                            roles: vec![RoleId::new(8).expect("non zero")],
                         }],
                         roles: vec![Role {
                             color: 0u32,
                             hoist: false,
-                            id: RoleId(NonZeroU64::new(8).expect("non zero")),
+                            id: RoleId::new(8).expect("non zero"),
                             managed: false,
                             mentionable: true,
                             name: "role name".into(),
@@ -106,7 +105,7 @@ mod tests {
                             discriminator: "5678".into(),
                             email: None,
                             flags: None,
-                            id: UserId(NonZeroU64::new(7).expect("non zero")),
+                            id: UserId::new(7).expect("non zero"),
                             locale: None,
                             mfa_enabled: None,
                             name: "different name".into(),
@@ -117,8 +116,8 @@ mod tests {
                         }],
                     }),
                 },
-                guild_id: Some(GuildId(NonZeroU64::new(3).expect("non zero"))),
-                id: InteractionId(NonZeroU64::new(4).expect("non zero")),
+                guild_id: Some(GuildId::new(3).expect("non zero")),
+                id: InteractionId::new(4).expect("non zero"),
                 kind: InteractionType::ApplicationCommand,
                 member: Some(PartialMember {
                     deaf: false,
@@ -134,7 +133,7 @@ mod tests {
                         discriminator: "1234".into(),
                         email: None,
                         flags: None,
-                        id: UserId(NonZeroU64::new(6).expect("non zero")),
+                        id: UserId::new(6).expect("non zero"),
                         locale: None,
                         mfa_enabled: None,
                         name: "username".into(),
@@ -151,7 +150,7 @@ mod tests {
 
         {
             let guild_members = cache
-                .guild_members(GuildId(NonZeroU64::new(3).expect("non zero")))
+                .guild_members(GuildId::new(3).expect("non zero"))
                 .unwrap();
             assert_eq!(guild_members.len(), 2);
         }
@@ -159,8 +158,8 @@ mod tests {
         {
             let member = cache
                 .member(
-                    GuildId(NonZeroU64::new(3).expect("non zero")),
-                    UserId(NonZeroU64::new(6).expect("non zero")),
+                    GuildId::new(3).expect("non zero"),
+                    UserId::new(6).expect("non zero"),
                 )
                 .unwrap();
             let user = cache.user(member.user_id).unwrap();
@@ -170,8 +169,8 @@ mod tests {
         {
             let member = cache
                 .member(
-                    GuildId(NonZeroU64::new(3).expect("non zero")),
-                    UserId(NonZeroU64::new(7).expect("non zero")),
+                    GuildId::new(3).expect("non zero"),
+                    UserId::new(7).expect("non zero"),
                 )
                 .unwrap();
             let user = cache.user(member.user_id).unwrap();
@@ -180,7 +179,7 @@ mod tests {
 
         {
             let guild_roles = cache
-                .guild_roles(GuildId(NonZeroU64::new(3).expect("non zero")))
+                .guild_roles(GuildId::new(3).expect("non zero"))
                 .unwrap();
             assert_eq!(guild_roles.len(), 1);
         }

@@ -2,7 +2,6 @@ use super::{CategoryFields, GuildChannelFields, RoleFields, TextFields, VoiceFie
 use std::{
     error::Error,
     fmt::{Display, Formatter, Result as FmtResult},
-    num::NonZeroU64,
 };
 use twilight_model::{
     channel::{permission_overwrite::PermissionOverwrite, ChannelType},
@@ -82,7 +81,7 @@ impl RoleFieldsBuilder {
     pub const COLOR_MAXIMUM: u32 = 0xff_ff_ff;
 
     // SAFYTY: never zero
-    const ROLE_ID: RoleId = RoleId(unsafe { NonZeroU64::new_unchecked(1) });
+    const ROLE_ID: RoleId = unsafe { RoleId::new_unchecked(1) };
 
     /// Create a new default role field builder.
     pub const fn new(name: String) -> Self {
@@ -310,7 +309,7 @@ impl TextFieldsBuilder {
         }
 
         Ok(Self(TextFields {
-            id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+            id: ChannelId::new(1).expect("non zero"),
             kind: ChannelType::GuildText,
             name,
             nsfw: None,
@@ -484,7 +483,7 @@ impl VoiceFieldsBuilder {
 
         Ok(Self(VoiceFields {
             bitrate: None,
-            id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+            id: ChannelId::new(1).expect("non zero"),
             kind: ChannelType::GuildVoice,
             name,
             permission_overwrites: None,
@@ -635,7 +634,7 @@ impl CategoryFieldsBuilder {
 
         Ok(Self {
             fields: CategoryFields {
-                id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+                id: ChannelId::new(1).expect("non zero"),
                 name,
                 kind: ChannelType::GuildCategory,
                 permission_overwrites: None,
@@ -714,14 +713,9 @@ impl GuildChannelFieldsBuilder {
             .iter()
             .rev()
             .find(|c| matches!(c, GuildChannelFields::Category(_)))
-            .map_or(
-                ChannelId(NonZeroU64::new(1).expect("non zero")),
-                GuildChannelFields::id,
-            );
+            .map_or(ChannelId::new(1).expect("non zero"), GuildChannelFields::id);
 
-        let mut channels = channel.build(ChannelId(
-            NonZeroU64::new(last_id.0.get() + 1).expect("non zero"),
-        ));
+        let mut channels = channel.build(ChannelId::new(last_id.0.get() + 1).expect("non zero"));
 
         self.0.append(&mut channels);
 
@@ -737,7 +731,6 @@ mod tests {
         RoleFieldsBuilder, RoleFieldsErrorType, TextFieldsBuilder, TextFieldsErrorType,
         VoiceFieldsBuilder, VoiceFieldsErrorType,
     };
-    use std::num::NonZeroU64;
     use twilight_model::{
         channel::{
             permission_overwrite::{PermissionOverwrite, PermissionOverwriteType},
@@ -755,7 +748,7 @@ mod tests {
         PermissionOverwrite {
             allow: perms(),
             deny: Permissions::empty(),
-            kind: PermissionOverwriteType::Role(RoleId(NonZeroU64::new(2).expect("non zero"))),
+            kind: PermissionOverwriteType::Role(RoleId::new(2).expect("non zero")),
         }
     }
 
@@ -782,7 +775,7 @@ mod tests {
             .color(0x12_34_56)
             .unwrap()
             .hoist()
-            .id(RoleId(NonZeroU64::new(2).expect("non zero")))
+            .id(RoleId::new(2).expect("non zero"))
             .unwrap()
             .mentionable()
             .permissions(Permissions::empty())
@@ -793,7 +786,7 @@ mod tests {
             RoleFields {
                 color: Some(0x12_34_56),
                 hoist: Some(true),
-                id: RoleId(NonZeroU64::new(2).expect("non zero")),
+                id: RoleId::new(2).expect("non zero"),
                 mentionable: Some(true),
                 name: String::from("rolename"),
                 permissions: Some(Permissions::empty()),
@@ -814,15 +807,13 @@ mod tests {
             voice(),
             VoiceFields {
                 bitrate: Some(96_000),
-                id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+                id: ChannelId::new(1).expect("non zero"),
                 kind: ChannelType::GuildVoice,
                 name: String::from("voicename"),
                 permission_overwrites: Some(vec![PermissionOverwrite {
                     allow: perms(),
                     deny: Permissions::empty(),
-                    kind: PermissionOverwriteType::Role(RoleId(
-                        NonZeroU64::new(2).expect("non zero")
-                    )),
+                    kind: PermissionOverwriteType::Role(RoleId::new(2).expect("non zero")),
                 }]),
                 parent_id: None,
                 user_limit: Some(40),
@@ -853,16 +844,14 @@ mod tests {
         assert_eq!(
             text(),
             TextFields {
-                id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+                id: ChannelId::new(1).expect("non zero"),
                 kind: ChannelType::GuildText,
                 name: String::from("textname"),
                 nsfw: Some(true),
                 permission_overwrites: Some(vec![PermissionOverwrite {
                     allow: perms(),
                     deny: Permissions::empty(),
-                    kind: PermissionOverwriteType::Role(RoleId(
-                        NonZeroU64::new(2).expect("non zero")
-                    )),
+                    kind: PermissionOverwriteType::Role(RoleId::new(2).expect("non zero")),
                 }]),
                 parent_id: None,
                 rate_limit_per_user: Some(4_000),
@@ -893,13 +882,13 @@ mod tests {
             channels.build(),
             vec![
                 GuildChannelFields::Category(CategoryFields {
-                    id: ChannelId(NonZeroU64::new(2).expect("non zero")),
+                    id: ChannelId::new(2).expect("non zero"),
                     kind: ChannelType::GuildCategory,
                     name: String::from("category"),
                     permission_overwrites: None,
                 }),
                 GuildChannelFields::Text(TextFields {
-                    id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+                    id: ChannelId::new(1).expect("non zero"),
                     kind: ChannelType::GuildText,
                     name: String::from("textname"),
                     nsfw: Some(true),
@@ -908,17 +897,15 @@ mod tests {
                             | Permissions::SPEAK
                             | Permissions::SEND_TTS_MESSAGES,
                         deny: Permissions::empty(),
-                        kind: PermissionOverwriteType::Role(RoleId(
-                            NonZeroU64::new(2).expect("non zero")
-                        )),
+                        kind: PermissionOverwriteType::Role(RoleId::new(2).expect("non zero")),
                     }]),
-                    parent_id: Some(ChannelId(NonZeroU64::new(2).expect("non zero"))),
+                    parent_id: Some(ChannelId::new(2).expect("non zero")),
                     rate_limit_per_user: Some(4_000),
                     topic: Some(String::from("a topic")),
                 }),
                 GuildChannelFields::Voice(VoiceFields {
                     bitrate: Some(96_000),
-                    id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+                    id: ChannelId::new(1).expect("non zero"),
                     kind: ChannelType::GuildVoice,
                     name: String::from("voicename"),
                     permission_overwrites: Some(vec![PermissionOverwrite {
@@ -926,11 +913,9 @@ mod tests {
                             | Permissions::SPEAK
                             | Permissions::SEND_TTS_MESSAGES,
                         deny: Permissions::empty(),
-                        kind: PermissionOverwriteType::Role(RoleId(
-                            NonZeroU64::new(2).expect("non zero")
-                        )),
+                        kind: PermissionOverwriteType::Role(RoleId::new(2).expect("non zero")),
                     }]),
-                    parent_id: Some(ChannelId(NonZeroU64::new(2).expect("non zero"))),
+                    parent_id: Some(ChannelId::new(2).expect("non zero")),
                     user_limit: Some(40),
                 }),
             ]
@@ -947,7 +932,7 @@ mod tests {
             channels.build(),
             vec![
                 GuildChannelFields::Text(TextFields {
-                    id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+                    id: ChannelId::new(1).expect("non zero"),
                     kind: ChannelType::GuildText,
                     name: String::from("textname"),
                     nsfw: Some(true),
@@ -956,9 +941,7 @@ mod tests {
                             | Permissions::SPEAK
                             | Permissions::SEND_TTS_MESSAGES,
                         deny: Permissions::empty(),
-                        kind: PermissionOverwriteType::Role(RoleId(
-                            NonZeroU64::new(2).expect("non zero")
-                        )),
+                        kind: PermissionOverwriteType::Role(RoleId::new(2).expect("non zero")),
                     }]),
                     parent_id: None,
                     rate_limit_per_user: Some(4_000),
@@ -966,7 +949,7 @@ mod tests {
                 }),
                 GuildChannelFields::Voice(VoiceFields {
                     bitrate: Some(96_000),
-                    id: ChannelId(NonZeroU64::new(1).expect("non zero")),
+                    id: ChannelId::new(1).expect("non zero"),
                     kind: ChannelType::GuildVoice,
                     name: String::from("voicename"),
                     permission_overwrites: Some(vec![PermissionOverwrite {
@@ -974,9 +957,7 @@ mod tests {
                             | Permissions::SPEAK
                             | Permissions::SEND_TTS_MESSAGES,
                         deny: Permissions::empty(),
-                        kind: PermissionOverwriteType::Role(RoleId(
-                            NonZeroU64::new(2).expect("non zero")
-                        )),
+                        kind: PermissionOverwriteType::Role(RoleId::new(2).expect("non zero")),
                     }]),
                     parent_id: None,
                     user_limit: Some(40),

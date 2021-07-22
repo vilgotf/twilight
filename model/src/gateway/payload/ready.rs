@@ -23,18 +23,17 @@ mod tests {
         user::{CurrentUser, UserFlags},
     };
     use serde_test::Token;
-    use std::num::NonZeroU64;
 
     #[test]
     #[allow(clippy::too_many_lines)]
     fn test_ready() {
         let guilds = vec![
             UnavailableGuild {
-                id: GuildId(NonZeroU64::new(1).expect("non zero")),
+                id: GuildId::new(1).expect("non zero"),
                 unavailable: true,
             },
             UnavailableGuild {
-                id: GuildId(NonZeroU64::new(2).expect("non zero")),
+                id: GuildId::new(2).expect("non zero"),
                 unavailable: true,
             },
         ];
@@ -42,7 +41,7 @@ mod tests {
         let ready = Ready {
             application: PartialApplication {
                 flags: UserFlags::empty(),
-                id: ApplicationId(NonZeroU64::new(100).expect("non zero")),
+                id: ApplicationId::new(100).expect("non zero"),
             },
             guilds,
             session_id: "foo".to_owned(),
@@ -53,7 +52,7 @@ mod tests {
                 discriminator: "1212".to_owned(),
                 email: None,
                 flags: None,
-                id: UserId(NonZeroU64::new(3).expect("non zero")),
+                id: UserId::new(3).expect("non zero"),
                 locale: None,
                 mfa_enabled: false,
                 name: "bar".to_owned(),

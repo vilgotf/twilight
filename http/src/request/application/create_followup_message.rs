@@ -40,14 +40,14 @@ pub(crate) struct CreateFollowupMessageFields<'a> {
 ///
 /// # Examples
 ///
-/// ```rust,no_run
+/// ```no_run
 /// # #[tokio::main] async fn main() -> Result<(), Box<dyn std::error::Error>> {
-/// use std::{env, num::NonZeroU64};
+/// use std::env;
 /// use twilight_http::Client;
 /// use twilight_model::id::ApplicationId;
 ///
 /// let client = Client::new(env::var("DISCORD_TOKEN")?);
-/// client.set_application_id(ApplicationId(NonZeroU64::new(1).expect("non zero")));
+/// client.set_application_id(ApplicationId::new(1).expect("non zero"));
 ///
 /// client
 ///     .create_followup_message("webhook token")?
@@ -152,13 +152,13 @@ impl<'a> CreateFollowupMessage<'a> {
     /// ```no_run
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// use std::{env, num::NonZeroU64};
+    /// use std::env;
     /// use twilight_embed_builder::EmbedBuilder;
     /// use twilight_http::Client;
     /// use twilight_model::id::{MessageId, ApplicationId};
     ///
     /// let client = Client::new(env::var("DISCORD_TOKEN")?);
-    /// client.set_application_id(ApplicationId(NonZeroU64::new(1).expect("non zero")));
+    /// client.set_application_id(ApplicationId::new(1).expect("non zero"));
     ///
     /// let message = client.create_followup_message("token here")?
     ///     .content("some content")
@@ -177,12 +177,12 @@ impl<'a> CreateFollowupMessage<'a> {
     /// ```no_run
     /// # #[tokio::main]
     /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// use std::{env, num::NonZeroU64};
+    /// use std::env;
     /// use twilight_http::Client;
     /// use twilight_model::id::{MessageId, ApplicationId};
     ///
     /// let client = Client::new(env::var("DISCORD_TOKEN")?);
-    /// client.set_application_id(ApplicationId(NonZeroU64::new(1).expect("non zero")));
+    /// client.set_application_id(ApplicationId::new(1).expect("non zero"));
     ///
     /// let message = client.create_followup_message("token here")?
     ///     .content("some content")

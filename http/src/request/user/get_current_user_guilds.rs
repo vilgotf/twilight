@@ -74,7 +74,6 @@ struct GetCurrentUserGuildsFields {
 /// `400`:
 ///
 /// ```no_run
-/// use std::num::NonZeroU64;
 /// use twilight_http::Client;
 /// use twilight_model::id::GuildId;
 ///
@@ -82,8 +81,8 @@ struct GetCurrentUserGuildsFields {
 /// # async fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new("my token".to_owned());
 ///
-/// let after = GuildId(NonZeroU64::new(300).expect("non zero"));
-/// let before = GuildId(NonZeroU64::new(400).expect("non zero"));
+/// let after = GuildId::new(300).expect("non zero");
+/// let before = GuildId::new(400).expect("non zero");
 /// let guilds = client.current_user_guilds()
 ///     .after(after)
 ///     .before(before)
