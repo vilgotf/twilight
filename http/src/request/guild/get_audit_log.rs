@@ -168,7 +168,7 @@ impl<'a> GetAuditLog<'a> {
             before: self.fields.before,
             guild_id: self.guild_id.get(),
             limit: self.fields.limit,
-            user_id: self.fields.user_id.map(|x| x.get()),
+            user_id: self.fields.user_id.map(UserId::get),
         });
 
         self.http.request(request)

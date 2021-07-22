@@ -129,9 +129,9 @@ impl<'a> GetChannelMessagesConfigured<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<ListBody<Message>> {
         let request = Request::from_route(Route::GetMessages {
-            after: self.after.map(|x| x.get()),
-            around: self.around.map(|x| x.get()),
-            before: self.before.map(|x| x.get()),
+            after: self.after.map(MessageId::get),
+            around: self.around.map(MessageId::get),
+            before: self.before.map(MessageId::get),
             channel_id: self.channel_id.get(),
             limit: self.fields.limit,
         });

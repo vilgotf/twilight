@@ -149,7 +149,7 @@ impl<'a> GetGuildMembers<'a> {
     /// [`Response`]: crate::response::Response
     pub fn exec(self) -> ResponseFuture<MemberListBody> {
         let request = Request::from_route(Route::GetGuildMembers {
-            after: self.fields.after.map(|x| x.get()),
+            after: self.fields.after.map(UserId::get),
             guild_id: self.guild_id.get(),
             limit: self.fields.limit,
             presences: self.fields.presences,
